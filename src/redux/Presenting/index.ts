@@ -8,7 +8,7 @@ const slice = createSlice({
   initialState: initialValues,
   reducers: {
     setIsPresent: state => {
-      state.isPresent = false;
+      state.isPresent = true;
     },
   },
 });

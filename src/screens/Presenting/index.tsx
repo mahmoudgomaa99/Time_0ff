@@ -86,7 +86,11 @@ const PresentingScreen = () => {
             animatedDuration={50}
             inactiveDotScale={1}
             dotStyle={{ width: 25, height: 5 }}
-            containerStyle={{ height: 80, margin: 0 }}
+            containerStyle={{
+              height: 80,
+              margin: 0,
+              transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+            }}
           />
           <TouchableOpacity
             style={[
@@ -109,7 +113,7 @@ const PresentingScreen = () => {
         onPress={() => {
           //   dispatch(Present.setIsPresent());
 
-          //for Change lan dumi 
+          //for Change lan dumi
           dispatch(Language.changeLanguage());
         }}
         style={styles.backArrow}>
