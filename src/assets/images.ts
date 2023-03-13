@@ -1,3 +1,5 @@
-export const images: TImages = {};
+export const images: TImages = {
+    testtest:require('./testtest.jpeg')
+};
 
-type TImages = {};
+type TImages = {testtest:undefined};
