@@ -13,18 +13,36 @@ import COLORS from 'values/colors';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
 
 const Register = () => {
-  //   const lang = useSelector(selectLanguage);
-  //   console.log(lang);
-  const lang = 'en';
+  const lang = useSelector(selectLanguage);
+  console.log(lang);
+  // const lang = 'ar';
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: 'Saudi Arabic', value: 'Saudi Arabic' },
   ]);
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+  const registerSchema = Yup.object().shape({
+    phoneNumber: Yup.string()
+      .required(languages[lang].required)
+      .matches(phoneRegExp, languages[lang].phoneError),
+    fullName: Yup.string().required(languages[lang].required),
+    email: Yup.string()
+      .email(languages[lang].invalideEmail)
+      .required(languages[lang].required),
+    password: Yup.string()
+      .required(languages[lang].required)
+      .min(8, languages[lang].passwordShort),
+    city: Yup.string().required(languages[lang].required),
+  });
+
   return (
     <View style={styles.container}>
       <View>
@@ -41,7 +59,8 @@ const Register = () => {
           password: '',
           city: '',
         }}
-        onSubmit={values => console.log(values)}>
+        onSubmit={values => console.log(values)}
+        validationSchema={registerSchema}>
         {props => (
           <View>
             <InputView
@@ -98,7 +117,7 @@ const Register = () => {
               }}
               containerStyle={{
                 borderColor: COLORS.grey,
-                marginTop: h * 0.02,
+                marginTop: h * 0.03,
                 marginBottom: -15,
               }}
             />

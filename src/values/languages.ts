@@ -20,7 +20,11 @@ const languages = {
     fullName: 'Full Name',
     email: 'Email',
     city: 'City',
-    haveAccount:'Have Account'
+    haveAccount:'Have Account',
+    invalideEmail:'Invalid email',
+    required:'Required',
+    passwordShort:'Password is too short - should be 8 chars minimum.',
+    phoneError:'Phone number is not valid'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -39,7 +43,11 @@ const languages = {
     city: 'المدينه',
     phoneNumber: 'رقم الموبايل',
     password: 'كلمه المرور',
-    haveAccount:'هل لديك حساب'
+    haveAccount:'هل لديك حساب',
+    invalideEmail:'الاميل مطلوب',
+    required:'مطلوب',
+    passwordShort:'كلمه المرور صغيره - يجب ان لا تقل عن 8 احرف',
+    phoneError:'رقم الموبايل غير صحيح'
   },
 };
 export default languages;
