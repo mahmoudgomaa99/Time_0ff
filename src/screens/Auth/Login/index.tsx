@@ -13,6 +13,7 @@ import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
+import Picker from 'components/molecules/Picker';
 
 const Login = () => {
   const [secure, setsecure] = useState(true);
@@ -49,12 +50,16 @@ const Login = () => {
         <TextView title={languages[lang].welcomeBack} style={styles.subTitle} />
         <View style={styles.line}></View>
       </View>
+
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => console.log(values)}
         validationSchema={loginSchema}>
         {props => (
           <View>
+
+
+
             <InputView
               {...props}
               name="email"

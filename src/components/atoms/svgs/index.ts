@@ -1,5 +1,5 @@
 import Logo from './logo';
-import Google from './google'
+import Google from './Google'
 const svgs = {
   default: Logo,
   google:Google

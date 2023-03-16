@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     color: '#9FCE24',
     textAlign: 'right',
     fontSize: 16,
+    marginBottom:h*.04
   },
   or: {
     textAlign: 'center',

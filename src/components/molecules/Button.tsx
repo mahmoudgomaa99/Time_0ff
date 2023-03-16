@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     padding: MarginsAndPaddings.xxl,
     backgroundColor: COLORS.darkBlue,
     paddingHorizontal: MarginsAndPaddings.xxl,
-    marginTop:h*.03,
+    marginTop:0,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: BorderRadius.s,

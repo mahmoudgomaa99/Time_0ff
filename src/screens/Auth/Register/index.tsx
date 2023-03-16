@@ -10,10 +10,11 @@ import Button from 'components/molecules/Button';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import COLORS from 'values/colors';
-import DropDownPicker from 'react-native-dropdown-picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
 import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
+import Picker from 'components/molecules/Picker';
 
 const Register = () => {
   const lang = useSelector(selectLanguage);
@@ -105,7 +106,15 @@ const Register = () => {
               secureTextEntry={true}
             />
 
-            <DropDownPicker
+            <Picker
+              {...props}
+              type={'primary'}
+              data={[{label:'egypt',value:'egypt'},{label:'france',value:'france'}]}
+              name={'city'}
+              stylingProp={{ borderColor: 'red', borderWith: 10 }}
+            />
+
+            {/* <DropDownPicker
               open={open}
               value={value}
               items={items}
@@ -120,7 +129,7 @@ const Register = () => {
                 marginTop: h * 0.03,
                 marginBottom: -15,
               }}
-            />
+            /> */}
 
             <Button
               onPress={props.handleSubmit}
