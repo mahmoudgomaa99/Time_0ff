@@ -7,14 +7,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
     padding: MarginsAndPaddings.l,
-    position:'relative'
+    position: 'relative',
   },
-  skip:{
-    color:COLORS.green
+  skip: {
+    color: '#B5E633',
+    fontSize: 18,
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 142,
+    height: 142,
     borderColor: '#eee',
     borderWidth: 2,
     borderRadius: 100,
@@ -27,65 +28,69 @@ const styles = StyleSheet.create({
     marginTop: MarginsAndPaddings.xxs,
     fontSize: 30,
   },
-  line:{
-    width:w*.18,
-    height:h*.006,
-    borderRadius:100,
-    backgroundColor:COLORS.black,
-    marginLeft:'auto',
-    marginRight:'auto'
+  line: {
+    width: w * 0.18,
+    height: h * 0.003,
+    borderRadius: 100,
+    backgroundColor: COLORS.black,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   subTitle: {
-    color: COLORS.black,
+    color: '#444444',
     textAlign: 'center',
     width: w * 0.6,
     marginLeft: 'auto',
     marginRight: 'auto',
-    fontSize: 20,
+    fontSize: 18,
   },
   inputContainerStyling: {
-    borderBottomWidth:0
+    borderBottomWidth: 0,
   },
-  containerStyle:{
-    backgroundColor:COLORS.white,
-    borderWidth:1,
-    borderColor:COLORS.lightGrey,
-    borderRadius:BorderRadius.m,
-    padding:MarginsAndPaddings.l,
-    height:h*.09
+  containerStyle: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.lightGrey,
+    borderRadius: BorderRadius.m,
+    padding: MarginsAndPaddings.l,
+    height: h * 0.09,
   },
-  forget:{
-    marginTop:h*.025,
-    color:COLORS.green,
-    textAlign:'right'
+  forget: {
+    marginTop: h * 0.025,
+    color: '#9FCE24',
+    textAlign: 'right',
+    fontSize: 16,
   },
-  or:{
-    textAlign:'center',
-    fontSize:20,
-    color:COLORS.grey
+  or: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: COLORS.grey,
   },
-  containerMedia:{
-    flexDirection:'row',
-    justifyContent:'center',
-    marginTop:h*.03
+  containerMedia: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: h * 0.03,
   },
-  media:{
-    borderColor:COLORS.grey,
-    borderWidth:1,
-    marginHorizontal:MarginsAndPaddings.l,
-    padding:MarginsAndPaddings.l,
-    borderRadius:BorderRadius.s
+  media: {
+    borderColor: '#EEEEEE',
+    borderWidth: 1,
+    marginHorizontal: MarginsAndPaddings.l,
+    padding: MarginsAndPaddings.l,
+    borderRadius: BorderRadius.s,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  lastText:{
-    flexDirection:'row',
-    justifyContent:'center',
-    marginTop:h*.04
+  lastText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: h * 0.04,
   },
-  create:{
-    color:COLORS.blue,
-    textDecorationColor:COLORS.blue,
-    textDecorationLine:'underline'
-  }
+  create: {
+    color: COLORS.darkBlue,
+    textDecorationColor: COLORS.blue,
+    textDecorationLine: 'underline',
+    fontSize: 14,
+  },
 });
 
 export default styles;

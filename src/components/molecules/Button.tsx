@@ -46,7 +46,7 @@ export default Button;
 const styles = StyleSheet.create({
   primary: {
     padding: MarginsAndPaddings.xxl,
-    backgroundColor: COLORS.blue,
+    backgroundColor: COLORS.darkBlue,
     paddingHorizontal: MarginsAndPaddings.xxl,
     marginTop:h*.03,
     justifyContent: 'center',
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.s,
     marginBottom:
       Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
-    height:h*.08
+    height:h*.08,
+    fontSize:16
   },
   secondry: {
     backgroundColor: COLORS.white,

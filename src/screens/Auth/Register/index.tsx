@@ -46,7 +46,7 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Image source={images.testtest} style={styles.image} />
+        <Image source={images.logo} style={styles.image} />
         <TextView title={languages[lang].register} style={styles.title} />
         <View style={styles.line}></View>
       </View>
@@ -71,7 +71,7 @@ const Register = () => {
               label={languages[lang].fullName}
               inputContainerStyling={styles.inputContainerStyling}
               containerStyle={styles.containerStyle}
-              labelStyle={{ color: COLORS.lightGrey, marginBottom: -12 }}
+              labelStyle={{ color: '#C4C3C3', marginBottom: -12, fontSize: 14 }}
             />
             <InputView
               {...props}
@@ -81,7 +81,7 @@ const Register = () => {
               label={languages[lang].phoneNumber}
               inputContainerStyling={styles.inputContainerStyling}
               containerStyle={styles.containerStyle}
-              labelStyle={{ color: COLORS.lightGrey, marginBottom: -12 }}
+              labelStyle={{ color: '#C4C3C3', marginBottom: -12, fontSize: 14 }}
             />
             <InputView
               {...props}
@@ -91,7 +91,7 @@ const Register = () => {
               label={languages[lang].email}
               inputContainerStyling={styles.inputContainerStyling}
               containerStyle={styles.containerStyle}
-              labelStyle={{ color: COLORS.lightGrey, marginBottom: -12 }}
+              labelStyle={{ color: '#C4C3C3', marginBottom: -12, fontSize: 14 }}
             />
             <InputView
               {...props}
@@ -101,7 +101,7 @@ const Register = () => {
               label={languages[lang].password}
               inputContainerStyling={styles.inputContainerStyling}
               containerStyle={styles.containerStyle}
-              labelStyle={{ color: COLORS.lightGrey, marginBottom: -12 }}
+              labelStyle={{ color: '#C4C3C3', marginBottom: -12, fontSize: 14 }}
               secureTextEntry={true}
             />
 

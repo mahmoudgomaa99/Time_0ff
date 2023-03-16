@@ -13,7 +13,7 @@ const languages = {
     welcomeBack: 'Welcome back you ve been missed!',
     labelEmail: 'Email address or phone',
     labelPassword: 'Password',
-    or: 'Or',
+    or: 'OR',
     notMember: 'Not a member?',
     createAccount: 'Create an account',
     skip: 'Skip',
@@ -29,7 +29,7 @@ const languages = {
   ar: {
     login: 'تسجيل الدخول',
     helloAgain: 'مرحبا مجددا',
-    welcomeBack: 'مرحبا بعودتك لقد فقدناك!',
+    welcomeBack: 'مرحبا بعودتك  هاء ضاعت!',
     labelEmail: 'عنوان البريد الالكتروني او الهاتف',
     labelPassword: 'كلمه المرور',
     forgetPassword: 'نسيت كلمه المرور ؟',

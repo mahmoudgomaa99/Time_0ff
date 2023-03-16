@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
     position: 'relative',
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 142,
+    height: 142,
     borderColor: '#eee',
     borderWidth: 2,
     borderRadius: 100,
@@ -22,11 +22,11 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
     textAlign: 'center',
     marginTop: MarginsAndPaddings.xxs,
-    fontSize: 30,
+    fontSize: 26,
   },
   line:{
     width:w*.18,
-    height:h*.006,
+    height:h*.003,
     borderRadius:100,
     backgroundColor:COLORS.black,
     marginLeft:'auto',
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     marginTop:h*.01
   },
   create:{
-    color:COLORS.blue,
+    color:COLORS.darkBlue,
     textDecorationColor:COLORS.blue,
     textDecorationLine:'underline'
   }
