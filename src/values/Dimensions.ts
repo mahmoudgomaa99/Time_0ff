@@ -1,5 +1,4 @@
-import { Dimensions } from "react-native";
-
+import { Dimensions } from 'react-native';
 export const MarginsAndPaddings = {
   xxs: 2,
   xs: 4,

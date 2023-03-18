@@ -6,17 +6,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.black,
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-    hight: '100%',
-    alignItems: 'center',
-    paddingVertical: 25,
-  },
-  title: {
-    marginTop: 17,
+    backgroundColor: COLORS.white,
   },
 });

@@ -3,6 +3,7 @@ export const images: TImages = {
   logo: require('./logo.png'),
   facebook: require('./facebook.png'),
   instagram: require('./instagram.png'),
+  present: require('./present.jpg'),
 };
 
 type TImages = {
@@ -10,4 +11,5 @@ type TImages = {
   logo: undefined;
   facebook: undefined;
   instagram: undefined;
+  present: undefined;
 };
