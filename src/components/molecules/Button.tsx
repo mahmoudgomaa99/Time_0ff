@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { BorderRadius, MarginsAndPaddings } from 'values/Dimensions';
+import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 
@@ -45,16 +45,17 @@ export default Button;
 
 const styles = StyleSheet.create({
   primary: {
-    padding: MarginsAndPaddings.l,
-    backgroundColor: COLORS.primary,
+    padding: MarginsAndPaddings.xxl,
+    backgroundColor: COLORS.darkBlue,
     paddingHorizontal: MarginsAndPaddings.xxl,
-    margin: MarginsAndPaddings.m,
+    marginTop:0,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: BorderRadius.s,
-    marginHorizontal: MarginsAndPaddings.ml,
     marginBottom:
       Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
+    height:h*.08,
+    fontSize:16
   },
   secondry: {
     backgroundColor: COLORS.white,
@@ -81,4 +82,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   txt_ticket_type: { color: COLORS.primary, fontWeight: '700', fontSize: 17 },
+
 });

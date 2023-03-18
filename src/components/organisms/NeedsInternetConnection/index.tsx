@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react';
 import TextView from 'components/atoms/TextView';
-import Icon from 'react-native-vector-icons/Feather';
+// import Icon from 'react-native-vector-icons/Feather';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {styles} from './styles';
 import {Modal, View} from 'react-native';
@@ -19,7 +19,7 @@ const NeedsInternetConnection = ({children}: Props) => {
         transparent={true}
         visible={isInternetReachable === false}>
         <View style={styles.constainer}>
-          <Icon name="wifi-off" size={60} style={styles.icon} />
+          {/* <Icon name="wifi-off" size={60} style={styles.icon} /> */}
           <TextView
             style={styles.titleTextStyling}
             title="No Internet Connection"

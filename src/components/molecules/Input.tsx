@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import React from 'react';
 import {Input, InputProps} from 'react-native-elements';
 import COLORS from 'values/colors';
@@ -14,9 +14,10 @@ type TInput = {
   name: string;
   handleChange: any;
   handleBlur: any;
-  title: string;
+  title?: string;
   values: any;
   containerStyling?: any;
+  inputContainerStyling?: ViewStyle;
   titleStyling?: any;
 };
 
@@ -31,6 +32,7 @@ const InputView = ({
   title,
   placeholder,
   containerStyling,
+  inputContainerStyling,
   titleStyling,
   ...props
 }: InputProps & TInput) => {
@@ -55,11 +57,21 @@ const InputView = ({
           opacity: 0.7,
           fontFamily: Fonts.RobotoRegular,
         }}
-        inputContainerStyle={{
-          ...styles.textInputStyle,
-          borderColor:
-            errors[name] && touched[name] ? COLORS.errorRed : '#888888',
-        }}
+        inputContainerStyle={
+          inputContainerStyling
+            ? {
+                ...inputContainerStyling,
+                borderColor:
+                  errors[name] && touched[name]
+                    ? COLORS.errorRed
+                    : COLORS.lightGrey,
+              }
+            : {
+                ...styles.textInputStyle,
+                borderColor:
+                  errors[name] && touched[name] ? COLORS.errorRed : '#888888',
+              }
+        }
         onChangeText={handleChange(name)}
         onBlur={handleBlur(name)}
       />
