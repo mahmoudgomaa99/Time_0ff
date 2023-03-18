@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,6 +10,8 @@ import NeedsInternetConnection from 'components/organisms/NeedsInternetConnectio
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsVerefied } from '../redux/user/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { selectIsPresenting } from 'redux/Presenting';
+import PresentingScreen from 'screens/Presenting';
 
 type TRootStack = {
   auth: undefined;
@@ -21,11 +23,13 @@ const NavigationHandler = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isSplashDone = useSelector(selectIsSplashDone);
   const isVerified = useSelector(selectIsVerefied);
-
+  const isPresent = useSelector(selectIsPresenting);
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
+    if (isPresent) return <PresentingScreen />;
+
     return (
-      <RootStack.Navigator initialRouteName="app">
+      <RootStack.Navigator initialRouteName="auth">
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}
@@ -38,7 +42,7 @@ const NavigationHandler = () => {
         />
       </RootStack.Navigator>
     );
-  }, [currentUser, isSplashDone, isVerified]);
+  }, [currentUser, isSplashDone, isVerified, isPresent]);
 
   return (
     <SafeAreaProvider>
