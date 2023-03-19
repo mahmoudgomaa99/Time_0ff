@@ -5,13 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'src/redux/user';
 import { selectIsSplashDone } from 'redux/Spalsh/SplashSlice';
-import Splash from 'screens/Splash';
+import Splash from 'screens/PreApp/Splash';
 import NeedsInternetConnection from 'components/organisms/NeedsInternetConnection';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { selectIsVerefied } from '../redux/user/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { selectIsPresenting } from 'redux/Presenting';
-import PresentingScreen from 'screens/Presenting';
+import PresentingScreen from 'screens/PreApp/Presenting';
 
 type TRootStack = {
   auth: undefined;
@@ -24,10 +24,10 @@ const NavigationHandler = () => {
   const isSplashDone = useSelector(selectIsSplashDone);
   const isVerified = useSelector(selectIsVerefied);
   const isPresent = useSelector(selectIsPresenting);
+
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
-
     return (
       <RootStack.Navigator initialRouteName="auth">
         <RootStack.Screen
@@ -47,7 +47,9 @@ const NavigationHandler = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <NeedsInternetConnection>{renderSwitch}</NeedsInternetConnection>
+        <NeedsInternetConnection>
+        {renderSwitch}
+        </NeedsInternetConnection>
       </NavigationContainer>
     </SafeAreaProvider>
   );
