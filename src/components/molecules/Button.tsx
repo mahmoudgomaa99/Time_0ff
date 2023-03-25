@@ -12,7 +12,7 @@ import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 
-type TType = 'primary' | 'secondry' | 'ticket_type';
+type TType = 'primary' | 'secondry' | 'ticket_type'|'book';
 
 type TButton = {
   isLoading?: boolean;
@@ -55,7 +55,20 @@ const styles = StyleSheet.create({
     marginBottom:
       Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
     height:h*.08,
-    fontSize:16
+    fontSize:16,
+  },
+  book:{
+    padding: MarginsAndPaddings.xxl,
+    backgroundColor: COLORS.darkBlue,
+    paddingHorizontal: 50,
+    marginTop:0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: BorderRadius.s,
+    marginBottom:
+      Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
+    height:h*.06,
+    fontSize:16,
   },
   secondry: {
     backgroundColor: COLORS.white,

@@ -37,14 +37,14 @@ const Card = ({
         </View>
 
         <View style={[styles.location, lang === 'ar' ? styles.Arabic : '']}>
-          <Svg name="smile" size={20} />
+          <Svg name="location" size={20} />
           <TextView title={location} style={styles.locationText} />
         </View>
 
         <View style={[styles.end, lang === 'ar' ? styles.Arabic : '']}>
-          <Svg name="smile" size={20} />
+          <Svg name="jamp" size={20} />
           <TextView title={name} />
-          <Svg name="smile" size={20} />
+          <Svg name="star" size={20} />
           <TextView title={`(${stars})`} />
         </View>
       </View>

@@ -19,6 +19,9 @@ import Main from './Main';
 import Explore from './Explore';
 import Notification from './Notification';
 import ProfileN from './ProfileN';
+import Jamp from './Jamp';
+import Location from './Location';
+import Star from './Star';
 
 const svgs = {
   default: Logo,
@@ -40,7 +43,10 @@ const svgs = {
   main:Main,
   explore:Explore,
   notification:Notification,
-  profile2:ProfileN
+  profile2:ProfileN,
+  jamp:Jamp,
+  location:Location,
+  star:Star
 };
 
 export default svgs;

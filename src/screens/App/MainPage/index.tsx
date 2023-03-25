@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import { images } from 'src/assets/images';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Card from './Card';
 import COLORS from 'values/colors';
 
@@ -140,10 +140,12 @@ const MainPage = () => {
           <FlatList
             data={categoryData}
             renderItem={({ item }) => (
-              <View style={styles.trips}>
-                <Svg name={item.svgName} size={80} />
-                <TextView title={item.title} style={styles.tripText} />
-              </View>
+              <TouchableOpacity onPress={() => {}}>
+                <View style={styles.trips}>
+                  <Svg name={item.svgName} size={80} />
+                  <TextView title={item.title} style={styles.tripText} />
+                </View>
+              </TouchableOpacity>
             )}
             horizontal={true}
           />
@@ -164,14 +166,16 @@ const MainPage = () => {
         <FlatList
           data={cardData}
           renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              description={item.description}
-              location={item.location}
-              name={item.name}
-              stars={item.stars}
-              lang={lang}
-            />
+            <TouchableOpacity onPress={() => {}}>
+              <Card
+                title={item.title}
+                description={item.description}
+                location={item.location}
+                name={item.name}
+                stars={item.stars}
+                lang={lang}
+              />
+            </TouchableOpacity>
           )}
         />
       </View>
