@@ -109,7 +109,10 @@ const Register = () => {
             <Picker
               {...props}
               type={'primary'}
-              data={[{label:'egypt',value:'egypt'},{label:'france',value:'france'}]}
+              data={[
+                { label: 'egypt', value: 'egypt' },
+                { label: 'france', value: 'france' },
+              ]}
               name={'city'}
               stylingProp={{ borderColor: 'red', borderWith: 10 }}
             />
