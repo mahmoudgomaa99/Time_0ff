@@ -9,7 +9,19 @@ export const styles = StyleSheet.create({
         padding:MarginsAndPaddings.xl
     },
     image:{
-        flex:2,
+        flex:3,
+        position:'relative',
+        marginBottom:MarginsAndPaddings.ml,
+    },
+    SVG:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        paddingHorizontal:0,
+        position:'absolute',
+        zIndex:10,
+        width:'100%',
+        top:'5%'
     },
     text:{
         flex:2,
@@ -47,11 +59,41 @@ export const styles = StyleSheet.create({
     price:{
         fontSize:24,
         color:COLORS.black,
-        marginBottom:MarginsAndPaddings.m
+        marginBottom:MarginsAndPaddings.xxl
     },
 
 
     arabic:{
         flexDirection:'row-reverse'
-    }
+    },
+
+
+
+    carouselItemContainer: {
+        backgroundColor: 'white',
+        width:'100%',
+        height:'100%'
+      },
+      carouselImage: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+        borderRadius: 27,
+      },
+      paginationContainer: {
+        paddingVertical: 8,
+        position:"absolute",
+        top:'90%',
+        right:'5%'
+      },
+      paginationDot: {
+        width: 12,
+        height: 12,
+        borderRadius: 5,
+        marginHorizontal: 3,
+        backgroundColor: '#FFFFFF',
+      },
+      paginationInactiveDot: {
+        backgroundColor: '#BFBFBF',
+      },
 })

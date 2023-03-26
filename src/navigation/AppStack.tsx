@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator<TAuthStack>();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName="home">
+    <Stack.Navigator initialRouteName="detailsTrip">
       <Stack.Screen
         name="home"
         component={Home}

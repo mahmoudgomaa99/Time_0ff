@@ -22,6 +22,8 @@ import ProfileN from './ProfileN';
 import Jamp from './Jamp';
 import Location from './Location';
 import Star from './Star';
+import HeartRed from './HeartRed';
+import Arrow from './Arrow';
 
 const svgs = {
   default: Logo,
@@ -46,7 +48,9 @@ const svgs = {
   profile2:ProfileN,
   jamp:Jamp,
   location:Location,
-  star:Star
+  star:Star,
+  heartRed:HeartRed,
+  arrow:Arrow
 };
 
 export default svgs;
