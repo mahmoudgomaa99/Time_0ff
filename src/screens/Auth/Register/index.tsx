@@ -10,14 +10,20 @@ import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import { useNavigation } from '@react-navigation/native';
 import Picker from 'components/molecules/Picker';
-import { RegisterSchema } from 'src/formik/schema';
+import { registerScheme } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg from 'atoms/Svg';
 
 const Register = () => {
   const lang = useSelector(selectLanguage);
-  const navigation = useNavigation<any>();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: 'Saudi Arabic', value: 'Saudi Arabic' },
+  ]);
   const [secure, setSecure] = useState(false);
+
+  const navigation = useNavigation<any>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,7 +42,7 @@ const Register = () => {
           city: '',
         }}
         onSubmit={values => console.log(values)}
-        validationSchema={RegisterSchema(languages, lang)}>
+        validationSchema={registerScheme(lang)}>
         {props => (
           <View>
             <InputView
@@ -104,8 +110,8 @@ const Register = () => {
               {...props}
               type={'primary'}
               data={[
-                { label: 'Egypt', value: 'egypt' },
-                { label: 'France', value: 'france' },
+                { label: 'egypt', value: 'egypt' },
+                { label: 'france', value: 'france' },
               ]}
               name={'city'}
             />
@@ -113,7 +119,7 @@ const Register = () => {
               onPress={props.handleSubmit}
               type="primary"
               label={languages[lang].register}
-              style={{ marginTop: 20 }}
+              style={{ marginTop: 10 }}
             />
             <View
               style={[

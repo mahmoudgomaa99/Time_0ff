@@ -11,9 +11,10 @@ import { Formik } from 'formik';
 import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
+import Picker from 'components/molecules/Picker';
 import { loginSchema } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { h } from '../../../values/Dimensions';
 
 const Login = () => {
   const [secure, setsecure] = useState(true);
@@ -37,9 +38,9 @@ const Login = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => console.log(values)}
-        validationSchema={() => loginSchema(languages, lang)}>
+        validationSchema={loginSchema(lang)}>
         {props => (
-          <View style={{ marginTop: h * 0.03 }}>
+          <View>
             <InputView
               {...props}
               name="email"

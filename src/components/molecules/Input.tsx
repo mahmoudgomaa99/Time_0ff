@@ -64,8 +64,8 @@ const InputView = ({
         value={values[name]}
         errorStyle={{
           color: COLORS.errorRed,
-          fontFamily: Fonts.RobotoBold,
-          textAlign: lang === 'ar' ? 'right' : 'left',
+          // fontFamily: Fonts.RobotoBold,
+          textAlign: lang === 'ar' ? 'left' : 'right',
         }}
         containerStyle={[
           containerStyle,
@@ -74,15 +74,13 @@ const InputView = ({
           },
         ]}
         errorMessage={touched[name] ? errors[name] : ''}
-        inputStyle={[
-          {
-            color: '#000',
-            fontSize: 14,
-            opacity: 1,
-            fontFamily: Fonts.RobotoRegular,
-            textAlign: lang === 'ar' ? 'right' : 'left',
-          },
-        ]}
+        inputStyle={{
+          color: '#000',
+          fontSize: 14,
+          opacity: 0.7,
+          // fontFamily: Fonts.RobotoRegular,
+          textAlign: lang === 'ar' ? 'right' : 'left',
+        }}
         inputContainerStyle={
           inputContainerStyling
             ? {
@@ -114,10 +112,8 @@ const styles = StyleSheet.create({
   textInputStyle: {
     borderWidth: 1,
     borderRadius: 12,
-    height: 45,
     marginTop: h * 0.01,
     paddingLeft: w * 0.03,
-    fontFamily: Fonts.RobotoRegular,
     lineHeight: 24,
     backgroundColor: '#fff',
     borderColor: '#525252',

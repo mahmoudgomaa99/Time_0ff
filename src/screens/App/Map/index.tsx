@@ -12,8 +12,10 @@ import InputView from 'components/molecules/Input';
 import { Input } from 'react-native-elements';
 import Svg from 'atoms/Svg';
 import languages from 'values/languages';
+import { useNavigation } from '@react-navigation/native';
 
 const Map = () => {
+  const navigation = useNavigation<any>();
   const location = useSelector(selectLocation);
   const lang = useSelector(selectLanguage);
   const mapRef = useRef<any>();
@@ -91,7 +93,13 @@ const Map = () => {
             />
           </View>
 
-          <Button type="primary" label={languages[lang].addressConfirmation} />
+          <Button
+            type="primary"
+            onPress={() => {
+              navigation.navigate('home');
+            }}
+            label={languages[lang].addressConfirmation}
+          />
         </View>
       </Fragment>
     </SafeAreaView>

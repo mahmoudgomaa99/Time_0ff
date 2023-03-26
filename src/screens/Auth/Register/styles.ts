@@ -30,13 +30,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.lightGrey,
     borderRadius: BorderRadius.m,
-    height: h * 0.08,
+    height: h * 0.076,
     paddingVertical: 7,
   },
   lastText: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: h * 0.02,
   },
   create: {
     color: COLORS.darkBlue,

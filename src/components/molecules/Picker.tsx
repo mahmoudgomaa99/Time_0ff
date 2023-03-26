@@ -267,7 +267,7 @@ const styles: TTstyles = StyleSheet.create({
   title: {
     color: COLORS.white,
     marginLeft: 5,
-    fontFamily: Fonts.RobotoBold,
+    // fontFamily: Fonts.RobotoBold,
     fontSize: 16,
   },
   primary_modalHeader: {

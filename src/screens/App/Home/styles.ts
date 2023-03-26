@@ -4,10 +4,10 @@ import COLORS from 'values/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: COLORS.white,
-    backgroundColor: COLORS.orange,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // color: COLORS.white,
+    // backgroundColor: COLORS.orange,
   },
   text: {
     color: COLORS.black,

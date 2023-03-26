@@ -38,6 +38,8 @@ const NavigationHandler = () => {
       );
     });
   }, []);
+  console.log(isPresent);
+
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;

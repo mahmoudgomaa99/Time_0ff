@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     color: COLORS.grey,
     lineHeight: 21,
     fontWeight: '500',
-    marginTop: h * 0.03,
   },
   containerMedia: {
     flexDirection: 'row',

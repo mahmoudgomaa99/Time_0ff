@@ -3,6 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   TouchableOpacityProps,
   View,
@@ -13,7 +14,7 @@ import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 import Svg, { TName } from '../atoms/Svg';
 
-type TType = 'primary' | 'secondry' | 'ticket_type' | 'map';
+type TType = 'primary' | 'secondry' | 'ticket_type' | 'book' | 'map';
 
 type TButton = {
   isLoading?: boolean;
@@ -21,6 +22,7 @@ type TButton = {
   label: string;
   svg?: TName;
   size?: number;
+  txtStyle?: TextStyle;
 };
 
 const Button = ({
@@ -28,6 +30,7 @@ const Button = ({
   type,
   svg,
   size,
+  txtStyle,
   label,
   ...props
 }: TouchableOpacityProps & TButton) => {
@@ -41,12 +44,24 @@ const Button = ({
             {svg ? (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Svg name={svg} size={size} style={{ marginHorizontal: 5 }} />
-                <Text style={styles[`txt_${type}`] || styles.txt_primary}>
+                <Text
+                  style={
+                    [styles[`txt_${type}`], txtStyle] || [
+                      styles.txt_primary,
+                      txtStyle,
+                    ]
+                  }>
                   {label}
                 </Text>
               </View>
             ) : (
-              <Text style={styles[`txt_${type}`] || styles.txt_primary}>
+              <Text
+                style={
+                  [styles[`txt_${type}`], txtStyle] || [
+                    styles.txt_primary,
+                    txtStyle,
+                  ]
+                }>
                 {label}
               </Text>
             )}
@@ -68,6 +83,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: BorderRadius.s,
+    marginBottom:
+      Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
+    height: h * 0.08,
+    fontSize: 16,
+  },
+  book: {
+    padding: MarginsAndPaddings.xxl,
+    backgroundColor: COLORS.darkBlue,
+    paddingHorizontal: 50,
+    marginTop: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: BorderRadius.s,
+    marginBottom:
+      Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
+    height: h * 0.06,
     fontSize: 16,
   },
   map: {
@@ -98,6 +129,7 @@ const styles = StyleSheet.create({
   },
   txt_primary: {
     color: COLORS.white,
+    // fontFamily: Fonts.RobotoBold,
     fontFamily: Fonts.RobotoBold,
     fontSize: 16,
     lineHeight: 21,
@@ -112,4 +144,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   txt_ticket_type: { color: COLORS.primary, fontWeight: '700', fontSize: 17 },
+  txt_book: {},
 });

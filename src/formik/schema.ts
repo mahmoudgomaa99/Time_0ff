@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import languages from 'values/languages';
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
@@ -6,37 +7,6 @@ const includeDigRegExp = /([0-9]+)/;
 const includeCharRegExp = /([A-z]+)/;
 const EmailReg =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-export const loginSchema = (
-  languages: { [key: string]: any },
-  lang: 'en' | 'ar',
-) =>
-  Yup.object().shape({
-    email: Yup.string()
-      .email(languages[lang].invalideEmail)
-      .required(languages[lang].required),
-    password: Yup.string()
-      .required(languages[lang].required)
-      .min(8, languages[lang].passwordShort),
-  });
-
-export const RegisterSchema = (
-  languages: { [key: string]: any },
-  lang: 'en' | 'ar',
-) =>
-  Yup.object().shape({
-    phoneNumber: Yup.string()
-      .required(languages[lang].required)
-      .matches(phoneRegExp, languages[lang].phoneError),
-    fullName: Yup.string().required(languages[lang].required),
-    email: Yup.string()
-      .email(languages[lang].invalideEmail)
-      .required(languages[lang].required),
-    password: Yup.string()
-      .required(languages[lang].required)
-      .min(8, languages[lang].passwordShort),
-    city: Yup.string().required(languages[lang].required),
-  });
 
 export const ForgetSchema = Yup.object().shape({
   phone_number: Yup.string()
@@ -66,3 +36,30 @@ export const ChangePasswordSchema = Yup.object().shape({
     .matches(includeCharRegExp, 'password must include at least one character'),
   old_password: Yup.string().required('Old password is Required'),
 });
+
+export const loginSchema = (lang: string) => {
+  return Yup.object().shape({
+    email: Yup.string()
+      .email(languages[lang].invalideEmail)
+      .required(languages[lang].required),
+    password: Yup.string()
+      .required(languages[lang].required)
+      .min(8, languages[lang].passwordShort),
+  });
+};
+
+export const registerScheme = (lang: string) => {
+  return Yup.object().shape({
+    phoneNumber: Yup.string()
+      .required(languages[lang].required)
+      .matches(phoneRegExp, languages[lang].phoneError),
+    fullName: Yup.string().required(languages[lang].required),
+    email: Yup.string()
+      .email(languages[lang].invalideEmail)
+      .required(languages[lang].required),
+    password: Yup.string()
+      .required(languages[lang].required)
+      .min(8, languages[lang].passwordShort),
+    city: Yup.string().required(languages[lang].required),
+  });
+};
