@@ -1,4 +1,11 @@
-import { Dimensions, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React from 'react';
 import { Input, InputProps } from 'react-native-elements';
 import COLORS from 'values/colors';
@@ -11,16 +18,19 @@ const h = Dimensions.get('window').height;
 
 type TInput = {
   loading?: boolean;
-  touched: any;
-  errors: any;
+  touched?: any;
+  errors?: any;
   name: string;
   handleChange: any;
-  handleBlur: any;
+  handleBlur?: any;
   title?: string;
-  values: any;
+  values?: any;
   containerStyling?: any;
   inputContainerStyling?: ViewStyle;
   titleStyling?: any;
+  stylee?: ViewStyle;
+  labelStyle?: TextStyle;
+  containerStyle?: ViewStyle;
 };
 
 const InputView = ({
@@ -29,6 +39,7 @@ const InputView = ({
   touched,
   errors,
   handleChange,
+  containerStyle,
   handleBlur,
   name,
   title,
@@ -36,28 +47,32 @@ const InputView = ({
   containerStyling,
   inputContainerStyling,
   titleStyling,
+  labelStyle,
+  stylee,
   ...props
 }: InputProps & TInput) => {
   const lang = useSelector(selectLanguage);
   return (
-    <View
-      style={[
-        styles.container,
-        containerStyling,
-        { direction: lang === 'ar' ? 'rtl' : 'ltr' },
-      ]}>
+    <View style={[styles.container, containerStyling]}>
       <Text style={titleStyling}>{title}</Text>
       <Input
         {...props}
         placeholder={placeholder}
         autoComplete={'off'}
         disabled={loading ? true : false}
-        placeholderTextColor="#888888"
+        placeholderTextColor="#C4C3C3"
         value={values[name]}
         errorStyle={{
           color: COLORS.errorRed,
           // fontFamily: Fonts.RobotoBold,
+          textAlign: lang === 'ar' ? 'left' : 'right',
         }}
+        containerStyle={[
+          containerStyle,
+          {
+            borderColor: errors[name] && touched[name] ? COLORS.red : '#F2F2F2',
+          },
+        ]}
         errorMessage={touched[name] ? errors[name] : ''}
         inputStyle={{
           color: '#000',
@@ -71,18 +86,20 @@ const InputView = ({
             ? {
                 ...inputContainerStyling,
                 borderColor:
-                  errors[name] && touched[name]
-                    ? COLORS.errorRed
-                    : COLORS.lightGrey,
+                  errors[name] && touched[name] ? COLORS.red : '#F2F2F2',
               }
             : {
                 ...styles.textInputStyle,
                 borderColor:
-                  errors[name] && touched[name] ? COLORS.errorRed : '#888888',
+                  errors[name] && touched[name] ? COLORS.red : '#F2F2F2',
               }
         }
         onChangeText={handleChange(name)}
         onBlur={handleBlur(name)}
+        labelStyle={[
+          labelStyle,
+          { textAlign: lang === 'ar' ? 'right' : 'left', marginTop: 3 },
+        ]}
       />
     </View>
   );
@@ -95,7 +112,6 @@ const styles = StyleSheet.create({
   textInputStyle: {
     borderWidth: 1,
     borderRadius: 12,
-    height: 45,
     marginTop: h * 0.01,
     paddingLeft: w * 0.03,
     lineHeight: 24,

@@ -6,51 +6,47 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    padding: MarginsAndPaddings.l,
-    position: 'relative',
-  },
-  image: {
-    width: 142,
-    height: 142,
-    borderColor: '#eee',
-    borderWidth: 2,
-    borderRadius: 100,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    paddingHorizontal: MarginsAndPaddings.l,
   },
   title: {
     color: COLORS.black,
-    textAlign: 'center',
-    marginTop: MarginsAndPaddings.xxs,
-    fontSize: 26,
+    fontSize: 24,
   },
-  line:{
-    width:w*.18,
-    height:h*.003,
-    borderRadius:100,
-    backgroundColor:COLORS.black,
-    marginLeft:'auto',
-    marginRight:'auto'
+  line: {
+    width: w * 0.18,
+    height: h * 0.002,
+    borderRadius: 100,
+    backgroundColor: COLORS.black,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 10,
   },
   inputContainerStyling: {
-    borderBottomWidth:0
+    borderBottomWidth: 0,
+    direction: 'rtl',
   },
-  containerStyle:{
-    backgroundColor:COLORS.white,
-    borderWidth:1,
-    borderColor:COLORS.lightGrey,
-    borderRadius:BorderRadius.m,
-    padding:MarginsAndPaddings.l,
-    height:h*.09
+  containerStyle: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.lightGrey,
+    borderRadius: BorderRadius.m,
+    height: h * 0.076,
+    paddingVertical: 7,
   },
-  lastText:{
-    flexDirection:'row',
-    justifyContent:'center',
-    marginTop:h*.01
+  lastText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  create:{
-    color:COLORS.darkBlue,
-    textDecorationColor:COLORS.blue,
-    textDecorationLine:'underline'
-  }
+  create: {
+    color: COLORS.darkBlue,
+    textDecorationColor: COLORS.blue,
+    textDecorationLine: 'underline',
+    marginHorizontal: 4,
+  },
+  label_style: {
+    color: '#C4C3C3',
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 14,
+  },
 });

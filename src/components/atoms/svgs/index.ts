@@ -1,5 +1,5 @@
 import Logo from './logo';
-import Google from './Google'
+import Google from './Google';
 import RightArrow from './RightArrow';
 import LeftArrow from './LeftArrow';
 import Menu from './Menu';
@@ -24,33 +24,42 @@ import Location from './Location';
 import Star from './Star';
 import HeartRed from './HeartRed';
 import Arrow from './Arrow';
-
+import EyeClosed from './EyeClosed';
+import BlueLogo from './BlueLogo';
+import Instegram from './Instegram';
+import FaceBook from './Facebook';
+import MiniLocation from './MiniLocation';
 const svgs = {
   default: Logo,
   rightArrow: RightArrow,
   leftArrow: LeftArrow,
-  google:Google,
-  menu:Menu,
-  smile:Smile,
-  rightMenu:RightMenu,
-  profile:Profile,
-  trips:Trips,
-  garden:Garden,
-  heart:Heart,
-  bbuggy:BBuggy,
-  diving:Diving,
-  nileTrips:NileTrips,
-  surfing:Surfing,
-  search:Search,
-  main:Main,
-  explore:Explore,
-  notification:Notification,
-  profile2:ProfileN,
-  jamp:Jamp,
-  location:Location,
-  star:Star,
-  heartRed:HeartRed,
-  arrow:Arrow
+  google: Google,
+  menu: Menu,
+  smile: Smile,
+  rightMenu: RightMenu,
+  profile: Profile,
+  trips: Trips,
+  garden: Garden,
+  heart: Heart,
+  bbuggy: BBuggy,
+  diving: Diving,
+  nileTrips: NileTrips,
+  surfing: Surfing,
+  search: Search,
+  main: Main,
+  explore: Explore,
+  notification: Notification,
+  profile2: ProfileN,
+  jamp: Jamp,
+  location: Location,
+  star: Star,
+  heartRed: HeartRed,
+  arrow: Arrow,
+  eyeClosed: EyeClosed,
+  blueLogo: BlueLogo,
+  instegram: Instegram,
+  faceBook: FaceBook,
+  miniLocation: MiniLocation,
 };
 
 export default svgs;

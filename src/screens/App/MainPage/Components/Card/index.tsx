@@ -37,11 +37,19 @@ const Card = ({
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
           <TextView title={title} style={styles.title} />
-          <Svg name="heart" size={20} />
+          <View style={styles.heart}>
+            <Svg name="heart" size={20} />
+          </View>
         </View>
 
         <View>
-          <TextView title={description} style={styles.decription} />
+          <TextView
+            title={description}
+            style={[
+              styles.decription,
+              { textAlign: lang === 'ar' ? 'right' : 'left' },
+            ]}
+          />
         </View>
 
         <View
@@ -56,10 +64,12 @@ const Card = ({
         <View
           style={[
             styles.end,
-            { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
+            {
+              flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
+            },
           ]}>
           <Svg name="jamp" size={20} />
-          <TextView title={name} />
+          <TextView style={{}} title={name} />
           <Svg name="star" size={20} />
           <TextView title={`(${stars})`} />
         </View>

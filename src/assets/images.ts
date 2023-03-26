@@ -1,15 +1,12 @@
-export const images: TImages = {
-  testtest: require('./testtest.jpeg'),
+export const images = {
+  test: require('./testtest.jpeg'),
   logo: require('./logo.png'),
   facebook: require('./facebook.png'),
   instagram: require('./instagram.png'),
   present: require('./present.jpg'),
-};
-
-type TImages = {
-  testtest: undefined;
-  logo: undefined;
-  facebook: undefined;
-  instagram: undefined;
-  present: undefined;
+  branding1: require('./branding_1.png'),
+  branding2: require('./branding_2.png'),
+  branding3: require('./branding_3.png'),
+  splashBg: require('./splashBg.png'),
+  downArrow: require('./down-arrow.png'),
 };

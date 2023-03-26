@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Image,
   Platform,
   StyleSheet,
   Text,
@@ -10,9 +11,13 @@ import {
 import React from 'react';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
-import MixedText from './MixedText';
-import Svg, {TName} from 'atoms/Svg';
-import RNPickerSelect, {PickerSelectProps} from 'react-native-picker-select';
+import { TName } from 'atoms/Svg';
+import RNPickerSelect from 'react-native-picker-select';
+import { MarginsAndPaddings } from '../../values/Dimensions';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from '../../redux/language/index';
+import { images } from '../../assets/images';
+import languages from 'values/languages';
 
 type TType = 'primary' | 'secondry' | 'matches';
 type TItem = {
@@ -49,18 +54,19 @@ const Picker = ({
   onDonePressed,
   ...props
 }: TProps) => {
+  const lang = useSelector(selectLanguage);
   return (
-    <View style={stylingProp}>
-      <View style={styles[`${type}_iosButtonWrapper`]}>
-        {type !== 'matches' && (
+    <View style={[stylingProp, { marginTop: 20 }]}>
+      <View style={[styles[`${type}_iosButtonWrapper`], { borderWidth: 0 }]}>
+        {type !== 'matches' &&
           // <MixedText title={title || ''} required={props.required || false} />
-          null
-        )}
+          null}
         {Platform.OS === 'ios' ? (
           <RNPickerSelect
             {...props}
+            // errorText={{ fontSize: 30 }}
             placeholder={{
-              label: props.placeholder || 'Select an Item',
+              label: props.placeholder || languages[lang].selectCountry,
               value: null,
             }}
             value={props.values[props.name]}
@@ -73,28 +79,39 @@ const Picker = ({
             }}
             style={{
               placeholder: {
-                color:
-                  type === 'matches' ? COLORS.red : COLORS.grey,
+                color: type === 'matches' ? COLORS.red : COLORS.grey,
+                textAlign: lang === 'ar' ? 'right' : 'left',
               },
               inputIOS: {
                 ...styles[`${type}_iosButton`],
                 borderColor:
                   props.errors[props.name] && props.touched[props.name]
                     ? COLORS.red
-                    : COLORS.secondery,
+                    : '#F2F2F2',
               },
               inputAndroid: {
                 ...styles[`${type}_iosButton`],
                 borderColor:
                   props.errors[props.name] && props.touched[props.name]
                     ? COLORS.red
-                    : COLORS.secondery,
+                    : '#F2F2F2',
               },
               modalViewMiddle: styles[`${type}_modalHeader`],
               modalViewBottom: styles[`${type}_modalBody`],
-              iconContainer: {top: '42%', right: 10},
+              iconContainer: {
+                top: '42%',
+                left: lang === 'ar' ? 10 : undefined,
+                right: lang === 'en' ? 10 : undefined,
+              },
             }}
-            Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
+            // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
+            // Icon={<Svg name="default" />}
+            Icon={() => (
+              <Image
+                source={images.downArrow}
+                style={{ width: 20, height: 20 }}
+              />
+            )}
           />
         ) : (
           <View
@@ -126,26 +143,27 @@ const Picker = ({
               }}
               style={{
                 placeholder: {
-                  color:
-                    type === 'matches' ? COLORS.red : COLORS.grey,
+                  color: type === 'matches' ? COLORS.red : COLORS.grey,
                 },
                 inputAndroid: {
                   ...styles[`${type}_iosButton`],
                   borderColor:
                     props.errors[props.name] && props.touched[props.name]
                       ? COLORS.red
-                      : COLORS.secondery,
+                      : '#F2F2F2',
                 },
                 modalViewMiddle: styles[`${type}_modalHeader`],
                 modalViewBottom: styles[`${type}_modalBody`],
-                iconContainer: {top: '42%', right: 10},
+                // iconContainer: { top: '42%', right: 10 },
               }}
-              Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
+              // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
             />
           </View>
         )}
         {props.errors[props.name] && props.touched[props.name] && (
-          <Text style={styles.errorText}>{props.errors[props.name]}</Text>
+          <Text style={[styles.errorText, { textAlign: 'right' }]}>
+            {props.errors[props.name]}
+          </Text>
         )}
       </View>
     </View>
@@ -185,13 +203,13 @@ const styles: TTstyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primary_androidWrapper: {borderRadius: 20, overflow: 'hidden'},
+  primary_androidWrapper: { borderRadius: 20, overflow: 'hidden' },
   primary_iosButton: {
     borderColor: COLORS.secondery,
     borderWidth: 1,
-    padding: 15,
-    height: 60,
-    marginTop: 5,
+    paddingVertical: MarginsAndPaddings.xxl + 8,
+    paddingHorizontal: MarginsAndPaddings.xxl,
+    marginTop: 3,
     borderRadius: 15,
     justifyContent: 'center',
     color: COLORS.white,
@@ -222,13 +240,19 @@ const styles: TTstyles = StyleSheet.create({
           paddingVertical: 8,
         }
       : {
-          width: Dimensions.get('window').width * 0.40,
+          width: Dimensions.get('window').width * 0.4,
           backgroundColor: COLORS.darkBlue,
           borderTopRightRadius: 15,
           borderTopLeftRadius: 15,
         },
-  primary_iosButtonWrapper: {marginHorizontal: 10, marginVertical: 10,borderWidth:2,borderColor:'#eeeeee',borderRadius:10},
-  secondry_iosButtonWrapper: {marginHorizontal: 10, marginVertical: 10},
+  primary_iosButtonWrapper: {
+    marginHorizontal: 0,
+    marginVertical: 5,
+    borderWidth: 2,
+    borderColor: '#eeeeee',
+    borderRadius: 10,
+  },
+  secondry_iosButtonWrapper: { marginHorizontal: 10, marginVertical: 10 },
   secondry_iosButton: {
     borderColor: COLORS.secondery,
     backgroundColor: COLORS.darkBlue,
@@ -272,9 +296,9 @@ const styles: TTstyles = StyleSheet.create({
   },
   errorText: {
     color: COLORS.red,
-    fontSize: 11.5,
-    fontWeight: '800',
-    marginLeft: 7,
+    fontSize: 11,
+    fontWeight: '700',
     marginTop: 5,
+    marginHorizontal: 10,
   },
 });

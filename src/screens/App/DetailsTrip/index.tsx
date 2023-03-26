@@ -9,11 +9,14 @@ import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { images } from 'src/assets/images';
 import { w } from 'values/Dimensions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from '../../../redux/language/index';
+import { useNavigation } from '@react-navigation/native';
+import COLORS from 'values/colors';
 
 const DetailsTrip = () => {
-  const lang = 'en';
-  const imageList = [images.present, images.present, images.present];
-
+  const navigation = useNavigation<any>();
+  const lang = useSelector(selectLanguage);
   const [activeIndex, setActiveIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([
     {
@@ -27,7 +30,7 @@ const DetailsTrip = () => {
     },
   ]);
 
-  const renderItem = ({ item, index }:any) => {
+  const renderItem = ({ item, index }: any) => {
     return (
       <View style={styles.carouselItemContainer}>
         <Image source={item.image} style={styles.carouselImage} />
@@ -40,7 +43,9 @@ const DetailsTrip = () => {
       <View style={styles.image}>
         <View style={[styles.SVG, , lang === 'ar' ? styles.arabic : null]}>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => {
+              navigation.goBack();
+            }}
             style={[
               { transform: [{ rotateY: lang === 'en' ? '180deg' : '0deg' }] },
             ]}>
@@ -48,18 +53,23 @@ const DetailsTrip = () => {
           </TouchableOpacity>
           <Svg name="heartRed" size={60} />
         </View>
-        <Carousel
-          layout={'default'}
-          data={carouselItems}
-          sliderWidth={w * 0.94}
-          itemWidth={w * 0.94}
-          renderItem={renderItem}
-          onSnapToItem={index => setActiveIndex(index)}
-        />
+        <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
+          <Carousel
+            layout={'default'}
+            data={carouselItems}
+            sliderWidth={w}
+            itemWidth={w}
+            renderItem={renderItem}
+            onSnapToItem={(index: number) => setActiveIndex(index)}
+          />
+        </View>
         <Pagination
           dotsLength={carouselItems.length}
           activeDotIndex={activeIndex}
-          containerStyle={styles.paginationContainer}
+          containerStyle={[
+            styles.paginationContainer,
+            { direction: lang === 'ar' ? 'rtl' : 'ltr' },
+          ]}
           dotStyle={styles.paginationDot}
           inactiveDotStyle={styles.paginationInactiveDot}
           inactiveDotOpacity={0.4}
@@ -68,7 +78,13 @@ const DetailsTrip = () => {
       </View>
 
       <View style={styles.text}>
-        <TextView title={languages[lang].divingActivity} style={styles.title} />
+        <TextView
+          title={languages[lang].divingActivity}
+          style={[
+            styles.title,
+            { textAlign: lang === 'ar' ? 'right' : 'left' },
+          ]}
+        />
 
         <View style={[styles.svgAndStar, lang === 'ar' ? styles.arabic : null]}>
           <Svg name="smile" />
@@ -80,18 +96,37 @@ const DetailsTrip = () => {
         <View>
           <TextView
             title={languages[lang].description}
-            style={styles.descriptionTitle}
+            style={[
+              styles.descriptionTitle,
+              { textAlign: lang === 'ar' ? 'right' : 'left' },
+            ]}
           />
-          <TextView
-            style={styles.descriptionText}
-            title={languages[lang].lorem}
-          />
+          <Text style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
+            <TextView
+              style={styles.descriptionText}
+              title={[languages[lang].lorem]}
+            />
+          </Text>
         </View>
       </View>
 
-      <View style={[styles.bottom, lang === 'ar' ? styles.arabic : null]}>
-        <TextView title={languages[lang].LE} style={styles.price} />
-        <Button type="book" label={languages[lang].bookNow} />
+      <View
+        style={[styles.bottom, lang === 'ar' ? styles.arabic : styles.arabic]}>
+        <View
+          style={[
+            styles.bottomSec,
+            { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
+          ]}>
+          <TextView
+            title={languages[lang].LE}
+            style={[styles.price, { marginBottom: lang === 'en' ? 15 : 0 }]}
+          />
+          <Button
+            type="book"
+            label={languages[lang].bookNow}
+            txtStyle={styles.btn_text}
+          />
+        </View>
       </View>
     </View>
   );

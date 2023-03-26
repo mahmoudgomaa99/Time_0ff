@@ -5,6 +5,7 @@ import User from './user';
 import loadingSlice from './_loading';
 import Language from './language';
 import Present from './Presenting';
+import Location from './Location/index';
 
 const combinedReducer = combineReducers({
   _loading: loadingSlice.reducer,
@@ -13,6 +14,7 @@ const combinedReducer = combineReducers({
   [User.slice.name]: User.slice.reducer,
   [Language.slice.name]: Language.slice.reducer,
   [Present.slice.name]: Present.slice.reducer,
+  [Location.slice.name]: Location.slice.reducer,
 });
 
 export default combinedReducer;

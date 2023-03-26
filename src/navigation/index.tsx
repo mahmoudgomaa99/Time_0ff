@@ -1,17 +1,20 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'src/redux/user';
 import { selectIsSplashDone } from 'redux/Spalsh/SplashSlice';
-import Splash from 'screens/Splash';
+import Splash from 'screens/PreApp/Splash';
 import NeedsInternetConnection from 'components/organisms/NeedsInternetConnection';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { selectIsVerefied } from '../redux/user/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { selectIsPresenting } from 'redux/Presenting';
-import PresentingScreen from 'screens/Presenting';
+import PresentingScreen from 'screens/PreApp/Presenting';
+import Geolocation from '@react-native-community/geolocation';
+import Location from 'redux/Location';
+import { useAppDispatch } from '../redux/store';
 
 type TRootStack = {
   auth: undefined;
@@ -20,14 +23,26 @@ type TRootStack = {
 const RootStack = createNativeStackNavigator<TRootStack>();
 
 const NavigationHandler = () => {
+  const dispatch = useAppDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isSplashDone = useSelector(selectIsSplashDone);
   const isVerified = useSelector(selectIsVerefied);
   const isPresent = useSelector(selectIsPresenting);
-  const renderSwitch = useMemo(() => {
-    // if (!isSplashDone) return <Splash />;
-    // if (isPresent) return <PresentingScreen />;
 
+  useEffect(() => {
+    Geolocation.getCurrentPosition(i => {
+      dispatch(
+        Location.setLocation({
+          location: { lat: i.coords.latitude, lang: i.coords.longitude },
+        }),
+      );
+    });
+  }, []);
+  console.log(isPresent);
+
+  const renderSwitch = useMemo(() => {
+    if (!isSplashDone) return <Splash />;
+    if (isPresent) return <PresentingScreen />;
     return (
       <RootStack.Navigator initialRouteName="auth">
         <RootStack.Screen

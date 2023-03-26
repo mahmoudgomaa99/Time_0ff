@@ -1,8 +1,11 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '12.4'
+platform :ios, '13'
 install! 'cocoapods', :deterministic_uuids => false
+
+pod 'GoogleMaps'
+pod 'Google-Maps-iOS-Utils'
 
 target 'Time_off' do
   config = use_native_modules!
@@ -25,11 +28,24 @@ target 'Time_off' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
+    # React Native Maps dependencies
+    rn_maps_path = '../node_modules/react-native-maps'
+    pod 'react-native-google-maps', :path => rn_maps_path
+  
   target 'Time_offTests' do
     inherit! :complete
     # Pods for testing
   end
+
+#   use_frameworks! :linkage => :static    
+    
+# pre_install do |installer|
+#   Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+
+#   installer.pod_targets.each do |pod|
+    
+#   end
+# end
 
   post_install do |installer|
     react_native_post_install(
