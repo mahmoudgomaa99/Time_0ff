@@ -5,7 +5,7 @@ type TInitialValues = {
   language: 'en' | 'ar';
 };
 const initialState: TInitialValues = {
-  language: 'en',
+  language: 'ar',
 };
 const slice = createSlice({
   name: 'language',

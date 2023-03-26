@@ -7,5 +7,6 @@ export const images = {
   branding1: require('./branding_1.png'),
   branding2: require('./branding_2.png'),
   branding3: require('./branding_3.png'),
-  splashBg:require('./splashBg.png')
+  splashBg: require('./splashBg.png'),
+  downArrow: require('./down-arrow.png'),
 };

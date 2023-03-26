@@ -12,6 +12,8 @@ import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
 import { useNavigation } from '@react-navigation/native';
 import { loginSchema } from 'src/formik/schema';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { h } from '../../../values/Dimensions';
 
 const Login = () => {
   const [secure, setsecure] = useState(true);
@@ -19,24 +21,17 @@ const Login = () => {
   const navigation = useNavigation<any>();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TextView
         title={languages[lang].skip}
-        style={[
-          styles.skip,
-          {
-            position: 'absolute',
-            top: 10,
-            left: lang === 'en' ? '95%' : 15,
-          },
-        ]}
-        onPress={() => console.log('clicked')}
+        style={[styles.skip]}
+        onPress={() => navigation.navigate('app', { screen: 'map' })}
       />
-      <View>
-        <Image source={images.logo} style={styles.image} />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Svg name="blueLogo" size={150} />
         <TextView title={languages[lang].helloAgain} style={styles.title} />
         <TextView title={languages[lang].welcomeBack} style={styles.subTitle} />
-        <View style={styles.line}></View>
+        <View style={styles.line} />
       </View>
 
       <Formik
@@ -44,16 +39,19 @@ const Login = () => {
         onSubmit={values => console.log(values)}
         validationSchema={() => loginSchema(languages, lang)}>
         {props => (
-          <View>
+          <View style={{ marginTop: h * 0.03 }}>
             <InputView
               {...props}
               name="email"
               onChangeText={props.handleChange('email')}
               value={props.values.email}
               label={languages[lang].labelEmail}
-              inputContainerStyling={styles.inputContainerStyling}
+              inputContainerStyling={{
+                direction: lang === 'ar' ? 'rtl' : 'ltr',
+                borderBottomWidth: 0,
+              }}
               containerStyle={styles.containerStyle}
-              labelStyle={{ color: '#C4C3C3', marginBottom: -12, fontSize: 14 }}
+              labelStyle={[styles.label_style]}
             />
             <InputView
               {...props}
@@ -61,12 +59,15 @@ const Login = () => {
               onChangeText={props.handleChange('password')}
               value={props.values.password}
               label={languages[lang].labelPassword}
-              inputContainerStyling={styles.inputContainerStyling}
-              containerStyle={styles.containerStyle}
-              labelStyle={{ color: '#C4C3C3', marginBottom: -12, fontSize: 14 }}
+              inputContainerStyling={{
+                direction: lang === 'ar' ? 'rtl' : 'ltr',
+                borderBottomWidth: 0,
+              }}
+              containerStyle={[styles.containerStyle, { marginTop: 10 }]}
+              labelStyle={[styles.label_style]}
               rightIcon={
                 <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
-                  <Svg name="google" size={30} />
+                  <Svg name="eyeClosed" style={{ marginTop: -10 }} size={20} />
                 </TouchableOpacity>
               }
               secureTextEntry={secure}
@@ -91,10 +92,10 @@ const Login = () => {
                 <Svg name="google" size={30} />
               </View>
               <View style={styles.media}>
-                <Image source={images.facebook} />
+                <Svg name="instegram" size={30} />
               </View>
               <View style={styles.media}>
-                <Image source={images.instagram} />
+                <Svg name="faceBook" size={30} />
               </View>
             </View>
 
@@ -103,17 +104,23 @@ const Login = () => {
                 styles.lastText,
                 { flexDirection: lang === 'en' ? 'row' : 'row-reverse' },
               ]}>
-              <TextView title={languages[lang].notMember} />
+              <TextView
+                title={languages[lang].notMember}
+                style={styles.notMember}
+              />
               <TextView
                 title={languages[lang].createAccount}
                 style={styles.create}
-                onPress={() => navigation.navigate('register')}
+                onPress={() => {
+                  navigation.navigate('register');
+                  props.setErrors({});
+                }}
               />
             </View>
           </View>
         )}
       </Formik>
-    </View>
+    </SafeAreaView>
   );
 };
 

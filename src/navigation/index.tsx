@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,6 +12,9 @@ import { selectIsVerefied } from '../redux/user/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { selectIsPresenting } from 'redux/Presenting';
 import PresentingScreen from 'screens/PreApp/Presenting';
+import Geolocation from '@react-native-community/geolocation';
+import Location from 'redux/Location';
+import { useAppDispatch } from '../redux/store';
 
 type TRootStack = {
   auth: undefined;
@@ -20,11 +23,21 @@ type TRootStack = {
 const RootStack = createNativeStackNavigator<TRootStack>();
 
 const NavigationHandler = () => {
+  const dispatch = useAppDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isSplashDone = useSelector(selectIsSplashDone);
   const isVerified = useSelector(selectIsVerefied);
   const isPresent = useSelector(selectIsPresenting);
 
+  useEffect(() => {
+    Geolocation.getCurrentPosition(i => {
+      dispatch(
+        Location.setLocation({
+          location: { lat: i.coords.latitude, lang: i.coords.longitude },
+        }),
+      );
+    });
+  }, []);
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
@@ -47,9 +60,7 @@ const NavigationHandler = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <NeedsInternetConnection>
-        {renderSwitch}
-        </NeedsInternetConnection>
+        <NeedsInternetConnection>{renderSwitch}</NeedsInternetConnection>
       </NavigationContainer>
     </SafeAreaProvider>
   );

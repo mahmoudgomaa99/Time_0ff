@@ -4,33 +4,26 @@ import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: COLORS.white,
-    padding: MarginsAndPaddings.l,
-    position: 'relative',
+    paddingHorizontal: MarginsAndPaddings.xxl,
+    flex: 1,
   },
   skip: {
     color: '#B5E633',
     fontSize: 18,
-  },
-  image: {
-    width: 142,
-    height: 142,
-    borderColor: '#eee',
-    borderWidth: 2,
-    borderRadius: 100,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    fontWeight: '400',
+    lineHeight: 24,
   },
   title: {
     color: COLORS.black,
     textAlign: 'center',
-    marginTop: MarginsAndPaddings.xxs,
     fontSize: 30,
+    lineHeight: 40,
+    fontWeight: '500',
   },
   line: {
-    width: w * 0.18,
-    height: h * 0.003,
+    width: w * 0.13,
+    height: h * 0.002,
     borderRadius: 100,
     backgroundColor: COLORS.black,
     marginLeft: 'auto',
@@ -43,34 +36,38 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 18,
+    fontWeight: '400',
+    maxWidth: w * 0.3,
   },
-  inputContainerStyling: {
-    borderBottomWidth: 0,
-  },
+
   containerStyle: {
     backgroundColor: COLORS.white,
     borderWidth: 1,
     borderColor: COLORS.lightGrey,
     borderRadius: BorderRadius.m,
-    padding: MarginsAndPaddings.l,
-    height: h * 0.09,
+    height: h * 0.08,
+    paddingVertical: 5,
   },
   forget: {
     marginTop: h * 0.025,
     color: '#9FCE24',
-    textAlign: 'right',
     fontSize: 16,
-    marginBottom:h*.04
+    marginBottom: h * 0.04,
+    fontWeight: '400',
+    lineHeight: 21,
   },
   or: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 16,
     color: COLORS.grey,
+    lineHeight: 21,
+    fontWeight: '500',
+    marginTop: h * 0.03,
   },
   containerMedia: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: h * 0.03,
+    marginTop: h * 0.02,
   },
   media: {
     borderColor: '#EEEEEE',
@@ -91,6 +88,19 @@ const styles = StyleSheet.create({
     textDecorationColor: COLORS.blue,
     textDecorationLine: 'underline',
     fontSize: 14,
+    marginHorizontal: 4,
+    lineHeight: 19,
+  },
+  label_style: {
+    color: '#C4C3C3',
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 14,
+  },
+  notMember: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 19,
   },
 });
 
