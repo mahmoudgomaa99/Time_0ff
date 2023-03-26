@@ -29,7 +29,7 @@ const NavigationHandler = () => {
     // if (isPresent) return <PresentingScreen />;
 
     return (
-      <RootStack.Navigator initialRouteName="app">
+      <RootStack.Navigator initialRouteName="auth">
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}

@@ -14,22 +14,13 @@ import Svg from 'atoms/Svg';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 import Picker from 'components/molecules/Picker';
+import { loginSchema } from 'src/formik/schema';
 
 const Login = () => {
   const [secure, setsecure] = useState(true);
-
   const lang = useSelector(selectLanguage);
-  console.log(lang);
-  // const lang = 'ar';
-  const navigation = useNavigation();
-  const loginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email(languages[lang].invalideEmail)
-      .required(languages[lang].required),
-    password: Yup.string()
-      .required(languages[lang].required)
-      .min(8, languages[lang].passwordShort),
-  });
+  const navigation = useNavigation<any>();
+
   return (
     <View style={styles.container}>
       <TextView
@@ -54,12 +45,9 @@ const Login = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values => console.log(values)}
-        validationSchema={loginSchema}>
+        validationSchema={loginSchema(lang)}>
         {props => (
           <View>
-
-
-
             <InputView
               {...props}
               name="email"

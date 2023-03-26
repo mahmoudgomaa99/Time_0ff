@@ -12,7 +12,7 @@ import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 
-type TType = 'primary' | 'secondry' | 'ticket_type'|'book';
+type TType = 'primary' | 'secondry' | 'ticket_type' | 'book';
 
 type TButton = {
   isLoading?: boolean;
@@ -48,27 +48,27 @@ const styles = StyleSheet.create({
     padding: MarginsAndPaddings.xxl,
     backgroundColor: COLORS.darkBlue,
     paddingHorizontal: MarginsAndPaddings.xxl,
-    marginTop:0,
+    marginTop: 0,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: BorderRadius.s,
     marginBottom:
       Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
-    height:h*.08,
-    fontSize:16,
+    height: h * 0.08,
+    fontSize: 16,
   },
-  book:{
+  book: {
     padding: MarginsAndPaddings.xxl,
     backgroundColor: COLORS.darkBlue,
     paddingHorizontal: 50,
-    marginTop:0,
+    marginTop: 0,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: BorderRadius.s,
     marginBottom:
       Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
-    height:h*.06,
-    fontSize:16,
+    height: h * 0.06,
+    fontSize: 16,
   },
   secondry: {
     backgroundColor: COLORS.white,
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   },
   txt_primary: {
     color: COLORS.white,
-    fontFamily: Fonts.RobotoBold,
+    // fontFamily: Fonts.RobotoBold,
   },
   txt_secondry: {
     color: COLORS.primary,
     fontWeight: '700',
   },
   txt_ticket_type: { color: COLORS.primary, fontWeight: '700', fontSize: 17 },
-
+  txt_book: {},
 });

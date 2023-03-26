@@ -9,19 +9,24 @@ import Profile from 'screens/App/Profile';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
+import { h } from '../values/Dimensions';
 
 const Tab = createBottomTabNavigator();
 
 const TabBar = () => {
-  const lang = useSelector(selectLanguage)
-  // const lang = 'ar';
+  const lang = useSelector(selectLanguage);
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#0370D6',
         tabBarInactiveTintColor: '#000000',
-        tabBarStyle: { height: 55 },
-        tabBarLabelStyle: { fontSize: 12, marginBottom: 5 },
+        tabBarStyle: {
+          height: h * 0.085,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginBottom: Platform.OS === 'android' ? 5 : -10,
+        },
       }}>
       <Tab.Screen
         name={languages[lang].main}
@@ -30,7 +35,11 @@ const TabBar = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
-              <Svg name="main" bgColor={focused ? '#0370D6' : '#000000'} />
+              <Svg
+                name="main"
+                style={{ marginBottom: -10 }}
+                bgColor={focused ? '#0370D6' : '#000000'}
+              />
             );
           },
         }}
@@ -42,7 +51,11 @@ const TabBar = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
-              <Svg name="explore" bgColor={focused ? '#0370D6' : '#000000'} />
+              <Svg
+                name="explore"
+                bgColor={focused ? '#0370D6' : '#000000'}
+                style={{ marginBottom: -10 }}
+              />
             );
           },
         }}
@@ -57,6 +70,7 @@ const TabBar = () => {
               <Svg
                 name="notification"
                 bgColor={focused ? '#0370D6' : '#000000'}
+                style={{ marginBottom: -10 }}
               />
             );
           },
@@ -69,7 +83,11 @@ const TabBar = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => {
             return (
-              <Svg name="profile2" bgColor={focused ? '#0370D6' : '#000000'} />
+              <Svg
+                name="profile2"
+                style={{ marginBottom: -10 }}
+                bgColor={focused ? '#0370D6' : '#000000'}
+              />
             );
           },
         }}

@@ -5,15 +5,14 @@ import { w } from 'values/Dimensions';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop:10,
-    marginBottom:11,
-    borderRadius:14,
-    paddingHorizontal:10,
-    paddingTop:10,
-    paddingBottom:5,
-    elevation:5,
+    marginBottom: 11,
+    borderRadius: 14,
+    paddingHorizontal: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    elevation: 5,
     shadowColor: COLORS.grey,
-    backgroundColor:'white',
+    backgroundColor: 'white',
   },
   imageContainer: {
     width: w * 0.23,
@@ -39,24 +38,22 @@ export const styles = StyleSheet.create({
   decription: {
     fontSize: 10,
     color: '#B8B8B8',
-    marginVertical:5
+    marginVertical: 5,
   },
   location: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  locationText:{
-    fontSize:10,
-    color:'#000000',
-    marginBottom:5
+  locationText: {
+    fontSize: 10,
+    color: '#000000',
+    marginBottom: 5,
   },
   end: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  Arabic:{
-    flexDirection:'row-reverse'
-  }
+  Arabic: {
+    flexDirection: 'row-reverse',
+  },
 });
-
-

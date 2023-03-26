@@ -1,8 +1,10 @@
-import {Dimensions, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import { Dimensions, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import React from 'react';
-import {Input, InputProps} from 'react-native-elements';
+import { Input, InputProps } from 'react-native-elements';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from '../../redux/language/index';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -36,8 +38,14 @@ const InputView = ({
   titleStyling,
   ...props
 }: InputProps & TInput) => {
+  const lang = useSelector(selectLanguage);
   return (
-    <View style={[styles.container, containerStyling]}>
+    <View
+      style={[
+        styles.container,
+        containerStyling,
+        { direction: lang === 'ar' ? 'rtl' : 'ltr' },
+      ]}>
       <Text style={titleStyling}>{title}</Text>
       <Input
         {...props}
@@ -48,14 +56,15 @@ const InputView = ({
         value={values[name]}
         errorStyle={{
           color: COLORS.errorRed,
-          fontFamily: Fonts.RobotoBold,
+          // fontFamily: Fonts.RobotoBold,
         }}
         errorMessage={touched[name] ? errors[name] : ''}
         inputStyle={{
           color: '#000',
           fontSize: 14,
           opacity: 0.7,
-          fontFamily: Fonts.RobotoRegular,
+          // fontFamily: Fonts.RobotoRegular,
+          textAlign: lang === 'ar' ? 'right' : 'left',
         }}
         inputContainerStyle={
           inputContainerStyling
@@ -89,7 +98,6 @@ const styles = StyleSheet.create({
     height: 45,
     marginTop: h * 0.01,
     paddingLeft: w * 0.03,
-    fontFamily: Fonts.RobotoRegular,
     lineHeight: 24,
     backgroundColor: '#fff',
     borderColor: '#525252',
