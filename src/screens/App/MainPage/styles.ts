@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     padding: MarginsAndPaddings.xl,
     margin:0
   },
-  paginationContainer: {
+  paginationContainerr: {
     width: w,
     height: h * 0.3,
     marginBottom: -20,
@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   categoryText: {
+    marginTop:MarginsAndPaddings.ml,
     fontSize: 18,
     color: COLORS.black,
     marginBottom: MarginsAndPaddings.xxl,
@@ -93,5 +94,34 @@ export const styles = StyleSheet.create({
 
   Arabic: {
     flexDirection: 'row-reverse',
+  },
+
+  carouselItemContainer: {
+    backgroundColor: 'white',
+    width:'100%',
+    height:'100%'
+  },
+  carouselImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 20,
+  },
+  paginationContainer: {
+    paddingVertical: 8,
+    position:"absolute",
+    top:'85%',
+    right:'50%',
+    transform:[{translateX:70}]
+  },
+  paginationDot: {
+    width: 25,
+    height: 6,
+    borderRadius: 5,
+    marginHorizontal: 3,
+    backgroundColor: '#B5E633',
+  },
+  paginationInactiveDot: {
+    backgroundColor: '#FFFFFF',
   },
 });

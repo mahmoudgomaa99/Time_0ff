@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
@@ -13,6 +13,7 @@ import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Card from './Card';
 import COLORS from 'values/colors';
+import { w } from 'values/Dimensions';
 
 const MainPage = () => {
   // const lang = useSelector(selectLanguage);
@@ -67,6 +68,27 @@ const MainPage = () => {
     { title: languages[lang].diving, svgName: 'diving' },
   ];
 
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [carouselItems, setCarouselItems] = useState([
+    {
+      image: images.present,
+    },
+    {
+      image: images.present,
+    },
+    {
+      image: images.present,
+    },
+  ]);
+
+  const renderItem = ({ item, index }: any) => {
+    return (
+      <View style={styles.carouselItemContainer}>
+        <Image source={item.image} style={styles.carouselImage} />
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={[styles.Top, lang === 'ar' ? styles.Arabic : '']}>
@@ -111,27 +133,24 @@ const MainPage = () => {
         </View>
       </View>
 
-      <View style={styles.paginationContainer}>
-        <ImageBackground
-          source={imageList[indexSelected]}
-          style={styles.imageBackground}>
-          <View>
-            <Pagination
-              inactiveDotColor="white"
-              dotColor={'#58ffee'}
-              activeDotIndex={indexSelected}
-              dotsLength={imageList.length}
-              animatedDuration={50}
-              inactiveDotScale={1}
-              dotStyle={{ width: 25, height: 6 }}
-              containerStyle={{
-                height: 62,
-                margin: 0,
-                transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
-              }}
-            />
-          </View>
-        </ImageBackground>
+      <View style={styles.paginationContainerr}>
+        <Carousel
+          layout={'default'}
+          data={carouselItems}
+          sliderWidth={w * 0.94}
+          itemWidth={w * 0.94}
+          renderItem={renderItem}
+          onSnapToItem={index => setActiveIndex(index)}
+        />
+        <Pagination
+          dotsLength={carouselItems.length}
+          activeDotIndex={activeIndex}
+          containerStyle={[styles.paginationContainer]}
+          dotStyle={styles.paginationDot}
+          inactiveDotStyle={styles.paginationInactiveDot}
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.6}
+        />
       </View>
 
       <View>
