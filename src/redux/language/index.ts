@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import RNRestart from 'react-native-restart';
 type TInitialValues = {
-  language: string;
+  language: 'en' | 'ar';
 };
 const initialState: TInitialValues = {
-  language: 'en',
+  language: 'ar',
 };
 const slice = createSlice({
   name: 'language',
