@@ -1,5 +1,5 @@
 import { View, Text, Platform } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from '../../../../../redux/language/index';
 import { Formik } from 'formik';
@@ -7,9 +7,18 @@ import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import FilterModel from '../FilterModel';
 
-const InputSec = () => {
+const InputSec = ({
+  isFilterModalVisable,
+  setFilterModalVisable,
+}: {
+  isFilterModalVisable: boolean;
+  setFilterModalVisable: any;
+}) => {
   const lang = useSelector(selectLanguage);
+
   return (
     <View
       style={[
@@ -41,7 +50,9 @@ const InputSec = () => {
         </Formik>
       </View>
       <View style={[styles.filter, { marginLeft: lang === 'en' ? -11 : 0 }]}>
-        <Svg name="rightMenu" size={65} />
+        <TouchableOpacity onPress={() => setFilterModalVisable(true)}>
+          <Svg name="rightMenu" size={65} />
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -1,0 +1,31 @@
+import { View, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import Svg from 'atoms/Svg';
+import TextView from 'atoms/TextView';
+import { styles } from './styles';
+import languages from 'values/languages';
+
+const Top = ({
+  isDateModalVisable,
+  setDateModalVisable,
+  lang
+}: {
+  isDateModalVisable: boolean;
+  setDateModalVisable: any;
+  lang:string
+}) => {
+  return (
+    <View style={styles.top}>
+      <TouchableOpacity
+        onPress={() => {
+          console.log('clicked');
+          setDateModalVisable(false);
+        }}>
+        <Svg name="close" size={50} />
+      </TouchableOpacity>
+      <TextView title={languages[lang].calendar} style={styles.BookText} />
+    </View>
+  );
+};
+
+export default Top;

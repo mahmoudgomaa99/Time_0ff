@@ -106,12 +106,12 @@ const Picker = ({
             }}
             // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
             // Icon={<Svg name="default" />}
-            Icon={() => (
-              <Image
-                source={images.downArrow}
-                style={{ width: 20, height: 20 }}
-              />
-            )}
+            // Icon={() => (
+            //   <Image
+            //     source={images.downArrow}
+            //     style={{ width: 20, height: 20 }}
+            //   />
+            // )}
           />
         ) : (
           <View
@@ -203,7 +203,12 @@ const styles: TTstyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primary_androidWrapper: { borderRadius: 20, overflow: 'hidden' },
+  primary_androidWrapper: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    borderColor: COLORS.lightGrey,
+    borderWidth: 1,
+  },
   primary_iosButton: {
     borderColor: COLORS.secondery,
     borderWidth: 1,

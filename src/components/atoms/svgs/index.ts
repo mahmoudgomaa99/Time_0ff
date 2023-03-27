@@ -29,6 +29,8 @@ import BlueLogo from './BlueLogo';
 import Instegram from './Instegram';
 import FaceBook from './Facebook';
 import MiniLocation from './MiniLocation';
+import Close from './Close';
+import Calendar from './Calendar';
 const svgs = {
   default: Logo,
   rightArrow: RightArrow,
@@ -60,6 +62,8 @@ const svgs = {
   instegram: Instegram,
   faceBook: FaceBook,
   miniLocation: MiniLocation,
+  close:Close,
+  calendar:Calendar
 };
 
 export default svgs;
