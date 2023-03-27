@@ -42,6 +42,7 @@ type TProps = {
   svgName?: TName;
   placeholder?: any;
   onDonePressed?: any;
+  borderColor: any;
 };
 
 const Picker = ({
@@ -52,6 +53,7 @@ const Picker = ({
   stylingProp,
   svgName,
   onDonePressed,
+  borderColor,
   ...props
 }: TProps) => {
   const lang = useSelector(selectLanguage);
@@ -106,12 +108,12 @@ const Picker = ({
             }}
             // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
             // Icon={<Svg name="default" />}
-            Icon={() => (
-              <Image
-                source={images.downArrow}
-                style={{ width: 20, height: 20 }}
-              />
-            )}
+            // Icon={() => (
+            //   <Image
+            //     source={images.downArrow}
+            //     style={{ width: 20, height: 20 }}
+            //   />
+            // )}
           />
         ) : (
           <View
@@ -120,7 +122,7 @@ const Picker = ({
               borderColor:
                 props.errors[props.name] && props.touched[props.name]
                   ? COLORS.red
-                  : COLORS.secondery,
+                  : borderColor,
             }}>
             <RNPickerSelect
               {...props}
@@ -203,7 +205,12 @@ const styles: TTstyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primary_androidWrapper: { borderRadius: 20, overflow: 'hidden' },
+  primary_androidWrapper: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    borderColor: COLORS.lightGrey,
+    borderWidth: 1,
+  },
   primary_iosButton: {
     borderColor: COLORS.secondery,
     borderWidth: 1,

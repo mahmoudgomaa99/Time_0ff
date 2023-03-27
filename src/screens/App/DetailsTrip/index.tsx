@@ -13,8 +13,10 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from '../../../redux/language/index';
 import { useNavigation } from '@react-navigation/native';
 import COLORS from 'values/colors';
+import DetailsModal from './Components/DetailsModal';
 
 const DetailsTrip = () => {
+  const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -125,9 +127,16 @@ const DetailsTrip = () => {
             type="book"
             label={languages[lang].bookNow}
             txtStyle={styles.btn_text}
+            onPress={() => {
+              setisDetailsModalVisibal(true);
+            }}
           />
         </View>
       </View>
+      <DetailsModal
+        isDetailsModalVisibal={isDetailsModalVisibal}
+        setisDetailsModalVisibal={setisDetailsModalVisibal}
+      />
     </View>
   );
 };
