@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         alignItems:'center'
       },
       BookText:{
-        marginLeft:w*.20,
+        marginLeft:'auto',
         marginRight:'auto',
         fontSize:20,
         color:COLORS.black,

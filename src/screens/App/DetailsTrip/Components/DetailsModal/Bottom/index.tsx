@@ -54,6 +54,7 @@ const Bottom = ({ lang }: { lang: string }) => {
             />
             <Picker
               {...props}
+              borderColor={'#EEEEEE'}
               type={'primary'}
               data={[{ label: '3 Members', value: '3 Members' }]}
               name={'members'}

@@ -25,7 +25,7 @@ const FilterModel = ({
   // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
-  const lang = 'en';
+  const lang = 'ar';
   return (
     <Formik
       initialValues={{
@@ -52,6 +52,7 @@ const FilterModel = ({
               <TextView title={languages[lang].category} style={styles.text} />
               <Picker
                 {...props}
+                borderColor={'#EEEEEE'}
                 type={'primary'}
                 data={[{ label: 'diving', value: 'diving' }]}
                 name={'category'}
@@ -76,6 +77,7 @@ const FilterModel = ({
             <View>
               <TextView title={languages[lang].city} style={styles.text} />
               <Picker
+                borderColor={'#EEEEEE'}
                 {...props}
                 type={'primary'}
                 data={[{ label: 'Sharm El-Shaikh', value: 'Sharm El-Shaikh' }]}
@@ -90,6 +92,7 @@ const FilterModel = ({
               <TextView title={languages[lang].rating} style={styles.text} />
               <Picker
                 {...props}
+                borderColor={'#EEEEEE'}
                 type={'primary'}
                 data={[{ label: '(5 Star)', value: '(5 Star)' }]}
                 name={'rating'}

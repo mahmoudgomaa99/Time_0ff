@@ -12,14 +12,14 @@ const DateModal = ({
   isDateModalVisable,
   setDateModalVisable,
   formikProps,
-  lang
+  lang,
 }: {
   selectedDate: any;
   setSelectedDate: any;
   isDateModalVisable: any;
   setDateModalVisable: any;
   formikProps: FormikProps<any>;
-  lang:string
+  lang: string;
 }) => {
   // function to handle selecting a date
   const handleSelectDate = (date: any) => {
@@ -27,6 +27,7 @@ const DateModal = ({
     console.log(selectedDate);
     formikProps.setFieldValue('date', selectedDate);
   };
+
   return (
     <Modal
       isVisible={isDateModalVisable}
@@ -42,7 +43,12 @@ const DateModal = ({
             current={selectedDate}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
-            markedDates={{ [selectedDate]: { selected: true } }}
+            markedDates={{
+              [selectedDate]: {
+                selected: true,
+                selectedColor: '#B5E633'
+              },
+            }}
             style={{
               backgroundColor: 'white',
               borderRadius: 10,
@@ -60,8 +66,9 @@ const DateModal = ({
             label="Book Now"
             style={styles.button}
             onPress={() => {
-              console.log('clicked')
-              formikProps.handleSubmit}}
+              console.log('clicked');
+              formikProps.handleSubmit;
+            }}
           />
         </View>
       </View>

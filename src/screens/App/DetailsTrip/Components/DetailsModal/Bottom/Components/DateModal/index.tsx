@@ -42,7 +42,12 @@ const DateModal = ({
             current={selectedDate}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
-            markedDates={{ [selectedDate]: { selected: true } }}
+            markedDates={{
+              [selectedDate]: {
+                selected: true,
+                selectedColor: '#B5E633'
+              },
+            }}
             style={{
               backgroundColor: 'white',
               borderRadius: 10,

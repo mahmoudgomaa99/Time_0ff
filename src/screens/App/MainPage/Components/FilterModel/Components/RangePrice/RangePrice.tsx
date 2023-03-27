@@ -14,34 +14,44 @@ const RangePrice = ({
   formikProps: FormikProps<any>;
   lang: string;
 }) => {
-  // state to hold the minimum and maximum values
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(100);
-
-  // function to format the slider value as a price
-  const formatPrice = (value: any) => `$${value.toFixed(2)}`;
-
   return (
-    <View style={styles.range}>
-      <TextView title={languages[lang].rangePrice} />
-      <Slider
-        value={[0, 10000]}
-        minimumValue={100}
-        maximumValue={1000}
-        thumbTintColor={COLORS.blue}
-        thumbStyle={{
-          shadowOpacity: 0.1,
-          shadowOffset: { height: 1, width: 1 },
-          shadowColor: COLORS.red,
-        }}
-        minimumTrackTintColor={COLORS.blue}
-        containerStyle={{ backgroundColor: COLORS.white }}
-        trackStyle={{ backgroundColor: '#eeeeee' }}
-        onValueChange={(val: any) => {
-          formikProps.setFieldValue('startPrice', val[0]);
-          formikProps.setFieldValue('endPrice', val[1]);
-        }}
-      />
+    <View>
+      <TextView title={languages[lang].rangePrice} style={styles.text} />
+      <View style={styles.range}>
+        <Slider
+          value={[formikProps.values.startPrice, formikProps.values.endPrice]}
+          minimumValue={0}
+          maximumValue={10000}
+          thumbTintColor={COLORS.blue}
+          thumbStyle={{
+            shadowOpacity: 0.1,
+            shadowOffset: { height: 1, width: 1 },
+            shadowColor: COLORS.red,
+          }}
+          minimumTrackTintColor={COLORS.blue}
+          containerStyle={{ backgroundColor: COLORS.white }}
+          trackStyle={{ backgroundColor: '#eeeeee' }}
+          onValueChange={(val: any) => {
+            formikProps.setFieldValue('startPrice', val[0]);
+            formikProps.setFieldValue('endPrice', val[1]);
+          }}
+          step={1}
+        />
+      </View>
+      <View
+        style={[
+          styles.prices,
+          { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
+        ]}>
+        <TextView
+          title={`${formikProps.values.startPrice} ${languages[lang].le}`}
+          style={styles.priceText}
+        />
+        <TextView
+          title={`${formikProps.values.endPrice} ${languages[lang].le}`}
+          style={styles.priceText}
+        />
+      </View>
     </View>
   );
 };

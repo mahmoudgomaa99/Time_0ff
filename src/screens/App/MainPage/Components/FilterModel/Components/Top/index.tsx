@@ -4,6 +4,7 @@ import TextView from 'atoms/TextView';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
 import languages from 'values/languages';
+import { FormikProps } from 'formik';
 
 const Top = ({
   lang,
@@ -25,6 +26,7 @@ const Top = ({
       </TouchableOpacity>
 
       <TextView title={languages[lang].filter} style={styles.filterText} />
+      
       <TextView title={languages[lang].reset} style={styles.resetText} />
     </View>
   );

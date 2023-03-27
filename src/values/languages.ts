@@ -73,7 +73,8 @@ const languages: any = {
     filter:"Filter",
     reset:'Reset',
     applyFilter:'Apply Filter',
-    rangePrice:'Range Price'
+    rangePrice:'Range Price',
+    le:'L.E'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -145,7 +146,8 @@ const languages: any = {
     filter:"تصفية النتائج",
     reset:'إعادة ضبط',
     applyFilter:'عمل تصفية',
-    rangePrice:'نطاق السعر'
+    rangePrice:'نطاق السعر',
+    le:'جنية'
   },
 };
 export default languages;

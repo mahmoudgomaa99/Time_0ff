@@ -42,6 +42,7 @@ type TProps = {
   svgName?: TName;
   placeholder?: any;
   onDonePressed?: any;
+  borderColor: any;
 };
 
 const Picker = ({
@@ -52,6 +53,7 @@ const Picker = ({
   stylingProp,
   svgName,
   onDonePressed,
+  borderColor,
   ...props
 }: TProps) => {
   const lang = useSelector(selectLanguage);
@@ -120,7 +122,7 @@ const Picker = ({
               borderColor:
                 props.errors[props.name] && props.touched[props.name]
                   ? COLORS.red
-                  : COLORS.secondery,
+                  : borderColor,
             }}>
             <RNPickerSelect
               {...props}
