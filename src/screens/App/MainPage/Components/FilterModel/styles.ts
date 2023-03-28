@@ -6,13 +6,13 @@ export const styles = StyleSheet.create({
   modalContainer: {
     position: 'relative',
     backgroundColor: 'white',
-    // height: h * 0.6,
+    height: h * 0.6,
     marginTop: 'auto',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     padding: 20,
     paddingTop: 30,
-    maxHeight: h * 0.9,
+    // maxHeight: h * 0.9,
   },
 
   inputContainerStyling: {

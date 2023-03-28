@@ -9,8 +9,7 @@ import { selectLanguage } from '../../../../../redux/language/index';
 import { styles } from './styles';
 import { w } from '../../../../../values/Dimensions';
 
-const CategSec = () => {
-  const lang = useSelector(selectLanguage);
+const CategSec = ({ lang }: { lang: string }) => {
   return (
     <View style={{}}>
       <TextView

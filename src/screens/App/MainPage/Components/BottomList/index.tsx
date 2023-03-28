@@ -10,8 +10,7 @@ import { styles } from './styles';
 import { h } from '../../../../../values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 
-const BottomList = () => {
-  const lang = useSelector(selectLanguage);
+const BottomList = ({ lang }: { lang: string }) => {
   const navigation = useNavigation<any>();
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>

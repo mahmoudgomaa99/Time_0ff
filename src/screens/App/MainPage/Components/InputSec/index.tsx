@@ -13,11 +13,12 @@ import FilterModel from '../FilterModel';
 const InputSec = ({
   isFilterModalVisable,
   setFilterModalVisable,
+  lang
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
+  lang:string
 }) => {
-  const lang = useSelector(selectLanguage);
 
   return (
     <View

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         padding: 20,
         paddingTop: 30,
-        maxHeight: h * 0.9,
+        // maxHeight: h * 0.9,
       },
       button:{
         marginTop:20

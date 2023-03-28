@@ -72,7 +72,7 @@ const Bottom = ({ lang }: { lang: string }) => {
                 props.setFieldValue('terms', isChecked);
               }}
               size={40}
-              fillColor={'#F3F3F3'}
+              fillColor={COLORS.darkBlue}
               unfillColor={'#F3F3F3'}
               iconStyle={{ borderRadius: 5, }}
               innerIconStyle={{ width: 40, height: 40, borderRadius: 5, }}
