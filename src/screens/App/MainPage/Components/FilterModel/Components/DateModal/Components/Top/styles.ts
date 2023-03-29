@@ -4,6 +4,7 @@ import { w } from 'values/Dimensions';
 
 export const styles = StyleSheet.create({
   top: {
+    marginTop:25,
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',

@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     modalContainer: {
         position: 'relative',
         backgroundColor: 'white',
-        height: h * 0.65,
+        height: h * 0.7,
         marginTop: 'auto',
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30,
