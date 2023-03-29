@@ -8,9 +8,8 @@ import { selectLanguage } from 'redux/language/index';
 import { h } from 'src/values/Dimensions';
 import { w } from '../../../../../values/Dimensions';
 
-const AdSec = () => {
+const AdSec = ({ lang }: { lang: string }) => {
   const carouselRef = useRef();
-  const lang = useSelector(selectLanguage);
   const [indexSelected, setIndexSelected] = useState(0);
   const renderItem = () => {
     return <Image source={imageList[indexSelected]} style={styles.img} />;
@@ -20,7 +19,7 @@ const AdSec = () => {
     <View
       style={[
         styles.paginationContainer,
-        { marginHorizontal: lang === 'ar' ? -17 : 15 },
+        { marginHorizontal: lang === 'ar' ? 17 : 15 },
       ]}>
       <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
         <Carousel

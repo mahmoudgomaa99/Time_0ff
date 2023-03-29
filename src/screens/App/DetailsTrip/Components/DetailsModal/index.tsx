@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import Modal from 'react-native-modal';
 import { styles } from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 
@@ -29,15 +29,17 @@ const DetailsTrip = ({
           isDetailsModalVisibal={isDetailsModalVisibal}
           setisDetailsModalVisibal={setisDetailsModalVisibal}
         />
-        <Card
-          title={languages[lang].cardTitle}
-          description={languages[lang].cardDescription}
-          location={languages[lang].cardLocation}
-          name={languages[lang].cardName}
-          stars={languages[lang].cardStars}
-          lang={lang}
-        />
-        <Bottom lang={lang} />
+        <ScrollView>
+          <Card
+            title={languages[lang].cardTitle}
+            description={languages[lang].cardDescription}
+            location={languages[lang].cardLocation}
+            name={languages[lang].cardName}
+            stars={languages[lang].cardStars}
+            lang={lang}
+          />
+          <Bottom lang={lang} />
+        </ScrollView>
       </View>
     </Modal>
   );

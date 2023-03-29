@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.grey,
     borderRadius: BorderRadius.m,
-    padding: MarginsAndPaddings.l,
     height: h * 0.07,
   },
   button:{

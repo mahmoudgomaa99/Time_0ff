@@ -107,6 +107,7 @@ const Register = () => {
               secureTextEntry={secure}
             />
             <Picker
+              borderColor={'#F2F2F2'}
               {...props}
               type={'primary'}
               data={[

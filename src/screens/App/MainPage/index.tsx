@@ -14,23 +14,27 @@ import AdSec from './Components/AdSec';
 import CategSec from './Components/CategSec';
 import BottomList from './Components/BottomList';
 import FilterModel from './Components/FilterModel';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from 'redux/language';
 
 const MainPage = () => {
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
-
+  const lang = useSelector(selectLanguage);
   return (
     <View style={styles.container}>
-      <Header />
+      <Header lang={lang} />
       <InputSec
+        lang={lang}
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
       />
-      <AdSec />
-      <CategSec />
-      <BottomList />
+      <AdSec lang={lang} />
+      <CategSec lang={lang} />
+      <BottomList lang={lang} />
       <FilterModel
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
+        lang={lang}
       />
     </View>
   );

@@ -16,6 +16,7 @@ import COLORS from 'values/colors';
 import DetailsModal from './Components/DetailsModal';
 
 const DetailsTrip = () => {
+  const [favoutite, setfavoutite] = useState(true);
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
@@ -53,7 +54,13 @@ const DetailsTrip = () => {
             ]}>
             <Svg name="arrow" size={60} />
           </TouchableOpacity>
-          <Svg name="heartRed" size={60} />
+          <TouchableOpacity onPress={() => setfavoutite(prev => !prev)}>
+            <Svg
+              name="heartRed"
+              size={60}
+              bgColor={favoutite ? '#FF4646' : '#dddddd'}
+            />
+          </TouchableOpacity>
         </View>
         <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
           <Carousel
