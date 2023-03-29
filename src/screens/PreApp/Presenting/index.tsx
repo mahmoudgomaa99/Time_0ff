@@ -9,7 +9,7 @@ import Svg from 'atoms/Svg';
 import { useAppDispatch } from 'redux/store';
 import Present from 'redux/Presenting';
 import { useSelector } from 'react-redux';
-import Language, { selectLanguage } from 'redux/language';
+import { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
 import { data } from './data';
 
@@ -32,8 +32,9 @@ const PresentingScreen = () => {
         style={styles.bottom}
         blurType="light"
         blurAmount={10}
-        reducedTransparencyFallbackColor="white">
-        <View style={{}} key={indexSelected}>
+        reducedTransparencyFallbackColor="white"
+        overlayColor="transparent">
+        <View key={indexSelected}>
           <Text
             style={[
               styles.title,
@@ -85,7 +86,6 @@ const PresentingScreen = () => {
           </TouchableOpacity>
         </View>
       </BlurView>
-
       <TouchableOpacity
         onPress={() => {
           dispatch(Present.setIsPresent());
