@@ -14,6 +14,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Top from './Components/Top';
 import DateModal from './Components/DateModal';
 import languages from 'values/languages';
+import { initialVslues } from './data';
+import { useLoadingSelector } from '../../../../../redux/selectors';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from 'redux/language/index';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -25,17 +29,10 @@ const FilterModel = ({
   // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
-  const lang = 'ar';
+  const lang = useSelector(selectLanguage);
   return (
     <Formik
-      initialValues={{
-        category: '',
-        date: '',
-        city: '',
-        startPrice: '',
-        endPrice: '',
-        rating: '',
-      }}
+      initialValues={initialVslues}
       onSubmit={values => console.log(values)}>
       {props => (
         <Modal

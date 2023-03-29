@@ -108,6 +108,7 @@ const Register = () => {
             />
             <Picker
               {...props}
+              borderColor={'transparent'}
               type={'primary'}
               data={[
                 { label: 'egypt', value: 'egypt' },

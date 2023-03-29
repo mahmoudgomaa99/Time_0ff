@@ -5,7 +5,7 @@ import { categData } from '../data';
 import Svg from 'atoms/Svg';
 import languages from 'values/languages';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../../../../redux/language/index';
+import { selectLanguage } from 'redux/language/index';
 import { styles } from './styles';
 import { w } from '../../../../../values/Dimensions';
 
