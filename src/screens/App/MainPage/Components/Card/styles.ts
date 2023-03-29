@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: h * 0.12,
+    height: h * 0.14,
     borderRadius: 15,
   },
   contentContainer: {
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     color: '#B8B8B8',
     marginVertical: 5,
-    maxHeight: h * 0.04,
+    maxHeight: h * 0.05,
   },
   location: {
     flexDirection: 'row',

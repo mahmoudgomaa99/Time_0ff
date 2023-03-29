@@ -7,8 +7,7 @@ import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
 
-const Header = () => {
-  const lang = useSelector(selectLanguage);
+const Header = ({ lang }: { lang: string }) => {
   return (
     <View
       style={[

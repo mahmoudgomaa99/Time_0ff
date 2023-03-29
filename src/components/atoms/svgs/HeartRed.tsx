@@ -36,7 +36,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           data-name="Icon feather-heart"
           d="M18.633,5.86a4.65,4.65,0,0,0-6.578,0l-.9.9-.9-.9a4.651,4.651,0,1,0-6.578,6.578l.9.9,6.578,6.578,6.578-6.578.9-.9a4.65,4.65,0,0,0,0-6.578Z"
           transform="translate(22.341 31.296)"
-          fill="#ff4646"
+          fill={bgColor}
         />
       </G>
     </Svg>

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 24,
+    marginTop: Platform.OS === 'android' ? h * 0.006 : '',
   },
   title: {
     color: COLORS.black,
@@ -23,7 +24,8 @@ const styles = StyleSheet.create({
   },
   line: {
     width: w * 0.13,
-    height: h * 0.002,
+    height: Platform.OS === 'android' ? h * 0.0035 : h * 0.002,
+    marginTop: Platform.OS === 'android' ? h * 0.004 : '',
     borderRadius: 100,
     backgroundColor: COLORS.black,
     marginLeft: 'auto',
@@ -32,12 +34,12 @@ const styles = StyleSheet.create({
   subTitle: {
     color: '#444444',
     textAlign: 'center',
-    width: w * 0.6,
+    width: w * 0.5,
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 18,
     fontWeight: '400',
-    maxWidth: w * 0.3,
+    // maxWidth: w * 0.3,
   },
 
   containerStyle: {
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   forget: {
-    marginTop: h * 0.025,
+    marginTop: Platform.OS === 'android' ? h * 0.035 : h * 0.025,
     color: '#9FCE24',
     fontSize: 16,
     marginBottom: h * 0.04,

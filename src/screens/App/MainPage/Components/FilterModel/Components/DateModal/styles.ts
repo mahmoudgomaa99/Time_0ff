@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     modalContainer: {
         position: 'relative',
         backgroundColor: 'white',
-        height: h * 0.65,
+        height: h * 0.70,
         marginTop: 'auto',
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30,
@@ -14,6 +14,6 @@ export const styles = StyleSheet.create({
         maxHeight: h * 0.9,
       },
       button:{
-        marginTop:20
+        marginVertical:20,
       }
 })

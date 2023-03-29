@@ -25,7 +25,7 @@ const DateModal = ({
   const handleSelectDate = (date: any) => {
     setSelectedDate(date.dateString);
     console.log(selectedDate);
-    formikProps.setFieldValue('date', selectedDate);
+    formikProps.setFieldValue('date', date.dateString);
   };
   return (
     <Modal

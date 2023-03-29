@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   paginationContainer: {
     width: w,
     height: h * 0.3,
-    marginBottom: -20,
+    marginBottom: -35,
   },
   imageBackground: {
     borderRadius: 20,
