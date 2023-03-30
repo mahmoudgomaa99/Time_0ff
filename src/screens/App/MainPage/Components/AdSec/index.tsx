@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, Image } from 'react-native';
+import { View, Text, ImageBackground, Image, Platform } from 'react-native';
 import React, { useState, useRef } from 'react';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { imageList } from '../data';
@@ -21,7 +21,11 @@ const AdSec = ({ lang }: { lang: string }) => {
         styles.paginationContainer,
         { marginHorizontal: lang === 'ar' ? 17 : 15 },
       ]}>
-      <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
+      <View
+        style={{
+          direction: lang === 'ar' ? 'rtl' : 'ltr',
+          flexDirection: 'row',
+        }}>
         <Carousel
           ref={carouselRef}
           data={imageList}
@@ -34,7 +38,8 @@ const AdSec = ({ lang }: { lang: string }) => {
       <View
         style={{
           marginTop: -h * 0.05,
-          marginLeft: lang === 'ar' ? h * 0.07 : 0,
+          marginLeft:
+            Platform.OS === 'ios' ? (lang === 'ar' ? h * 0.07 : 0) : 0,
         }}>
         <Pagination
           inactiveDotColor="white"
@@ -47,7 +52,7 @@ const AdSec = ({ lang }: { lang: string }) => {
           containerStyle={{
             height: h * 0.08,
             marginTop: -10,
-            transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+            // transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
           }}
         />
       </View>

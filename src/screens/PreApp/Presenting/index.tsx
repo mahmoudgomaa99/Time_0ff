@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  Platform,
+} from 'react-native';
 import React, { useState } from 'react';
 import { images } from 'src/assets/images';
 import { h } from 'values/Dimensions';
@@ -12,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
 import { data } from './data';
+import { w } from '../../../values/Dimensions';
 
 const imageList = [images.branding1, images.branding2, images.branding3];
 
@@ -25,67 +32,138 @@ const PresentingScreen = () => {
       source={imageList[indexSelected]}
       style={{
         height: h,
-        alignContent: 'flex-end',
+        // alignContent: 'flex-end',
         justifyContent: 'flex-end',
       }}>
-      <BlurView
-        style={styles.bottom}
-        blurType="light"
-        blurAmount={10}
-        reducedTransparencyFallbackColor="white"
-        overlayColor="transparent">
-        <View key={indexSelected}>
-          <Text
-            style={[
-              styles.title,
-              { textAlign: lang === 'en' ? 'left' : 'right' },
-            ]}>
-            {data(languages, lang)[indexSelected].title}
-          </Text>
-          <Text
-            style={[
-              styles.desc,
-              { textAlign: lang === 'en' ? 'left' : 'right' },
-            ]}>
-            {data(languages, lang)[indexSelected].desc}
-          </Text>
-        </View>
-        <View
+      {Platform.OS === 'ios' ? (
+        <BlurView
+          blurType="light"
+          blurAmount={10}
+          reducedTransparencyFallbackColor="white"
+          overlayColor="transparent"
           style={{
-            flexDirection: lang === 'en' ? 'row' : 'row-reverse',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            marginHorizontal: 16,
+            marginVertical: h * 0.05,
+            flex: 0.2,
+            borderRadius: 25,
           }}>
-          <Pagination
-            inactiveDotColor="white"
-            dotColor={'#58ffee'}
-            activeDotIndex={indexSelected}
-            dotsLength={imageList.length}
-            animatedDuration={50}
-            inactiveDotScale={1}
-            dotStyle={{ width: 25, height: 5 }}
-            containerStyle={{
-              height: 80,
-              margin: 0,
-              transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
-            }}
-          />
-          <TouchableOpacity
-            style={[
-              styles.next,
-              { transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }] },
-            ]}
-            onPress={() => {
-              if (indexSelected == 2) {
-                dispatch(Present.setIsPresent());
-              } else {
-                setIndexSelected(prev => prev + 1);
-              }
+          <View style={styles.bottom}>
+            <View key={indexSelected}>
+              <Text
+                style={[
+                  styles.title,
+                  { textAlign: lang === 'en' ? 'left' : 'right' },
+                ]}>
+                {data(languages, lang)[indexSelected].title}
+              </Text>
+              <Text
+                style={[
+                  styles.desc,
+                  { textAlign: lang === 'en' ? 'left' : 'right' },
+                ]}>
+                {data(languages, lang)[indexSelected].desc}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: lang === 'en' ? 'row' : 'row-reverse',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Pagination
+                inactiveDotColor="white"
+                dotColor={'#58ffee'}
+                activeDotIndex={indexSelected}
+                dotsLength={imageList.length}
+                animatedDuration={50}
+                inactiveDotScale={1}
+                dotStyle={{ width: 25, height: 5 }}
+                containerStyle={{
+                  height: 80,
+                  margin: 0,
+                  transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+                }}
+              />
+              <TouchableOpacity
+                style={[
+                  styles.next,
+                  {
+                    transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+                  },
+                ]}
+                onPress={() => {
+                  if (indexSelected == 2) {
+                    dispatch(Present.setIsPresent());
+                  } else {
+                    setIndexSelected(prev => prev + 1);
+                  }
+                }}>
+                <Svg size={30} name={'rightArrow'} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </BlurView>
+      ) : (
+        <View style={styles.bottom_android}>
+          <View style={{ opacity: 1.45 }} key={indexSelected}>
+            <Text
+              style={[
+                styles.title,
+                { textAlign: lang === 'en' ? 'left' : 'right' },
+              ]}>
+              {data(languages, lang)[indexSelected].title}
+            </Text>
+            <Text
+              style={[
+                styles.desc,
+                { textAlign: lang === 'en' ? 'left' : 'right' },
+              ]}>
+              {data(languages, lang)[indexSelected].desc}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: lang === 'en' ? 'row' : 'row-reverse',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginLeft: lang === 'ar' ? 0 : -w * 0.06,
+              marginHorizontal: 20,
+              opacity: 1.45,
             }}>
-            <Svg size={30} name={'rightArrow'} />
-          </TouchableOpacity>
+            <Pagination
+              inactiveDotColor="white"
+              dotColor={'#58ffee'}
+              activeDotIndex={indexSelected}
+              dotsLength={imageList.length}
+              animatedDuration={50}
+              inactiveDotScale={1}
+              dotStyle={{ width: 25, height: 5 }}
+              containerStyle={{
+                height: 80,
+                margin: 0,
+                marginRight: lang === 'ar' ? -w * 0.06 : 0,
+                transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+              }}
+            />
+            <TouchableOpacity
+              style={[
+                styles.next,
+                {
+                  transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+                },
+              ]}
+              onPress={() => {
+                if (indexSelected == 2) {
+                  dispatch(Present.setIsPresent());
+                } else {
+                  setIndexSelected(prev => prev + 1);
+                }
+              }}>
+              <Svg size={30} name={'rightArrow'} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </BlurView>
+      )}
       <TouchableOpacity
         onPress={() => {
           dispatch(Present.setIsPresent());

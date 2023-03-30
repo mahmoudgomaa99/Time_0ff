@@ -6,20 +6,21 @@ import { FormikProps } from 'formik';
 import { styles } from './styles';
 import Top from './Components/Top';
 import Button from 'components/molecules/Button';
+import languages from 'values/languages';
 const DateModal = ({
   selectedDate,
   setSelectedDate,
   isDateModalVisable,
   setDateModalVisable,
   formikProps,
-  lang
+  lang,
 }: {
   selectedDate: any;
   setSelectedDate: any;
   isDateModalVisable: any;
   setDateModalVisable: any;
   formikProps: FormikProps<any>;
-  lang:string
+  lang: string;
 }) => {
   // function to handle selecting a date
   const handleSelectDate = (date: any) => {
@@ -45,7 +46,7 @@ const DateModal = ({
             markedDates={{
               [selectedDate]: {
                 selected: true,
-                selectedColor: '#B5E633'
+                selectedColor: '#B5E633',
               },
             }}
             style={{
@@ -62,11 +63,12 @@ const DateModal = ({
           />
           <Button
             type="primary"
-            label="Book Now"
+            label={languages[lang].bookNow}
             style={styles.button}
             onPress={() => {
-              console.log('clicked')
-              formikProps.handleSubmit}}
+              console.log('clicked');
+              formikProps.handleSubmit;
+            }}
           />
         </View>
       </View>

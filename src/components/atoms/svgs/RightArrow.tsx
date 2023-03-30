@@ -15,7 +15,7 @@ function SvgComponent({ size, ...props }: TSvgProps) {
       <Path
         d="M8.334 20h23.333M20 31.667L31.667 20 20 8.334"
         stroke="#fff"
-        strokeWidth={2}
+        strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

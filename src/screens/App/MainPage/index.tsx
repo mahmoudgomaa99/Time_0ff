@@ -34,7 +34,6 @@ const MainPage = () => {
       <FilterModel
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
-        lang={lang}
       />
     </View>
   );
