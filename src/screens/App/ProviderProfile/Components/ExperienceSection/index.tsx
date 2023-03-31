@@ -3,6 +3,7 @@ import React from 'react';
 import languages from 'values/languages';
 import Card from './Components/Card';
 
+
 const ExperienceSection = ({ lang }: { lang: string }) => {
   return (
     <View>

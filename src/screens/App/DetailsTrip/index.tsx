@@ -97,7 +97,13 @@ const DetailsTrip = () => {
 
         <View style={[styles.svgAndStar, lang === 'ar' ? styles.arabic : null]}>
           <Svg name="smile" />
-          <TextView title={languages[lang].hestegal} style={styles.subTitle} />
+          <TextView
+            onPress={() => {
+              navigation.navigate('providerProfile');
+            }}
+            title={languages[lang].hestegal}
+            style={styles.subTitle}
+          />
           <Svg name="star" size={17} />
           <TextView title={'(3.4)'} />
         </View>

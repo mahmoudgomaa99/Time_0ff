@@ -41,10 +41,10 @@ const NavigationHandler = () => {
   console.log(isPresent);
 
   const renderSwitch = useMemo(() => {
-    // if (!isSplashDone) return <Splash />;
-    // if (isPresent) return <PresentingScreen />;
+    if (!isSplashDone) return <Splash />;
+    if (isPresent) return <PresentingScreen />;
     return (
-      <RootStack.Navigator initialRouteName="app">
+      <RootStack.Navigator initialRouteName="auth">
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}

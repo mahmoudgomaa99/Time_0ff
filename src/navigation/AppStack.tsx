@@ -10,14 +10,14 @@ export type TAuthStack = {
   home: undefined;
   map: undefined;
   detailsTrip: undefined;
-  providerProfile:undefined
+  providerProfile: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName="providerProfile">
+    <Stack.Navigator initialRouteName="home">
       <Stack.Screen
         name="home"
         component={TabBar}
