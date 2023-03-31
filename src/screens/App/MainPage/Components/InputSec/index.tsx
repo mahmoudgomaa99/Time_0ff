@@ -1,7 +1,7 @@
 import { View, Text, Platform } from 'react-native';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../../../../redux/language/index';
+import { selectLanguage } from 'redux/language/index';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';

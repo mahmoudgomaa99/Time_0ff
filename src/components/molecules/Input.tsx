@@ -9,9 +9,8 @@ import {
 import React from 'react';
 import { Input, InputProps } from 'react-native-elements';
 import COLORS from 'values/colors';
-import Fonts from 'values/fonts';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../redux/language/index';
+import { selectLanguage } from 'redux/language/index';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -65,7 +64,8 @@ const InputView = ({
         errorStyle={{
           color: COLORS.errorRed,
           // fontFamily: Fonts.RobotoBold,
-          textAlign: lang === 'ar' ? 'left' : 'right',
+          textAlign: lang === 'ar' ? 'right' : 'left',
+          marginTop: -7,
         }}
         containerStyle={[
           containerStyle,
@@ -78,8 +78,8 @@ const InputView = ({
           color: '#000',
           fontSize: 14,
           opacity: 0.7,
-          // fontFamily: Fonts.RobotoRegular,
           textAlign: lang === 'ar' ? 'right' : 'left',
+          alignItems: 'center',
         }}
         inputContainerStyle={
           inputContainerStyling

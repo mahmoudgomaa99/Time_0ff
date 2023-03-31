@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import React, { useState } from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
@@ -67,9 +67,37 @@ const Login = () => {
               containerStyle={[styles.containerStyle, { marginTop: 10 }]}
               labelStyle={[styles.label_style]}
               rightIcon={
-                <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
-                  <Svg name="eyeClosed" style={{ marginTop: -10 }} size={20} />
-                </TouchableOpacity>
+                Platform.OS === 'ios' ? (
+                  <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
+                    <Svg
+                      name="eyeClosed"
+                      style={{ marginTop: -10 }}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  lang === 'en' && (
+                    <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
+                      <Svg
+                        name="eyeClosed"
+                        style={{ marginTop: -10 }}
+                        size={20}
+                      />
+                    </TouchableOpacity>
+                  )
+                )
+              }
+              leftIcon={
+                Platform.OS === 'android' &&
+                lang === 'ar' && (
+                  <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
+                    <Svg
+                      name="eyeClosed"
+                      style={{ marginTop: -10 }}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                )
               }
               secureTextEntry={secure}
             />

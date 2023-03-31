@@ -10,7 +10,9 @@ const COLORS = {
   primary: '#1F1FEC',
   secondery: '#000',
   //
-  alfaBlack: 'rgba(0, 0, 0, 0.8)',
+  alfaBlack: 'rgba(192,192,192, 0.65)',
+  alfaBlack2: 'rgba(192,192,192, 0.4)',
+
   lightGrey: '#F2F2F2',
   red: '#ff0000',
   grey: '#B4B4B4',
