@@ -4,18 +4,20 @@ import Home from 'src/screens/App/Home';
 import DetailsTrip from 'screens/App/DetailsTrip';
 
 import Map from 'src/screens/App/Map';
+import ProviderProfile from 'screens/App/ProviderProfile';
 import TabBar from './TabBar';
 export type TAuthStack = {
   home: undefined;
   map: undefined;
   detailsTrip: undefined;
+  providerProfile:undefined
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName="home">
+    <Stack.Navigator initialRouteName="providerProfile">
       <Stack.Screen
         name="home"
         component={TabBar}
@@ -30,6 +32,11 @@ const AppStack = () => {
         options={{ headerShown: false }}
         name="map"
         component={Map}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="providerProfile"
+        component={ProviderProfile}
       />
     </Stack.Navigator>
   );

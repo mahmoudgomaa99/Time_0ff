@@ -31,6 +31,13 @@ import FaceBook from './Facebook';
 import MiniLocation from './MiniLocation';
 import Close from './Close';
 import Calendar from './Calendar';
+import LocationWithB from './LocationWithB';
+import StarWithB from './StarWithB';
+import Logout from './Logout';
+import Favourites from './Favourites';
+import MyBookings from './MyBookings';
+import Edit from './Edit';
+import SmallArrow from './SmallArrow';
 const svgs = {
   default: Logo,
   rightArrow: RightArrow,
@@ -63,7 +70,14 @@ const svgs = {
   faceBook: FaceBook,
   miniLocation: MiniLocation,
   close:Close,
-  calendar:Calendar
+  calendar:Calendar,
+  locationWithB:LocationWithB,
+  starWithB:StarWithB,
+  logout:Logout,
+  favourites:Favourites,
+  myBookings:MyBookings,
+  edit:Edit,
+  smallArrow:SmallArrow
 };
 
 export default svgs;
