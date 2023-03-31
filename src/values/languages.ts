@@ -30,7 +30,7 @@ const languages: any = {
     meditation: 'Meditation',
     enjoy: 'Enjoy',
     welcomeBackHome: 'Welcome Back',
-    user: 'Mariem Mohamed Sayed',
+    user: 'Mariem Mohamed Sayed ',
     searchInApp: 'Search in app',
     types: 'Category',
     trips: 'Trips',

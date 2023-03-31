@@ -5,14 +5,20 @@ import TextView from 'atoms/TextView';
 import { data } from './data';
 import { styles } from './styles';
 import languages from 'values/languages';
+import { useNavigation } from '@react-navigation/native';
 
 const Contents = ({ lang }: { lang: string }) => {
+  const navigation = useNavigation<any>();
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value, index) => (
         <View>
           <TouchableOpacity
-            onPress={() => console.log('clicked')}
+            onPress={() =>{
+              console.log('before')
+              navigation.navigate(value.to)
+              console.log('after')
+            } }
             style={styles(lang).container}>
             <View style={styles(lang).innerContainer}>
               <Svg name={value.iconName} size={60}/>
