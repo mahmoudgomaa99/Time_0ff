@@ -13,6 +13,8 @@ import { Input } from 'react-native-elements';
 import Svg from 'atoms/Svg';
 import languages from 'values/languages';
 import { useNavigation } from '@react-navigation/native';
+import { h } from '../../../values/Dimensions';
+import COLORS from 'values/colors';
 
 const Map = () => {
   const navigation = useNavigation<any>();
@@ -35,6 +37,7 @@ const Map = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <MapView
         ref={mapRef}
+        showsMyLocationButton={false}
         style={styles.map}
         showsUserLocation
         region={{
@@ -62,10 +65,13 @@ const Map = () => {
           styles={{
             textInputContainer: {},
             textInput: {
-              height: 38,
+              height: h * 0.06,
               fontSize: 16,
               textAlign: lang === 'ar' ? 'right' : 'left',
+              margin: 20,
+              color: COLORS.secondery,
             },
+            placeholder: { color: COLORS.secondery },
           }}
           fetchDetails
         />

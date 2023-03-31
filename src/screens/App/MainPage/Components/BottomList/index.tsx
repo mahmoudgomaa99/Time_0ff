@@ -7,7 +7,7 @@ import { selectLanguage } from 'redux/language/index';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { styles } from './styles';
-import { h } from '../../../../../values/Dimensions';
+import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 
 const BottomList = ({ lang }: { lang: string }) => {

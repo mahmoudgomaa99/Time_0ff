@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
   lastText: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 20,
   },
   create: {
     color: COLORS.darkBlue,

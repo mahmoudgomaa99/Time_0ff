@@ -13,7 +13,7 @@ import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 import { TName } from 'atoms/Svg';
 import RNPickerSelect from 'react-native-picker-select';
-import { MarginsAndPaddings } from '../../values/Dimensions';
+import { MarginsAndPaddings, h } from '../../values/Dimensions';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from '../../redux/language/index';
 import { images } from '../../assets/images';
@@ -67,6 +67,7 @@ const Picker = ({
           <RNPickerSelect
             {...props}
             // errorText={{ fontSize: 30 }}
+
             placeholder={{
               label: props.placeholder || languages[lang].selectCountry,
               value: null,
@@ -108,12 +109,12 @@ const Picker = ({
             }}
             // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
             // Icon={<Svg name="default" />}
-            // Icon={() => (
-            //   <Image
-            //     source={images.downArrow}
-            //     style={{ width: 20, height: 20 }}
-            //   />
-            // )}
+            Icon={() => (
+              <Image
+                source={images.downArrow}
+                style={{ width: 20, height: 20 }}
+              />
+            )}
           />
         ) : (
           <View
@@ -159,11 +160,26 @@ const Picker = ({
                 // iconContainer: { top: '42%', right: 10 },
               }}
               // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
+              Icon={() => (
+                <Image
+                  source={images.downArrow}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    marginTop: h * 0.024,
+                    marginRight: h * 0.02,
+                  }}
+                />
+              )}
             />
           </View>
         )}
         {props.errors[props.name] && props.touched[props.name] && (
-          <Text style={[styles.errorText, { textAlign: 'right' }]}>
+          <Text
+            style={[
+              styles.errorText,
+              { textAlign: lang === 'ar' ? 'right' : 'left' },
+            ]}>
             {props.errors[props.name]}
           </Text>
         )}

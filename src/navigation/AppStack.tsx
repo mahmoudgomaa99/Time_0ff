@@ -5,6 +5,7 @@ import DetailsTrip from 'screens/App/DetailsTrip';
 
 import Map from 'src/screens/App/Map';
 import ProviderProfile from 'screens/App/ProviderProfile';
+import TabBar from './TabBar';
 export type TAuthStack = {
   home: undefined;
   map: undefined;
@@ -19,7 +20,7 @@ const AppStack = () => {
     <Stack.Navigator initialRouteName="providerProfile">
       <Stack.Screen
         name="home"
-        component={Home}
+        component={TabBar}
         options={{ headerShown: false }}
       />
       <Stack.Screen

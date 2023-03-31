@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     color: COLORS.grey,
     lineHeight: 21,
     fontWeight: '500',
+    marginTop: 10,
   },
   containerMedia: {
     flexDirection: 'row',
@@ -89,8 +90,9 @@ const styles = StyleSheet.create({
     textDecorationColor: COLORS.blue,
     textDecorationLine: 'underline',
     fontSize: 14,
-    marginHorizontal: 4,
+    // marginHorizontal: 4,
     lineHeight: 19,
+    textAlign: 'center',
   },
   label_style: {
     color: '#C4C3C3',
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 19,
+    color: COLORS.secondery,
   },
 });
 

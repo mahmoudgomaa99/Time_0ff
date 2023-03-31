@@ -6,12 +6,13 @@ import { styles } from './styes';
 import { FormikProps } from 'formik';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
+import { TInitialValues } from '../../data';
 
 const RangePrice = ({
   formikProps,
   lang,
 }: {
-  formikProps: FormikProps<any>;
+  formikProps: FormikProps<TInitialValues>;
   lang: string;
 }) => {
   return (

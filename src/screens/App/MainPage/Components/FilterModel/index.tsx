@@ -2,7 +2,6 @@ import { View, Text, ScrollViewComponent } from 'react-native';
 import React, { useRef, useState } from 'react';
 import Modal from 'react-native-modal';
 import { styles } from './styles';
-import { h } from 'values/Dimensions';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import { Formik } from 'formik';
@@ -10,34 +9,27 @@ import InputView from 'components/molecules/Input';
 import RangePriceSlider from './Components/RangePrice/RangePrice';
 import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import Top from './Components/Top';
 import DateModal from './Components/DateModal';
 import languages from 'values/languages';
+import { initialVslues } from './data';
+import { useSelector } from 'react-redux';
+import { selectLanguage } from 'redux/language/index';
 
 const FilterModel = ({
   isFilterModalVisable,
   setFilterModalVisable,
-  lang,
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
-  lang: string;
 }) => {
-  // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
-  // const lang = 'ar';
+  const lang = useSelector(selectLanguage);
   return (
     <Formik
-      initialValues={{
-        category: '',
-        date: '',
-        city: '',
-        startPrice: '',
-        endPrice: '',
-        rating: '',
-      }}
+      initialValues={initialVslues}
       onSubmit={values => console.log(values)}>
       {props => (
         <Modal

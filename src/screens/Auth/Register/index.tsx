@@ -13,6 +13,7 @@ import Picker from 'components/molecules/Picker';
 import { registerScheme } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg from 'atoms/Svg';
+import COLORS from 'values/colors';
 
 const Register = () => {
   const lang = useSelector(selectLanguage);
@@ -107,14 +108,16 @@ const Register = () => {
               secureTextEntry={secure}
             />
             <Picker
-              borderColor={'#F2F2F2'}
               {...props}
+              borderColor={'#F2F2F2'}
               type={'primary'}
               data={[
                 { label: 'egypt', value: 'egypt' },
                 { label: 'france', value: 'france' },
               ]}
+              placeholder={'City'}
               name={'city'}
+              // values={props.values}
             />
             <Button
               onPress={props.handleSubmit}
@@ -127,7 +130,10 @@ const Register = () => {
                 styles.lastText,
                 { flexDirection: lang === 'en' ? 'row' : 'row-reverse' },
               ]}>
-              <TextView title={languages[lang].haveAccount} />
+              <TextView
+                title={languages[lang].haveAccount}
+                style={{ color: COLORS.secondery }}
+              />
               <TextView
                 title={languages[lang].login}
                 style={styles.create}
