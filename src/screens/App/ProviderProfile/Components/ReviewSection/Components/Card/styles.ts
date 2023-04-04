@@ -16,6 +16,8 @@ export const styles = (lang: string) => {
     },
     imageContainer: {
       flex: 1.3,
+      marginRight: lang === 'en' ? 5 : 0,
+      marginLeft: lang === 'ar' ? 5 : 0,
     },
     image: {
       width: 40,
@@ -36,11 +38,12 @@ export const styles = (lang: string) => {
     name: {
       fontSize: 16,
       color: COLORS.black,
+      maxWidth: '70%',
     },
     review: {
       fontSize: 14,
       color: '#5B5959',
-      maxHeight:h*.02
+      maxHeight: h * 0.025,
     },
   });
 };

@@ -14,13 +14,13 @@ export const styles = StyleSheet.create({
     elevation: 5,
     shadowColor: '#bfbdbd',
     backgroundColor: 'white',
-    shadowOffset: { height: 2.2, width: 0.1 },
+    shadowOffset: { height: 1, width: 1 },
     shadowOpacity: 1,
     // marginHorizontal: 15,
     // marginTop:20,
   },
   imageContainer: {
-    width: w * 0.27,
+    flex:1
   },
   image: {
     width: '100%',
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
   },
   contentContainer: {
-    width: w * 0.59,
+    flex:2.3,
     marginHorizontal: 5,
   },
   top: {
@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     color: '#000000',
     marginBottom: 5,
     lineHeight: 14,
+    maxWidth:'90%'
   },
   end: {
     flexDirection: 'row',
