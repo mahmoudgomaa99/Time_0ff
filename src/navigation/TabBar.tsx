@@ -17,6 +17,7 @@ const TabBar = () => {
   const lang = useSelector(selectLanguage);
   return (
     <Tab.Navigator
+      initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: '#0370D6',
         tabBarInactiveTintColor: '#000000',

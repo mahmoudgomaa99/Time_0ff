@@ -14,7 +14,14 @@ import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 import Svg, { TName } from '../atoms/Svg';
 
-type TType = 'primary' | 'secondry' | 'ticket_type' | 'book' | 'map';
+type TType =
+  | 'primary'
+  | 'secondry'
+  | 'ticket_type'
+  | 'book'
+  | 'map'
+  | 'cancel'
+  | 'primaryModel';
 
 type TButton = {
   isLoading?: boolean;
@@ -88,6 +95,30 @@ const styles = StyleSheet.create({
     height: h * 0.08,
     fontSize: 16,
   },
+  primaryModel: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: MarginsAndPaddings.xxl,
+    marginTop: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: BorderRadius.s,
+    marginBottom:
+      Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
+    height: h * 0.05,
+    fontSize: 16,
+  },
+  cancel: {
+    backgroundColor: '#E2E2E2',
+    paddingHorizontal: MarginsAndPaddings.xxl,
+    marginTop: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: BorderRadius.s,
+    marginBottom:
+      Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
+    height: h * 0.05,
+    fontSize: 16,
+  },
   book: {
     padding: MarginsAndPaddings.xxl,
     backgroundColor: COLORS.darkBlue,
@@ -134,6 +165,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
   },
+  txt_primaryModel: {
+    color: COLORS.white,
+    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
+    fontSize: 16,
+    lineHeight: 21,
+  },
   txt_map: {
     color: COLORS.black,
     fontSize: 16,
@@ -145,4 +183,10 @@ const styles = StyleSheet.create({
   },
   txt_ticket_type: { color: COLORS.primary, fontWeight: '700', fontSize: 17 },
   txt_book: {},
+  txt_cancel: {
+    color: COLORS.black,
+    fontFamily: Fonts.RobotoBold,
+    fontSize: 16,
+    lineHeight: 21,
+  },
 });

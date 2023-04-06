@@ -38,6 +38,14 @@ import Favourites from './Favourites';
 import MyBookings from './MyBookings';
 import Edit from './Edit';
 import SmallArrow from './SmallArrow';
+import Key from './Key';
+import Gmail from './Gmail';
+import Calendar2 from './Calendar2';
+import Group from './Group';
+import Cube from './Cube';
+import Address from './Address';
+import PhoneNumber from './PhoneNumber';
+import WhatsApp from './WhatsApp';
 const svgs = {
   default: Logo,
   rightArrow: RightArrow,
@@ -77,7 +85,15 @@ const svgs = {
   favourites:Favourites,
   myBookings:MyBookings,
   edit:Edit,
-  smallArrow:SmallArrow
+  smallArrow:SmallArrow,
+  key:Key,
+  gmail:Gmail,
+  calendar2:Calendar2,
+  group:Group,
+  cube:Cube,
+  address:Address,
+  phoneNumber:PhoneNumber,
+  whatsApp:WhatsApp
 };
 
 export default svgs;
