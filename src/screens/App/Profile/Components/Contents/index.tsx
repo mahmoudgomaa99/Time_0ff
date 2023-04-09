@@ -11,28 +11,30 @@ const Contents = ({ lang }: { lang: string }) => {
   const navigation = useNavigation<any>();
   return (
     <View style={styles(lang).parentContainer}>
-      {data(lang).map((value, index) => (
+      {data(lang).map((value: any, index) => (
         <View>
           <TouchableOpacity
-            onPress={() =>{
-              console.log('before')
-              navigation.navigate(value.to)
-              console.log('after')
-            } }
+            onPress={() => {
+              console.log('before');
+              navigation.navigate(value.to);
+              console.log('after');
+            }}
             style={styles(lang).container}>
             <View style={styles(lang).innerContainer}>
-              <Svg name={value.iconName} size={60}/>
+              <Svg name={value.iconName} size={60} />
               <TextView title={value.title} style={styles(lang).text} />
             </View>
-            <Svg name="smallArrow" size={25} style={styles(lang).arrow}/>
+            <Svg name="smallArrow" size={25} style={styles(lang).arrow} />
           </TouchableOpacity>
         </View>
       ))}
       <TouchableOpacity
-        onPress={() => console.log('clicked')}
+        onPress={() => {
+          navigation.navigate('auth', { screenName: 'login' });
+        }}
         style={styles(lang).container}>
         <View style={styles(lang).innerContainer}>
-          <Svg name='logout' size={60}/>
+          <Svg name="logout" size={60} />
           <TextView title={languages[lang].logout} style={styles(lang).text} />
         </View>
       </TouchableOpacity>

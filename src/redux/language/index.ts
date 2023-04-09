@@ -5,7 +5,7 @@ type TInitialValues = {
   language: 'en' | 'ar';
 };
 const initialState: TInitialValues = {
-  language: 'ar',
+  language: 'en',
 };
 const slice = createSlice({
   name: 'language',
@@ -13,7 +13,7 @@ const slice = createSlice({
   reducers: {
     changeLanguage: state => {
       state.language = state.language === 'ar' ? 'en' : 'ar';
-      setTimeout(() => RNRestart.Restart(), 50);
+      setTimeout(() => RNRestart.Restart(), 40);
     },
   },
 });

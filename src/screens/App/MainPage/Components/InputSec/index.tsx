@@ -51,7 +51,10 @@ const InputSec = ({
         </Formik>
       </View>
       <View style={[styles.filter, { marginLeft: lang === 'en' ? -11 : 0 }]}>
-        <TouchableOpacity onPress={() => setFilterModalVisable(true)}>
+        <TouchableOpacity onPress={() =>{
+          
+          setFilterModalVisable(true)
+        } }>
           <Svg name="rightMenu" size={65} />
         </TouchableOpacity>
       </View>

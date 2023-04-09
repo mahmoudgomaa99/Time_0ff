@@ -15,8 +15,10 @@ import languages from 'values/languages';
 import { useNavigation } from '@react-navigation/native';
 import { h } from '../../../values/Dimensions';
 import COLORS from 'values/colors';
+import LocationModel from './Components/LocationModel';
 
 const Map = () => {
+  const [isLocationModel, setisLocationModel] = useState(true);
   const navigation = useNavigation<any>();
   const location = useSelector(selectLocation);
   const lang = useSelector(selectLanguage);
@@ -108,6 +110,11 @@ const Map = () => {
           />
         </View>
       </Fragment>
+      <LocationModel
+        lang={lang}
+        isLocationModel={isLocationModel}
+        setisLocationModel={setisLocationModel}
+      />
     </SafeAreaView>
   );
 };

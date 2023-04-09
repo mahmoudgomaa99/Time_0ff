@@ -16,10 +16,23 @@ import BottomList from './Components/BottomList';
 import FilterModel from './Components/FilterModel';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
+import NotificationModel from './Components/NotificationModel';
+import FlightConfirmedModel from './Components/FlightConfirmedModel';
 
-const MainPage = () => {
+const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
+  const [isNotificationModel, setisNotificationModel] = useState(false);
+  const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
   const lang = useSelector(selectLanguage);
+  if (route.params?.modal) {
+    setTimeout(() => {
+      setisFlightConfirmed(true);
+      navigation.setParams({
+        modal: undefined,
+      });
+    }, 100);
+  }
+
   return (
     <View style={styles.container}>
       <Header lang={lang} />
@@ -34,6 +47,16 @@ const MainPage = () => {
       <FilterModel
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
+      />
+      <NotificationModel
+        lang={lang}
+        isNotificationModel={isNotificationModel}
+        setisNotificationModel={setisNotificationModel}
+      />
+      <FlightConfirmedModel
+        lang={lang}
+        isFlightConfirmed={isFlightConfirmed}
+        setisFlightConfirmed={setisFlightConfirmed}
       />
     </View>
   );

@@ -9,14 +9,20 @@ import TabBar from './TabBar';
 import EditProfile from 'screens/App/EditProfile';
 import MyBookings from 'screens/App/MyBookings';
 import Wishlist from 'screens/App/Wishlist';
+import ContactUs from 'screens/App/ContactUs';
+import Notification from 'screens/App/Notification';
+import Settings from 'screens/App/Settings';
 export type TAuthStack = {
   home: undefined;
   map: undefined;
   detailsTrip: undefined;
   providerProfile: undefined;
-  editProfile:undefined,
-  myBookings:undefined,
-  wishlist:undefined
+  editProfile: undefined;
+  myBookings: undefined;
+  wishlist: undefined;
+  contactUs: undefined;
+  notification: undefined;
+  settings: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
@@ -58,6 +64,21 @@ const AppStack = () => {
         options={{ headerShown: false }}
         name="wishlist"
         component={Wishlist}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="contactUs"
+        component={ContactUs}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="notification"
+        component={Notification}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="settings"
+        component={Settings}
       />
     </Stack.Navigator>
   );

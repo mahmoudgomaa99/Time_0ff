@@ -18,7 +18,7 @@ const RangePrice = ({
   return (
     <View>
       <TextView title={languages[lang].rangePrice} style={styles.text} />
-      <View style={styles.range}>
+      <View style={[styles.range, { direction: 'rtl' }]}>
         <Slider
           value={[formikProps.values.startPrice, formikProps.values.endPrice]}
           minimumValue={0}

@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import React from 'react';
 import { useAppDispatch } from '../../../redux/store';
 import Language, { selectLanguage } from 'redux/language';
@@ -18,19 +18,21 @@ const Profile = () => {
     <View style={styles(lang).container}>
       <Top lang={lang} />
       <ImageSection lang={lang} />
-      <Contents lang={lang} />
-      <Text
-        style={{
-          fontSize: 20,
-          margin: 10,
-          color: COLORS.secondery,
-          textDecorationLine: 'underline',
-        }}
-        onPress={() => {
-          dispatch(Language.changeLanguage());
-        }}>
-        Demo Change Language
-      </Text>
+      <ScrollView>
+        <Contents lang={lang} />
+        {/* <Text
+          style={{
+            fontSize: 20,
+            margin: 10,
+            color: COLORS.secondery,
+            textDecorationLine: 'underline',
+          }}
+          onPress={() => {
+            dispatch(Language.changeLanguage());
+          }}>
+          Demo Change Language
+        </Text> */}
+      </ScrollView>
     </View>
   );
 };
