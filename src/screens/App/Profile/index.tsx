@@ -20,7 +20,7 @@ const Profile = () => {
       <ImageSection lang={lang} />
       <ScrollView>
         <Contents lang={lang} />
-        <Text
+        {/* <Text
           style={{
             fontSize: 20,
             margin: 10,
@@ -31,7 +31,7 @@ const Profile = () => {
             dispatch(Language.changeLanguage());
           }}>
           Demo Change Language
-        </Text>
+        </Text> */}
       </ScrollView>
     </View>
   );

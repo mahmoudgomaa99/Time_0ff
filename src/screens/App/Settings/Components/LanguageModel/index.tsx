@@ -7,22 +7,29 @@ import { Formik } from 'formik';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import Button from 'components/molecules/Button';
+import { useAppDispatch } from 'redux/store';
+import { useSelector } from 'react-redux';
+import Language, { selectLanguage } from 'redux/language';
 
 const LanguageModel = ({
-  lang,
   isLanguageModel,
   setisLanguageModel,
 }: {
-  lang: string;
   isLanguageModel: boolean;
   setisLanguageModel: any;
 }) => {
+  const dispatch = useAppDispatch();
+  const lang = useSelector(selectLanguage);
   return (
     <Modal isVisible={isLanguageModel}>
       <View style={styles(lang).modalContainer}>
         <Formik
-          initialValues={{ language: '' }}
-          onSubmit={value => console.log(value)}>
+          initialValues={{ language: lang }}
+          onSubmit={value => {
+            if (lang !== value.language) {
+              dispatch(Language.changeLanguage());
+            }
+          }}>
           {props => (
             <View style={styles(lang).container}>
               <RadioButton.Group
@@ -30,7 +37,7 @@ const LanguageModel = ({
                 value={props.values.language}>
                 <View style={styles(lang).flexRow}>
                   <View style={styles(lang).radio}>
-                    <RadioButton value="arabic"></RadioButton>
+                    <RadioButton value="ar" />
                   </View>
                   <TextView
                     title={languages[lang].arabic}
@@ -39,7 +46,7 @@ const LanguageModel = ({
                 </View>
                 <View style={styles(lang).flexRow}>
                   <View style={styles(lang).radio}>
-                    <RadioButton value="english"></RadioButton>
+                    <RadioButton value="en" />
                   </View>
                   <TextView
                     title={languages[lang].english}

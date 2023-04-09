@@ -5,19 +5,24 @@ import languages from 'values/languages';
 import { styles } from './styles';
 import { Data } from './data';
 import Svg from 'atoms/Svg';
+import { h } from 'values/Dimensions';
 
 const LastBookings = ({ lang }: { lang: string }) => {
   return (
-    <View>
+    <View style={{ paddingHorizontal: 15 }}>
       <TextView
         title={languages[lang].lastBooking}
         style={styles(lang).title}
       />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: h * 0.2 }}>
         {Data(lang).map(value => (
           <View style={styles(lang).container}>
-            <View>
-              <Svg name="cube" size={50} />
+            <View
+              style={{
+                marginLeft: lang === 'en' ? -10 : 0,
+                marginRight: lang === 'ar' ? -10 : 0,
+              }}>
+              <Svg name="cube" size={60} />
             </View>
             <View>
               <TextView title={value.title} style={styles(lang).text} />

@@ -5,7 +5,7 @@ import COLORS from 'values/colors';
 export const styles = (lang: string) => {
   return StyleSheet.create({
     parentContainer: {
-      marginTop: h * 0.03,
+      marginHorizontal: 10,
     },
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

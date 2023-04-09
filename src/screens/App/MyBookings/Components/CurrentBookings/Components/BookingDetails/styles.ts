@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { MarginsAndPaddings } from 'values/Dimensions';
+import { MarginsAndPaddings, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
 export const styles = (lang: string) => {
@@ -11,8 +11,9 @@ export const styles = (lang: string) => {
     },
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
-      alignItems:'center',
-      marginBottom:MarginsAndPaddings.xl
+      alignItems: 'center',
+      marginBottom: MarginsAndPaddings.xl,
+      marginLeft: -10,
     },
     firstText: {
       fontSize: 16,

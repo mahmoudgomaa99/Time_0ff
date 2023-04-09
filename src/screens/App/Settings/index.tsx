@@ -32,7 +32,6 @@ const Settings = () => {
         setisPasswordModel={setisPasswordModel}
       />
       <LanguageModel
-        lang={lang}
         isLanguageModel={isLanguageModel}
         setisLanguageModel={setisLanguageModel}
       />

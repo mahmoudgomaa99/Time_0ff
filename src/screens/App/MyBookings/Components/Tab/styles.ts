@@ -12,6 +12,7 @@ export const styles = (lang: string) => {
       borderWidth: 1,
       borderRadius: 10,
       marginBottom: MarginsAndPaddings.xxl,
+      marginHorizontal: 15,
     },
     first: {
       flex: 1,

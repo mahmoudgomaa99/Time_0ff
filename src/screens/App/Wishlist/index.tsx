@@ -13,7 +13,7 @@ const Wishlist = () => {
   return (
     <View style={styles(lang).container}>
       <Top lang={lang} />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
         {Data(lang).map(value => (
           <Card
             title={value.title}

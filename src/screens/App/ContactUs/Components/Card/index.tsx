@@ -11,14 +11,14 @@ const Card = ({
   subTitle,
 }: {
   lang: string;
-  iconName:string;
-  title:string;
-  subTitle:string;
+  iconName: any;
+  title: string;
+  subTitle: string;
 }) => {
   return (
     <View style={styles(lang).container}>
       <View>
-        <Svg name={iconName} size={50}/>
+        <Svg name={iconName} size={50} />
       </View>
       <View style={styles(lang).second}>
         <TextView title={title} style={styles(lang).title} />

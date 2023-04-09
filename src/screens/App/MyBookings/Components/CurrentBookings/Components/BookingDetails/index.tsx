@@ -16,7 +16,7 @@ const BookingDetails = ({ lang }: { lang: string }) => {
       <View>
         <View style={styles(lang).container}>
           <View>
-            <Svg name="cube" size={50} />
+            <Svg name="cube" size={60} />
           </View>
           <View>
             <TextView
@@ -31,7 +31,7 @@ const BookingDetails = ({ lang }: { lang: string }) => {
         </View>
         <View style={styles(lang).container}>
           <View>
-            <Svg name="cube" size={50} />
+            <Svg name="cube" size={60} />
           </View>
           <View>
             <TextView
@@ -46,7 +46,7 @@ const BookingDetails = ({ lang }: { lang: string }) => {
         </View>
         <View style={styles(lang).container}>
           <View>
-            <Svg name="cube" size={50} />
+            <Svg name="cube" size={60} />
           </View>
           <View>
             <TextView

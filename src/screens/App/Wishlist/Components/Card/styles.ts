@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
-import { w ,h} from 'values/Dimensions';
-
+import { w, h } from 'values/Dimensions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,16 +10,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     paddingBottom: 5,
-    elevation: 5,
+    elevation: 10,
     shadowColor: '#bfbdbd',
     backgroundColor: 'white',
-    shadowOffset: { height: 1, width: 1 },
+    shadowOffset: { height: 1, width: 5 },
     shadowOpacity: 1,
-    // marginHorizontal: 15,
-    // marginTop:20,
+    marginHorizontal: 10,
   },
   imageContainer: {
-    flex:1
+    flex: 1,
   },
   image: {
     width: '100%',
@@ -28,7 +26,7 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
   },
   contentContainer: {
-    flex:2.3,
+    flex: 2.3,
     marginHorizontal: 5,
   },
   top: {
@@ -44,7 +42,7 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     color: '#B8B8B8',
     marginVertical: 5,
-    maxHeight: h * 0.05,
+    maxHeight: h * 0.034,
   },
   location: {
     flexDirection: 'row',
@@ -55,7 +53,7 @@ export const styles = StyleSheet.create({
     color: '#000000',
     marginBottom: 5,
     lineHeight: 14,
-    maxWidth:'90%'
+    maxWidth: '90%',
   },
   end: {
     flexDirection: 'row',

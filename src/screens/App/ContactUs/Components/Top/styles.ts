@@ -10,6 +10,8 @@ export const styles = (lang: string) => {
       alignItems: 'center',
       position: 'relative',
       marginBottom: 50,
+      marginHorizontal: 5,
+      marginTop: 15,
     },
     arrow: {
       transform: [{ rotate: lang === 'en' ? '180deg' : '0deg' }],

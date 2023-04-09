@@ -5,7 +5,7 @@ import Payment from './Components/Payment';
 
 const CurrentBookings = ({ lang }: { lang: string }) => {
   return (
-    <View>
+    <View style={{ marginHorizontal: 15 }}>
       <BookingDetails lang={lang} />
       <Payment lang={lang} />
     </View>

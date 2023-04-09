@@ -10,25 +10,31 @@ const Card = ({
   message,
   date,
   isPayment,
-  setisPayment
+  setisPayment,
 }: {
   lang: string;
-  iconName: string;
+  iconName: any;
   message: string;
   date: string;
-  isPayment:boolean;
-  setisPayment:any
+  isPayment: boolean;
+  setisPayment: any;
 }) => {
   return (
     <View style={styles(lang).container}>
       <View style={styles(lang).first}>
-        <Svg name={iconName} size={50}/>
+        <Svg name={iconName} size={60} />
       </View>
       <View style={styles(lang).second}>
-        <TextView title={message} style={styles(lang).message} onPress={()=>{
-          message.includes('accepted') ||message.includes('قبول') ? setisPayment(true):null
-        }}/>
-        <TextView title={date} style={styles(lang).date}/>
+        <TextView
+          title={message}
+          style={styles(lang).message}
+          onPress={() => {
+            message.includes('accepted') || message.includes('قبول')
+              ? setisPayment(true)
+              : null;
+          }}
+        />
+        <TextView title={date} style={styles(lang).date} />
       </View>
     </View>
   );

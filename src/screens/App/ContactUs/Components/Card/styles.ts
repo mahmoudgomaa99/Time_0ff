@@ -5,19 +5,20 @@ import COLORS from 'values/colors';
 export const styles = (lang: string) => {
   return StyleSheet.create({
     container: {
-      flexDirection: lang === 'en'?'row':'row-reverse',
+      flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       alignItems: 'center',
-      marginBottom: h*.04,
+      marginBottom: h * 0.04,
       borderRadius: 10,
       paddingHorizontal: 10,
       paddingTop: 10,
       paddingBottom: 5,
-      elevation: 30,
+      elevation: 10,
       shadowColor: '#bfbdbd',
       backgroundColor: 'white',
       shadowOffset: { height: 1, width: 1 },
       shadowOpacity: 1,
-      height: 74,
+      height: h * 0.09,
+      marginHorizontal: 10,
     },
     second: {
       marginLeft: lang === 'en' ? 3 : 0,
@@ -30,8 +31,9 @@ export const styles = (lang: string) => {
     subTitle: {
       fontSize: 14,
       color: COLORS.black,
-      maxWidth:w*.75,
-      marginTop:3
+      maxWidth: w * 0.7,
+      marginTop: 3,
+      maxHeight: 20,
     },
   });
 };

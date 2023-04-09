@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
-import { h, MarginsAndPaddings } from 'values/Dimensions';
+import { h, MarginsAndPaddings, w } from 'values/Dimensions';
 
 export const styles = (lang: string) => {
   return StyleSheet.create({
@@ -8,10 +8,11 @@ export const styles = (lang: string) => {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       alignItems: 'center',
       marginTop: h * 0.06,
+      marginHorizontal: 15,
     },
     image: {
-      width: 120,
-      height: 120,
+      width: w * 0.29,
+      height: h * 0.15,
       borderRadius: 23,
     },
     text: {

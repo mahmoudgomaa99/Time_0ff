@@ -7,7 +7,8 @@ export const styles = (lang: string) => {
     container: {
       flex: 1,
       backgroundColor: COLORS.white,
-      padding: MarginsAndPaddings.ml,
+      // paddingHorizontal: 20,
+      paddingTop: 20,
     },
   });
 };

@@ -28,7 +28,7 @@ const Card = ({
   const navigation = useNavigation<any>();
   return (
     <View style={styles(lang).parentContainer}>
-      {data(lang).map((value, index) => (
+      {data(lang).map((value: any, index) => (
         <View>
           <TouchableOpacity
             onPress={() => {

@@ -11,9 +11,9 @@ const Switches = ({ lang }: { lang: string }) => {
     setIsNotification(previousState => !previousState);
   const toggleDarkMode = () => setIsDarkMode(previousState => !previousState);
   return (
-    <View>
+    <View style={{ marginRight: 10 }}>
       <View style={styles(lang).container}>
-        <TextView title={languages[lang].allowN} style={styles(lang).text}/>
+        <TextView title={languages[lang].allowN} style={styles(lang).text} />
         <Switch
           trackColor={{ false: '#E9E9E9', true: '#81b0ff' }}
           thumbColor={isNotification ? 'white' : 'white'}
@@ -23,7 +23,7 @@ const Switches = ({ lang }: { lang: string }) => {
         />
       </View>
       <View style={styles(lang).container}>
-        <TextView title={languages[lang].darkMode} style={styles(lang).text}/>
+        <TextView title={languages[lang].darkMode} style={styles(lang).text} />
         <Switch
           trackColor={{ false: '#E9E9E9', true: '#81b0ff' }}
           thumbColor={isDarkMode ? 'white' : 'white'}

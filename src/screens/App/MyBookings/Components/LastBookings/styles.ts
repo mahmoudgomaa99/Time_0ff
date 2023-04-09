@@ -42,9 +42,9 @@ export const styles = (lang: string, color?: string) => {
       borderRadius: 100,
       marginHorizontal: MarginsAndPaddings.s,
     },
-    statusText:{
-        fontSize:16,
-        color:color
-    }
+    statusText: {
+      fontSize: 16,
+      color: color,
+    },
   });
 };

@@ -7,17 +7,16 @@ export const styles = (lang: string) => {
     container: {
       flex: 1,
       backgroundColor: COLORS.white,
-      padding: MarginsAndPaddings.ml,
     },
-    noInbox:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        marginTop:-h*.2
+    noInbox: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: -h * 0.2,
     },
-    text:{
-        fontSize:22,
-        color:COLORS.black
-    }
+    text: {
+      fontSize: 22,
+      color: COLORS.black,
+    },
   });
 };
