@@ -17,7 +17,7 @@ const FlightConfirmedModel = ({
   return (
     <Modal isVisible={isFlightConfirmed}>
       <View style={styles(lang).modalContainer}>
-        <Svg name="blueLogo" size={100} />
+        <Svg name="planet" size={100} />
         <TextView
           title={languages[lang].flightConfirmed}
           style={styles(lang).title}

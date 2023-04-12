@@ -26,5 +26,15 @@ export const styles = (lang: string) => {
     arrow: {
       transform: [{ rotate: lang === 'en' ? '180deg' : '0deg' }],
     },
+
+    svg: {
+      backgroundColor: '#eee',
+      width: 40,
+      height: 40,
+      borderRadius: 13,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal:10
+    },
   });
 };

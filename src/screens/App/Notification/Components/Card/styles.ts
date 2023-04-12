@@ -9,12 +9,12 @@ export const styles = (lang: string) => {
       alignItems: 'center',
       marginBottom: h * 0.01,
       borderRadius: 10,
-      paddingHorizontal: 10,
+      // paddingHorizontal: 10,
       paddingTop: 10,
       paddingBottom: 5,
     },
     first: {
-      flex: 1,
+      flex: 1.4,
     },
     second: {
       flex: 6,

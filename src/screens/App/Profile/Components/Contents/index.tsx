@@ -24,7 +24,14 @@ const Contents = ({ lang }: { lang: string }) => {
             }}
             style={styles(lang).container}>
             <View style={styles(lang).innerContainer}>
-              <Svg name={value.iconName} size={60} />
+              <View
+                style={value.iconName === 'setting' ? styles(lang).svg : null}>
+                <Svg
+                  name={value.iconName}
+                  size={value.iconName === 'setting' ? 35 : 60}
+                />
+              </View>
+
               <TextView title={value.title} style={styles(lang).text} />
             </View>
             <Svg name="smallArrow" size={25} style={styles(lang).arrow} />

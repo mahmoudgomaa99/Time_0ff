@@ -22,7 +22,7 @@ const Card = ({
   return (
     <View style={styles(lang).container}>
       <View style={styles(lang).first}>
-        <Svg name={iconName} size={60} />
+        <Svg name={iconName} size={80} />
       </View>
       <View style={styles(lang).second}>
         <TextView

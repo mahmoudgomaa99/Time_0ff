@@ -152,8 +152,3 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
 
 export default SvgComponent;
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="26.884"
-  height="24"
-  viewBox="0 0 26.884 24"></svg>;

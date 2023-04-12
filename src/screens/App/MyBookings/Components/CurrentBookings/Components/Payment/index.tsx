@@ -10,41 +10,26 @@ const Payment = ({ lang }: { lang: string }) => {
     <View>
       <TextView title={languages[lang].payment} style={styles(lang).title} />
       <View style={styles(lang).outerContainer}>
-        <View style={styles(lang).container}>
-          <TextView
-            title={languages[lang].price}
-            style={styles(lang).firstText}
-          />
-          <TextView
-            title={`${Data(lang).price} ${languages[lang].le}`}
-            style={styles(lang).secondText}
-          />
-        </View>
-        <View style={styles(lang).container}>
-          <TextView
-            title={languages[lang].others}
-            style={styles(lang).firstText}
-          />
-          <TextView
-            title={`${Data(lang).others} ${languages[lang].le}`}
-            style={styles(lang).secondText}
-          />
-        </View>
-        <View style={styles(lang).container}>
-          <TextView
-            title={languages[lang].paidBy}
-            style={styles(lang).firstText}
-          />
-          <TextView title={Data(lang).paidBy} style={styles(lang).secondText} />
-        </View>
+        {Data(lang).map(value => (
+          <View style={styles(lang).container}>
+            <TextView title={value.title} style={styles(lang).firstText} />
+            <TextView
+              title={`${value.value}${
+                value.value == languages[lang].fawry ? '' : languages[lang].le
+              }`}
+              style={styles(lang).secondText}
+            />
+          </View>
+        ))}
       </View>
+
       <View style={styles(lang).container}>
         <TextView
           title={languages[lang].total}
           style={styles(lang).firstText}
         />
         <TextView
-          title={`${Data(lang).price + Data(lang).others} ${
+          title={`${Data(lang)[0].value + Data(lang)[1].value} ${
             languages[lang].le
           }`}
           style={styles(lang).secondText}

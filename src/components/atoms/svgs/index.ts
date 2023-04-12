@@ -46,6 +46,17 @@ import Cube from './Cube';
 import Address from './Address';
 import PhoneNumber from './PhoneNumber';
 import WhatsApp from './WhatsApp';
+import Lang from './Lang';
+import Planet from './Planet';
+import Bill from './Bill';
+import Currency from './Currency';
+import ChangePassword from './ChangePassword';
+import ContactUs from './ContactUs';
+import Rejected from './Rejected';
+import Accepted from './Accepted';
+import Confirmed from './Confirmed';
+import NewActivity from './NewActivity';
+import Setting from './Setting';
 const svgs = {
   default: Logo,
   rightArrow: RightArrow,
@@ -77,23 +88,34 @@ const svgs = {
   instegram: Instegram,
   faceBook: FaceBook,
   miniLocation: MiniLocation,
-  close:Close,
-  calendar:Calendar,
-  locationWithB:LocationWithB,
-  starWithB:StarWithB,
-  logout:Logout,
-  favourites:Favourites,
-  myBookings:MyBookings,
-  edit:Edit,
-  smallArrow:SmallArrow,
-  key:Key,
-  gmail:Gmail,
-  calendar2:Calendar2,
-  group:Group,
-  cube:Cube,
-  address:Address,
-  phoneNumber:PhoneNumber,
-  whatsApp:WhatsApp
+  close: Close,
+  calendar: Calendar,
+  locationWithB: LocationWithB,
+  starWithB: StarWithB,
+  logout: Logout,
+  favourites: Favourites,
+  myBookings: MyBookings,
+  edit: Edit,
+  smallArrow: SmallArrow,
+  key: Key,
+  gmail: Gmail,
+  calendar2: Calendar2,
+  group: Group,
+  cube: Cube,
+  address: Address,
+  phoneNumber: PhoneNumber,
+  whatsApp: WhatsApp,
+  lang: Lang,
+  planet: Planet,
+  bill: Bill,
+  currency: Currency,
+  changePassword: ChangePassword,
+  contactUs: ContactUs,
+  rejected: Rejected,
+  accepted: Accepted,
+  confirmed: Confirmed,
+  newActivity: NewActivity,
+  setting: Setting,
 };
 
 export default svgs;

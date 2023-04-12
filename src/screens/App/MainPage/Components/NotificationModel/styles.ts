@@ -12,6 +12,7 @@ export const styles = (lang: string) => {
       alignItems: 'center',
     },
     title: {
+      marginTop:10,
       fontSize: 16,
       color: COLORS.black,
     },
