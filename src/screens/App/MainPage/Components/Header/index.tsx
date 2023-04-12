@@ -1,13 +1,16 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../../../../redux/language/index';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from 'redux/user';
+import { log } from 'react-native-reanimated';
 
 const Header = ({ lang }: { lang: string }) => {
+  const user = useSelector(selectCurrentUser);
+  console.log(user);
   return (
     <View
       style={[
@@ -27,7 +30,7 @@ const Header = ({ lang }: { lang: string }) => {
           />
           <Svg name="smile" size={42} />
         </View>
-        <TextView title={languages[lang].user} style={styles.nameText} />
+        <TextView title={user ? user.name : 'User'} style={styles.nameText} />
       </View>
     </View>
   );
