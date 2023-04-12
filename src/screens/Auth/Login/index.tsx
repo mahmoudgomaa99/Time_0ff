@@ -15,11 +15,19 @@ import * as Yup from 'yup';
 import Picker from 'components/molecules/Picker';
 import { loginSchema } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAppDispatch } from 'redux/store';
+import User from 'redux/user';
+import { useLoadingSelector } from 'redux/selectors';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { log } from 'react-native-reanimated';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const Login = () => {
   const [secure, setsecure] = useState(true);
   const lang = useSelector(selectLanguage);
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const isLoading = useLoadingSelector(User.thunks.doLogIn);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,7 +45,21 @@ const Login = () => {
 
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={values => console.log(values)}
+        onSubmit={values =>
+          dispatch(
+            User.thunks.doLogIn({
+              email: values.email,
+              password: values.password,
+            }),
+          )
+            .then(unwrapResult)
+            .then(() => {
+              navigation.navigate('app', { screen: 'map' });
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
         validationSchema={loginSchema(lang)}>
         {props => (
           <View>
@@ -108,12 +130,24 @@ const Login = () => {
                 styles.forget,
                 { textAlign: lang === 'en' ? 'right' : 'left' },
               ]}
-              onPress={() => console.log('clicked')}
+              onPress={() => {
+                if (!props.values.email) {
+                  Toast.show({
+                    type: 'error',
+                    text2: languages[lang].pleaseEnterYourEmail,
+                  });
+                } else {
+                  dispatch(
+                    User.thunks.doForgetPassword({ email: props.values.email }),
+                  );
+                }
+              }}
             />
             <Button
               onPress={() => props.handleSubmit()}
               type="primary"
               label={languages[lang].login}
+              isLoading={isLoading}
             />
             <TextView title={languages[lang].or} style={styles.or} />
             <View style={styles.containerMedia}>

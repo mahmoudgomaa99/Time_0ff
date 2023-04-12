@@ -14,15 +14,19 @@ import { registerScheme } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg from 'atoms/Svg';
 import COLORS from 'values/colors';
+import { useAppDispatch } from 'redux/store';
+import User from 'redux/user';
+import { log } from 'react-native-reanimated';
+import { useLoadingSelector } from 'redux/selectors';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const Register = () => {
+  const dispatch = useAppDispatch();
+  const isLoading = useLoadingSelector(User.thunks.doSignUp);
   const lang = useSelector(selectLanguage);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: 'Saudi Arabic', value: 'Saudi Arabic' },
-  ]);
-  const [secure, setSecure] = useState(false);
+
+  const [secure, setSecure] = useState(true);
 
   const navigation = useNavigation<any>();
 
@@ -33,7 +37,6 @@ const Register = () => {
         <TextView title={languages[lang].register} style={styles.title} />
         <View style={styles.line}></View>
       </View>
-
       <Formik
         initialValues={{
           fullName: '',
@@ -42,10 +45,30 @@ const Register = () => {
           password: '',
           city: '',
         }}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => {
+          dispatch(
+            User.thunks.doSignUp({
+              name: values.fullName,
+              phone: values.phoneNumber,
+              email: values.email,
+              password: values.password,
+              type: 'user',
+              city: values.city,
+            }),
+          )
+            .then(unwrapResult)
+            .then(() => {
+              navigation.navigate('app', { screen: 'map' });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }}
         validationSchema={registerScheme(lang)}>
         {props => (
-          <View>
+          <KeyboardAwareScrollView
+            contentContainerStyle={{ paddingBottom: 30 }}
+            showsVerticalScrollIndicator={false}>
             <InputView
               {...props}
               name="fullName"
@@ -117,13 +140,14 @@ const Register = () => {
               ]}
               placeholder={'City'}
               name={'city'}
-              // values={props.values}
+              values={props.values}
             />
             <Button
               onPress={props.handleSubmit}
               type="primary"
               label={languages[lang].register}
               style={{ marginTop: 10 }}
+              isLoading={isLoading}
             />
             <View
               style={[
@@ -140,7 +164,7 @@ const Register = () => {
                 onPress={() => navigation.navigate('login')}
               />
             </View>
-          </View>
+          </KeyboardAwareScrollView>
         )}
       </Formik>
     </SafeAreaView>

@@ -65,7 +65,7 @@ const InputView = ({
           color: COLORS.errorRed,
           // fontFamily: Fonts.RobotoBold,
           textAlign: lang === 'ar' ? 'right' : 'left',
-          marginTop: -7,
+          marginTop: lang === 'ar' ? -7 : 0,
         }}
         containerStyle={[
           containerStyle,

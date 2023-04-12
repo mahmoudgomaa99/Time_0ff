@@ -6,9 +6,12 @@ import { data } from './data';
 import { styles } from './styles';
 import languages from 'values/languages';
 import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch } from 'redux/store';
+import User from 'redux/user';
 
 const Contents = ({ lang }: { lang: string }) => {
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value: any, index) => (
@@ -30,7 +33,7 @@ const Contents = ({ lang }: { lang: string }) => {
       ))}
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('auth', { screenName: 'login' });
+          dispatch(User.logout());
         }}
         style={styles(lang).container}>
         <View style={styles(lang).innerContainer}>

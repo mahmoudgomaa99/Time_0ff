@@ -8,7 +8,6 @@ import { selectIsSplashDone } from 'redux/Spalsh/SplashSlice';
 import Splash from 'screens/PreApp/Splash';
 import NeedsInternetConnection from 'components/organisms/NeedsInternetConnection';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { selectIsVerefied } from '../redux/user/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { selectIsPresenting } from 'redux/Presenting';
 import PresentingScreen from 'screens/PreApp/Presenting';
@@ -26,7 +25,6 @@ const NavigationHandler = () => {
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isSplashDone = useSelector(selectIsSplashDone);
-  const isVerified = useSelector(selectIsVerefied);
   const isPresent = useSelector(selectIsPresenting);
 
   useEffect(() => {
@@ -44,7 +42,7 @@ const NavigationHandler = () => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
     return (
-      <RootStack.Navigator initialRouteName="auth">
+      <RootStack.Navigator initialRouteName={currentUser ? 'app' : 'auth'}>
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}
@@ -57,7 +55,7 @@ const NavigationHandler = () => {
         />
       </RootStack.Navigator>
     );
-  }, [currentUser, isSplashDone, isVerified, isPresent]);
+  }, [currentUser, isSplashDone, isPresent]);
 
   return (
     <SafeAreaProvider>
