@@ -12,9 +12,10 @@ export const styles = (lang: string) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: -h * 0.2,
+      marginTop: -h * 0.15,
     },
     text: {
+      marginTop:MarginsAndPaddings.ml,
       fontSize: 22,
       color: COLORS.black,
     },

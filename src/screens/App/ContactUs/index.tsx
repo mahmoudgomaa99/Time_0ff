@@ -9,7 +9,6 @@ import { Data } from './data';
 
 const ContactUs = () => {
   const lang = useSelector(selectLanguage);
-  // const lang = 'en'
   return (
     <View style={styles(lang).container}>
       <Top lang={lang} />

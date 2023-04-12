@@ -2,17 +2,17 @@ import languages from 'values/languages';
 
 export const data = (lang: string) => {
   return [
-    { title: languages[lang].language, iconName: 'edit', show: 'language' },
+    { title: languages[lang].language, iconName: 'lang', show: 'language' },
     {
       title: languages[lang].currency,
-      iconName: 'myBookings',
+      iconName: 'currency',
       show: 'currency',
     },
     {
       title: languages[lang].changePassword,
-      iconName: 'favourites',
+      iconName: 'changePassword',
       show: 'changePassword',
     },
-    { title: languages[lang].helpCenter, iconName: 'favourites',show:'help' },
+    { title: languages[lang].helpCenter, iconName: 'contactUs',show:'help' },
   ];
 };

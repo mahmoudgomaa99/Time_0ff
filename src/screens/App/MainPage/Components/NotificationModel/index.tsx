@@ -17,7 +17,7 @@ const NotificationModel = ({
   return (
     <Modal isVisible={isNotificationModel}>
       <View style={styles(lang).modalContainer}>
-        <Svg name="blueLogo" size={100} />
+        <Svg name="bill" size={70} />
         <TextView
           title={languages[lang].allowNotification}
           style={styles(lang).title}

@@ -10,12 +10,12 @@ export const Data = (lang: string) => {
     {
       title: languages[lang].faq,
       subTitle: languages[lang].phone,
-      iconName: 'smile',
+      iconName: 'whatsApp',
     },
     {
       title: languages[lang].sendUs,
       subTitle: languages[lang].Email,
-      iconName: 'smile',
+      iconName: 'gmail',
     },
     {
       title: languages[lang].callUs,

@@ -5,6 +5,6 @@ export const data = (lang: string) => {
     { title: languages[lang].editProfile, iconName: 'edit',to:'editProfile' },
     { title: languages[lang].myBooking, iconName: 'myBookings',to:'myBookings' },
     { title: languages[lang].wishlist, iconName: 'favourites',to:'wishlist' },
-    { title: languages[lang].settings, iconName: 'favourites',to:'settings' },
+    { title: languages[lang].settings, iconName: 'setting',to:'settings' },
   ];
 };

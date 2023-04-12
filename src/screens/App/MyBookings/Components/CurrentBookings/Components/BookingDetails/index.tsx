@@ -14,48 +14,20 @@ const BookingDetails = ({ lang }: { lang: string }) => {
         style={styles(lang).title}
       />
       <View>
-        <View style={styles(lang).container}>
-          <View>
-            <Svg name="cube" size={60} />
+        {Data(lang).map(value => (
+          <View style={styles(lang).container}>
+            <View>
+              <Svg name={value.icon} size={60} />
+            </View>
+            <View>
+              <TextView title={value.title} style={styles(lang).firstText} />
+              <TextView
+                title={value.subTitle}
+                style={styles(lang).secondText}
+              />
+            </View>
           </View>
-          <View>
-            <TextView
-              title={languages[lang].experience}
-              style={styles(lang).firstText}
-            />
-            <TextView
-              title={Data(lang).experience}
-              style={styles(lang).secondText}
-            />
-          </View>
-        </View>
-        <View style={styles(lang).container}>
-          <View>
-            <Svg name="cube" size={60} />
-          </View>
-          <View>
-            <TextView
-              title={languages[lang].numberOfPerson}
-              style={styles(lang).firstText}
-            />
-            <TextView
-              title={Data(lang).numOfPerson}
-              style={styles(lang).secondText}
-            />
-          </View>
-        </View>
-        <View style={styles(lang).container}>
-          <View>
-            <Svg name="cube" size={60} />
-          </View>
-          <View>
-            <TextView
-              title={languages[lang].date}
-              style={styles(lang).firstText}
-            />
-            <TextView title={Data(lang).date} style={styles(lang).secondText} />
-          </View>
-        </View>
+        ))}
       </View>
     </View>
   );

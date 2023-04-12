@@ -20,7 +20,7 @@ const PasswordModel = ({
   return (
     <Modal isVisible={isPasswordModel}>
       <View style={styles(lang).modalContainer}>
-        <Svg name='phoneNumber'/>
+        <Svg name='key' size={70}/>
         <TextView
           title={languages[lang].changeYourPassword}
           style={styles(lang).text}

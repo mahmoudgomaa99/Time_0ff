@@ -33,7 +33,7 @@ const Notification = () => {
         </ScrollView>
       ) : (
         <View style={styles(lang).noInbox}>
-          <Svg name="blueLogo" size={200} />
+          <Svg name="bill" size={200} />
           <TextView
             title={languages[lang].notHaveInbox}
             style={styles(lang).text}
