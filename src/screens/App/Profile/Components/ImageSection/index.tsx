@@ -4,12 +4,15 @@ import { images } from 'src/assets/images';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { styles } from './styles';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from 'redux/user';
 
 const ImageSection = ({ lang }: { lang: string }) => {
+  const user = useSelector(selectCurrentUser);
   return (
-    <View style={styles(lang).container} >
-      <Image source={images.present} style={styles(lang).image}/>
-      <TextView title={languages[lang].mohamed} style={styles(lang).text}/>
+    <View style={styles(lang).container}>
+      <Image source={images.present} style={styles(lang).image} />
+      <TextView title={user ? user.name : 'User'} style={styles(lang).text} />
     </View>
   );
 };

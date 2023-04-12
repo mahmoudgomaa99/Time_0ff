@@ -137,11 +137,12 @@ const languages: any = {
     wait: 'Waiting',
     rejected: 'Rejected',
     agree: 'Agree',
-    lastBookingTitle:'Driving Activity By Hastahe Company',
-    countryCode:'Country Code',
-    saveEditing:'Save Editing',
-    inbox:'Inbox',
-    locationAccess:'Allow access to your current location'
+    lastBookingTitle: 'Driving Activity By Hastahe Company',
+    countryCode: 'Country Code',
+    saveEditing: 'Save Editing',
+    inbox: 'Inbox',
+    locationAccess: 'Allow access to your current location',
+    pleaseEnterYourEmail: 'Please enter your email',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -277,10 +278,11 @@ const languages: any = {
     wait: 'انتظار',
     rejected: 'الالغاء',
     agree: 'موافقه',
-    countryCode:'كود البلد',
-    saveEditing:'حفظ التعديلات',
-    inbox:'التنبيهات',
-    locationAccess:'السماح بالوصول الي موقعك',
+    countryCode: 'كود البلد',
+    saveEditing: 'حفظ التعديلات',
+    inbox: 'التنبيهات',
+    locationAccess: 'السماح بالوصول الي موقعك',
+    pleaseEnterYourEmail: 'من فضلك أدخل بريدك الإلكتروني',
   },
 };
 export default languages;

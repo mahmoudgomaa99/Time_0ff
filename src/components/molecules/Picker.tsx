@@ -150,6 +150,7 @@ const Picker = ({
                 },
                 inputAndroid: {
                   ...styles[`${type}_iosButton`],
+                  color: COLORS.black,
                   borderColor:
                     props.errors[props.name] && props.touched[props.name]
                       ? COLORS.red
@@ -160,17 +161,17 @@ const Picker = ({
                 // iconContainer: { top: '42%', right: 10 },
               }}
               // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
-              Icon={() => (
-                <Image
-                  source={images.downArrow}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginTop: h * 0.024,
-                    marginRight: h * 0.02,
-                  }}
-                />
-              )}
+              // Icon={() => (
+              //   <Image
+              //     source={images.downArrow}
+              //     style={{
+              //       width: 20,
+              //       height: 20,
+              //       marginTop: h * 0.024,
+              //       marginRight: h * 0.02,
+              //     }}
+              //   />
+              // )}
             />
           </View>
         )}
