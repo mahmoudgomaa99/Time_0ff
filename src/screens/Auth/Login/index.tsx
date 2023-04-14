@@ -1,25 +1,21 @@
-import { View, Text, Image, TouchableOpacity, Platform } from 'react-native';
+import { View, TouchableOpacity, Platform } from 'react-native';
 import React, { useState } from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
-import { images } from 'src/assets/images';
 import styles from './styles';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from 'redux/language';
+import Language, { selectLanguage } from 'redux/language';
 import InputView from 'components/molecules/Input';
 import { Formik } from 'formik';
 import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
 import { useNavigation } from '@react-navigation/native';
-import * as Yup from 'yup';
-import Picker from 'components/molecules/Picker';
 import { loginSchema } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch } from 'redux/store';
 import User from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { log } from 'react-native-reanimated';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const Login = () => {
@@ -34,7 +30,9 @@ const Login = () => {
       <TextView
         title={languages[lang].skip}
         style={[styles.skip]}
-        onPress={() => navigation.navigate('app', { screen: 'map' })}
+        onPress={() => {
+          navigation.navigate('app', { screen: 'map' });
+        }}
       />
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />

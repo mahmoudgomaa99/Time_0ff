@@ -10,11 +10,12 @@ import languages from 'values/languages';
 import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const EditProfile = () => {
   const lang = useSelector(selectLanguage);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       <Formik
         initialValues={{
@@ -114,7 +115,7 @@ const EditProfile = () => {
           </View>
         )}
       </Formik>
-    </View>
+    </SafeAreaView>
   );
 };
 

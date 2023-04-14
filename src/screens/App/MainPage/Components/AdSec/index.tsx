@@ -19,7 +19,10 @@ const AdSec = ({ lang }: { lang: string }) => {
     <View
       style={[
         styles.paginationContainer,
-        { marginHorizontal: lang === 'ar' ? 17 : 15 },
+        {
+          marginHorizontal: lang === 'ar' ? 17 : 15,
+          marginLeft: lang === 'ar' ? -15 : 0,
+        },
       ]}>
       <View
         style={{
@@ -52,7 +55,7 @@ const AdSec = ({ lang }: { lang: string }) => {
           containerStyle={{
             height: h * 0.08,
             marginTop: -10,
-            // transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
+            transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
           }}
         />
       </View>

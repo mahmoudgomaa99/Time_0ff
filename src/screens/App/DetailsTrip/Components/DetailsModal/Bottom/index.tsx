@@ -11,19 +11,34 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import COLORS from 'values/colors';
 import Button from 'components/molecules/Button';
 import languages from 'values/languages';
+import { log } from 'react-native-reanimated';
 
-const Bottom = ({ lang }: { lang: string }) => {
+const Bottom = ({
+  lang,
+  setisDetailsModalVisibal,
+}: {
+  lang: string;
+  setisDetailsModalVisibal: any;
+}) => {
   // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   return (
     <Formik
       initialValues={{ date: '', time: '', members: '', terms: '' }}
-      onSubmit={values => console.log(values)}>
+      onSubmit={values => {
+        setisDetailsModalVisibal(false);
+      }}>
       {props => (
         <View>
           <View>
-            <TextView title={languages[lang].date} style={styles.text} />
+            <TextView
+              title={languages[lang].date}
+              style={[
+                styles.text,
+                { textAlign: lang === 'ar' ? 'right' : undefined },
+              ]}
+            />
             <InputView
               {...props}
               name="date"
@@ -36,7 +51,13 @@ const Bottom = ({ lang }: { lang: string }) => {
             />
           </View>
           <View>
-            <TextView title={languages[lang].time} style={styles.text} />
+            <TextView
+              title={languages[lang].time}
+              style={[
+                styles.text,
+                { textAlign: lang === 'ar' ? 'right' : undefined },
+              ]}
+            />
             <InputView
               {...props}
               name="time"
@@ -50,7 +71,10 @@ const Bottom = ({ lang }: { lang: string }) => {
           <View>
             <TextView
               title={languages[lang].numberOfPerson}
-              style={styles.text}
+              style={[
+                styles.text,
+                { textAlign: lang === 'ar' ? 'right' : undefined },
+              ]}
             />
             <Picker
               {...props}
@@ -59,13 +83,14 @@ const Bottom = ({ lang }: { lang: string }) => {
               data={[{ label: '3 Members', value: '3 Members' }]}
               name={'members'}
               stylingProp={{ borderColor: 'red', borderWith: 30 }}
+              placeholder={'Choose Memmbers number'}
             />
           </View>
 
           <View
             style={{
               marginVertical: 15,
-              transform: [{ rotate:lang === 'ar' ? '180deg':'0deg' }],
+              transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
             }}>
             <BouncyCheckbox
               onPress={(isChecked: boolean) => {
@@ -74,8 +99,8 @@ const Bottom = ({ lang }: { lang: string }) => {
               size={40}
               fillColor={COLORS.darkBlue}
               unfillColor={'#F3F3F3'}
-              iconStyle={{ borderRadius: 5, }}
-              innerIconStyle={{ width: 40, height: 40, borderRadius: 5, }}
+              iconStyle={{ borderRadius: 5 }}
+              innerIconStyle={{ width: 40, height: 40, borderRadius: 5 }}
               text={languages[lang].termCondition}
               textStyle={{
                 fontSize: 18,
@@ -89,7 +114,7 @@ const Bottom = ({ lang }: { lang: string }) => {
             type="primary"
             label={languages[lang].bookNow}
             onPress={() => {
-              props.handleSubmit;
+              props.handleSubmit();
             }}
             style={styles.button}
           />

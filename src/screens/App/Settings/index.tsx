@@ -13,6 +13,7 @@ import Card from './Components/Card';
 import LanguageModel from './Components/LanguageModel';
 import CurrencyModel from './Components/CurrencyModel';
 import PasswordModel from './Components/PasswordModel';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Settings = () => {
   const lang = useSelector(selectLanguage);
@@ -20,7 +21,7 @@ const Settings = () => {
   const [isCurrencyModel, setisCurrencyModel] = useState(false);
   const [isPasswordModel, setisPasswordModel] = useState(false);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       <Card
         lang={lang}
@@ -45,7 +46,7 @@ const Settings = () => {
         isPasswordModel={isPasswordModel}
         setisPasswordModel={setisPasswordModel}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

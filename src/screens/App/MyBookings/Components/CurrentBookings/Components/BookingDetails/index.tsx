@@ -14,7 +14,7 @@ const BookingDetails = ({ lang }: { lang: string }) => {
         style={styles(lang).title}
       />
       <View>
-        {Data(lang).map(value => (
+        {Data(lang).map((value: any) => (
           <View style={styles(lang).container}>
             <View>
               <Svg name={value.icon} size={60} />

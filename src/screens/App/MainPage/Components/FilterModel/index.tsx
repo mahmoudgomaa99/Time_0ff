@@ -30,7 +30,10 @@ const FilterModel = ({
   return (
     <Formik
       initialValues={initialVslues}
-      onSubmit={values => console.log(values)}>
+      onSubmit={values => {
+        console.log(values);
+        setFilterModalVisable(false);
+      }}>
       {props => (
         <Modal
           isVisible={isFilterModalVisable}
@@ -38,10 +41,11 @@ const FilterModel = ({
           <View style={styles.modalContainer}>
             <Top
               lang={lang}
+              props={props}
               isFilterModalVisable={isFilterModalVisable}
               setFilterModalVisable={setFilterModalVisable}
             />
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <View>
                 <TextView
                   title={languages[lang].category}
@@ -54,6 +58,7 @@ const FilterModel = ({
                   data={[{ label: 'diving', value: 'diving' }]}
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                  placeholder={'Select category'}
                 />
               </View>
 
@@ -96,6 +101,7 @@ const FilterModel = ({
                   data={[{ label: '(5 Star)', value: '(5 Star)' }]}
                   name={'rating'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                  placeholder={'Select rating'}
                 />
               </View>
 

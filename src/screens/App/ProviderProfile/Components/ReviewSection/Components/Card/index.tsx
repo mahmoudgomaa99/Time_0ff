@@ -1,8 +1,7 @@
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import React from 'react';
 import { images } from 'src/assets/images';
 import TextView from 'atoms/TextView';
-import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
 
@@ -31,10 +30,9 @@ const Card = ({
             <Svg name="star" size={20} />
           </View>
         </View>
-        <TextView
-          title={review}
-          style={styles(lang).review}
-        />
+        <View style={{ alignSelf: 'flex-end' }}>
+          <TextView title={review} style={styles(lang).review} />
+        </View>
       </View>
     </View>
   );

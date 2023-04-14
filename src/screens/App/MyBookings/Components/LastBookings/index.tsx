@@ -14,7 +14,9 @@ const LastBookings = ({ lang }: { lang: string }) => {
         title={languages[lang].lastBooking}
         style={styles(lang).title}
       />
-      <ScrollView contentContainerStyle={{ paddingBottom: h * 0.2 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: h * 0.2 }}>
         {Data(lang).map(value => (
           <View style={styles(lang).container}>
             <View

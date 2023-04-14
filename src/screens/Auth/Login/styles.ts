@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 24,
-    marginTop: Platform.OS === 'android' ? h * 0.006 : '',
+    marginTop: Platform.OS === 'android' ? h * 0.006 : 0,
   },
   title: {
     color: COLORS.black,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   line: {
     width: w * 0.13,
     height: Platform.OS === 'android' ? h * 0.0035 : h * 0.002,
-    marginTop: Platform.OS === 'android' ? h * 0.004 : '',
+    marginTop: Platform.OS === 'android' ? h * 0.004 : 0,
     borderRadius: 100,
     backgroundColor: COLORS.black,
     marginLeft: 'auto',
