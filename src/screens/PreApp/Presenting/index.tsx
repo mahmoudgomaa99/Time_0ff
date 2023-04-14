@@ -15,10 +15,11 @@ import Svg from 'atoms/Svg';
 import { useAppDispatch } from 'redux/store';
 import Present from 'redux/Presenting';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from 'redux/language';
+import Language, { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
 import { data } from './data';
 import { w } from '../../../values/Dimensions';
+import COLORS from 'values/colors';
 
 const imageList = [images.branding1, images.branding2, images.branding3];
 
@@ -43,9 +44,9 @@ const PresentingScreen = () => {
           overlayColor="transparent"
           style={{
             marginHorizontal: 16,
-            marginVertical: h * 0.05,
-            flex: 0.2,
+            marginBottom: h * 0.06,
             borderRadius: 25,
+            paddingVertical: h * 0.02,
           }}>
           <View style={styles.bottom}>
             <View key={indexSelected}>
@@ -80,7 +81,8 @@ const PresentingScreen = () => {
                 dotStyle={{ width: 25, height: 5 }}
                 containerStyle={{
                   height: 80,
-                  margin: 0,
+                  marginLeft: lang === 'en' ? -w * 0.05 : 0,
+                  marginRight: lang === 'ar' ? -w * 0.05 : 0,
                   transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
                 }}
               />

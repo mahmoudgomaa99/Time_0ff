@@ -87,6 +87,8 @@ const Picker = ({
               },
               inputIOS: {
                 ...styles[`${type}_iosButton`],
+                color: COLORS.black,
+                textAlign: lang === 'ar' ? 'right' : undefined,
                 borderColor:
                   props.errors[props.name] && props.touched[props.name]
                     ? COLORS.red
@@ -296,10 +298,9 @@ const styles: TTstyles = StyleSheet.create({
   },
   primary_modalHeader: {
     backgroundColor: COLORS.white,
-    height: 50,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
     paddingHorizontal: 20,
+    paddingVertical: 10,
+    height: h * 0.06,
   },
   matches_modalHeader: {},
   matches_modalBody: {

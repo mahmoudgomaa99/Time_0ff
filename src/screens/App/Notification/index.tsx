@@ -11,15 +11,18 @@ import languages from 'values/languages';
 import PaymentModal from './Components/PaymentModal';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Notification = () => {
   const lang = useSelector(selectLanguage);
   const [isPayment, setisPayment] = useState(false);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       {Data(lang).length > 0 ? (
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ marginHorizontal: 10 }}>
           {Data(lang).map(value => (
             <Card
               lang={lang}
@@ -45,7 +48,7 @@ const Notification = () => {
         isPayment={isPayment}
         setisPayment={setisPayment}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

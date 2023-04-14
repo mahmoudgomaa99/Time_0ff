@@ -8,6 +8,7 @@ export const styles = (lang: string) => {
       fontSize: 18,
       color: COLORS.black,
       marginBottom: MarginsAndPaddings.xxl,
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
@@ -18,10 +19,12 @@ export const styles = (lang: string) => {
     firstText: {
       fontSize: 16,
       color: '#979797',
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
     secondText: {
       fontSize: 16,
       color: COLORS.black,
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
   });
 };

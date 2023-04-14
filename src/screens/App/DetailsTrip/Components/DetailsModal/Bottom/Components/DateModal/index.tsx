@@ -66,8 +66,8 @@ const DateModal = ({
             label={languages[lang].bookNow}
             style={styles.button}
             onPress={() => {
-              console.log('clicked');
               formikProps.handleSubmit;
+              setDateModalVisable(false);
             }}
           />
         </View>

@@ -7,13 +7,16 @@ import { selectLanguage } from 'redux/language';
 import Card from './Components/Card';
 import { Data } from './data';
 import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Wishlist = () => {
   const lang = useSelector(selectLanguage);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
-      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ marginVertical: 20 }}>
         {Data(lang).map(value => (
           <Card
             title={value.title}
@@ -25,7 +28,7 @@ const Wishlist = () => {
           />
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

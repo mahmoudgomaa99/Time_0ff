@@ -8,11 +8,9 @@ export const styles = (lang: string) => {
       flex: 1,
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       marginVertical: MarginsAndPaddings.xl,
-      elevation: 5,
-      shadowColor: '#EEEEEE',
       backgroundColor: 'white',
-      shadowOffset: { height: 2.2, width: 0.1 },
-      shadowOpacity: 1,
+      paddingVertical: 10,
+      paddingHorizontal: 10,
     },
     imageContainer: {
       flex: 1.3,
@@ -44,6 +42,7 @@ export const styles = (lang: string) => {
       fontSize: 14,
       color: '#5B5959',
       maxHeight: h * 0.025,
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
   });
 };

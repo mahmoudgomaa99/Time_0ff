@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Platform,
   StyleSheet,
   Text,
   TextStyle,
@@ -65,7 +66,7 @@ const InputView = ({
           color: COLORS.errorRed,
           // fontFamily: Fonts.RobotoBold,
           textAlign: lang === 'ar' ? 'right' : 'left',
-          marginTop: lang === 'ar' ? -7 : 0,
+          marginTop: Platform.OS === 'android' ? (lang === 'ar' ? -7 : 0) : 5,
         }}
         containerStyle={[
           containerStyle,

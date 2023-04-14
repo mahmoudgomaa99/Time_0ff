@@ -24,7 +24,7 @@ const CategSec = ({ lang }: { lang: string }) => {
         }}>
         <FlatList
           contentContainerStyle={{}}
-          style={{ direction: 'rtl' }}
+          style={{ direction: lang === 'ar' ? 'rtl' : undefined }}
           data={categData(lang)}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => {}}>

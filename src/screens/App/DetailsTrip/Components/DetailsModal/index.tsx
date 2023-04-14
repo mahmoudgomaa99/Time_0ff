@@ -31,7 +31,7 @@ const DetailsTrip = ({
           isDetailsModalVisibal={isDetailsModalVisibal}
           setisDetailsModalVisibal={setisDetailsModalVisibal}
         />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Card
             title={languages[lang].cardTitle}
             description={languages[lang].cardDescription}
@@ -40,7 +40,10 @@ const DetailsTrip = ({
             stars={languages[lang].cardStars}
             lang={lang}
           />
-          <Bottom lang={lang} />
+          <Bottom
+            lang={lang}
+            setisDetailsModalVisibal={setisDetailsModalVisibal}
+          />
         </ScrollView>
       </View>
     </Modal>

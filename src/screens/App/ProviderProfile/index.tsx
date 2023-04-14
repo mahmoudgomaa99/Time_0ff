@@ -12,17 +12,18 @@ import { ScrollView } from 'react-native-gesture-handler';
 import AboutSection from './Components/AboutSection';
 import ExperienceSection from './Components/ExperienceSection';
 import ReviewSection from './Components/ReviewSection';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProviderProfile = () => {
-  const lang = useSelector(selectLanguage)
+  const lang = useSelector(selectLanguage);
 
   const [select, setselect] = useState(2);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       <ImageSection lang={lang} />
       <Tab lang={lang} select={select} setselect={setselect} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {select === 1 ? (
           <AboutSection lang={lang} />
         ) : select === 2 ? (
@@ -31,7 +32,7 @@ const ProviderProfile = () => {
           <ReviewSection lang={lang} />
         ) : null}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

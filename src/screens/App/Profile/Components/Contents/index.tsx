@@ -7,11 +7,13 @@ import { styles } from './styles';
 import languages from 'values/languages';
 import { useNavigation } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
-import User from 'redux/user';
+import User, { selectCurrentUser } from 'redux/user';
+import { useSelector } from 'react-redux';
 
 const Contents = ({ lang }: { lang: string }) => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
+  const currentUser = useSelector(selectCurrentUser);
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value: any, index) => (
@@ -38,16 +40,21 @@ const Contents = ({ lang }: { lang: string }) => {
           </TouchableOpacity>
         </View>
       ))}
-      <TouchableOpacity
-        onPress={() => {
-          dispatch(User.logout());
-        }}
-        style={styles(lang).container}>
-        <View style={styles(lang).innerContainer}>
-          <Svg name="logout" size={60} />
-          <TextView title={languages[lang].logout} style={styles(lang).text} />
-        </View>
-      </TouchableOpacity>
+      {currentUser && (
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(User.logout());
+          }}
+          style={styles(lang).container}>
+          <View style={styles(lang).innerContainer}>
+            <Svg name="logout" size={60} />
+            <TextView
+              title={languages[lang].logout}
+              style={styles(lang).text}
+            />
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

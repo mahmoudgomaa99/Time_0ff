@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h } from 'values/Dimensions';
 import { w } from '../../../values/Dimensions';
@@ -17,15 +17,12 @@ export const styles = StyleSheet.create({
   bottom: {
     marginHorizontal: 16,
     paddingHorizontal: 15,
-    paddingTop: 20,
     borderRadius: 20,
-    marginVertical: h * 0.05,
   },
   bottom_android: {
     borderRadius: 25,
     marginHorizontal: 16,
     marginVertical: h * 0.05,
-    // flex: 0.23,
     backgroundColor: COLORS.alfaBlack,
     paddingHorizontal: w * 0.06,
     paddingTop: h * 0.01,
@@ -38,7 +35,7 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
     height: 30,
     width: 30,
-    backgroundColor: COLORS.alfaBlack,
+    backgroundColor: Platform.OS === 'android' ? COLORS.alfaBlack : COLORS.grey,
   },
   title: {
     fontSize: 22,
