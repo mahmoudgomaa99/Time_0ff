@@ -15,25 +15,13 @@ const Profile = () => {
   const lang = useSelector(selectLanguage);
 
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       <ImageSection lang={lang} />
       <ScrollView>
         <Contents lang={lang} />
-        {/* <Text
-          style={{
-            fontSize: 20,
-            margin: 10,
-            color: COLORS.secondery,
-            textDecorationLine: 'underline',
-          }}
-          onPress={() => {
-            dispatch(Language.changeLanguage());
-          }}>
-          Demo Change Language
-        </Text> */}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

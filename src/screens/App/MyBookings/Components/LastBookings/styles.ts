@@ -8,6 +8,7 @@ export const styles = (lang: string, color?: string) => {
       fontSize: 18,
       color: COLORS.black,
       marginBottom: MarginsAndPaddings.xxl,
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

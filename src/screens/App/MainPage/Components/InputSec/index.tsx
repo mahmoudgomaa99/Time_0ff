@@ -13,13 +13,12 @@ import FilterModel from '../FilterModel';
 const InputSec = ({
   isFilterModalVisable,
   setFilterModalVisable,
-  lang
+  lang,
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
-  lang:string
+  lang: string;
 }) => {
-
   return (
     <View
       style={[
@@ -51,10 +50,10 @@ const InputSec = ({
         </Formik>
       </View>
       <View style={[styles.filter, { marginLeft: lang === 'en' ? -11 : 0 }]}>
-        <TouchableOpacity onPress={() =>{
-          
-          setFilterModalVisable(true)
-        } }>
+        <TouchableOpacity
+          onPress={() => {
+            setFilterModalVisable(true);
+          }}>
           <Svg name="rightMenu" size={65} />
         </TouchableOpacity>
       </View>

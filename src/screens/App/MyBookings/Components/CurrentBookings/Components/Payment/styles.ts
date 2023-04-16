@@ -8,12 +8,13 @@ export const styles = (lang: string) => {
       fontSize: 18,
       color: COLORS.black,
       marginBottom: MarginsAndPaddings.ml,
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
-    outerContainer:{
-        borderBottomColor:'#EEEEEE',
-        borderBottomWidth:1,
-        paddingBottom:10,
-        marginBottom:MarginsAndPaddings.ml
+    outerContainer: {
+      borderBottomColor: '#EEEEEE',
+      borderBottomWidth: 1,
+      paddingBottom: 10,
+      marginBottom: MarginsAndPaddings.ml,
     },
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

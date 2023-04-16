@@ -6,11 +6,12 @@ import Top from './Components/Top';
 import { styles } from './styles';
 import Card from './Components/Card';
 import { Data } from './data';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ContactUs = () => {
   const lang = useSelector(selectLanguage);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       {Data(lang).map(value => (
         <Card
@@ -20,7 +21,7 @@ const ContactUs = () => {
           subTitle={value.subTitle}
         />
       ))}
-    </View>
+    </SafeAreaView>
   );
 };
 

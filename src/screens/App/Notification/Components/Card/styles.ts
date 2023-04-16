@@ -18,10 +18,12 @@ export const styles = (lang: string) => {
     },
     second: {
       flex: 6,
+      marginHorizontal: 7,
     },
     message: {
       fontSize: 16,
       color: COLORS.black,
+      textAlign: lang === 'ar' ? 'right' : undefined,
     },
     date: {
       fontSize: 14,

@@ -8,12 +8,13 @@ import InputSec from './Components/InputSec';
 import FilterModel from './Components/FilterModel';
 import CategSec from './Components/CategSec';
 import BottomList from './Components/BottomList';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Explore = () => {
   const lang = useSelector(selectLanguage);
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   return (
-    <View style={styles(lang).container}>
+    <SafeAreaView style={styles(lang).container}>
       <Top lang={lang} />
       <InputSec
         lang={lang}
@@ -26,7 +27,7 @@ const Explore = () => {
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
