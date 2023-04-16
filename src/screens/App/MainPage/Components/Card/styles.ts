@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     color: COLORS.black,
+    maxWidth:w*.70
   },
   decription: {
     fontSize: 10,

@@ -50,7 +50,7 @@ const Login = () => {
               password: values.password,
             }),
           )
-            .then(unwrapResult)
+            .then(unwrapResult) // filter result 
             .then(() => {
               navigation.navigate('app', { screen: 'map' });
             })

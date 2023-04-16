@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
 import Svg from 'atoms/Svg';
@@ -11,9 +11,12 @@ import { w } from 'values/Dimensions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from '../../../redux/language/index';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import COLORS from 'values/colors';
 import DetailsModal from './Components/DetailsModal';
+import { useLoadingSelector } from 'redux/selectors';
+import Journeys, { selectCurrentJourney } from 'redux/journey';
+import { useAppDispatch } from 'redux/store';
 
 const DetailsTrip = () => {
   const [favoutite, setfavoutite] = useState(true);
@@ -33,6 +36,15 @@ const DetailsTrip = () => {
     },
   ]);
 
+  // const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
+  // const route = useRoute();
+  // const dispatch = useAppDispatch();
+  // const journey = useSelector(selectCurrentJourney);
+
+  // useEffect(() => {
+  //   dispatch(Journeys.thunks.doGetJourney(route.params?.id));
+  // }, [route.params?.id]);
+
   const renderItem = ({ item, index }: any) => {
     return (
       <View style={styles.carouselItemContainer}>
@@ -40,7 +52,6 @@ const DetailsTrip = () => {
       </View>
     );
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.image}>
@@ -119,7 +130,7 @@ const DetailsTrip = () => {
           <Text style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
             <TextView
               style={styles.descriptionText}
-              title={[languages[lang].lorem]}
+              title={languages[lang].desc}
             />
           </Text>
         </View>
