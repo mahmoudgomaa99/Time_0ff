@@ -18,6 +18,10 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import NotificationModel from './Components/NotificationModel';
 import FlightConfirmedModel from './Components/FlightConfirmedModel';
+import { useAppDispatch } from 'redux/store';
+import { useLoadingSelector } from 'redux/selectors';
+import Journeys, { selectCurrentJourneys } from 'redux/journey';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
