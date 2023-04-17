@@ -16,9 +16,12 @@ import { useNavigation } from '@react-navigation/native';
 import { h } from '../../../values/Dimensions';
 import COLORS from 'values/colors';
 import LocationModel from './Components/LocationModel';
+import { selectCurrentAgencyJourneys } from 'redux/journey';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const Map = () => {
   const [isLocationModel, setisLocationModel] = useState(true);
+  const isDarkMode = useSelector(selectIsDarkMode);
   const navigation = useNavigation<any>();
   const location = useSelector(selectLocation);
   const lang = useSelector(selectLanguage);
@@ -72,6 +75,7 @@ const Map = () => {
               textAlign: lang === 'ar' ? 'right' : 'left',
               margin: 20,
               color: COLORS.secondery,
+              backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
             },
             placeholder: { color: COLORS.secondery },
           }}
@@ -114,6 +118,7 @@ const Map = () => {
         lang={lang}
         isLocationModel={isLocationModel}
         setisLocationModel={setisLocationModel}
+        isDarkMode={isDarkMode}
       />
     </SafeAreaView>
   );

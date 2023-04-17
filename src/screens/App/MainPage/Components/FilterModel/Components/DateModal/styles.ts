@@ -1,19 +1,22 @@
-import { StyleSheet } from "react-native";
-import { h } from "values/Dimensions";
+import { StyleSheet } from 'react-native';
+import { h } from 'values/Dimensions';
+import COLORS from 'values/colors';
 
-export const styles = StyleSheet.create({
+export const styles = (isDarkMode?: boolean) =>
+  StyleSheet.create({
     modalContainer: {
-        position: 'relative',
-        backgroundColor: 'white',
-        height: h * 0.70,
-        marginTop: 'auto',
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30,
-        padding: 20,
-        paddingTop: 30,
-        maxHeight: h * 0.9,
-      },
-      button:{
-        marginVertical:20,
-      }
-})
+      position: 'relative',
+      backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
+      height: h * 0.7,
+      marginTop: 'auto',
+      borderTopRightRadius: 30,
+      borderTopLeftRadius: 30,
+      padding: 20,
+      paddingTop: h * 0.07,
+      maxHeight: h * 0.9,
+      paddingBottom: h * 0.06,
+    },
+    button: {
+      marginVertical: 20,
+    },
+  });

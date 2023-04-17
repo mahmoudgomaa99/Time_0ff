@@ -20,22 +20,27 @@ import { log } from 'react-native-reanimated';
 import { useLoadingSelector } from 'redux/selectors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const Register = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<any>();
+
   const isLoading = useLoadingSelector(User.thunks.doSignUp);
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
 
   const [secure, setSecure] = useState(true);
 
-  const navigation = useNavigation<any>();
-
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles(isDarkMode).container}>
       <View style={{ alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />
-        <TextView title={languages[lang].register} style={styles.title} />
-        <View style={styles.line}></View>
+        <TextView
+          title={languages[lang].register}
+          style={styles(isDarkMode).title}
+        />
+        <View style={styles(isDarkMode).line}></View>
       </View>
       <Formik
         initialValues={{
@@ -79,8 +84,11 @@ const Register = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles.containerStyle, { marginTop: 4 }]}
-              labelStyle={[styles.label_style]}
+              containerStyle={[
+                styles(isDarkMode).containerStyle,
+                { marginTop: 4 },
+              ]}
+              labelStyle={[styles(isDarkMode).label_style]}
             />
             <InputView
               {...props}
@@ -92,8 +100,11 @@ const Register = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles.containerStyle, { marginTop: 10 }]}
-              labelStyle={[styles.label_style]}
+              containerStyle={[
+                styles(isDarkMode).containerStyle,
+                { marginTop: 10 },
+              ]}
+              labelStyle={[styles(isDarkMode).label_style]}
             />
             <InputView
               {...props}
@@ -105,8 +116,11 @@ const Register = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles.containerStyle, { marginTop: 10 }]}
-              labelStyle={[styles.label_style]}
+              containerStyle={[
+                styles(isDarkMode).containerStyle,
+                { marginTop: 10 },
+              ]}
+              labelStyle={[styles(isDarkMode).label_style]}
             />
             <InputView
               {...props}
@@ -119,10 +133,10 @@ const Register = () => {
                 borderBottomWidth: 0,
               }}
               containerStyle={[
-                styles.containerStyle,
+                styles(isDarkMode).containerStyle,
                 { marginTop: 10, paddingVertical: 0 },
               ]}
-              labelStyle={[styles.label_style, { paddingTop: 3 }]}
+              labelStyle={[styles(isDarkMode).label_style, { paddingTop: 3 }]}
               rightIcon={
                 <TouchableOpacity onPress={() => setSecure(prev => !prev)}>
                   <Svg name="eyeClosed" style={{ marginTop: -10 }} size={20} />
@@ -151,16 +165,18 @@ const Register = () => {
             />
             <View
               style={[
-                styles.lastText,
+                styles(isDarkMode).lastText,
                 { flexDirection: lang === 'en' ? 'row' : 'row-reverse' },
               ]}>
               <TextView
                 title={languages[lang].haveAccount}
-                style={{ color: COLORS.secondery }}
+                style={{
+                  color: isDarkMode ? COLORS.alfaBlack2 : COLORS.secondery,
+                }}
               />
               <TextView
                 title={languages[lang].login}
-                style={styles.create}
+                style={styles(isDarkMode).create}
                 onPress={() => navigation.navigate('login')}
               />
             </View>

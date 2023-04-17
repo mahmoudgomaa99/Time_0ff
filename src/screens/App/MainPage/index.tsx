@@ -22,8 +22,10 @@ import { useAppDispatch } from 'redux/store';
 import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
@@ -38,19 +40,21 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Header lang={lang} />
+    <View style={styles(isDarkMode).container}>
+      <Header isDarkMode={isDarkMode} lang={lang} />
       <InputSec
         lang={lang}
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
+        isDarkMode={isDarkMode}
       />
-      <AdSec lang={lang} />
-      <CategSec lang={lang} />
-      <BottomList lang={lang} />
+      <AdSec isDarkMode={isDarkMode} lang={lang} />
+      <CategSec isDarkMode={isDarkMode} lang={lang} />
+      <BottomList lang={lang} isDarkMode={isDarkMode} />
       <FilterModel
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
+        isDarkMode={isDarkMode}
       />
       <NotificationModel
         lang={lang}

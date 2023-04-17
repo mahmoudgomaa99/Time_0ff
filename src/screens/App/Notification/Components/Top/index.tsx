@@ -6,7 +6,7 @@ import TextView from 'atoms/TextView';
 import { useNavigation } from '@react-navigation/native';
 import languages from 'values/languages';
 
-const Top = ({ lang }: { lang: string }) => {
+const Top = ({ lang, isDarkMode }: { isDarkMode?: boolean; lang: string }) => {
   const navigation = useNavigation<any>();
   return (
     <View style={styles(lang).container}>
@@ -16,10 +16,7 @@ const Top = ({ lang }: { lang: string }) => {
         style={styles(lang).arrow}
         onPress={() => navigation.goBack()}
       />
-      <TextView
-        title={languages[lang].inbox}
-        style={styles(lang).screenText}
-      />
+      <TextView title={languages[lang].inbox} style={styles(lang,isDarkMode).screenText} />
     </View>
   );
 };

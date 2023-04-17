@@ -14,7 +14,13 @@ import { useLoadingSelector } from 'redux/selectors';
 import SkeletonItem from './SkeletonItem';
 import { useAppDispatch } from 'redux/store';
 
-const BottomList = ({ lang }: { lang: string }) => {
+const BottomList = ({
+  lang,
+  isDarkMode,
+}: {
+  isDarkMode?: boolean;
+  lang: string;
+}) => {
   const navigation = useNavigation<any>();
   const journeys = useSelector(selectCurrentJourneys);
   const isGetJourneysLoading = useLoadingSelector(
@@ -30,11 +36,11 @@ const BottomList = ({ lang }: { lang: string }) => {
         <View style={[styles(lang).experiences]}>
           <TextView
             title={languages[lang].activity}
-            style={styles(lang).experiencesText}
+           style={styles(lang, isDarkMode).experiencesText}
           />
           <TextView
             title={languages[lang].seeMore}
-            style={styles(lang).seeMore}
+            style={styles(lang, isDarkMode).seeMore}
           />
         </View>
       </View>
@@ -61,6 +67,7 @@ const BottomList = ({ lang }: { lang: string }) => {
                   name={item.name}
                   stars={item.stars}
                   lang={lang}
+                  isDarkMode={isDarkMode}
                 />
               </TouchableOpacity>
             )}

@@ -6,13 +6,20 @@ import { styles } from './styles';
 import { Data } from './data';
 import Svg from 'atoms/Svg';
 import { h } from 'values/Dimensions';
+import { color } from 'react-native-reanimated';
 
-const LastBookings = ({ lang }: { lang: string }) => {
+const LastBookings = ({
+  lang,
+  isDarkMode,
+}: {
+  lang: string;
+  isDarkMode?: boolean;
+}) => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <TextView
         title={languages[lang].lastBooking}
-        style={styles(lang).title}
+        style={styles(lang, 'f', isDarkMode).title}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -27,7 +34,10 @@ const LastBookings = ({ lang }: { lang: string }) => {
               <Svg name="cube" size={60} />
             </View>
             <View>
-              <TextView title={value.title} style={styles(lang).text} />
+              <TextView
+                title={value.title}
+                style={styles(lang, value.color, isDarkMode).text}
+              />
               <View style={styles(lang).innerContainer}>
                 <TextView title={value.date} style={styles(lang).date} />
                 <View style={styles(lang).circleContainer}>

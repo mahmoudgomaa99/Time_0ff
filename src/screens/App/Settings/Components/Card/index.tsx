@@ -7,6 +7,9 @@ import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import Switches from './Switches';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import COLORS from 'values/colors';
 
 const Card = ({
   lang,
@@ -26,6 +29,7 @@ const Card = ({
   setisPasswordModel: any;
 }) => {
   const navigation = useNavigation<any>();
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value: any, index) => (
@@ -46,7 +50,13 @@ const Card = ({
                 name={value.iconName}
                 size={value.iconName === 'lang' ? 40 : 55}
               />
-              <TextView title={value.title} style={styles(lang).text} />
+              <TextView
+                title={value.title}
+                style={[
+                  styles(lang).text,
+                  { color: isDarkMode ? COLORS.white : COLORS.black },
+                ]}
+              />
             </View>
             <Svg name="smallArrow" size={25} style={styles(lang).arrow} />
           </TouchableOpacity>

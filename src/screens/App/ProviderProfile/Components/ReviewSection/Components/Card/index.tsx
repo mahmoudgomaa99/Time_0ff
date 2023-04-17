@@ -9,19 +9,21 @@ const Card = ({
   lang,
   name,
   review,
+  isDarkMode,
 }: {
   lang: string;
   name: string;
   review: string;
+  isDarkMode?: boolean;
 }) => {
   return (
-    <View style={styles(lang).container}>
+    <View style={styles(lang, isDarkMode).container}>
       <View style={styles(lang).imageContainer}>
         <Image source={images.present} style={styles(lang).image} />
       </View>
       <View style={styles(lang).contentContainer}>
         <View style={styles(lang).innerContainer}>
-          <TextView title={name} style={styles(lang).name} />
+          <TextView title={name} style={styles(lang, isDarkMode).name} />
           <View style={styles(lang).starContainer}>
             <Svg name="star" size={20} />
             <Svg name="star" size={20} />

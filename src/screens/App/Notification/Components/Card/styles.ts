@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { h } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
@@ -22,7 +22,7 @@ export const styles = (lang: string) => {
     },
     message: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       textAlign: lang === 'ar' ? 'right' : undefined,
     },
     date: {

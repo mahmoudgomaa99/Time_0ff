@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { BorderRadius, MarginsAndPaddings, h, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: COLORS.white,
+      backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
       padding: MarginsAndPaddings.ml,
     },
     inputContainerStyling: {
@@ -17,26 +17,26 @@ export const styles = (lang: string) => {
       textAlign: lang === 'en' ? 'left' : 'right',
     },
     containerStyle: {
-      backgroundColor: COLORS.white,
-      borderWidth: 1,
-      borderColor: COLORS.lightGrey,
+      backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
+      // borderWidth: 1,
+      // borderColor: COLORS.lightGrey,
       borderRadius: BorderRadius.m,
       height: h * 0.076,
       paddingVertical: 7,
     },
     containerStyleCountry: {
-      backgroundColor: COLORS.white,
-      borderWidth: 1,
-      borderColor: COLORS.lightGrey,
+      backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
+      // borderWidth: 1,
+      // borderColor: COLORS.lightGrey,
       borderRadius: BorderRadius.m,
       height: h * 0.076,
       paddingVertical: 7,
       width: w * 0.25,
     },
     containerStylePhone: {
-      backgroundColor: COLORS.white,
-      borderWidth: 1,
-      borderColor: COLORS.lightGrey,
+      backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
+      // borderWidth: 1,
+      // borderColor: COLORS.lightGrey,
       borderRadius: BorderRadius.m,
       height: h * 0.076,
       paddingVertical: 7,
@@ -50,7 +50,7 @@ export const styles = (lang: string) => {
       fontWeight: '400',
       lineHeight: 14,
       marginLeft: lang === 'en' ? 0 : 'auto',
-      marginBottom:-5
+      marginBottom: -5,
     },
     flexRow: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

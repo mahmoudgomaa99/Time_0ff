@@ -8,29 +8,37 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 import { log } from 'react-native-reanimated';
 
-const Header = ({ lang }: { lang: string }) => {
+const Header = ({
+  lang,
+  isDarkMode,
+}: {
+  lang: string;
+  isDarkMode?: boolean;
+}) => {
   const user = useSelector(selectCurrentUser);
-  console.log(user);
   return (
     <View
       style={[
-        styles.Top,
+        styles().Top,
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
-      <View style={styles.welcome}>
+      <View style={styles(isDarkMode).welcome}>
         <View
           style={[
-            styles.welcomeBack,
+            styles().welcomeBack,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
           <Svg name="profile" size={50} />
           <TextView
             title={languages[lang].welcomeBackHome}
-            style={styles.welcomeText}
+            style={styles(isDarkMode).welcomeText}
           />
           <Svg name="smile" size={42} />
         </View>
-        <TextView title={user ? user.name : 'User'} style={styles.nameText} />
+        <TextView
+          title={user ? user.name : 'User'}
+          style={styles(isDarkMode).nameText}
+        />
       </View>
     </View>
   );

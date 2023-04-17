@@ -14,6 +14,9 @@ import PresentingScreen from 'screens/PreApp/Presenting';
 import Geolocation from '@react-native-community/geolocation';
 import Location from 'redux/Location';
 import { useAppDispatch } from '../redux/store';
+import { StatusBar } from 'react-native';
+import COLORS from 'values/colors';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 type TRootStack = {
   auth: undefined;
@@ -23,6 +26,7 @@ const RootStack = createNativeStackNavigator<TRootStack>();
 
 const NavigationHandler = () => {
   const dispatch = useAppDispatch();
+  const isDarkMode = useSelector(selectIsDarkMode);
   const currentUser = useSelector(selectCurrentUser);
   const isSplashDone = useSelector(selectIsSplashDone);
   const isPresent = useSelector(selectIsPresenting);
@@ -42,7 +46,8 @@ const NavigationHandler = () => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
     return (
-      <RootStack.Navigator initialRouteName={currentUser ? 'app' : 'auth'}>
+      // <RootStack.Navigator initialRouteName={currentUser ? 'app' : 'auth'}>
+      <RootStack.Navigator initialRouteName={'app'}>
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}
@@ -58,11 +63,17 @@ const NavigationHandler = () => {
   }, [currentUser, isSplashDone, isPresent]);
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <NeedsInternetConnection>{renderSwitch}</NeedsInternetConnection>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={isDarkMode ? COLORS.darkMode : COLORS.white}
+      />
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <NeedsInternetConnection>{renderSwitch}</NeedsInternetConnection>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </>
   );
 };
 

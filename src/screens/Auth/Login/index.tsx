@@ -4,7 +4,7 @@ import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import styles from './styles';
 import { useSelector } from 'react-redux';
-import Language, { selectLanguage } from 'redux/language';
+import { selectLanguage } from 'redux/language';
 import InputView from 'components/molecules/Input';
 import { Formik } from 'formik';
 import Button from 'components/molecules/Button';
@@ -17,8 +17,12 @@ import User from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import { log } from 'react-native-reanimated';
+import COLORS from 'values/colors';
 
 const Login = () => {
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [secure, setsecure] = useState(true);
   const lang = useSelector(selectLanguage);
   const navigation = useNavigation<any>();
@@ -26,19 +30,25 @@ const Login = () => {
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles(isDarkMode).container}>
       <TextView
         title={languages[lang].skip}
-        style={[styles.skip]}
+        style={[styles(isDarkMode).skip]}
         onPress={() => {
           navigation.navigate('app', { screen: 'map' });
         }}
       />
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />
-        <TextView title={languages[lang].helloAgain} style={styles.title} />
-        <TextView title={languages[lang].welcomeBack} style={styles.subTitle} />
-        <View style={styles.line} />
+        <TextView
+          title={languages[lang].helloAgain}
+          style={styles(isDarkMode).title}
+        />
+        <TextView
+          title={languages[lang].welcomeBack}
+          style={styles(isDarkMode).subTitle}
+        />
+        <View style={styles(isDarkMode).line} />
       </View>
 
       <Formik
@@ -50,7 +60,7 @@ const Login = () => {
               password: values.password,
             }),
           )
-            .then(unwrapResult) // filter result 
+            .then(unwrapResult) // filter result
             .then(() => {
               navigation.navigate('app', { screen: 'map' });
             })
@@ -71,8 +81,8 @@ const Login = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={styles.containerStyle}
-              labelStyle={[styles.label_style]}
+              containerStyle={styles(isDarkMode).containerStyle}
+              labelStyle={[styles(isDarkMode).label_style]}
             />
             <InputView
               {...props}
@@ -84,8 +94,11 @@ const Login = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles.containerStyle, { marginTop: 10 }]}
-              labelStyle={[styles.label_style]}
+              containerStyle={[
+                styles(isDarkMode).containerStyle,
+                { marginTop: 10 },
+              ]}
+              labelStyle={[styles(isDarkMode).label_style]}
               rightIcon={
                 Platform.OS === 'ios' ? (
                   <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
@@ -125,7 +138,7 @@ const Login = () => {
             <TextView
               title={languages[lang].forgetPassword}
               style={[
-                styles.forget,
+                styles(isDarkMode).forget,
                 { textAlign: lang === 'en' ? 'right' : 'left' },
               ]}
               onPress={() => {
@@ -147,31 +160,31 @@ const Login = () => {
               label={languages[lang].login}
               isLoading={isLoading}
             />
-            <TextView title={languages[lang].or} style={styles.or} />
-            <View style={styles.containerMedia}>
-              <View style={styles.media}>
+            <TextView title={languages[lang].or} style={styles().or} />
+            <View style={styles().containerMedia}>
+              <View style={styles(isDarkMode).media}>
                 <Svg name="google" size={30} />
               </View>
-              <View style={styles.media}>
+              <View style={styles(isDarkMode).media}>
                 <Svg name="instegram" size={30} />
               </View>
-              <View style={styles.media}>
+              <View style={styles(isDarkMode).media}>
                 <Svg name="faceBook" size={30} />
               </View>
             </View>
 
             <View
               style={[
-                styles.lastText,
+                styles().lastText,
                 { flexDirection: lang === 'en' ? 'row' : 'row-reverse' },
               ]}>
               <TextView
                 title={languages[lang].notMember}
-                style={styles.notMember}
+                style={styles(isDarkMode).notMember}
               />
               <TextView
                 title={languages[lang].createAccount}
-                style={styles.create}
+                style={styles(isDarkMode).create}
                 onPress={() => {
                   navigation.navigate('register');
                   props.setErrors({});

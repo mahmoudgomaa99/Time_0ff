@@ -12,13 +12,15 @@ import PaymentModal from './Components/PaymentModal';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const Notification = () => {
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [isPayment, setisPayment] = useState(false);
   return (
-    <SafeAreaView style={styles(lang).container}>
-      <Top lang={lang} />
+    <SafeAreaView style={styles(lang, isDarkMode).container}>
+      <Top isDarkMode={isDarkMode} lang={lang} />
       {Data(lang).length > 0 ? (
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -31,6 +33,7 @@ const Notification = () => {
               date={value.date}
               isPayment={isPayment}
               setisPayment={setisPayment}
+              isDarkMode={isDarkMode}
             />
           ))}
         </ScrollView>

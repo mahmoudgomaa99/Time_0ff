@@ -11,6 +11,7 @@ const Card = ({
   date,
   isPayment,
   setisPayment,
+  isDarkMode,
 }: {
   lang: string;
   iconName: any;
@@ -18,6 +19,7 @@ const Card = ({
   date: string;
   isPayment: boolean;
   setisPayment: any;
+  isDarkMode?: boolean;
 }) => {
   return (
     <View style={styles(lang).container}>
@@ -27,7 +29,7 @@ const Card = ({
       <View style={styles(lang).second}>
         <TextView
           title={message}
-          style={styles(lang).message}
+          style={styles(lang,isDarkMode).message}
           onPress={() => {
             message.includes('accepted') || message.includes('قبول')
               ? setisPayment(true)

@@ -12,6 +12,7 @@ const Card = ({
   name,
   stars,
   lang,
+  isDarkMode,
 }: {
   title: string;
   description: string;
@@ -19,25 +20,26 @@ const Card = ({
   name: string;
   stars: string;
   lang: string;
+  isDarkMode?: boolean;
 }) => {
   return (
     <View
       style={[
-        styles.container,
+        styles(isDarkMode).container,
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
-      <View style={styles.imageContainer}>
-        <Image source={images.present} style={styles.image} />
+      <View style={styles().imageContainer}>
+        <Image source={images.present} style={styles().image} />
       </View>
 
-      <View style={styles.contentContainer}>
+      <View style={styles().contentContainer}>
         <View
           style={[
-            styles.top,
+            styles().top,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
-          <TextView title={title} style={styles.title} />
-          <View style={styles.heart}>
+          <TextView title={title} style={styles(isDarkMode).title} />
+          <View style={styles(isDarkMode).heart}>
             <Svg name="heart" size={20} />
           </View>
         </View>
@@ -46,7 +48,7 @@ const Card = ({
           <TextView
             title={description}
             style={[
-              styles.decription,
+              styles(isDarkMode, lang).decription,
               { textAlign: lang === 'ar' ? 'right' : 'left' },
             ]}
           />
@@ -54,16 +56,16 @@ const Card = ({
 
         <View
           style={[
-            styles.location,
+            styles(isDarkMode).location,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
           <Svg name="location" size={20} />
-          <TextView title={location} style={styles.locationText} />
+          <TextView title={location} style={styles(isDarkMode).locationText} />
         </View>
 
         <View
           style={[
-            styles.end,
+            styles().end,
             {
               flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
             },

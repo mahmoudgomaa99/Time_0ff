@@ -9,6 +9,9 @@ import Svg, {
   Circle,
 } from 'react-native-svg';
 import { TSvgProps } from '../Svg';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import COLORS from 'values/colors';
 
 const WIDTH = 113.715;
 const HEIGHT = 77.212;
@@ -17,6 +20,7 @@ const RATIO_TO_WIDTH = HEIGHT / WIDTH;
 
 function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Svg {...computedSize} viewBox="0 0 37 37" {...props}>
       <G
@@ -30,7 +34,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           cy="18.5"
           r="18.5"
           transform="translate(323 89)"
-          fill="#0370d6"
+          fill={isDarkMode ? COLORS.iconBackDarkMode : '#0370d6'}
         />
         <G id="settings-sliders" transform="translate(333 99)">
           <Path
@@ -60,4 +64,3 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
 }
 
 export default SvgComponent;
-

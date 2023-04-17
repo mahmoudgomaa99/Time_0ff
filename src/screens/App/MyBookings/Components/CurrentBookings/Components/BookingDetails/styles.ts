@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import G from 'react-native-svg';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     title: {
       fontSize: 18,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginBottom: MarginsAndPaddings.xxl,
       textAlign: lang === 'ar' ? 'right' : undefined,
     },
@@ -18,12 +19,12 @@ export const styles = (lang: string) => {
     },
     firstText: {
       fontSize: 16,
-      color: '#979797',
+      color: isDarkMode ? COLORS.grey : '#979797',
       textAlign: lang === 'ar' ? 'right' : undefined,
     },
     secondText: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       textAlign: lang === 'ar' ? 'right' : undefined,
     },
   });

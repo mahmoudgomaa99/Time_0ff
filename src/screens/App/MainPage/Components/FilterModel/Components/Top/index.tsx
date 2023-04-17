@@ -12,23 +12,28 @@ const Top = ({
   isFilterModalVisable,
   setFilterModalVisable,
   props,
+  isDarkMode,
 }: {
   lang: string;
   props: FormikProps<any>;
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
+  isDarkMode?: boolean;
 }) => {
   return (
     <View
       style={[
-        styles.top,
+        styles().top,
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
       <TouchableOpacity onPress={() => setFilterModalVisable(false)}>
         <Svg name="close" size={50} />
       </TouchableOpacity>
 
-      <TextView title={languages[lang].filter} style={styles.filterText} />
+      <TextView
+        title={languages[lang].filter}
+        style={styles(isDarkMode).filterText}
+      />
 
       <TextView
         title={languages[lang].reset}
@@ -40,7 +45,7 @@ const Top = ({
           props.setFieldValue('endPrice', initialVslues.endPrice);
           props.setFieldValue('rating', initialVslues.rating);
         }}
-        style={styles.resetText}
+        style={styles(isDarkMode).resetText}
       />
     </View>
   );

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { h, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
@@ -13,8 +13,8 @@ export const styles = (lang: string) => {
       paddingTop: 10,
       paddingBottom: 5,
       elevation: 10,
-      shadowColor: '#bfbdbd',
-      backgroundColor: 'white',
+      shadowColor: isDarkMode ? COLORS.white : '#bfbdbd',
+      backgroundColor: isDarkMode ? '#222533' : 'white',
       shadowOffset: { height: 1, width: 1 },
       shadowOpacity: 1,
       height: h * 0.09,
@@ -26,11 +26,11 @@ export const styles = (lang: string) => {
     },
     title: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
     subTitle: {
       fontSize: 14,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       maxWidth: w * 0.7,
       marginTop: 3,
       maxHeight: 20,

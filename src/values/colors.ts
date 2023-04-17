@@ -9,9 +9,11 @@ const COLORS = {
   // app colors
   primary: '#1F1FEC',
   secondery: '#000',
+  darkMode: '#242332',
+  iconBackDarkMode: '#2b2c3a',
   //
   alfaBlack: 'rgba(192,192,192, 0.65)',
-  alfaBlack2: 'rgba(192,192,192, 0.4)',
+  alfaBlack2: 'rgba(192,192,192, 0.2)',
 
   lightGrey: '#F2F2F2',
   red: '#ff0000',

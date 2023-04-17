@@ -16,9 +16,11 @@ import { log } from 'react-native-reanimated';
 const Bottom = ({
   lang,
   setisDetailsModalVisibal,
+  isDarkMode,
 }: {
   lang: string;
   setisDetailsModalVisibal: any;
+  isDarkMode?: boolean;
 }) => {
   // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -35,7 +37,7 @@ const Bottom = ({
             <TextView
               title={languages[lang].date}
               style={[
-                styles.text,
+                styles(isDarkMode).text,
                 { textAlign: lang === 'ar' ? 'right' : undefined },
               ]}
             />
@@ -44,8 +46,8 @@ const Bottom = ({
               name="date"
               disabled
               value={props.values.date}
-              inputContainerStyling={styles.inputContainerStyling}
-              containerStyle={styles.containerStyle}
+              inputContainerStyling={styles(isDarkMode).inputContainerStyling}
+              containerStyle={styles(isDarkMode).containerStyle}
               onPressIn={() => setDateModalVisable(true)}
               leftIcon={<Svg name="calendar" />}
             />
@@ -54,7 +56,7 @@ const Bottom = ({
             <TextView
               title={languages[lang].time}
               style={[
-                styles.text,
+                styles(isDarkMode).text,
                 { textAlign: lang === 'ar' ? 'right' : undefined },
               ]}
             />
@@ -62,8 +64,8 @@ const Bottom = ({
               {...props}
               name="time"
               value={props.values.time}
-              inputContainerStyling={styles.inputContainerStyling}
-              containerStyle={styles.containerStyle}
+              inputContainerStyling={styles(isDarkMode).inputContainerStyling}
+              containerStyle={styles(isDarkMode).containerStyle}
               //   leftIcon={<Svg name="calendar" />}
             />
           </View>
@@ -72,7 +74,7 @@ const Bottom = ({
             <TextView
               title={languages[lang].numberOfPerson}
               style={[
-                styles.text,
+                styles(isDarkMode).text,
                 { textAlign: lang === 'ar' ? 'right' : undefined },
               ]}
             />
@@ -104,7 +106,7 @@ const Bottom = ({
               text={languages[lang].termCondition}
               textStyle={{
                 fontSize: 18,
-                color: COLORS.black,
+                color: isDarkMode ? COLORS.white : COLORS.black,
                 transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
               }}
             />
@@ -116,7 +118,7 @@ const Bottom = ({
             onPress={() => {
               props.handleSubmit();
             }}
-            style={styles.button}
+            style={styles().button}
           />
 
           <DateModal
@@ -126,6 +128,7 @@ const Bottom = ({
             setDateModalVisable={setDateModalVisable}
             formikProps={props}
             lang={lang}
+            isDarkMode={isDarkMode}
           />
         </View>
       )}

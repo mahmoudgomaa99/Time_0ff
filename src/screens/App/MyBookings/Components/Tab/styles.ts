@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     innerContainer: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
@@ -25,12 +25,12 @@ export const styles = (lang: string) => {
       flex: 1,
     },
     activeText: {
-      color: '#0370D6',
+      color: isDarkMode ? COLORS.white : '#0370D6',
       fontSize: 16,
       textAlign: 'center',
     },
     text: {
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.grey : COLORS.black,
       fontSize: 16,
       textAlign: 'center',
     },
