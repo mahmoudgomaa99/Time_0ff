@@ -10,6 +10,7 @@ import Button from 'components/molecules/Button';
 import { useAppDispatch } from 'redux/store';
 import { useSelector } from 'react-redux';
 import Language, { selectLanguage } from 'redux/language';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const LanguageModel = ({
   isLanguageModel,
@@ -20,9 +21,10 @@ const LanguageModel = ({
 }) => {
   const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Modal isVisible={isLanguageModel}>
-      <View style={styles(lang).modalContainer}>
+      <View style={styles(lang, isDarkMode).modalContainer}>
         <Formik
           initialValues={{ language: lang }}
           onSubmit={value => {
@@ -41,7 +43,7 @@ const LanguageModel = ({
                   </View>
                   <TextView
                     title={languages[lang].arabic}
-                    style={styles(lang).text}
+                    style={styles(lang, isDarkMode).text}
                   />
                 </View>
                 <View style={styles(lang).flexRow}>
@@ -50,7 +52,7 @@ const LanguageModel = ({
                   </View>
                   <TextView
                     title={languages[lang].english}
-                    style={styles(lang).text}
+                    style={styles(lang, isDarkMode).text}
                   />
                 </View>
               </RadioButton.Group>
@@ -63,13 +65,13 @@ const LanguageModel = ({
                     props.handleSubmit();
                     setisLanguageModel(false);
                   }}
-                  style={styles(lang).buttons}
+                  style={styles(lang, isDarkMode).buttons1}
                 />
                 <Button
                   type={'cancel'}
                   label={languages[lang].cancel}
                   onPress={() => setisLanguageModel(false)}
-                  style={styles(lang).buttons}
+                  style={styles(lang, isDarkMode).buttons2}
                 />
               </View>
             </View>

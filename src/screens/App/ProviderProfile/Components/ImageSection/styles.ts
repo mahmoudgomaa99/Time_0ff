@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { MarginsAndPaddings, w } from 'values/Dimensions';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       marginTop: MarginsAndPaddings.ml,
@@ -12,7 +12,7 @@ export const styles = (lang: string) => {
     },
     providerName: {
       fontSize: 22,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
     textContainer: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
@@ -25,7 +25,7 @@ export const styles = (lang: string) => {
       alignItems: 'center',
       borderRadius: 15,
       padding: 7,
-      backgroundColor: '#FFF7E8',
+      backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : '#FFF7E8',
     },
     second: {
       marginHorizontal: w * 0.03,
@@ -33,11 +33,11 @@ export const styles = (lang: string) => {
       alignItems: 'center',
       borderRadius: 15,
       padding: 7,
-      backgroundColor: '#E4FFFC',
+      backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : '#E4FFFC',
     },
     text: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
   });
 };

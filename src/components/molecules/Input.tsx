@@ -12,6 +12,7 @@ import { Input, InputProps } from 'react-native-elements';
 import COLORS from 'values/colors';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -52,6 +53,7 @@ const InputView = ({
   ...props
 }: InputProps & TInput) => {
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <View style={[styles.container, containerStyling]}>
       <Text style={titleStyling}>{title}</Text>
@@ -76,7 +78,7 @@ const InputView = ({
         ]}
         errorMessage={touched[name] ? errors[name] : ''}
         inputStyle={{
-          color: '#000',
+          color: isDarkMode ? COLORS.white : '#000',
           fontSize: 14,
           opacity: 0.7,
           textAlign: lang === 'ar' ? 'right' : 'left',

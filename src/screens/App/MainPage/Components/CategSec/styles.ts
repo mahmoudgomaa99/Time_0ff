@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     categoryText: {
       fontSize: 18,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginBottom: MarginsAndPaddings.xxl,
       textAlign: lang === 'ar' ? 'right' : 'left',
       marginHorizontal: 15,
@@ -19,7 +19,7 @@ export const styles = (lang: string) => {
     },
     tripText: {
       fontSize: 14,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginTop: 4,
     },
   });

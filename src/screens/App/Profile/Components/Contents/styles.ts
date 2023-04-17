@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h, MarginsAndPaddings } from 'values/Dimensions';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     parentContainer: {
       marginTop: h * 0.015,
@@ -20,7 +20,7 @@ export const styles = (lang: string) => {
     },
     text: {
       fontSize: 18,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginHorizontal: MarginsAndPaddings.m,
     },
     arrow: {
@@ -28,13 +28,13 @@ export const styles = (lang: string) => {
     },
 
     svg: {
-      backgroundColor: '#eee',
+      backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : '#eee',
       width: 40,
       height: 40,
       borderRadius: 13,
       justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal:10
+      marginHorizontal: 10,
     },
   });
 };

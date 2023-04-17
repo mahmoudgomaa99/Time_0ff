@@ -11,12 +11,14 @@ import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const EditProfile = () => {
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
-    <SafeAreaView style={styles(lang).container}>
-      <Top lang={lang} />
+    <SafeAreaView style={styles(lang, isDarkMode).container}>
+      <Top isDarkMode={isDarkMode} lang={lang} />
       <Formik
         initialValues={{
           fullName: '',
@@ -39,7 +41,10 @@ const EditProfile = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles(lang).containerStyle, { marginTop: 4 }]}
+              containerStyle={[
+                styles(lang, isDarkMode).containerStyle,
+                { marginTop: 4 },
+              ]}
               labelStyle={[styles(lang).label_style]}
             />
             <View style={styles(lang).flexRow}>
@@ -55,7 +60,7 @@ const EditProfile = () => {
                   borderBottomWidth: 0,
                 }}
                 containerStyle={[
-                  styles(lang).containerStyleCountry,
+                  styles(lang, isDarkMode).containerStyleCountry,
                   { marginTop: 10 },
                 ]}
                 labelStyle={[styles(lang).label_style]}
@@ -72,7 +77,7 @@ const EditProfile = () => {
                   borderBottomWidth: 0,
                 }}
                 containerStyle={[
-                  styles(lang).containerStylePhone,
+                  styles(lang, isDarkMode).containerStylePhone,
                   { marginTop: 10 },
                 ]}
                 labelStyle={[styles(lang).label_style]}
@@ -90,7 +95,10 @@ const EditProfile = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles(lang).containerStyle, { marginTop: 10 }]}
+              containerStyle={[
+                styles(lang, isDarkMode).containerStyle,
+                { marginTop: 10 },
+              ]}
               labelStyle={[styles(lang).label_style]}
             />
 

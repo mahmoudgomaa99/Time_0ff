@@ -9,6 +9,7 @@ export const styles = (lang: string) => {
       color: '#5B5959',
       lineHeight: h * 0.025,
       textAlign: lang === 'ar' ? 'right' : undefined,
+      marginHorizontal: 20,
     },
   });
 };

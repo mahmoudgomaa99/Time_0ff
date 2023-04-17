@@ -2,13 +2,13 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h, MarginsAndPaddings, w } from 'values/Dimensions';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       marginVertical: MarginsAndPaddings.xl,
-      backgroundColor: 'white',
+      backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
       paddingVertical: 10,
       paddingHorizontal: 10,
     },
@@ -35,8 +35,9 @@ export const styles = (lang: string) => {
     },
     name: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       maxWidth: '70%',
+      marginLeft: lang === 'en' ? 10 : 0,
     },
     review: {
       fontSize: 14,

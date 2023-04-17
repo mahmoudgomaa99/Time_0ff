@@ -8,6 +8,8 @@ import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
 const PasswordModel = ({
   lang,
   isPasswordModel,
@@ -17,13 +19,14 @@ const PasswordModel = ({
   isPasswordModel: boolean;
   setisPasswordModel: any;
 }) => {
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Modal isVisible={isPasswordModel}>
-      <View style={styles(lang).modalContainer}>
-        <Svg name='key' size={70}/>
+      <View style={styles(lang, isDarkMode).modalContainer}>
+        <Svg name="key" size={70} />
         <TextView
           title={languages[lang].changeYourPassword}
-          style={styles(lang).text}
+          style={styles(lang, isDarkMode).text}
         />
         <Formik
           initialValues={{
@@ -35,7 +38,7 @@ const PasswordModel = ({
           {props => (
             <View style={styles(lang).container}>
               <InputView
-                style={styles(lang).input}
+                style={styles(lang, isDarkMode).input}
                 {...props}
                 name="oldPassword"
                 onChangeText={props.handleChange('oldPassword')}
@@ -44,11 +47,14 @@ const PasswordModel = ({
                   direction: lang === 'ar' ? 'rtl' : 'ltr',
                   borderBottomWidth: 0,
                 }}
-                containerStyle={[styles(lang).containerStyle, { marginTop: 4 }]}
+                containerStyle={[
+                  styles(lang, isDarkMode).containerStyle,
+                  { marginTop: 4 },
+                ]}
                 placeholder={languages[lang].oldPassword}
               />
               <InputView
-                style={styles(lang).input}
+                style={styles(lang, isDarkMode).input}
                 {...props}
                 name="newPassword"
                 onChangeText={props.handleChange('newPassword')}
@@ -57,11 +63,14 @@ const PasswordModel = ({
                   direction: lang === 'ar' ? 'rtl' : 'ltr',
                   borderBottomWidth: 0,
                 }}
-                containerStyle={[styles(lang).containerStyle, { marginTop: 4 }]}
+                containerStyle={[
+                  styles(lang, isDarkMode).containerStyle,
+                  { marginTop: 4 },
+                ]}
                 placeholder={languages[lang].newPassword}
               />
               <InputView
-                style={styles(lang).input}
+                style={styles(lang, isDarkMode).input}
                 {...props}
                 name="confirmNewPassword"
                 onChangeText={props.handleChange('confirmNewPassword')}
@@ -70,7 +79,10 @@ const PasswordModel = ({
                   direction: lang === 'ar' ? 'rtl' : 'ltr',
                   borderBottomWidth: 0,
                 }}
-                containerStyle={[styles(lang).containerStyle, { marginTop: 4 }]}
+                containerStyle={[
+                  styles(lang, isDarkMode).containerStyle,
+                  { marginTop: 4 },
+                ]}
                 placeholder={languages[lang].confirmNewPassword}
               />
 
@@ -78,10 +90,10 @@ const PasswordModel = ({
                 <Button
                   type={'primaryModel'}
                   label={languages[lang].confirm}
-                  onPress={() =>{
-                    props.handleSubmit()
-                    setisPasswordModel(false)
-                  } }
+                  onPress={() => {
+                    props.handleSubmit();
+                    setisPasswordModel(false);
+                  }}
                   style={styles(lang).buttons}
                 />
                 <Button

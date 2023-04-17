@@ -6,6 +6,7 @@ import { FormikProps } from 'formik';
 import { styles } from './styles';
 import Top from './Components/Top';
 import Button from 'components/molecules/Button';
+import COLORS from 'values/colors';
 const DateModal = ({
   selectedDate,
   setSelectedDate,
@@ -13,6 +14,7 @@ const DateModal = ({
   setDateModalVisable,
   formikProps,
   lang,
+  isDarkMode,
 }: {
   selectedDate: any;
   setSelectedDate: any;
@@ -20,10 +22,11 @@ const DateModal = ({
   setDateModalVisable: any;
   formikProps: FormikProps<any>;
   lang: string;
+  isDarkMode?: boolean;
 }) => {
   // function to handle selecting a date
   const handleSelectDate = (date: any) => {
-    console.log(selectedDate)
+    console.log(selectedDate);
     setSelectedDate(date.dateString);
     console.log(selectedDate);
     formikProps.setFieldValue('date', date.dateString);
@@ -33,12 +36,13 @@ const DateModal = ({
     <Modal
       isVisible={isDateModalVisable}
       style={{ marginHorizontal: 0, marginBottom: 0 }}>
-      <View style={styles.modalContainer}>
+      <View style={styles(isDarkMode).modalContainer}>
         <View style={{ flex: 1, justifyContent: 'center', zIndex: 10 }}>
           <Top
             isDateModalVisable={isDateModalVisable}
             setDateModalVisable={setDateModalVisable}
             lang={lang}
+            isDarkMode={isDarkMode}
           />
           <Calendar
             current={selectedDate}
@@ -47,11 +51,11 @@ const DateModal = ({
             markedDates={{
               [selectedDate]: {
                 selected: true,
-                selectedColor: '#B5E633'
+                selectedColor: '#B5E633',
               },
             }}
             style={{
-              backgroundColor: 'white',
+              backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
               borderRadius: 10,
               marginTop: 20,
               padding: 10,
@@ -61,11 +65,24 @@ const DateModal = ({
               shadowOpacity: 0.5,
               shadowRadius: 2,
             }}
+            theme={{
+              calendarBackground: isDarkMode ? COLORS.darkMode : COLORS.white,
+              'stylesheet.calendar.header': {
+                headerContainer: {
+                  color: isDarkMode ? COLORS.white : COLORS.black,
+                },
+                monthText: { color: isDarkMode ? COLORS.white : COLORS.black },
+                arrowImage: {
+                  tintColor: isDarkMode ? COLORS.white : COLORS.black,
+                },
+              },
+            }}
+            // headerStyle={{}}
           />
           <Button
             type="primary"
             label="Book Now"
-            style={styles.button}
+            style={styles().button}
             onPress={() => {
               console.log('clicked');
               formikProps.handleSubmit;

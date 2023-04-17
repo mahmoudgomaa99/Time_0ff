@@ -9,20 +9,22 @@ const Card = ({
   iconName,
   title,
   subTitle,
+  isDarkMode,
 }: {
   lang: string;
   iconName: any;
   title: string;
   subTitle: string;
+  isDarkMode?: boolean;
 }) => {
   return (
-    <View style={styles(lang).container}>
+    <View style={styles(lang,isDarkMode).container}>
       <View>
         <Svg name={iconName} size={50} />
       </View>
       <View style={styles(lang).second}>
-        <TextView title={title} style={styles(lang).title} />
-        <TextView title={subTitle} style={styles(lang).subTitle} />
+        <TextView title={title} style={styles(lang,isDarkMode).title} />
+        <TextView title={subTitle} style={styles(lang,isDarkMode).subTitle} />
       </View>
     </View>
   );

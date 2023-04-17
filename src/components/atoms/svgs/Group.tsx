@@ -9,6 +9,9 @@ import Svg, {
   Rect,
 } from 'react-native-svg';
 import { TSvgProps } from '../Svg';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import COLORS from 'values/colors';
 
 const WIDTH = 113.715;
 const HEIGHT = 77.212;
@@ -17,6 +20,7 @@ const RATIO_TO_WIDTH = HEIGHT / WIDTH;
 
 function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Svg {...computedSize} viewBox="0 0 40 40" {...props}>
       <G
@@ -27,8 +31,8 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           id="Rectangle_228"
           data-name="Rectangle 228"
           transform="translate(16 277)"
-          fill="#fff"
-          stroke="#eee"
+          fill={isDarkMode ? COLORS.iconBackDarkMode : '#fff'}
+          stroke={isDarkMode ? COLORS.iconBackDarkMode : '#eee'}
           stroke-width="1">
           <Rect width="40" height="40" rx="10" stroke="none" />
           <Rect x="0.5" y="0.5" width="39" height="39" rx="9.5" fill="none" />

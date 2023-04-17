@@ -9,26 +9,28 @@ const Top = ({
   lang,
   isDetailsModalVisibal,
   setisDetailsModalVisibal,
+  isDarkMode,
 }: {
   lang: string;
   isDetailsModalVisibal: boolean;
   setisDetailsModalVisibal: any;
+  isDarkMode?: boolean;
 }) => {
   return (
     <View
       style={[
-        styles.top,
+        styles().top,
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
       <TouchableOpacity
         onPress={() => {
-          setisDetailsModalVisibal(false)
+          setisDetailsModalVisibal(false);
         }}>
         <Svg name="close" size={50} />
       </TouchableOpacity>
       <TextView
         title={languages[lang].bookingDetails}
-        style={styles.BookText}
+        style={styles(isDarkMode).BookText}
       />
     </View>
   );

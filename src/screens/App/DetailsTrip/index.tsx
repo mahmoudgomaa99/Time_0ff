@@ -17,8 +17,10 @@ import DetailsModal from './Components/DetailsModal';
 import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentJourney } from 'redux/journey';
 import { useAppDispatch } from 'redux/store';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const DetailsTrip = () => {
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [favoutite, setfavoutite] = useState(true);
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const navigation = useNavigation<any>();
@@ -47,15 +49,15 @@ const DetailsTrip = () => {
 
   const renderItem = ({ item, index }: any) => {
     return (
-      <View style={styles.carouselItemContainer}>
-        <Image source={item.image} style={styles.carouselImage} />
+      <View style={styles(isDarkMode).carouselItemContainer}>
+        <Image source={item.image} style={styles().carouselImage} />
       </View>
     );
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.image}>
-        <View style={[styles.SVG, , lang === 'ar' ? styles.arabic : null]}>
+    <View style={styles(isDarkMode).container}>
+      <View style={styles().image}>
+        <View style={[styles().SVG, , lang === 'ar' ? styles().arabic : null]}>
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
@@ -63,7 +65,7 @@ const DetailsTrip = () => {
             style={[
               { transform: [{ rotateY: lang === 'en' ? '180deg' : '0deg' }] },
             ]}>
-            <Svg name="arrow" size={60} />
+            <Svg name="arrow" isTripDetails={true} size={60} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setfavoutite(prev => !prev)}>
             <Svg
@@ -87,33 +89,34 @@ const DetailsTrip = () => {
           dotsLength={carouselItems.length}
           activeDotIndex={activeIndex}
           containerStyle={[
-            styles.paginationContainer,
+            styles().paginationContainer,
             { direction: lang === 'ar' ? 'rtl' : 'ltr' },
           ]}
-          dotStyle={styles.paginationDot}
-          inactiveDotStyle={styles.paginationInactiveDot}
+          dotStyle={styles().paginationDot}
+          inactiveDotStyle={styles().paginationInactiveDot}
           inactiveDotOpacity={0.4}
           inactiveDotScale={0.6}
         />
       </View>
 
-      <View style={styles.text}>
+      <View style={styles().text}>
         <TextView
           title={languages[lang].divingActivity}
           style={[
-            styles.title,
+            styles(isDarkMode).title,
             { textAlign: lang === 'ar' ? 'right' : 'left' },
           ]}
         />
 
-        <View style={[styles.svgAndStar, lang === 'ar' ? styles.arabic : null]}>
+        <View
+          style={[styles().svgAndStar, lang === 'ar' ? styles().arabic : null]}>
           <Svg name="smile" />
           <TextView
             onPress={() => {
               navigation.navigate('providerProfile');
             }}
             title={languages[lang].hestegal}
-            style={styles.subTitle}
+            style={styles(isDarkMode).subTitle}
           />
           <Svg name="star" size={17} />
           <TextView title={'(3.4)'} />
@@ -123,13 +126,13 @@ const DetailsTrip = () => {
           <TextView
             title={languages[lang].description}
             style={[
-              styles.descriptionTitle,
+              styles(isDarkMode).descriptionTitle,
               { textAlign: lang === 'ar' ? 'right' : 'left' },
             ]}
           />
           <Text style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
             <TextView
-              style={styles.descriptionText}
+              style={styles(isDarkMode).descriptionText}
               title={languages[lang].desc}
             />
           </Text>
@@ -137,20 +140,26 @@ const DetailsTrip = () => {
       </View>
 
       <View
-        style={[styles.bottom, lang === 'ar' ? styles.arabic : styles.arabic]}>
+        style={[
+          styles().bottom,
+          lang === 'ar' ? styles().arabic : styles().arabic,
+        ]}>
         <View
           style={[
-            styles.bottomSec,
+            styles().bottomSec,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
           <TextView
             title={languages[lang].LE}
-            style={[styles.price, { marginBottom: lang === 'en' ? 15 : 0 }]}
+            style={[
+              styles(isDarkMode).price,
+              { marginBottom: lang === 'en' ? 15 : 0 },
+            ]}
           />
           <Button
             type="book"
             label={languages[lang].bookNow}
-            txtStyle={styles.btn_text}
+            txtStyle={styles().btn_text}
             onPress={() => {
               setisDetailsModalVisibal(true);
             }}
@@ -160,6 +169,7 @@ const DetailsTrip = () => {
       <DetailsModal
         isDetailsModalVisibal={isDetailsModalVisibal}
         setisDetailsModalVisibal={setisDetailsModalVisibal}
+        isDarkMode={isDarkMode}
       />
     </View>
   );

@@ -9,6 +9,9 @@ import Svg, {
   Rect,
 } from 'react-native-svg';
 import { TSvgProps } from '../Svg';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import COLORS from 'values/colors';
 
 const WIDTH = 113.715;
 const HEIGHT = 77.212;
@@ -17,6 +20,7 @@ const RATIO_TO_WIDTH = HEIGHT / WIDTH;
 
 function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Svg {...computedSize} viewBox="0 0 40 40" {...props}>
       <G id="Icon_Edit-Profile" transform="translate(-966 -1934)">
@@ -27,7 +31,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           height="40"
           rx="13"
           transform="translate(966 1934)"
-          fill="#fff1e1"
+          fill={isDarkMode ? COLORS.iconBackDarkMode : '#fff1e1'}
         />
         <G id="edit" transform="translate(977.333 1945.333)">
           <Path
