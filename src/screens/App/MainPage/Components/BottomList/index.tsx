@@ -29,7 +29,7 @@ const BottomList = ({ lang }: { lang: string }) => {
       <View style={{ marginHorizontal: 15 }}>
         <View style={[styles(lang).experiences]}>
           <TextView
-            title={languages[lang].experiences}
+            title={languages[lang].activity}
             style={styles(lang).experiencesText}
           />
           <TextView
