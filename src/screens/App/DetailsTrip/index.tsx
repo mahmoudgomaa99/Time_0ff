@@ -17,12 +17,14 @@ import DetailsModal from './Components/DetailsModal';
 import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentJourney } from 'redux/journey';
 import { useAppDispatch } from 'redux/store';
+import RequestReceive from './Components/RequestReceive';
 import { selectIsDarkMode } from 'redux/DarkMode';
 
 const DetailsTrip = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const [favoutite, setfavoutite] = useState(true);
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
+  const [isRequestReceive, setisRequestReceive] = useState(false);
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -170,6 +172,11 @@ const DetailsTrip = () => {
         isDetailsModalVisibal={isDetailsModalVisibal}
         setisDetailsModalVisibal={setisDetailsModalVisibal}
         isDarkMode={isDarkMode}
+      />
+      <RequestReceive
+        lang={lang}
+        isRequestReceive={isRequestReceive}
+        setisRequestReceive={setisRequestReceive}
       />
     </View>
   );
