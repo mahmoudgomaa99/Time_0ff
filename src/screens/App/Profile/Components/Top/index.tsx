@@ -6,7 +6,7 @@ import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { useNavigation } from '@react-navigation/native';
 
-const Top = ({ lang }: { lang: string }) => {
+const Top = ({ lang, isDarkMode }: { lang: string; isDarkMode?: boolean }) => {
   const navigation = useNavigation<any>();
   return (
     <View style={styles(lang).container}>
@@ -18,7 +18,7 @@ const Top = ({ lang }: { lang: string }) => {
       />
       <TextView
         title={languages[lang].profile}
-        style={styles(lang).screenText}
+        style={styles(lang,isDarkMode).screenText}
       />
     </View>
   );

@@ -1,14 +1,17 @@
-import { View, Text, ImageBackground, Image, Platform } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import React, { useState, useRef } from 'react';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { imageList } from '../data';
 import { styles } from './styles';
-import { useSelector } from 'react-redux';
-import { selectLanguage } from 'redux/language/index';
-import { h } from 'src/values/Dimensions';
-import { w } from '../../../../../values/Dimensions';
+import { h, w } from 'src/values/Dimensions';
 
-const AdSec = ({ lang }: { lang: string }) => {
+const AdSec = ({
+  lang,
+  isDarkMode,
+}: {
+  lang: string;
+  isDarkMode?: boolean;
+}) => {
   const carouselRef = useRef();
   const [indexSelected, setIndexSelected] = useState(0);
   const renderItem = () => {
@@ -21,7 +24,7 @@ const AdSec = ({ lang }: { lang: string }) => {
         styles.paginationContainer,
         {
           marginHorizontal: lang === 'ar' ? 17 : 15,
-          marginLeft: lang === 'ar' ? -15 : 0,
+          marginLeft: lang === 'ar' ? -15 : 15,
         },
       ]}>
       <View

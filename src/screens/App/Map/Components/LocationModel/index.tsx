@@ -9,18 +9,20 @@ const LocationModel = ({
   lang,
   isLocationModel,
   setisLocationModel,
+  isDarkMode,
 }: {
   lang: string;
   isLocationModel: boolean;
   setisLocationModel: any;
+  isDarkMode?: boolean;
 }) => {
   return (
     <Modal isVisible={isLocationModel}>
-      <View style={styles(lang).modalContainer}>
+      <View style={styles(lang, isDarkMode).modalContainer}>
         <Svg name="blueLogo" size={100} />
         <TextView
           title={languages[lang].locationAccess}
-          style={styles(lang).title}
+          style={styles(lang, isDarkMode).title}
         />
         <View style={styles(lang).textContainer}>
           <TextView

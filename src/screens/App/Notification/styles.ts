@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, h } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: COLORS.white,
+      backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
     },
     noInbox: {
       flex: 1,
@@ -15,7 +15,7 @@ export const styles = (lang: string) => {
       marginTop: -h * 0.15,
     },
     text: {
-      marginTop:MarginsAndPaddings.ml,
+      marginTop: MarginsAndPaddings.ml,
       fontSize: 22,
       color: COLORS.black,
     },

@@ -7,12 +7,18 @@ import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 
-const ImageSection = ({ lang }: { lang: string }) => {
+const ImageSection = ({
+  lang,
+  isDarkMode,
+}: {
+  lang: string;
+  isDarkMode: boolean;
+}) => {
   const user = useSelector(selectCurrentUser);
   return (
     <View style={styles(lang).container}>
       <Image source={images.present} style={styles(lang).image} />
-      <TextView title={user ? user.name : 'User'} style={styles(lang).text} />
+      <TextView title={user ? user.name : 'User'} style={styles(lang,isDarkMode).text} />
     </View>
   );
 };

@@ -8,17 +8,23 @@ const Tab = ({
   lang,
   select,
   setselect,
+  isDarkMode,
 }: {
   lang: string;
   select: number;
   setselect: any;
+  isDarkMode?: boolean;
 }) => {
   return (
     <View style={styles(lang).ContainerText}>
       <View style={styles(lang).view}>
         <TextView
           title={languages[lang].about}
-          style={select === 1 ? styles(lang).blackText : styles(lang).greyText}
+          style={
+            select === 1
+              ? styles(lang, isDarkMode).blackText
+              : styles(lang, isDarkMode).greyText
+          }
           onPress={() => setselect(1)}
         />
         <View style={select === 1 ? styles(lang).line : null}></View>
@@ -27,7 +33,11 @@ const Tab = ({
       <View style={styles(lang).view}>
         <TextView
           title={languages[lang].experience}
-          style={select === 2 ? styles(lang).blackText : styles(lang).greyText}
+          style={
+            select === 2
+              ? styles(lang, isDarkMode).blackText
+              : styles(lang, isDarkMode).greyText
+          }
           onPress={() => setselect(2)}
         />
         <View style={select === 2 ? styles(lang).lineCenter : null}></View>
@@ -36,7 +46,11 @@ const Tab = ({
       <View style={styles(lang).view}>
         <TextView
           title={languages[lang].review}
-          style={select === 3 ? styles(lang).blackText : styles(lang).greyText}
+          style={
+            select === 3
+              ? styles(lang, isDarkMode).blackText
+              : styles(lang, isDarkMode).greyText
+          }
           onPress={() => setselect(3)}
         />
         <View style={select === 3 ? styles(lang).line : null}></View>

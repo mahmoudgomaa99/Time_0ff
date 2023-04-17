@@ -1,10 +1,16 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import languages from 'values/languages';
-import Card from './Components/Card';
+import Card from '../../../MainPage/Components/Card';
 import { Data } from './data';
 
-const ExperienceSection = ({ lang }: { lang: string }) => {
+const ExperienceSection = ({
+  lang,
+  isDarkMode,
+}: {
+  isDarkMode?: boolean;
+  lang: string;
+}) => {
   return (
     <View>
       {Data(lang).map(value => (
@@ -15,6 +21,7 @@ const ExperienceSection = ({ lang }: { lang: string }) => {
           name={value.name}
           stars={value.stars}
           lang={lang}
+          isDarkMode={isDarkMode}
         />
       ))}
     </View>

@@ -1,17 +1,23 @@
 import { View, FlatList, TouchableOpacity, Platform } from 'react-native';
 import React from 'react';
 import TextView from 'atoms/TextView';
+import { categData } from '../data';
 import Svg from 'atoms/Svg';
 import languages from 'values/languages';
 import { styles } from './styles';
-import { categData } from '../data';
 
-const CategSec = ({ lang }: { lang: string }) => {
+const CategSec = ({
+  lang,
+  isDarkMode,
+}: {
+  lang: string;
+  isDarkMode?: boolean;
+}) => {
   return (
     <View style={{}}>
       <TextView
         title={languages[lang].types}
-        style={styles(lang).categoryText}
+        style={styles(lang, isDarkMode).categoryText}
       />
       <View
         style={{
@@ -39,7 +45,10 @@ const CategSec = ({ lang }: { lang: string }) => {
                   },
                 ]}>
                 <Svg name={item.svgName} size={80} />
-                <TextView title={[item.title]} style={styles(lang).tripText} />
+                <TextView
+                  title={[item.title]}
+                  style={styles(lang, isDarkMode).tripText}
+                />
               </View>
             </TouchableOpacity>
           )}

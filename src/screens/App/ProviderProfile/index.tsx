@@ -17,12 +17,11 @@ import Journeys, { selectCurrentJourney } from 'redux/journey';
 import { useRoute } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const ProviderProfile = () => {
   const lang = useSelector(selectLanguage);
-
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [select, setselect] = useState(2);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const route = useRoute();
@@ -34,17 +33,22 @@ const ProviderProfile = () => {
   // }, [route.params?.id]);
   // console.log(route.params?.id)
   return (
-    <SafeAreaView style={styles(lang).container}>
-      <Top lang={lang} />
-      <ImageSection lang={lang} />
-      <Tab lang={lang} select={select} setselect={setselect} />
+    <SafeAreaView style={styles(lang, isDarkMode).container}>
+      <Top isDarkMode={isDarkMode} lang={lang} />
+      <ImageSection isDarkMode={isDarkMode} lang={lang} />
+      <Tab
+        isDarkMode={isDarkMode}
+        lang={lang}
+        select={select}
+        setselect={setselect}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         {select === 1 ? (
           <AboutSection lang={lang} />
         ) : select === 2 ? (
-          <ExperienceSection lang={lang} />
+          <ExperienceSection isDarkMode={isDarkMode} lang={lang} />
         ) : select === 3 ? (
-          <ReviewSection lang={lang} />
+          <ReviewSection isDarkMode={isDarkMode} lang={lang} />
         ) : null}
       </ScrollView>
     </SafeAreaView>

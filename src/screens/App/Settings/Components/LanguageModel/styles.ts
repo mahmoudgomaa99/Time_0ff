@@ -2,17 +2,16 @@ import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, h } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     modalContainer: {
-      backgroundColor: 'white',
+      backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
       borderRadius: 40,
       paddingHorizontal: 30,
-      paddingVertical:20,
+      paddingVertical: 20,
       alignItems: 'center',
     },
     container: {
-
       width: '100%',
     },
     radio: {
@@ -23,17 +22,20 @@ export const styles = (lang: string) => {
       justifyContent: 'space-evenly',
       marginTop: MarginsAndPaddings.xxl,
     },
-    buttons: {
+    buttons1: {
+      width: '40%',
+    },
+    buttons2: {
       width: '40%',
     },
     text: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
-    flexRow:{
-      flexDirection:lang === 'en'?'row':'row-reverse',
-      alignItems:'center',
-      marginLeft:lang==='ar'?'auto':0,
-    }
+    flexRow: {
+      flexDirection: lang === 'en' ? 'row' : 'row-reverse',
+      alignItems: 'center',
+      marginLeft: lang === 'ar' ? 'auto' : 0,
+    },
   });
 };

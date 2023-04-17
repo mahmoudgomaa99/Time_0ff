@@ -11,31 +11,40 @@ import { TInitialValues } from '../../data';
 const RangePrice = ({
   formikProps,
   lang,
+  isDarkMode,
 }: {
   formikProps: FormikProps<TInitialValues>;
   lang: string;
+  isDarkMode?: boolean;
 }) => {
   return (
     <View>
-      <TextView title={languages[lang].rangePrice} style={styles.text} />
+      <TextView
+        title={languages[lang].rangePrice}
+        style={styles(isDarkMode).text}
+      />
       <View
         style={[
-          styles.range,
+          styles().range,
           { direction: lang === 'ar' ? 'rtl' : undefined },
         ]}>
         <Slider
           value={[formikProps.values.startPrice, formikProps.values.endPrice]}
           minimumValue={0}
           maximumValue={10000}
-          thumbTintColor={COLORS.blue}
+          thumbTintColor={isDarkMode ? COLORS.white : COLORS.blue}
           thumbStyle={{
             shadowOpacity: 0.1,
             shadowOffset: { height: 1, width: 1 },
             shadowColor: COLORS.red,
           }}
           minimumTrackTintColor={COLORS.blue}
-          containerStyle={{ backgroundColor: COLORS.white }}
-          trackStyle={{ backgroundColor: '#eeeeee' }}
+          containerStyle={{
+            backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
+          }}
+          trackStyle={{
+            backgroundColor: isDarkMode ? '#1d1c27' : '#eeeeee',
+          }}
           onValueChange={(val: any) => {
             formikProps.setFieldValue('startPrice', val[0]);
             formikProps.setFieldValue('endPrice', val[1]);
@@ -45,16 +54,16 @@ const RangePrice = ({
       </View>
       <View
         style={[
-          styles.prices,
+          styles().prices,
           { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
         ]}>
         <TextView
           title={`${formikProps.values.startPrice} ${languages[lang].le}`}
-          style={styles.priceText}
+          style={styles(isDarkMode).priceText}
         />
         <TextView
           title={`${formikProps.values.endPrice} ${languages[lang].le}`}
-          style={styles.priceText}
+          style={styles(isDarkMode).priceText}
         />
       </View>
     </View>

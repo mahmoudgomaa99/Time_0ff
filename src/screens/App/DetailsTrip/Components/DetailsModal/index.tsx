@@ -16,20 +16,23 @@ import { selectLanguage } from '../../../../../redux/language/index';
 const DetailsTrip = ({
   isDetailsModalVisibal,
   setisDetailsModalVisibal,
+  isDarkMode,
 }: {
   isDetailsModalVisibal: boolean;
   setisDetailsModalVisibal: any;
+  isDarkMode?: boolean;
 }) => {
   const lang = useSelector(selectLanguage);
   return (
     <Modal
       isVisible={isDetailsModalVisibal}
       style={{ marginHorizontal: 0, marginBottom: 0 }}>
-      <View style={styles.modalContainer}>
+      <View style={styles(isDarkMode).modalContainer}>
         <Top
           lang={lang}
           isDetailsModalVisibal={isDetailsModalVisibal}
           setisDetailsModalVisibal={setisDetailsModalVisibal}
+          isDarkMode={isDarkMode}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Card
@@ -39,10 +42,12 @@ const DetailsTrip = ({
             name={languages[lang].cardName}
             stars={languages[lang].cardStars}
             lang={lang}
+            isDarkMode={isDarkMode}
           />
           <Bottom
             lang={lang}
             setisDetailsModalVisibal={setisDetailsModalVisibal}
+            isDarkMode={isDarkMode}
           />
         </ScrollView>
       </View>

@@ -4,7 +4,13 @@ import Card from './Components/Card';
 import languages from 'values/languages';
 import { Data } from './data';
 
-const ReviewSection = ({ lang }: { lang: string }) => {
+const ReviewSection = ({
+  lang,
+  isDarkMode,
+}: {
+  isDarkMode?: boolean;
+  lang: string;
+}) => {
   return (
     <View>
       {Data(lang).map(value => (
@@ -12,6 +18,7 @@ const ReviewSection = ({ lang }: { lang: string }) => {
           lang={lang}
           name={languages[lang].user}
           review={languages[lang].cardDescription}
+          isDarkMode={isDarkMode}
         />
       ))}
     </View>

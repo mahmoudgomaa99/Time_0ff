@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, h } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     modalContainer: {
-      backgroundColor: 'white',
+      backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
       borderRadius: 24,
       paddingHorizontal: 10,
       paddingVertical: 20,
@@ -13,7 +13,7 @@ export const styles = (lang: string) => {
     },
     title: {
       fontSize: 18,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
     textContainer: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

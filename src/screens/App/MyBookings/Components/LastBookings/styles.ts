@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string, color?: string) => {
+export const styles = (lang: string, color?: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     title: {
       fontSize: 18,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginBottom: MarginsAndPaddings.xxl,
       textAlign: lang === 'ar' ? 'right' : undefined,
     },
@@ -20,7 +20,7 @@ export const styles = (lang: string, color?: string) => {
     },
     text: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       maxWidth: w * 0.8,
       marginBottom: MarginsAndPaddings.xs,
     },

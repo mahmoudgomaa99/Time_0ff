@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 
-export const styles = (lang: string) => {
+export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -17,7 +17,7 @@ export const styles = (lang: string) => {
     },
     screenText: {
       fontSize: 18,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginLeft: 'auto',
       marginRight: 'auto',
     },

@@ -10,24 +10,30 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
 import { h } from '../values/Dimensions';
+import COLORS from 'values/colors';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const Tab = createBottomTabNavigator();
 
 const TabBar = () => {
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Tab.Navigator
       initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: '#0370D6',
-        tabBarInactiveTintColor: '#000000',
+        tabBarActiveTintColor: isDarkMode ? COLORS.white : '#0370D6',
+        tabBarInactiveTintColor: isDarkMode ? COLORS.alfaBlack : '#000000',
         tabBarStyle: {
           height: h * 0.085,
+          backgroundColor: isDarkMode ? '#222533' : COLORS.white,
+          borderWidth: 0,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           marginBottom: Platform.OS === 'android' ? 5 : -10,
         },
+        // tabBarBackground:[]
       }}>
       <Tab.Screen
         name={languages[lang].main}
@@ -39,7 +45,15 @@ const TabBar = () => {
               <Svg
                 name="main"
                 style={{ marginBottom: -10 }}
-                bgColor={focused ? '#0370D6' : '#000000'}
+                bgColor={
+                  focused
+                    ? isDarkMode
+                      ? COLORS.white
+                      : '#0370D6'
+                    : isDarkMode
+                    ? COLORS.alfaBlack
+                    : '#000000'
+                }
               />
             );
           },
@@ -54,7 +68,15 @@ const TabBar = () => {
             return (
               <Svg
                 name="explore"
-                bgColor={focused ? '#0370D6' : '#000000'}
+                bgColor={
+                  focused
+                    ? isDarkMode
+                      ? COLORS.white
+                      : '#0370D6'
+                    : isDarkMode
+                    ? COLORS.alfaBlack
+                    : '#000000'
+                }
                 style={{ marginBottom: -10 }}
               />
             );
@@ -70,7 +92,15 @@ const TabBar = () => {
             return (
               <Svg
                 name="notification"
-                bgColor={focused ? '#0370D6' : '#000000'}
+                bgColor={
+                  focused
+                    ? isDarkMode
+                      ? COLORS.white
+                      : '#0370D6'
+                    : isDarkMode
+                    ? COLORS.alfaBlack
+                    : '#000000'
+                }
                 style={{ marginBottom: -10 }}
               />
             );
@@ -87,7 +117,15 @@ const TabBar = () => {
               <Svg
                 name="profile2"
                 style={{ marginBottom: -10 }}
-                bgColor={focused ? '#0370D6' : '#000000'}
+                bgColor={
+                  focused
+                    ? isDarkMode
+                      ? COLORS.white
+                      : '#0370D6'
+                    : isDarkMode
+                    ? COLORS.alfaBlack
+                    : '#000000'
+                }
               />
             );
           },
