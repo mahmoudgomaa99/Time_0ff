@@ -20,7 +20,8 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
       marginHorizontal: 15,
     },
     imageContainer: {
-      width: w * 0.27,
+      // width: w * 0.27,
+      flex: 1,
     },
     image: {
       width: '100%',
@@ -28,7 +29,8 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
       borderRadius: 15,
     },
     contentContainer: {
-      width: w * 0.59,
+      // width: w * 0.59,
+      flex: 2.2,
       marginHorizontal: 5,
     },
     top: {
@@ -39,7 +41,7 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
     title: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
-      maxWidth: w * 0.7,
+      maxWidth: w * 0.57,
     },
     decription: {
       fontSize: 10,

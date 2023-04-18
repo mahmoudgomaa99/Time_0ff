@@ -39,6 +39,15 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     }, 100);
   }
 
+  const journeys = useSelector(selectCurrentJourneys);
+  const isGetJourneysLoading = useLoadingSelector(
+    Journeys.thunks.doGetJourneys,
+  );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(Journeys.thunks.doGetJourneys({}));
+  }, []);
+
   return (
     <View style={styles(isDarkMode).container}>
       <Header isDarkMode={isDarkMode} lang={lang} />
@@ -50,7 +59,12 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       />
       <AdSec isDarkMode={isDarkMode} lang={lang} />
       <CategSec isDarkMode={isDarkMode} lang={lang} />
-      <BottomList lang={lang} isDarkMode={isDarkMode} />
+      <BottomList
+        lang={lang}
+        isDarkMode={isDarkMode}
+        isGetJourneysLoading={isGetJourneysLoading}
+        journeys={journeys}
+      />
       <FilterModel
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}

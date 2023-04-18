@@ -13,7 +13,10 @@ import AboutSection from './Components/AboutSection';
 import ExperienceSection from './Components/ExperienceSection';
 import ReviewSection from './Components/ReviewSection';
 import { useLoadingSelector } from 'redux/selectors';
-import Journeys, { selectCurrentJourney } from 'redux/journey';
+import Journeys, {
+  selectCurrentAgencyJourneys,
+  selectCurrentJourney,
+} from 'redux/journey';
 import { useRoute } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,15 +26,20 @@ const ProviderProfile = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [select, setselect] = useState(2);
-  const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
-  const route = useRoute();
-  const dispatch = useAppDispatch();
-  const journey = useSelector(selectCurrentJourney);
 
-  // useEffect(() => {
-  //   dispatch(Journeys.thunks.doGetJourney(route.params?.id));
-  // }, [route.params?.id]);
-  // console.log(route.params?.id)
+  const isGetJourneysLoading = useLoadingSelector(
+    Journeys.thunks.doGetAgencyJourneys,
+  );
+  const route = useRoute<any>();
+  const dispatch = useAppDispatch();
+  const journeys = useSelector(selectCurrentAgencyJourneys);
+
+  useEffect(() => {
+    dispatch(Journeys.thunks.doGetAgencyJourneys(route.params?.id));
+  }, [route.params?.id]);
+  console.log(route.params?.id);
+  console.log(isGetJourneysLoading, 'loading');
+  // console.log(journeys)
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
@@ -46,7 +54,12 @@ const ProviderProfile = () => {
         {select === 1 ? (
           <AboutSection lang={lang} />
         ) : select === 2 ? (
-          <ExperienceSection isDarkMode={isDarkMode} lang={lang} />
+          <ExperienceSection
+            isDarkMode={isDarkMode}
+            lang={lang}
+            journeys={journeys}
+            isGetJourneysLoading={isGetJourneysLoading}
+          />
         ) : select === 3 ? (
           <ReviewSection isDarkMode={isDarkMode} lang={lang} />
         ) : null}

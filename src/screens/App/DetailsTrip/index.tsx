@@ -28,31 +28,33 @@ const DetailsTrip = () => {
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
+  const route = useRoute<any>();
+  const dispatch = useAppDispatch();
+  const journey = useSelector(selectCurrentJourney);
+
+  useEffect(() => {
+    dispatch(Journeys.thunks.doGetJourney(route.params?.id));
+  }, [route.params?.id]);
+  console.log(route.params?.id);
+
   const [carouselItems, setCarouselItems] = useState([
     {
-      image: images.present,
+      image: journey.image,
     },
     {
-      image: images.present,
+      image: journey.image,
     },
     {
-      image: images.present,
+      image: journey.image,
     },
   ]);
-
-  // const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
-  // const route = useRoute();
-  // const dispatch = useAppDispatch();
-  // const journey = useSelector(selectCurrentJourney);
-
-  // useEffect(() => {
-  //   dispatch(Journeys.thunks.doGetJourney(route.params?.id));
-  // }, [route.params?.id]);
 
   const renderItem = ({ item, index }: any) => {
     return (
       <View style={styles(isDarkMode).carouselItemContainer}>
-        <Image source={item.image} style={styles().carouselImage} />
+        <Image source={{ uri: item.image }} style={styles().carouselImage} />
       </View>
     );
   };
@@ -69,11 +71,15 @@ const DetailsTrip = () => {
             ]}>
             <Svg name="arrow" isTripDetails={true} size={60} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setfavoutite(prev => !prev)}>
+          <TouchableOpacity
+            onPress={() =>
+              //make favoriute request
+              console.log(journey.is_favorite)
+            }>
             <Svg
               name="heartRed"
               size={60}
-              bgColor={favoutite ? '#FF4646' : '#dddddd'}
+              bgColor={journey.is_favorite ? '#FF4646' : '#dddddd'}
             />
           </TouchableOpacity>
         </View>
@@ -103,7 +109,7 @@ const DetailsTrip = () => {
 
       <View style={styles().text}>
         <TextView
-          title={languages[lang].divingActivity}
+          title={lang === 'en' ? journey?.category : journey?.arabic_category}
           style={[
             styles(isDarkMode).title,
             { textAlign: lang === 'ar' ? 'right' : 'left' },
@@ -115,13 +121,15 @@ const DetailsTrip = () => {
           <Svg name="smile" />
           <TextView
             onPress={() => {
-              navigation.navigate('providerProfile');
+              navigation.navigate('providerProfile', {
+                id: journey?.agency_id,
+              });
             }}
-            title={languages[lang].hestegal}
+            title={journey?.agency_name}
             style={styles(isDarkMode).subTitle}
           />
           <Svg name="star" size={17} />
-          <TextView title={'(3.4)'} />
+          <TextView title={`(${journey.rating})`} />
         </View>
 
         <View>
@@ -135,7 +143,11 @@ const DetailsTrip = () => {
           <Text style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
             <TextView
               style={styles(isDarkMode).descriptionText}
-              title={languages[lang].desc}
+              title={
+                lang === 'en'
+                  ? journey?.description
+                  : journey?.arabic_description
+              }
             />
           </Text>
         </View>
@@ -152,7 +164,7 @@ const DetailsTrip = () => {
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
           <TextView
-            title={languages[lang].LE}
+            title={`${journey?.price} ${languages[lang].le}`}
             style={[
               styles(isDarkMode).price,
               { marginBottom: lang === 'en' ? 15 : 0 },

@@ -11,7 +11,7 @@ import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
-import SkeletonItem from './SkeletonItem';
+import SkeletonItem from '../../../../../components/molecules/SkeletonItem';
 import { useAppDispatch } from 'redux/store';
 
 const BottomList = ({

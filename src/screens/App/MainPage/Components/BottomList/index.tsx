@@ -11,32 +11,29 @@ import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
-import SkeletonItem from './SkeletonItem';
 import { useAppDispatch } from 'redux/store';
+import SkeletonItem from 'components/molecules/SkeletonItem';
 
 const BottomList = ({
   lang,
   isDarkMode,
+  isGetJourneysLoading,
+  journeys,
 }: {
   isDarkMode?: boolean;
   lang: string;
+  isGetJourneysLoading: boolean;
+  journeys: any;
 }) => {
   const navigation = useNavigation<any>();
-  const journeys = useSelector(selectCurrentJourneys);
-  const isGetJourneysLoading = useLoadingSelector(
-    Journeys.thunks.doGetJourneys,
-  );
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(Journeys.thunks.doGetJourneys({}));
-  }, []);
+
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
       <View style={{ marginHorizontal: 15 }}>
         <View style={[styles(lang).experiences]}>
           <TextView
             title={languages[lang].activity}
-           style={styles(lang, isDarkMode).experiencesText}
+            style={styles(lang, isDarkMode).experiencesText}
           />
           <TextView
             title={languages[lang].seeMore}
@@ -53,21 +50,29 @@ const BottomList = ({
           ))
         ) : (
           <FlatList
-            data={cardData(lang)}
+            data={journeys}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('detailsTrip');
+                  navigation.navigate('detailsTrip', { id: item._id });
                 }}
                 style={{ marginTop: 2 }}>
                 <Card
-                  title={item.title}
-                  description={item.description}
-                  location={item.location}
-                  name={item.name}
-                  stars={item.stars}
+                  title={
+                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
+                  }
+                  description={
+                    lang === 'ar' ? item.arabic_description : item.description
+                  }
+                  location={
+                    lang === 'ar' ? item.arabic_location : item.location
+                  }
+                  name={item.agency_name}
+                  stars={item.rating ? item.rating : 0}
                   lang={lang}
                   isDarkMode={isDarkMode}
+                  isFav={item.is_favorite}
+                  urlImage={item.image}
                 />
               </TouchableOpacity>
             )}

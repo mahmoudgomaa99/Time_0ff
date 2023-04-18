@@ -143,8 +143,11 @@ const languages: any = {
     inbox: 'Inbox',
     locationAccess: 'Allow access to your current location',
     pleaseEnterYourEmail: 'Please enter your email',
-    requestReceive:'We will confirm your booking within 24 hours see more check your email',
-    activity:'Activity',
+    requestReceive:
+      'We will confirm your booking within 24 hours see more check your email',
+    activity: 'Activity',
+    hotOffers: 'Hot Offers',
+    discount:'Discount'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -285,8 +288,11 @@ const languages: any = {
     inbox: 'التنبيهات',
     locationAccess: 'السماح بالوصول الي موقعك',
     pleaseEnterYourEmail: 'من فضلك أدخل بريدك الإلكتروني',
-    requestReceive:'يرجي الانتظار ٢٤ ساعة لتاكيد طلب الحجز برجاء متابعة بريدك الكتروني او صندوق الاشعارات',
-    activity:'انشطه'
+    requestReceive:
+      'يرجي الانتظار ٢٤ ساعة لتاكيد طلب الحجز برجاء متابعة بريدك الكتروني او صندوق الاشعارات',
+    activity: 'انشطه',
+    hotOffers: 'المبيعات الساخنة',
+    discount:'خصم هذا الاسبوع'
   },
 };
 export default languages;

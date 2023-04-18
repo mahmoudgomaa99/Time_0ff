@@ -13,6 +13,8 @@ const Card = ({
   stars,
   lang,
   isDarkMode,
+  isFav,
+  urlImage,
 }: {
   title: string;
   description: string;
@@ -21,6 +23,8 @@ const Card = ({
   stars: string;
   lang: string;
   isDarkMode?: boolean;
+  isFav:boolean;
+  urlImage:string
 }) => {
   return (
     <View
@@ -29,7 +33,7 @@ const Card = ({
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
       <View style={styles().imageContainer}>
-        <Image source={images.present} style={styles().image} />
+        <Image source={{uri:urlImage}} style={styles().image} />
       </View>
 
       <View style={styles().contentContainer}>
@@ -40,7 +44,7 @@ const Card = ({
           ]}>
           <TextView title={title} style={styles(isDarkMode).title} />
           <View style={styles(isDarkMode).heart}>
-            <Svg name="heart" size={20} />
+            <Svg name="heart" size={20} bgColor={isFav ? 'red':'white'}/>
           </View>
         </View>
 

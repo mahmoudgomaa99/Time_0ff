@@ -1,0 +1,23 @@
+export type Tjourneys = {
+  _id: number;
+  agency_id: number;
+  journey_name: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  location: string;
+  category: string;
+  capacity: number;
+  price: number;
+  arabic_journey_name: string;
+  arabic_description: string;
+  arabic_location: string;
+  arabic_category: string;
+  discount: boolean;
+  discount_date: string;
+  discount_value: number;
+  rating: number;
+  agency_name: string;
+  image: string;
+  is_favorite: boolean;
+};
