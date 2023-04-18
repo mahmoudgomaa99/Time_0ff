@@ -21,8 +21,8 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
         data-name="Icon feather-heart"
         d="M10.972,5.22a2.466,2.466,0,0,0-3.488,0L7.009,5.7,6.533,5.22A2.466,2.466,0,1,0,3.045,8.708l.475.475,3.488,3.488L10.5,9.183l.475-.475a2.466,2.466,0,0,0,0-3.488Z"
         transform="translate(-1.973 -3.977)"
-        fill="none"
-        stroke={isDarkMode ? COLORS.white : '#000'}
+        fill={bgColor}
+        stroke={isDarkMode ? COLORS.white : bgColor == 'red' ? 'red' : 'black'}
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="0.7"
