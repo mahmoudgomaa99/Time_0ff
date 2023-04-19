@@ -29,7 +29,7 @@ const RangePrice = ({
           { direction: lang === 'ar' ? 'rtl' : undefined },
         ]}>
         <Slider
-          value={[formikProps.values.startPrice, formikProps.values.endPrice]}
+          value={[formikProps.values.price_start, formikProps.values.price_end]}
           minimumValue={0}
           maximumValue={10000}
           thumbTintColor={isDarkMode ? COLORS.white : COLORS.blue}
@@ -46,8 +46,8 @@ const RangePrice = ({
             backgroundColor: isDarkMode ? '#1d1c27' : '#eeeeee',
           }}
           onValueChange={(val: any) => {
-            formikProps.setFieldValue('startPrice', val[0]);
-            formikProps.setFieldValue('endPrice', val[1]);
+            formikProps.setFieldValue('price_start', val[0]);
+            formikProps.setFieldValue('price_end', val[1]);
           }}
           step={1}
         />
@@ -58,11 +58,11 @@ const RangePrice = ({
           { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
         ]}>
         <TextView
-          title={`${formikProps.values.startPrice} ${languages[lang].le}`}
+          title={`${formikProps.values.price_start} ${languages[lang].le}`}
           style={styles(isDarkMode).priceText}
         />
         <TextView
-          title={`${formikProps.values.endPrice} ${languages[lang].le}`}
+          title={`${formikProps.values.price_end} ${languages[lang].le}`}
           style={styles(isDarkMode).priceText}
         />
       </View>

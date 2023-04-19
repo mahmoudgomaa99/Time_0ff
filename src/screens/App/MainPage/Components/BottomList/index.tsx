@@ -42,41 +42,50 @@ const BottomList = ({
         </View>
       </View>
       <View style={{ paddingTop: 0 }}>
-        {isGetJourneysLoading ? (
-          [...Array(20)].map(i => (
-            <View key={i}>
-              <SkeletonItem />
-            </View>
-          ))
+        {journeys.length > 0 ? (
+          isGetJourneysLoading ? (
+            [...Array(20)].map(i => (
+              <View key={i}>
+                <SkeletonItem />
+              </View>
+            ))
+          ) : (
+            <FlatList
+              data={journeys}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('detailsTrip', { id: item._id });
+                  }}
+                  style={{ marginTop: 2 }}>
+                  <Card
+                    title={
+                      lang === 'ar'
+                        ? item.arabic_journey_name
+                        : item.journey_name
+                    }
+                    description={
+                      lang === 'ar' ? item.arabic_description : item.description
+                    }
+                    location={
+                      lang === 'ar' ? item.arabic_location : item.location
+                    }
+                    name={item.agency_name}
+                    stars={item.rating ? item.rating : 0}
+                    lang={lang}
+                    isDarkMode={isDarkMode}
+                    isFav={item.is_favorite}
+                    urlImage={item.image}
+                  />
+                </TouchableOpacity>
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          )
         ) : (
-          <FlatList
-            data={journeys}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('detailsTrip', { id: item._id });
-                }}
-                style={{ marginTop: 2 }}>
-                <Card
-                  title={
-                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
-                  }
-                  description={
-                    lang === 'ar' ? item.arabic_description : item.description
-                  }
-                  location={
-                    lang === 'ar' ? item.arabic_location : item.location
-                  }
-                  name={item.agency_name}
-                  stars={item.rating ? item.rating : 0}
-                  lang={lang}
-                  isDarkMode={isDarkMode}
-                  isFav={item.is_favorite}
-                  urlImage={item.image}
-                />
-              </TouchableOpacity>
-            )}
-            showsVerticalScrollIndicator={false}
+          <TextView
+            title={languages[lang].noOffers}
+            style={styles(lang).text}
           />
         )}
       </View>

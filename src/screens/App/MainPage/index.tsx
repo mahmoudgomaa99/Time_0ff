@@ -23,12 +23,15 @@ import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { TInitialValues } from './Components/FilterModel/data';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
+  const [filterData, setfilterData] = useState<TInitialValues>();
+  const [category, setcategory] = useState('');
   const lang = useSelector(selectLanguage);
   if (route.params?.modal) {
     setTimeout(() => {
@@ -45,8 +48,14 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   );
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(Journeys.thunks.doGetJourneys({}));
-  }, []);
+    dispatch(
+      Journeys.thunks.doGetJourneys(
+        filterData ? filterData : { category: category },
+      ),
+    );
+  }, [category, filterData]);
+  // console.log(journeys, 'journeys fom home');
+  // console.log(filterData, 'from home');
 
   return (
     <View style={styles(isDarkMode).container}>
@@ -58,7 +67,12 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         isDarkMode={isDarkMode}
       />
       <AdSec isDarkMode={isDarkMode} lang={lang} />
-      <CategSec isDarkMode={isDarkMode} lang={lang} />
+      <CategSec
+        isDarkMode={isDarkMode}
+        lang={lang}
+        setcategory={setcategory}
+        setfilterData={setfilterData}
+      />
       <BottomList
         lang={lang}
         isDarkMode={isDarkMode}
@@ -69,6 +83,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
         isDarkMode={isDarkMode}
+        setfilterData={setfilterData}
+        category={category}
+        setcategory={setcategory}
       />
       <NotificationModel
         lang={lang}

@@ -9,9 +9,13 @@ import { styles } from './styles';
 const CategSec = ({
   lang,
   isDarkMode,
+  setcategory,
+  setfilterData,
 }: {
   lang: string;
   isDarkMode?: boolean;
+  setcategory: any;
+  setfilterData: any;
 }) => {
   return (
     <View style={{}}>
@@ -33,7 +37,20 @@ const CategSec = ({
           style={{ direction: lang === 'ar' ? 'rtl' : undefined }}
           data={categData(lang)}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+              onPress={() => {
+                setfilterData((prev: any) => {
+                  return {
+                    category: item.value,
+                    start_date: prev?.start_date,
+                    location: prev?.location,
+                    price_start: prev?.price_start,
+                    price_end: prev?.price_end,
+                    rating: prev?.rating,
+                  };
+                });
+                setcategory(item.value);
+              }}>
               <View
                 style={[
                   styles(lang).trips,

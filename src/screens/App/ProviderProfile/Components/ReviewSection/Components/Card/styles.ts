@@ -5,12 +5,14 @@ import { h, MarginsAndPaddings, w } from 'values/Dimensions';
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
     container: {
-      flex: 1,
-      flexDirection: lang === 'en' ? 'row' : 'row-reverse',
-      marginVertical: MarginsAndPaddings.xl,
-      backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
-      paddingVertical: 10,
+      flexDirection: 'row',
+      marginBottom: 11,
+      borderRadius: 14,
       paddingHorizontal: 10,
+      paddingTop: 10,
+      paddingBottom: 5,
+      backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
+      
     },
     imageContainer: {
       flex: 1.3,

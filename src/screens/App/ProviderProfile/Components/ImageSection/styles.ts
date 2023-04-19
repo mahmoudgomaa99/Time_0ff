@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
-import { MarginsAndPaddings, w } from 'values/Dimensions';
+import { h, MarginsAndPaddings, w } from 'values/Dimensions';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -38,6 +38,12 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     text: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
+    },
+    image: {
+      width: w * 0.4,
+      height: h * 0.2,
+      borderRadius: 20,
+      marginBottom: MarginsAndPaddings.xl,
     },
   });
 };

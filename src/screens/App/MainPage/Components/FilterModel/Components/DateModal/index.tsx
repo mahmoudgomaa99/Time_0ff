@@ -29,7 +29,7 @@ const DateModal = ({
     console.log(selectedDate);
     setSelectedDate(date.dateString);
     console.log(selectedDate);
-    formikProps.setFieldValue('date', date.dateString);
+    formikProps.setFieldValue('start_date', date.dateString);
   };
 
   return (

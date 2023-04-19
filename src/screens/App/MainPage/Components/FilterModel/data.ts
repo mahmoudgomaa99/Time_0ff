@@ -1,17 +1,17 @@
 export const initialVslues: TInitialValues = {
   category: '',
-  date: '',
-  city: '',
-  startPrice: 10,
-  endPrice: 1000,
+  start_date: '',
+  location: '',
+  price_start: 10,
+  price_end: 1000,
   rating: '',
 };
 
 export interface TInitialValues {
   category: string;
-  date: string;
-  city: string;
-  startPrice: number;
-  endPrice: number;
+  start_date: string;
+  location: string;
+  price_start: number;
+  price_end: number;
   rating: string;
 }
