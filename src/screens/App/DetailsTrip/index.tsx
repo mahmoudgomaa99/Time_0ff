@@ -41,13 +41,13 @@ const DetailsTrip = () => {
 
   const [carouselItems, setCarouselItems] = useState([
     {
-      image: journey.image,
+      image: journey?.image,
     },
     {
-      image: journey.image,
+      image: journey?.image,
     },
     {
-      image: journey.image,
+      image: journey?.image,
     },
   ]);
 
@@ -74,12 +74,12 @@ const DetailsTrip = () => {
           <TouchableOpacity
             onPress={() =>
               //make favoriute request
-              console.log(journey.is_favorite)
+              console.log(journey?.is_favorite)
             }>
             <Svg
               name="heartRed"
               size={60}
-              bgColor={journey.is_favorite ? '#FF4646' : '#dddddd'}
+              bgColor={journey?.is_favorite ? '#FF4646' : '#dddddd'}
             />
           </TouchableOpacity>
         </View>
@@ -129,7 +129,7 @@ const DetailsTrip = () => {
             style={styles(isDarkMode).subTitle}
           />
           <Svg name="star" size={17} />
-          <TextView title={`(${journey.rating})`} />
+          <TextView title={`(${journey?.rating})`} />
         </View>
 
         <View>

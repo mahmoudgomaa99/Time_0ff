@@ -12,6 +12,7 @@ import Wishlist from 'screens/App/Wishlist';
 import ContactUs from 'screens/App/ContactUs';
 import Notification from 'screens/App/Notification';
 import Settings from 'screens/App/Settings';
+import SeeMore from 'screens/App/SeeMore';
 export type TAuthStack = {
   home: undefined;
   map: undefined;
@@ -23,6 +24,7 @@ export type TAuthStack = {
   contactUs: undefined;
   notification: undefined;
   settings: undefined;
+  seeMore: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
@@ -79,6 +81,11 @@ const AppStack = () => {
         options={{ headerShown: false }}
         name="settings"
         component={Settings}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="seeMore"
+        component={SeeMore}
       />
     </Stack.Navigator>
   );

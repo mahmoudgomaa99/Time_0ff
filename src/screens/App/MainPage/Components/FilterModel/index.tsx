@@ -17,6 +17,8 @@ import { initialVslues } from './data';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
 import COLORS from 'values/colors';
+import { useAppDispatch } from 'redux/store';
+import Journeys from 'redux/journey';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -27,6 +29,7 @@ const FilterModel = ({
   setFilterModalVisable: any;
   isDarkMode?: boolean;
 }) => {
+  const dispatch = useAppDispatch();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const lang = useSelector(selectLanguage);
@@ -34,8 +37,11 @@ const FilterModel = ({
     <Formik
       initialValues={initialVslues}
       onSubmit={values => {
+        dispatch(Journeys.thunks.doGetJourneys({ rating: values.rating }));
         console.log(values);
-        setFilterModalVisable(false);
+        setTimeout(() => {
+          setFilterModalVisable(false);
+        }, 50);
       }}>
       {props => (
         <Modal
@@ -117,7 +123,12 @@ const FilterModel = ({
                   {...props}
                   borderColor={'#EEEEEE'}
                   type={'primary'}
-                  data={[{ label: '(5 Star)', value: '(5 Star)' }]}
+                  data={[
+                    { label: '(4 Star)', value: 4 },
+                    { label: '(3 Star)', value: 3 },
+                    { label: '(2 Star)', value: 2 },
+                    { label: '(1 Star)', value: 1 },
+                  ]}
                   name={'rating'}
                   stylingProp={{
                     borderColor: 'red',

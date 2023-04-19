@@ -15,10 +15,18 @@ const ImageSection = ({
   isDarkMode: boolean;
 }) => {
   const user = useSelector(selectCurrentUser);
+  console.log(user);
+
   return (
     <View style={styles(lang).container}>
-      <Image source={images.present} style={styles(lang).image} />
-      <TextView title={user ? user.name : 'User'} style={styles(lang,isDarkMode).text} />
+      <Image
+        source={user ? { uri: user.image } : images.present}
+        style={styles(lang).image}
+      />
+      <TextView
+        title={user ? user.name : 'User'}
+        style={styles(lang, isDarkMode).text}
+      />
     </View>
   );
 };

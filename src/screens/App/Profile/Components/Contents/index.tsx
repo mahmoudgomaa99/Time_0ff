@@ -56,7 +56,7 @@ const Contents = ({
             <Svg name="logout" size={60} />
             <TextView
               title={languages[lang].logout}
-              style={styles(lang).text}
+              style={styles(lang,isDarkMode).text}
             />
           </View>
         </TouchableOpacity>

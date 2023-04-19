@@ -6,12 +6,7 @@ const doGetJourneys = createAsyncThunk<any, any, any>(
   async (_, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetJourneys();
-
-      if(response.status == 401)
-      {
-        throw response.data
-      }
-      return { data: response };
+      return response.data;
     } catch (error) {
       return rejectWithValue(error);
     }

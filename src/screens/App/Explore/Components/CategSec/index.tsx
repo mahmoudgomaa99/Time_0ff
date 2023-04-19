@@ -55,6 +55,7 @@ const CategSec = ({
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           initialScrollIndex={0}
+          keyExtractor={(item): any => item.id}
         />
       </View>
     </View>
