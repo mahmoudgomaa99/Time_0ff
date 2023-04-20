@@ -69,6 +69,17 @@ const doGetUser = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doUpdateUser = createAsyncThunk<any, any, any>(
+  'user/updateUser',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.UpdateUser(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doForgetPassword,
@@ -76,6 +87,7 @@ const thunks = {
   doLogIn,
   doSignUp,
   doResetPassword,
+  doUpdateUser,
 };
 
 export default thunks;

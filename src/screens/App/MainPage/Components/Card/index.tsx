@@ -4,6 +4,7 @@ import { images } from 'src/assets/images';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
+import COLORS from 'values/colors';
 
 const Card = ({
   title,
@@ -23,8 +24,8 @@ const Card = ({
   stars: string;
   lang: string;
   isDarkMode?: boolean;
-  isFav:boolean;
-  urlImage:string
+  isFav: boolean;
+  urlImage: string;
 }) => {
   return (
     <View
@@ -33,7 +34,10 @@ const Card = ({
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
       <View style={styles().imageContainer}>
-        <Image source={{uri:urlImage}} style={styles().image} />
+        <Image
+          source={urlImage ? { uri: urlImage } : images.branding2}
+          style={styles().image}
+        />
       </View>
 
       <View style={styles().contentContainer}>
@@ -44,7 +48,7 @@ const Card = ({
           ]}>
           <TextView title={title} style={styles(isDarkMode).title} />
           <View style={styles(isDarkMode).heart}>
-            <Svg name="heart" size={20} bgColor={isFav ? 'red':'white'}/>
+            <Svg name="heart" size={20} bgColor={isFav ? 'red' : 'white'} />
           </View>
         </View>
 
@@ -75,9 +79,15 @@ const Card = ({
             },
           ]}>
           <Svg name="jamp" size={20} />
-          <TextView style={{}} title={name} />
+          <TextView
+            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            title={name}
+          />
           <Svg name="star" size={20} />
-          <TextView title={`(${stars})`} />
+          <TextView
+            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            title={`(${stars})`}
+          />
         </View>
       </View>
     </View>

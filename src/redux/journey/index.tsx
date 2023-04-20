@@ -6,13 +6,13 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Tjourneys } from './model';
 
 type TInitialValues = {
-  journeys?: any;
+  journeys?: Tjourneys;
   journey?: any;
   agencyJorneys?: any;
 };
 
 const initialValues: TInitialValues = {
-  journeys: null,
+  journeys: [],
   journey: null,
   agencyJorneys: null,
 };
@@ -23,19 +23,21 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(thunks.doGetJourneys.fulfilled, (state, action) => {
-      state.journeys = action.payload.data.data;
+      state.journeys = action.payload;
+      console.log(action);
     });
     builder.addCase(thunks.doGetJourneys.rejected, (state, action) => {
       console.log(action);
-      // Toast.show({ type: 'error', text2: action.payload.message });
+    });
+    builder.addCase(thunks.doGetJourneys.pending, (state, action) => {
+      console.log(action);
     });
     builder.addCase(thunks.doGetJourney.fulfilled, (state, action) => {
-      console.log(action, ' test ');
       state.journey = action.payload.data.data;
+      console.log(action);
     });
     builder.addCase(thunks.doGetJourney.rejected, (state, action) => {
       console.log(action);
-      // Toast.show({ type: 'error', text2: action.payload.message });
     });
     builder.addCase(thunks.doGetAgencyJourneys.fulfilled, (state, action) => {
       state.agencyJorneys = action.payload.data.data;

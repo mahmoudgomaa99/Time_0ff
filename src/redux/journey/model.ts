@@ -1,4 +1,5 @@
 export type Tjourneys = {
+  id: number | null | undefined;
   _id: number;
   agency_id: number;
   journey_name: string;
@@ -20,4 +21,4 @@ export type Tjourneys = {
   agency_name: string;
   image: string;
   is_favorite: boolean;
-};
+}[];

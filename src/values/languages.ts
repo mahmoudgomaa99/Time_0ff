@@ -147,7 +147,8 @@ const languages: any = {
       'We will confirm your booking within 24 hours see more check your email',
     activity: 'Activity',
     hotOffers: 'Hot Offers',
-    discount:'Discount'
+    discount: 'Discount',
+    noData: 'There is no data',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -292,7 +293,8 @@ const languages: any = {
       'يرجي الانتظار ٢٤ ساعة لتاكيد طلب الحجز برجاء متابعة بريدك الكتروني او صندوق الاشعارات',
     activity: 'انشطه',
     hotOffers: 'المبيعات الساخنة',
-    discount:'خصم هذا الاسبوع'
+    discount: 'خصم هذا الاسبوع',
+    noData: 'لا يوجد بيانات',
   },
 };
 export default languages;

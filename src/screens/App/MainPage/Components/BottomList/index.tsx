@@ -1,17 +1,11 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import React, { useEffect } from 'react';
+import { View, TouchableOpacity, FlatList } from 'react-native';
+import React from 'react';
 import Card from '../Card';
-import { cardData } from '../data';
-import { useSelector } from 'react-redux';
-import { selectLanguage } from 'redux/language/index';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { styles } from './styles';
 import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
-import Journeys, { selectCurrentJourneys } from 'redux/journey';
-import { useLoadingSelector } from 'redux/selectors';
-import { useAppDispatch } from 'redux/store';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 
 const BottomList = ({
@@ -38,6 +32,9 @@ const BottomList = ({
           <TextView
             title={languages[lang].seeMore}
             style={styles(lang, isDarkMode).seeMore}
+            onPress={() => {
+              navigation.navigate('seeMore');
+            }}
           />
         </View>
       </View>
@@ -53,6 +50,7 @@ const BottomList = ({
             data={journeys}
             renderItem={({ item }) => (
               <TouchableOpacity
+                key={item?.id}
                 onPress={() => {
                   navigation.navigate('detailsTrip', { id: item._id });
                 }}
@@ -77,6 +75,7 @@ const BottomList = ({
               </TouchableOpacity>
             )}
             showsVerticalScrollIndicator={false}
+            keyExtractor={item => item?.id}
           />
         )}
       </View>

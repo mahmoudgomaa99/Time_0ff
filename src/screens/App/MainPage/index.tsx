@@ -23,9 +23,17 @@ import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { log } from 'react-native-reanimated';
+import { api } from 'redux/_axios';
+import axios from 'axios';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
+  const dispatch = useAppDispatch();
+  const journeys = useSelector(selectCurrentJourneys);
+  const isGetJourneysLoading = useLoadingSelector(
+    Journeys.thunks.doGetJourneys,
+  );
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
@@ -39,13 +47,13 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     }, 100);
   }
 
-  const journeys = useSelector(selectCurrentJourneys);
-  const isGetJourneysLoading = useLoadingSelector(
-    Journeys.thunks.doGetJourneys,
-  );
-  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(Journeys.thunks.doGetJourneys({}));
+    // async () => {
+    //   fetch('http://159.89.7.75/api/journeys')
+    //     .then(data => console.log(data.json(), 'fullfield'))
+    //     .catch(err => console.log(err, 'rejected'));
+    // };
   }, []);
 
   return (

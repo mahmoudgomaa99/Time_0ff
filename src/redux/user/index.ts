@@ -4,6 +4,7 @@ import thunks from './thunks';
 import { RootState } from '../store';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import * as actions from './actions';
+import { data } from '../../screens/App/Settings/Components/Card/data';
 
 type TInitialValues = {
   currentUser?: any;
@@ -51,6 +52,13 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetUser.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doUpdateUser.fulfilled, (state, action) => {
+      console.log(action.payload, 'jjj');
+      // state.currentUser = action.payload.data;
+    });
+    builder.addCase(thunks.doUpdateUser.rejected, (state, action) => {
       console.log(action);
     });
   },
