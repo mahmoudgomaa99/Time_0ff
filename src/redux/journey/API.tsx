@@ -37,9 +37,7 @@ const GetJourneys = () => api.get('journeys');
 //   }`;
 // if (data.price_end)
 //   params += `${params.length === 0 ? '?' : '&'}price_end=${data.price_end}`;
-// if (data.discount) {
-//   console.log('ddd');
-// }
+// if (data.discount) 
 // params =
 //   params + `${params.length === 0 ? '?' : '&'}discount=${data.discount}`;
 // if (data.page)

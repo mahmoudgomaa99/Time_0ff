@@ -34,7 +34,10 @@ const Card = ({
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
       <View style={styles().imageContainer}>
-        <Image source={{ uri: urlImage }} style={styles().image} />
+        <Image
+          source={urlImage ? { uri: urlImage } : images.branding2}
+          style={styles().image}
+        />
       </View>
 
       <View style={styles().contentContainer}>

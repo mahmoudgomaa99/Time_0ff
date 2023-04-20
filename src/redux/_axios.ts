@@ -21,7 +21,9 @@ const initAxios = (store: TStore) => {
     const tokens = store.getState().tokens;
     const authorization = `Bearer ${tokens.token}`;
     const authHeaders = { authorization };
-    assign(config.headers, authHeaders);
+    if (tokens.token) {
+      assign(config.headers, authHeaders);
+    }
     return config;
   });
   const injectAuthHeaders: any = (config: AxiosRequestConfig) => {

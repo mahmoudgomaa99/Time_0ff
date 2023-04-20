@@ -94,7 +94,7 @@ const Picker = ({
               },
               inputIOS: {
                 ...styles(isDarkMode)[`${type}_iosButton`],
-                color: COLORS.black,
+                color: isDarkMode ? COLORS.white : COLORS.black,
                 textAlign: lang === 'ar' ? 'right' : undefined,
                 borderColor:
                   props.errors[props.name] && props.touched[props.name]

@@ -28,8 +28,10 @@ const SeeMore = () => {
   );
 
   useEffect(() => {
-    dispatch(Journeys.thunks.doGetJourneys({ discount: false }));
+    dispatch(Journeys.thunks.doGetJourneys({}));
   }, []);
+  console.log(journeys, 'llll');
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} />
@@ -42,7 +44,7 @@ const SeeMore = () => {
           ))
         ) : (
           <>
-            {journeys?.length !== 0 ? (
+            {journeys?.length === 0 ? (
               <View style={styles(lang, isDarkMode).body}>
                 <TextView
                   title={languages[lang].noData}
@@ -74,7 +76,7 @@ const SeeMore = () => {
                       location={
                         lang === 'ar' ? item.arabic_location : item.location
                       }
-                      name={item.agency_name}
+                      name={item?.agency_name}
                       stars={item.rating ? item.rating : 0}
                       lang={lang}
                       isDarkMode={isDarkMode}

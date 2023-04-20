@@ -49,14 +49,11 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
 
   useEffect(() => {
     dispatch(Journeys.thunks.doGetJourneys({}));
-    async () => {
-      try {
-        const res = await axios.get('http://159.89.7.75/api/journeys');
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // async () => {
+    //   fetch('http://159.89.7.75/api/journeys')
+    //     .then(data => console.log(data.json(), 'fullfield'))
+    //     .catch(err => console.log(err, 'rejected'));
+    // };
   }, []);
 
   return (

@@ -39,6 +39,21 @@ const Header = ({
           )}
 
           <TextView
+            onPress={async () => {
+              // try {
+              //   const response = await fetch(
+              //     'http://159.89.7.75/api/journeys/12',
+              //   );
+              //   console.log(response.json());
+              //   return response;
+              // } catch (err) {
+              //   console.log(err);
+              // }
+              // await fetch('http://159.89.7.75/api/journeys/12').then(data => {
+              //   // return data.json();
+              //   console.log(data.json());
+              // });
+            }}
             title={languages[lang].welcomeBackHome}
             style={styles(isDarkMode).welcomeText}
           />
