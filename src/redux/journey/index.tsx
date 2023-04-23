@@ -12,6 +12,7 @@ type TInitialValues = {
   agencyReviews?: any;
   agency?: Tagency;
   discountJourneys: Tjourneys;
+  hotJourneys: Tjourneys;
 };
 
 const initialValues: TInitialValues = {
@@ -21,6 +22,7 @@ const initialValues: TInitialValues = {
   agencyReviews: null,
   agency: undefined,
   discountJourneys: [],
+  hotJourneys: [],
 };
 
 const slice = createSlice({
@@ -29,10 +31,19 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(thunks.doGetJourneys.fulfilled, (state, action) => {
-      console.log(action);
+      console.log(action.meta.arg);
+
       state.journeys = action.payload.data.data;
     });
     builder.addCase(thunks.doGetJourneys.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doGetHotJourneys.fulfilled, (state, action) => {
+      console.log(action.meta.arg);
+
+      state.hotJourneys = action.payload.data.data;
+    });
+    builder.addCase(thunks.doGetHotJourneys.rejected, (state, action) => {
       console.log(action);
     });
     builder.addCase(thunks.doGetDiscountJourneys.fulfilled, (state, action) => {
@@ -78,6 +89,8 @@ const Journeys = {
 
 export const selectCurrentJourneys = (state: RootState) =>
   state.journeys.journeys;
+export const selectHotJourneys = (state: RootState) =>
+  state.journeys.hotJourneys;
 export const selectCurrentJourney = (state: RootState) =>
   state.journeys.journey;
 export const selectCurrentAgencyJourneys = (state: RootState) =>

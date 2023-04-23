@@ -16,6 +16,7 @@ import { TInitialValues } from '../MainPage/Components/FilterModel/data';
 import Journeys, {
   selectCurrentDiscountJourneys,
   selectCurrentJourneys,
+  selectHotJourneys,
 } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import { useAppDispatch } from 'redux/store';
@@ -30,7 +31,7 @@ const Explore = () => {
   const [filterData, setfilterData] = useState<TInitialValues>();
   const [category, setcategory] = useState('');
 
-  const journeysOffers = useSelector(selectCurrentJourneys);
+  const journeysOffers = useSelector(selectHotJourneys);
   const isGetJourneysOffers = useLoadingSelector(Journeys.thunks.doGetJourneys);
   const journeysDiscount = useSelector(selectCurrentDiscountJourneys);
   const isGetJourneysDiscount = useLoadingSelector(
@@ -38,7 +39,7 @@ const Explore = () => {
   );
   useEffect(() => {
     dispatch(
-      Journeys.thunks.doGetJourneys(
+      Journeys.thunks.doGetHotJourneys(
         filterData
           ? {
               category: filterData.category,
@@ -82,7 +83,10 @@ const Explore = () => {
         setcategory={setcategory}
         setfilterData={setfilterData}
       />
-      <TextView title={languages[lang].hotOffers} style={styles(lang).Text} />
+      <TextView
+        title={languages[lang].hotOffers}
+        style={styles(lang, isDarkMode).Text}
+      />
       <ScrollView
         style={{ height: journeysOffers?.length ? h * 0.5 : h * 0.1 }}>
         {journeysOffers?.length > 0 ? (
@@ -114,12 +118,15 @@ const Explore = () => {
         ) : (
           <TextView
             title={languages[lang].noOffers}
-            style={styles(lang).text}
+            style={styles(lang, isDarkMode).text}
           />
         )}
       </ScrollView>
 
-      <TextView title={languages[lang].discount} style={styles(lang).Text} />
+      <TextView
+        title={languages[lang].discount}
+        style={styles(lang, isDarkMode).Text}
+      />
       <ScrollView
         style={{ height: journeysDiscount?.length ? h * 0.5 : h * 0.1 }}>
         {journeysDiscount?.length > 0 ? (

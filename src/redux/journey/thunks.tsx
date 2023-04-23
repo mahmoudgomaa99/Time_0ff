@@ -16,6 +16,21 @@ const doGetJourneys = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doGetHotJourneys = createAsyncThunk<any, any, any>(
+  'journeys/hot',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetHotJourneys(data);
+
+      if (response.status == 401) {
+        throw response.data;
+      }
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 const doGetDiscountJourneys = createAsyncThunk<any, any, any>(
   'discountJourneys',
   async (data, { rejectWithValue }) => {
@@ -86,6 +101,7 @@ const thunks = {
   doGetAgencyReviews,
   doGetAgency,
   doGetDiscountJourneys,
+  doGetHotJourneys,
 };
 
 export default thunks;

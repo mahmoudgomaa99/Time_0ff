@@ -20,7 +20,7 @@ const ImageSection = ({
   return (
     <View style={styles(lang).container}>
       <Image
-        source={user ? { uri: user.image } : images.present}
+        source={user ? { uri: user.imageUrl } : images.present}
         style={styles(lang).image}
       />
       <TextView
