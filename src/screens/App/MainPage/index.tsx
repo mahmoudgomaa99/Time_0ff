@@ -23,9 +23,7 @@ import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
-import { log } from 'react-native-reanimated';
-import { api } from 'redux/_axios';
-import axios from 'axios';
+import { TInitialValues } from './Components/FilterModel/data';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -37,6 +35,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
+  const [filterData, setfilterData] = useState<TInitialValues>();
+  const [category, setcategory] = useState('');
   const lang = useSelector(selectLanguage);
   if (route.params?.modal) {
     setTimeout(() => {
@@ -48,13 +48,14 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   }
 
   useEffect(() => {
-    dispatch(Journeys.thunks.doGetJourneys({}));
-    // async () => {
-    //   fetch('http://159.89.7.75/api/journeys')
-    //     .then(data => console.log(data.json(), 'fullfield'))
-    //     .catch(err => console.log(err, 'rejected'));
-    // };
-  }, []);
+    dispatch(
+      Journeys.thunks.doGetJourneys(
+        filterData ? filterData : { category: category },
+      ),
+    );
+  }, [category, filterData]);
+  // console.log(journeys, 'journeys fom home');
+  // console.log(filterData, 'from home');
 
   return (
     <View style={styles(isDarkMode).container}>
@@ -66,7 +67,12 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         isDarkMode={isDarkMode}
       />
       <AdSec isDarkMode={isDarkMode} lang={lang} />
-      <CategSec isDarkMode={isDarkMode} lang={lang} />
+      <CategSec
+        isDarkMode={isDarkMode}
+        lang={lang}
+        setcategory={setcategory}
+        setfilterData={setfilterData}
+      />
       <BottomList
         lang={lang}
         isDarkMode={isDarkMode}
@@ -77,6 +83,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
         isDarkMode={isDarkMode}
+        setfilterData={setfilterData}
+        category={category}
+        setcategory={setcategory}
       />
       <NotificationModel
         lang={lang}

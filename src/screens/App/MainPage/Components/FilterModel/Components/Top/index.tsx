@@ -13,12 +13,14 @@ const Top = ({
   setFilterModalVisable,
   props,
   isDarkMode,
+  setfilterData,
 }: {
   lang: string;
   props: FormikProps<any>;
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
   isDarkMode?: boolean;
+  setfilterData: any;
 }) => {
   return (
     <View
@@ -39,11 +41,12 @@ const Top = ({
         title={languages[lang].reset}
         onPress={() => {
           props.setFieldValue('category', initialVslues.category);
-          props.setFieldValue('date', initialVslues.date);
-          props.setFieldValue('city', initialVslues.city);
-          props.setFieldValue('startPrice', initialVslues.startPrice);
-          props.setFieldValue('endPrice', initialVslues.endPrice);
+          props.setFieldValue('date', initialVslues.start_date);
+          props.setFieldValue('city', initialVslues.location);
+          props.setFieldValue('startPrice', initialVslues.price_start);
+          props.setFieldValue('endPrice', initialVslues.price_end);
           props.setFieldValue('rating', initialVslues.rating);
+          setfilterData({});
         }}
         style={styles(isDarkMode).resetText}
       />

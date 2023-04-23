@@ -17,5 +17,11 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontSize: 18,
       color: isDarkMode ? COLORS.alfaBlack : '#0370D6',
     },
+    text: {
+      fontSize: 18,
+      textAlign: 'center',
+      marginVertical: MarginsAndPaddings.ml,
+      fontWeight: '900',
+    },
   });
 };

@@ -13,5 +13,11 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       color: isDarkMode ? COLORS.white : COLORS.black,
       margin: MarginsAndPaddings.xl,
     },
+    text: {
+      fontSize: 18,
+      textAlign: 'center',
+      marginVertical: MarginsAndPaddings.ml,
+      fontWeight: '900',
+    },
   });
 };

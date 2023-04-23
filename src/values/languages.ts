@@ -148,6 +148,8 @@ const languages: any = {
     activity: 'Activity',
     hotOffers: 'Hot Offers',
     discount: 'Discount',
+    noReviews: 'There is no reviews',
+    noOffers: 'There is no offers',
     noData: 'There is no data',
   },
   ar: {
@@ -294,6 +296,8 @@ const languages: any = {
     activity: 'انشطه',
     hotOffers: 'المبيعات الساخنة',
     discount: 'خصم هذا الاسبوع',
+    noReviews: 'لا يوجد اراء',
+    noOffers: 'لا يوجد عروض',
     noData: 'لا يوجد بيانات',
   },
 };

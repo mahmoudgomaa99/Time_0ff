@@ -13,7 +13,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Top from './Components/Top';
 import DateModal from './Components/DateModal';
 import languages from 'values/languages';
-import { initialVslues } from './data';
+import { TInitialValues, initialVslues } from './data';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
 import COLORS from 'values/colors';
@@ -24,10 +24,16 @@ const FilterModel = ({
   isFilterModalVisable,
   setFilterModalVisable,
   isDarkMode,
+  setfilterData,
+  setcategory,
+  category,
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
   isDarkMode?: boolean;
+  setfilterData: any;
+  setcategory: any;
+  category: string;
 }) => {
   const dispatch = useAppDispatch();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -37,11 +43,10 @@ const FilterModel = ({
     <Formik
       initialValues={initialVslues}
       onSubmit={values => {
-        dispatch(Journeys.thunks.doGetJourneys({ rating: values.rating }));
-        console.log(values);
-        setTimeout(() => {
-          setFilterModalVisable(false);
-        }, 50);
+        setfilterData(values);
+        if (values.category) setcategory('');
+
+        setFilterModalVisable(false);
       }}>
       {props => (
         <Modal
@@ -54,6 +59,7 @@ const FilterModel = ({
               isFilterModalVisable={isFilterModalVisable}
               setFilterModalVisable={setFilterModalVisable}
               isDarkMode={isDarkMode}
+              setfilterData={setfilterData}
             />
             <ScrollView showsVerticalScrollIndicator={false}>
               <View>
@@ -65,7 +71,14 @@ const FilterModel = ({
                   {...props}
                   borderColor={'#EEEEEE'}
                   type={'primary'}
-                  data={[{ label: 'diving', value: 'diving' }]}
+                  data={[
+                    { label: 'diving', value: 'diving' },
+                    { label: 'trips', value: 'trips' },
+                    { label: 'aquaPark', value: 'aquaPark' },
+                    { label: 'nileTrip', value: 'nileTrip' },
+                    { label: 'bBuggy', value: 'bBuggy' },
+                    { label: 'surfing', value: 'surfing' },
+                  ]}
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
                   placeholder={'Select category'}
@@ -79,9 +92,9 @@ const FilterModel = ({
                 />
                 <InputView
                   {...props}
-                  name="date"
+                  name="start_date"
                   disabled
-                  value={props.values.date}
+                  value={props.values.start_date}
                   inputContainerStyling={
                     styles(isDarkMode).inputContainerStyling
                   }
@@ -100,10 +113,8 @@ const FilterModel = ({
                   borderColor={'#EEEEEE'}
                   {...props}
                   type={'primary'}
-                  data={[
-                    { label: 'Sharm El-Shaikh', value: 'Sharm El-Shaikh' },
-                  ]}
-                  name={'city'}
+                  data={[{ label: 'Sharm El-Shaikh', value: 'sharm' }]}
+                  name={'location'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
                 />
               </View>
@@ -124,10 +135,10 @@ const FilterModel = ({
                   borderColor={'#EEEEEE'}
                   type={'primary'}
                   data={[
-                    { label: '(4 Star)', value: 4 },
-                    { label: '(3 Star)', value: 3 },
-                    { label: '(2 Star)', value: 2 },
                     { label: '(1 Star)', value: 1 },
+                    { label: '(2 Star)', value: 2 },
+                    { label: '(3 Star)', value: 3 },
+                    { label: '(4 Star)', value: 4 },
                   ]}
                   name={'rating'}
                   stylingProp={{
@@ -144,6 +155,8 @@ const FilterModel = ({
                 label={languages[lang].applyFilter}
                 style={styles().button}
                 onPress={() => {
+                  if (props.values.category) setcategory('');
+                  else props.setFieldValue('category', category);
                   props.handleSubmit();
                 }}
               />

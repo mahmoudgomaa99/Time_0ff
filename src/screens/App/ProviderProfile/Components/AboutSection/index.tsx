@@ -4,10 +4,16 @@ import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { styles } from './styles';
 
-const AboutSection = ({ lang }: { lang: string }) => {
+const AboutSection = ({
+  lang,
+  description,
+}: {
+  lang: string;
+  description: any;
+}) => {
   return (
     <View>
-      <TextView title={languages[lang].lorem} style={styles(lang).text}/>
+      <TextView title={description} style={styles(lang).text} />
     </View>
   );
 };

@@ -14,8 +14,9 @@ import ExperienceSection from './Components/ExperienceSection';
 import ReviewSection from './Components/ReviewSection';
 import { useLoadingSelector } from 'redux/selectors';
 import Journeys, {
+  selectCurrentAgency,
   selectCurrentAgencyJourneys,
-  selectCurrentJourney,
+  selectCurrentAgencyReviews,
 } from 'redux/journey';
 import { useRoute } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
@@ -33,17 +34,28 @@ const ProviderProfile = () => {
   const route = useRoute<any>();
   const dispatch = useAppDispatch();
   const journeys = useSelector(selectCurrentAgencyJourneys);
+  const agency = useSelector(selectCurrentAgency);
+  const isGetAgency = useLoadingSelector(Journeys.thunks.doGetAgency);
+  const isGetAgencyReviews = useLoadingSelector(
+    Journeys.thunks.doGetAgencyReviews,
+  );
+  const agencyReviews = useSelector(selectCurrentAgencyReviews);
 
   useEffect(() => {
     dispatch(Journeys.thunks.doGetAgencyJourneys(route.params?.id));
+    dispatch(Journeys.thunks.doGetAgencyReviews(route.params?.id));
+    dispatch(Journeys.thunks.doGetAgency(route.params?.id));
   }, [route.params?.id]);
-  console.log(route.params?.id);
-  console.log(isGetJourneysLoading, 'loading');
-  // console.log(journeys)
+
+  // console.log(agencyReviews, 'rating');
+  // console.log(isGetAgencyReviews, 'boolean');
+  // console.log(journeys, 'this is journeys');
+  console.log(agency);
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
-      <ImageSection isDarkMode={isDarkMode} lang={lang} />
+      <ImageSection isDarkMode={isDarkMode} lang={lang} items={agency} />
       <Tab
         isDarkMode={isDarkMode}
         lang={lang}
@@ -52,7 +64,10 @@ const ProviderProfile = () => {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {select === 1 ? (
-          <AboutSection lang={lang} />
+          <AboutSection
+            lang={lang}
+            description={agency?.agencyDataRes.description}
+          />
         ) : select === 2 ? (
           <ExperienceSection
             isDarkMode={isDarkMode}
@@ -61,7 +76,12 @@ const ProviderProfile = () => {
             isGetJourneysLoading={isGetJourneysLoading}
           />
         ) : select === 3 ? (
-          <ReviewSection isDarkMode={isDarkMode} lang={lang} />
+          <ReviewSection
+            isDarkMode={isDarkMode}
+            lang={lang}
+            isGetAgencyReviews={isGetAgencyReviews}
+            agencyReviews={agencyReviews}
+          />
         ) : null}
       </ScrollView>
     </SafeAreaView>

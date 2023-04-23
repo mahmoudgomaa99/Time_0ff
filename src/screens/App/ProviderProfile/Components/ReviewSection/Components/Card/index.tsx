@@ -10,26 +10,28 @@ const Card = ({
   name,
   review,
   isDarkMode,
+  image,
+  rating,
 }: {
   lang: string;
   name: string;
   review: string;
   isDarkMode?: boolean;
+  image: string;
+  rating: string;
 }) => {
   return (
     <View style={styles(lang, isDarkMode).container}>
       <View style={styles(lang).imageContainer}>
-        <Image source={images.present} style={styles(lang).image} />
+        <Image source={{ uri: image }} style={styles(lang).image} />
       </View>
       <View style={styles(lang).contentContainer}>
         <View style={styles(lang).innerContainer}>
           <TextView title={name} style={styles(lang, isDarkMode).name} />
           <View style={styles(lang).starContainer}>
-            <Svg name="star" size={20} />
-            <Svg name="star" size={20} />
-            <Svg name="star" size={20} />
-            <Svg name="star" size={20} />
-            <Svg name="star" size={20} />
+            {[...Array(parseInt(rating)).keys()].map(i => (
+              <Svg name="star" size={20} />
+            ))}
           </View>
         </View>
         <View style={{ alignSelf: 'flex-end' }}>
