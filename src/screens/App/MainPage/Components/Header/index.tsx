@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 import { log } from 'react-native-reanimated';
 import { h, w } from 'values/Dimensions';
+import { images } from 'src/assets/images';
 
 const Header = ({
   lang,
@@ -31,8 +32,19 @@ const Header = ({
           ]}>
           {user ? (
             <Image
-              source={{ uri: user.image }}
-              style={{ width: w * 0.1, height: h * 0.04 }}
+              source={
+                user.imageUrl
+                  ? { uri: user.imageUrl }
+                  : {
+                      uri: 'http://159.89.7.75:80/uploads/users/29/29_1681941966186_default.png',
+                    }
+              }
+              style={{
+                width: w * 0.1,
+                height: h * 0.04,
+                marginHorizontal: 5,
+                borderRadius: 10,
+              }}
             />
           ) : (
             <Svg name="profile" size={50} />

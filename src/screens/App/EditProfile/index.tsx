@@ -13,24 +13,30 @@ import Svg from 'atoms/Svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { useAppDispatch } from 'redux/store';
-import User from 'redux/user';
-import { useLoadingSelector } from '../../../redux/selectors';
+import User, { selectCurrentUser } from 'redux/user';
+import { useLoadingSelector } from 'redux/selectors';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useNavigation } from '@react-navigation/native';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<any>();
   const isLoading = useLoadingSelector(User.thunks.doUpdateUser);
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const currrentUser = useSelector(selectCurrentUser);
+  console.log(currrentUser.phone.slice(3));
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
       <Formik
         initialValues={{
-          fullName: '',
-          countryCode: '',
-          phoneNumber: '',
-          email: '',
-          city: '',
+          fullName: currrentUser.name,
+          countryCode: currrentUser.phone.slice(0, 3),
+          phoneNumber: currrentUser.phone.slice(3),
+          email: currrentUser.email,
+          city: currrentUser.city,
         }}
         onSubmit={values => {
           console.log(values);
@@ -41,7 +47,12 @@ const EditProfile = () => {
               phone: values.countryCode + values.phoneNumber,
               city: values.city,
             }),
-          );
+          )
+            .then(unwrapResult)
+            .then(() => {
+              navigation.goBack();
+            })
+            .catch(err => {});
         }}>
         {props => (
           <View>

@@ -55,11 +55,13 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doUpdateUser.fulfilled, (state, action) => {
-      console.log(action.payload, 'jjj');
-      // state.currentUser = action.payload.data;
-    });
-    builder.addCase(thunks.doUpdateUser.rejected, (state, action) => {
+      Toast.show({ type: 'success', text2: action.payload.message });
+      state.currentUser = action.payload.userData;
       console.log(action);
+    });
+    builder.addCase(thunks.doUpdateUser.rejected, (state, action: any) => {
+      console.log(action);
+      Toast.show({ type: 'error', text2: action.payload.message });
     });
   },
 });

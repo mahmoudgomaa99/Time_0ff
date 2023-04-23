@@ -18,6 +18,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       textAlign: 'center',
       marginVertical: MarginsAndPaddings.ml,
       fontWeight: '900',
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
   });
 };

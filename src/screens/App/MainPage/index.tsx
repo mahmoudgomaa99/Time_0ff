@@ -54,8 +54,6 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       ),
     );
   }, [category, filterData]);
-  // console.log(journeys, 'journeys fom home');
-  // console.log(filterData, 'from home');
 
   return (
     <View style={styles(isDarkMode).container}>
