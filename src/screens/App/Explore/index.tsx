@@ -23,6 +23,7 @@ import { h } from 'values/Dimensions';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 
 const Explore = () => {
+  const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
@@ -35,7 +36,6 @@ const Explore = () => {
   const isGetJourneysDiscount = useLoadingSelector(
     Journeys.thunks.doGetDiscountJourneys,
   );
-  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       Journeys.thunks.doGetJourneys(

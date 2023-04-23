@@ -150,6 +150,7 @@ const languages: any = {
     discount: 'Discount',
     noReviews: 'There is no reviews',
     noOffers: 'There is no offers',
+    noData: 'There is no data',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -297,6 +298,7 @@ const languages: any = {
     discount: 'خصم هذا الاسبوع',
     noReviews: 'لا يوجد اراء',
     noOffers: 'لا يوجد عروض',
+    noData: 'لا يوجد بيانات',
   },
 };
 export default languages;

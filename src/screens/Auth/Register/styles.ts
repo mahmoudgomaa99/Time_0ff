@@ -29,7 +29,7 @@ export const styles = (isDarkMode?: boolean) =>
     },
     containerStyle: {
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
-      // borderWidth: 1,
+      borderWidth: isDarkMode ? 0 : 1,
       // borderColor: COLORS.lightGrey,
       borderRadius: BorderRadius.m,
       height: h * 0.076,

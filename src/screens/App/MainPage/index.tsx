@@ -27,6 +27,11 @@ import { TInitialValues } from './Components/FilterModel/data';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
+  const dispatch = useAppDispatch();
+  const journeys = useSelector(selectCurrentJourneys);
+  const isGetJourneysLoading = useLoadingSelector(
+    Journeys.thunks.doGetJourneys,
+  );
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
@@ -42,11 +47,6 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     }, 100);
   }
 
-  const journeys = useSelector(selectCurrentJourneys);
-  const isGetJourneysLoading = useLoadingSelector(
-    Journeys.thunks.doGetJourneys,
-  );
-  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       Journeys.thunks.doGetJourneys(

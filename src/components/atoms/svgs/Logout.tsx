@@ -1,7 +1,17 @@
 import useSvgSize from 'hooks/useSvgSize';
 import * as React from 'react';
-import Svg, { Defs, LinearGradient, Stop, G, Path, Rect } from 'react-native-svg';
+import Svg, {
+  Defs,
+  LinearGradient,
+  Stop,
+  G,
+  Path,
+  Rect,
+} from 'react-native-svg';
 import { TSvgProps } from '../Svg';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import COLORS from 'values/colors';
 
 const WIDTH = 113.715;
 const HEIGHT = 77.212;
@@ -10,6 +20,7 @@ const RATIO_TO_WIDTH = HEIGHT / WIDTH;
 
 function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <Svg {...computedSize} viewBox="0 0 40 40" {...props}>
       <G
@@ -24,7 +35,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
             height="40"
             rx="13"
             transform="translate(966 1934)"
-            fill="#ffdfdf"
+            fill={isDarkMode ? COLORS.iconBackDarkMode : '#ffdfdf'}
           />
         </G>
         <G id="sign-out-alt" transform="translate(28 529.892)">

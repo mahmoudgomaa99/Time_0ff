@@ -17,6 +17,8 @@ import { TInitialValues, initialVslues } from './data';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
 import COLORS from 'values/colors';
+import { useAppDispatch } from 'redux/store';
+import Journeys from 'redux/journey';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -33,6 +35,7 @@ const FilterModel = ({
   setcategory: any;
   category: string;
 }) => {
+  const dispatch = useAppDispatch();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const lang = useSelector(selectLanguage);

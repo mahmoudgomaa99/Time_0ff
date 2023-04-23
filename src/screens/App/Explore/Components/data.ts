@@ -24,8 +24,18 @@ export const cardData = (lang: string) => {
       location: languages[lang].cardLocation,
       name: languages[lang].cardName,
       stars: languages[lang].cardStars,
+      id: 0,
     },
     {
+      title: languages[lang].cardTitle,
+      description: languages[lang].cardDescription,
+      location: languages[lang].cardLocation,
+      name: languages[lang].cardName,
+      stars: languages[lang].cardStars,
+      id: 1,
+    },
+    {
+      id: 2,
       title: languages[lang].cardTitle,
       description: languages[lang].cardDescription,
       location: languages[lang].cardLocation,
@@ -37,6 +47,7 @@ export const cardData = (lang: string) => {
       description: languages[lang].cardDescription,
       location: languages[lang].cardLocation,
       name: languages[lang].cardName,
+      id: 3,
       stars: languages[lang].cardStars,
     },
     {
@@ -44,13 +55,7 @@ export const cardData = (lang: string) => {
       description: languages[lang].cardDescription,
       location: languages[lang].cardLocation,
       name: languages[lang].cardName,
-      stars: languages[lang].cardStars,
-    },
-    {
-      title: languages[lang].cardTitle,
-      description: languages[lang].cardDescription,
-      location: languages[lang].cardLocation,
-      name: languages[lang].cardName,
+      id: 4,
       stars: languages[lang].cardStars,
     },
   ];

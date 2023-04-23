@@ -12,8 +12,13 @@ import Button from 'components/molecules/Button';
 import Svg from 'atoms/Svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { useAppDispatch } from 'redux/store';
+import User from 'redux/user';
+import { useLoadingSelector } from '../../../redux/selectors';
 
 const EditProfile = () => {
+  const dispatch = useAppDispatch();
+  const isLoading = useLoadingSelector(User.thunks.doUpdateUser);
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   return (
@@ -27,7 +32,17 @@ const EditProfile = () => {
           email: '',
           city: '',
         }}
-        onSubmit={values => console.log(values)}>
+        onSubmit={values => {
+          console.log(values);
+          dispatch(
+            User.thunks.doUpdateUser({
+              name: values.fullName,
+              email: values.email,
+              phone: values.countryCode + values.phoneNumber,
+              city: values.city,
+            }),
+          );
+        }}>
         {props => (
           <View>
             <InputView
@@ -106,10 +121,7 @@ const EditProfile = () => {
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
-              data={[
-                { label: 'egypt', value: 'egypt' },
-                { label: 'france', value: 'france' },
-              ]}
+              data={[{ label: 'Sharm Elsheikh', value: 'sharm' }]}
               placeholder={'City'}
               name={'city'}
             />
@@ -119,6 +131,7 @@ const EditProfile = () => {
               label={languages[lang].saveEditing}
               onPress={() => props.handleSubmit()}
               style={styles(lang).button}
+              isLoading={isLoading}
             />
           </View>
         )}

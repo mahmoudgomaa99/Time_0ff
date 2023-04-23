@@ -10,13 +10,13 @@ const { width, height } = Dimensions.get('window');
 
 const SkeletonItem = () => {
   return (
-    <SkeletonPlaceholder borderRadius={4} backgroundColor="#c8c8c8">
+    <SkeletonPlaceholder borderRadius={15} backgroundColor="#c8c8c8">
       <SkeletonPlaceholder.Item marginLeft={'auto'} marginRight={'auto'}>
         <View
           style={{
             height: h * 0.15,
-            width: w * 0.95,
-            marginBottom:10
+            width: w * 0.9,
+            marginBottom: 10,
           }}
         />
       </SkeletonPlaceholder.Item>

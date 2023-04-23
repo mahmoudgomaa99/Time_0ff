@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { api } from 'redux/_axios';
 
 const GetJourneys = (data: {

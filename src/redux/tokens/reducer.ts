@@ -14,6 +14,7 @@ const tokenReducer = createReducer(initialState, builder => {
       state.token = null;
     })
     .addCase(Users.thunks.doLogIn.fulfilled, (state, action) => {
+      console.log(action);
       // if (action.payload.data.status === 0) {
       //   return;
       // }

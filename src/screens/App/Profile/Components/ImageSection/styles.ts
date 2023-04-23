@@ -20,6 +20,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginLeft: lang === 'en' ? 10 : 0,
       marginRight: lang === 'ar' ? 10 : 0,
+      maxWidth: w * 0.6,
     },
   });
 };

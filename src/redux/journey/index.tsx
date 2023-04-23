@@ -43,8 +43,8 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetJourney.fulfilled, (state, action) => {
-      console.log(action, ' test ');
       state.journey = action.payload.data.data;
+      console.log(action);
     });
     builder.addCase(thunks.doGetJourney.rejected, (state, action) => {
       console.log(action);
