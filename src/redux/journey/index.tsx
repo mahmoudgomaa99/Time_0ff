@@ -6,12 +6,12 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Tagency, Tjourneys } from './model';
 
 type TInitialValues = {
-  journeys?: Tjourneys;
+  journeys: Tjourneys;
   journey?: any;
   agencyJorneys?: any;
   agencyReviews?: any;
   agency?: Tagency;
-  discountJourneys?: any;
+  discountJourneys: Tjourneys;
 };
 
 const initialValues: TInitialValues = {
@@ -20,7 +20,7 @@ const initialValues: TInitialValues = {
   agencyJorneys: null,
   agencyReviews: null,
   agency: undefined,
-  discountJourneys: null,
+  discountJourneys: [],
 };
 
 const slice = createSlice({

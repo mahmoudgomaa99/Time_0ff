@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
@@ -7,12 +7,10 @@ import Top from './Components/Top';
 import InputSec from './Components/InputSec';
 import FilterModel from '../MainPage/Components/FilterModel';
 import CategSec from './Components/CategSec';
-import BottomList from './Components/BottomList';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
-import { cardData } from './Components/data';
 import Card from '../MainPage/Components/Card';
 import { TInitialValues } from '../MainPage/Components/FilterModel/data';
 import Journeys, {
@@ -85,8 +83,9 @@ const Explore = () => {
         setfilterData={setfilterData}
       />
       <TextView title={languages[lang].hotOffers} style={styles(lang).Text} />
-      <ScrollView style={{ height: journeysOffers.length ? h * 0.5 : h * 0.1 }}>
-        {journeysOffers.length > 0 ? (
+      <ScrollView
+        style={{ height: journeysOffers?.length ? h * 0.5 : h * 0.1 }}>
+        {journeysOffers?.length > 0 ? (
           isGetJourneysOffers ? (
             [...Array(10)].map(i => (
               <View key={i}>
@@ -122,8 +121,8 @@ const Explore = () => {
 
       <TextView title={languages[lang].discount} style={styles(lang).Text} />
       <ScrollView
-        style={{ height: journeysDiscount.length ? h * 0.5 : h * 0.1 }}>
-        {journeysDiscount.length > 0 ? (
+        style={{ height: journeysDiscount?.length ? h * 0.5 : h * 0.1 }}>
+        {journeysDiscount?.length > 0 ? (
           isGetJourneysOffers ? (
             [...Array(10)].map(i => (
               <View key={i}>
