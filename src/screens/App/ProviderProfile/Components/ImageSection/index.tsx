@@ -21,14 +21,14 @@ const ImageSection = ({
       <View style={styles(lang).imageContainer}>
         <Image
           source={
-            items.agencyDataRes.image
-              ? { uri: items.agencyDataRes.image }
+            items?.agencyDataRes?.image
+              ? { uri: items?.agencyDataRes?.image }
               : images.present
           }
           style={styles(lang).image}
         />
         <TextView
-          title={items.agencyDataRes.name}
+          title={items?.agencyDataRes?.name}
           style={styles(lang, isDarkMode).providerName}
         />
       </View>
@@ -37,7 +37,7 @@ const ImageSection = ({
         <View style={styles(lang, isDarkMode).first}>
           <Svg name="starWithB" />
           <TextView
-            title={`(${items.agencyDataRes.rating})`}
+            title={`(${items?.agencyDataRes?.rating})`}
             style={styles(lang, isDarkMode).text}
           />
           <TextView

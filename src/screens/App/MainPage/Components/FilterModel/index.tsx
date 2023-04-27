@@ -45,7 +45,7 @@ const FilterModel = ({
       onSubmit={values => {
         setfilterData(values);
         if (values.category) setcategory('');
-
+        setDateModalVisable(false);
         setFilterModalVisable(false);
       }}>
       {props => (

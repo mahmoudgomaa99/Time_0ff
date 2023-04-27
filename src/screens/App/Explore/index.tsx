@@ -1,4 +1,4 @@
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
@@ -22,10 +22,12 @@ import { useLoadingSelector } from 'redux/selectors';
 import { useAppDispatch } from 'redux/store';
 import { h } from 'values/Dimensions';
 import SkeletonItem from 'components/molecules/SkeletonItem';
+import { useNavigation } from '@react-navigation/native';
 
 const Explore = () => {
   const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
+  const navigation = useNavigation<any>();
   const isDarkMode = useSelector(selectIsDarkMode);
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [filterData, setfilterData] = useState<TInitialValues>();
@@ -67,7 +69,6 @@ const Explore = () => {
       ),
     );
   }, [category, filterData]);
-  console.log(journeysOffers, 'from explore');
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
@@ -98,26 +99,33 @@ const Explore = () => {
             ))
           ) : (
             journeysOffers?.map((item: any) => (
-              <Card
-                title={
-                  lang === 'ar' ? item.arabic_journey_name : item.journey_name
-                }
-                description={
-                  lang === 'ar' ? item.arabic_description : item.description
-                }
-                location={lang === 'ar' ? item.arabic_location : item.location}
-                name={item.agency_name}
-                stars={item.rating ? item.rating : 0}
-                lang={lang}
-                isDarkMode={isDarkMode}
-                isFav={item.is_favorite}
-                urlImage={item.image}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('detailsTrip', { id: item._id });
+                }}>
+                <Card
+                  title={
+                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
+                  }
+                  description={
+                    lang === 'ar' ? item.arabic_description : item.description
+                  }
+                  location={
+                    lang === 'ar' ? item.arabic_location : item.location
+                  }
+                  name={item.agency_name}
+                  stars={item.rating ? item.rating : 0}
+                  lang={lang}
+                  isDarkMode={isDarkMode}
+                  isFav={item.is_favorite}
+                  urlImage={item.image}
+                />
+              </TouchableOpacity>
             ))
           )
         ) : (
           <TextView
-            title={languages[lang].noOffers}
+            title={languages[lang].noData}
             style={styles(lang, isDarkMode).text}
           />
         )}
@@ -130,7 +138,7 @@ const Explore = () => {
       <ScrollView
         style={{ height: journeysDiscount?.length ? h * 0.5 : h * 0.1 }}>
         {journeysDiscount?.length > 0 ? (
-          isGetJourneysOffers ? (
+          isGetJourneysDiscount ? (
             [...Array(10)].map(i => (
               <View key={i}>
                 <SkeletonItem />
@@ -138,27 +146,34 @@ const Explore = () => {
             ))
           ) : (
             journeysDiscount?.map((item: any) => (
-              <Card
-                title={
-                  lang === 'ar' ? item.arabic_journey_name : item.journey_name
-                }
-                description={
-                  lang === 'ar' ? item.arabic_description : item.description
-                }
-                location={lang === 'ar' ? item.arabic_location : item.location}
-                name={item.agency_name}
-                stars={item.rating ? item.rating : 0}
-                lang={lang}
-                isDarkMode={isDarkMode}
-                isFav={item.is_favorite}
-                urlImage={item.image}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('detailsTrip', { id: item._id });
+                }}>
+                <Card
+                  title={
+                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
+                  }
+                  description={
+                    lang === 'ar' ? item.arabic_description : item.description
+                  }
+                  location={
+                    lang === 'ar' ? item.arabic_location : item.location
+                  }
+                  name={item.agency_name}
+                  stars={item.rating ? item.rating : 0}
+                  lang={lang}
+                  isDarkMode={isDarkMode}
+                  isFav={item.is_favorite}
+                  urlImage={item.image}
+                />
+              </TouchableOpacity>
             ))
           )
         ) : (
           <TextView
-            title={languages[lang].noOffers}
-            style={styles(lang).text}
+            title={languages[lang].noData}
+            style={styles(lang, isDarkMode).text}
           />
         )}
       </ScrollView>

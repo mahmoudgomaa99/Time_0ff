@@ -54,6 +54,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       ),
     );
   }, [category, filterData]);
+  console.log(journeys);
 
   return (
     <View style={styles(isDarkMode).container}>

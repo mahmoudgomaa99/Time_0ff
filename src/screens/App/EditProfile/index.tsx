@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,6 @@ import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
 import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
-import Svg from 'atoms/Svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { useAppDispatch } from 'redux/store';
@@ -25,27 +24,26 @@ const EditProfile = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const currrentUser = useSelector(selectCurrentUser);
-  console.log(currrentUser.phone.slice(3));
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
       <Formik
         initialValues={{
-          fullName: currrentUser.name,
-          countryCode: currrentUser.phone.slice(0, 3),
-          phoneNumber: currrentUser.phone.slice(3),
-          email: currrentUser.email,
-          city: currrentUser.city,
+          fullName: currrentUser?.name,
+          countryCode: currrentUser?.phone.slice(0, 3),
+          phoneNumber: currrentUser?.phone.slice(3),
+          email: currrentUser?.email,
+          city: currrentUser?.city,
         }}
         onSubmit={values => {
           console.log(values);
           dispatch(
             User.thunks.doUpdateUser({
-              name: values.fullName,
-              email: values.email,
-              phone: values.countryCode + values.phoneNumber,
-              city: values.city,
+              name: values?.fullName,
+              email: values?.email,
+              phone: values?.countryCode + values?.phoneNumber,
+              city: values?.city,
             }),
           )
             .then(unwrapResult)

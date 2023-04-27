@@ -14,5 +14,6 @@ export const styles = (isDarkMode?: boolean) =>
     },
     resetText: {
       fontSize: 16,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
   });

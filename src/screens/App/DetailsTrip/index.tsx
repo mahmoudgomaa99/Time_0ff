@@ -129,7 +129,10 @@ const DetailsTrip = () => {
             style={styles(isDarkMode).subTitle}
           />
           <Svg name="star" size={17} />
-          <TextView title={`(${journey?.rating})`} />
+          <TextView
+            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            title={`(${journey?.rating})`}
+          />
         </View>
 
         <View>

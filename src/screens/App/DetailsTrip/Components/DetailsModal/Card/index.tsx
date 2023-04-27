@@ -4,6 +4,7 @@ import { images } from 'src/assets/images';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
+import COLORS from 'values/colors';
 
 const Card = ({
   title,
@@ -71,9 +72,15 @@ const Card = ({
             },
           ]}>
           <Svg name="jamp" size={20} />
-          <TextView style={{}} title={name} />
+          <TextView
+            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            title={name}
+          />
           <Svg name="star" size={20} />
-          <TextView title={`(${stars})`} />
+          <TextView
+            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            title={`(${stars})`}
+          />
         </View>
       </View>
     </View>

@@ -85,7 +85,7 @@ const DateModal = ({
             style={styles().button}
             onPress={() => {
               console.log('clicked');
-              formikProps.handleSubmit;
+              formikProps.handleSubmit();
             }}
           />
         </View>

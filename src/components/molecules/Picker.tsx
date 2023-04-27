@@ -103,6 +103,7 @@ const Picker = ({
               },
               inputAndroid: {
                 ...styles(isDarkMode)[`${type}_iosButton`],
+                color: isDarkMode ? COLORS.white : COLORS.black,
                 borderColor:
                   props.errors[props.name] && props.touched[props.name]
                     ? COLORS.red
@@ -159,7 +160,7 @@ const Picker = ({
                 },
                 inputAndroid: {
                   ...styles(isDarkMode)[`${type}_iosButton`],
-                  color: COLORS.black,
+                  color: isDarkMode ? COLORS.white : COLORS.black,
                   borderColor:
                     props.errors[props.name] && props.touched[props.name]
                       ? COLORS.red

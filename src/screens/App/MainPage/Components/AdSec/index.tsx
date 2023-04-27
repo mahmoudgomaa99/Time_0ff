@@ -31,6 +31,7 @@ const AdSec = ({
         style={{
           direction: lang === 'ar' ? 'rtl' : 'ltr',
           flexDirection: 'row',
+          transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
         }}>
         <Carousel
           ref={carouselRef}

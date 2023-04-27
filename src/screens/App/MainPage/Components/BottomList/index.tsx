@@ -81,8 +81,8 @@ const BottomList = ({
           )
         ) : (
           <TextView
-            title={languages[lang].noOffers}
-            style={styles(lang).text}
+            title={languages[lang].noData}
+            style={styles(lang, isDarkMode).text}
           />
         )}
       </View>
