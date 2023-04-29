@@ -1,5 +1,5 @@
 import { View, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
@@ -22,7 +22,7 @@ import { useLoadingSelector } from 'redux/selectors';
 import { useAppDispatch } from 'redux/store';
 import { h } from 'values/Dimensions';
 import SkeletonItem from 'components/molecules/SkeletonItem';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const Explore = () => {
   const dispatch = useAppDispatch();
@@ -32,43 +32,52 @@ const Explore = () => {
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [filterData, setfilterData] = useState<TInitialValues>();
   const [category, setcategory] = useState('');
-
+  const [search, setSearch] = useState('');
   const journeysOffers = useSelector(selectHotJourneys);
   const isGetJourneysOffers = useLoadingSelector(Journeys.thunks.doGetJourneys);
   const journeysDiscount = useSelector(selectCurrentDiscountJourneys);
   const isGetJourneysDiscount = useLoadingSelector(
     Journeys.thunks.doGetDiscountJourneys,
   );
-  useEffect(() => {
-    dispatch(
-      Journeys.thunks.doGetHotJourneys(
-        filterData
-          ? {
-              category: filterData.category,
-              start_date: filterData.start_date,
-              location: filterData.location,
-              price_start: filterData.price_start,
-              price_end: filterData.price_end,
-              rating: 4,
-            }
-          : { category: category, rating: 4 },
-      ),
-    );
-    dispatch(
-      Journeys.thunks.doGetDiscountJourneys(
-        filterData
-          ? {
-              category: filterData.category,
-              start_date: filterData.start_date,
-              location: filterData.location,
-              price_start: filterData.price_start,
-              price_end: filterData.price_end,
-              discount: true,
-            }
-          : { category: category, discount: true },
-      ),
-    );
-  }, [category, filterData]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        Journeys.thunks.doGetHotJourneys(
+          filterData
+            ? {
+                category: filterData.category,
+                start_date: filterData.start_date,
+                location: filterData.location,
+                price_start: filterData.price_start,
+                price_end: filterData.price_end,
+                rating: 4,
+                search_key_word_name: search,
+              }
+            : { category: category, rating: 4, search_key_word_name: search },
+        ),
+      );
+      dispatch(
+        Journeys.thunks.doGetDiscountJourneys(
+          filterData
+            ? {
+                category: filterData.category,
+                start_date: filterData.start_date,
+                location: filterData.location,
+                price_start: filterData.price_start,
+                price_end: filterData.price_end,
+                discount: true,
+                search_key_word_name: search,
+              }
+            : {
+                category: category,
+                discount: true,
+                search_key_word_name: search,
+              },
+        ),
+      );
+    }, [category, filterData, search]),
+  );
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
@@ -77,6 +86,8 @@ const Explore = () => {
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
         isDarkMode={isDarkMode}
+        setSearch={setSearch}
+        search={search}
       />
       <CategSec
         lang={lang}
@@ -89,7 +100,7 @@ const Explore = () => {
         style={styles(lang, isDarkMode).Text}
       />
       <ScrollView
-        style={{ height: journeysOffers?.length ? h * 0.5 : h * 0.1 }}>
+        style={{ height: journeysOffers?.length ? h * 0.2 : h * 0.1 }}>
         {journeysOffers?.length > 0 ? (
           isGetJourneysOffers ? (
             [...Array(10)].map(i => (

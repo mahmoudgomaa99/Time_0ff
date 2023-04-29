@@ -11,6 +11,6 @@ export const styles = (lang?: string, isDarkMode?: boolean) =>
     body: {
       alignItems: 'center',
       justifyContent: 'center',
-      height: h * 0.4,
+      // height: h * 0.4,
     },
   });

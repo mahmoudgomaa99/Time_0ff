@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styles } from './styles';
 
 import Header from './Components/Header';
@@ -24,6 +24,7 @@ import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { TInitialValues } from './Components/FilterModel/data';
+import { useFocusEffect } from '@react-navigation/native';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -32,6 +33,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneys,
   );
+  const [search, setSearch] = useState('');
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
@@ -47,14 +49,17 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     }, 100);
   }
 
-  useEffect(() => {
-    dispatch(
-      Journeys.thunks.doGetJourneys(
-        filterData ? filterData : { category: category },
-      ),
-    );
-  }, [category, filterData]);
-  console.log(journeys);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        Journeys.thunks.doGetJourneys(
+          filterData
+            ? filterData
+            : { category: category, search_key_word_name: search },
+        ),
+      );
+    }, [category, filterData, search]),
+  );
 
   return (
     <View style={styles(isDarkMode).container}>
@@ -64,6 +69,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         isFilterModalVisable={isFilterModalVisable}
         setFilterModalVisable={setFilterModalVisable}
         isDarkMode={isDarkMode}
+        setSearch={setSearch}
+        search={search}
       />
       <AdSec isDarkMode={isDarkMode} lang={lang} />
       <CategSec
@@ -85,6 +92,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         setfilterData={setfilterData}
         category={category}
         setcategory={setcategory}
+        search={search}
       />
       <NotificationModel
         lang={lang}

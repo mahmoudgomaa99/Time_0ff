@@ -43,7 +43,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           cy="8"
           r="8"
           transform="translate(105 737)"
-          fill="url(#pattern)"
+          fill="#8ee8"
         />
       </G>
     </Svg>

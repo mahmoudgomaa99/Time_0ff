@@ -71,7 +71,7 @@ const Card = ({
               flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
             },
           ]}>
-          <Svg name="jamp" size={20} />
+          <Svg name="smile" size={20} />
           <TextView
             style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
             title={name}

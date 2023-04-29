@@ -9,10 +9,13 @@ import CurrencyModel from './Components/CurrencyModel';
 import PasswordModel from './Components/PasswordModel';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import AuthModal from 'components/organisms/AuthModal';
+import useModalHandler from 'hooks/Modal';
 
 const Settings = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const lang = useSelector(selectLanguage);
+  const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler();
   const [isLanguageModel, setisLanguageModel] = useState(false);
   const [isCurrencyModel, setisCurrencyModel] = useState(false);
   const [isPasswordModel, setisPasswordModel] = useState(false);
@@ -27,6 +30,7 @@ const Settings = () => {
         setisCurrencyModel={setisCurrencyModel}
         isPasswordModel={isPasswordModel}
         setisPasswordModel={setisPasswordModel}
+        openCustomModal={openCustomModal}
       />
       <LanguageModel
         isLanguageModel={isLanguageModel}
@@ -41,6 +45,11 @@ const Settings = () => {
         lang={lang}
         isPasswordModel={isPasswordModel}
         setisPasswordModel={setisPasswordModel}
+      />
+      <AuthModal
+        CustomModal={CustomModal}
+        closeCustomModal={closeCustomModal}
+        type="profile"
       />
     </SafeAreaView>
   );

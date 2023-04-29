@@ -8,7 +8,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       position: 'relative',
-      marginBottom: 50,
+      marginBottom: 30,
       marginHorizontal: 5,
       marginTop: 15,
     },

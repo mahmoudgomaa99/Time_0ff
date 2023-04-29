@@ -16,6 +16,8 @@ import User, { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
+import useModalHandler from 'hooks/Modal';
+import AuthModal from 'components/organisms/AuthModal';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -145,6 +147,7 @@ const EditProfile = () => {
           </View>
         )}
       </Formik>
+    
     </SafeAreaView>
   );
 };

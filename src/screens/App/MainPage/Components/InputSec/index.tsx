@@ -15,11 +15,15 @@ const InputSec = ({
   setFilterModalVisable,
   lang,
   isDarkMode,
+  setSearch,
+  search,
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
   lang: string;
   isDarkMode?: boolean;
+  setSearch?: any;
+  search?: string;
 }) => {
   return (
     <View
@@ -34,14 +38,21 @@ const InputSec = ({
       ]}>
       <View style={styles().input}>
         <Formik
-          initialValues={{ search: '' }}
+          initialValues={{ search: search }}
           onSubmit={values => console.log(values)}>
           {props => (
             <>
               <InputView
                 {...props}
                 name="search"
-                onChangeText={props.handleChange('search')}
+                onChangeText={text => {
+                  setSearch(text);
+                  props.handleChange('search');
+                }}
+                onChange={e => {
+                  setSearch(e.nativeEvent.text);
+                  props.handleChange('search');
+                }}
                 value={props.values.search}
                 inputContainerStyling={styles(isDarkMode).inputContainerStyling}
                 placeholder={languages[lang].searchInApp}

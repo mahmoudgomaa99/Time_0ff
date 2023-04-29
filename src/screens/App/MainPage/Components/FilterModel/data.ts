@@ -5,6 +5,7 @@ export const initialVslues: TInitialValues = {
   price_start: 10,
   price_end: 1000,
   rating: '',
+  search_key_word_name: '',
 };
 
 export interface TInitialValues {
@@ -14,4 +15,5 @@ export interface TInitialValues {
   price_start: number;
   price_end: number;
   rating: string;
+  search_key_word_name?: string;
 }

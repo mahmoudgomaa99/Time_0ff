@@ -12,7 +12,7 @@ export const styles = (isDarkMode?: boolean) =>
     },
     containerStyle: {
       backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : COLORS.white,
-      // borderWidth: 1,
+      borderWidth: isDarkMode ? 0 : 1,
       borderColor: COLORS.grey,
       borderRadius: BorderRadius.m,
       height: h * 0.07,

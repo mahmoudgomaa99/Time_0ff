@@ -10,6 +10,7 @@ import Switches from './Switches';
 import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import COLORS from 'values/colors';
+import { selectCurrentUser } from 'redux/user';
 
 const Card = ({
   lang,
@@ -19,6 +20,7 @@ const Card = ({
   setisCurrencyModel,
   isPasswordModel,
   setisPasswordModel,
+  openCustomModal,
 }: {
   lang: string;
   isLanguageModel: boolean;
@@ -27,9 +29,11 @@ const Card = ({
   setisCurrencyModel: any;
   isPasswordModel: boolean;
   setisPasswordModel: any;
+  openCustomModal?: any;
 }) => {
   const navigation = useNavigation<any>();
   const isDarkMode = useSelector(selectIsDarkMode);
+  const currentUser = useSelector(selectCurrentUser);
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value: any, index) => (
@@ -41,7 +45,9 @@ const Card = ({
                 : value.show === 'currency'
                 ? setisCurrencyModel(true)
                 : value.show === 'changePassword'
-                ? setisPasswordModel(true)
+                ? currentUser
+                  ? setisPasswordModel(true)
+                  : openCustomModal()
                 : navigation.navigate('contactUs');
             }}
             style={styles(lang).container}>

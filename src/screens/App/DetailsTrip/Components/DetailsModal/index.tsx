@@ -11,7 +11,7 @@ import Card from './Card';
 import Top from './Top';
 import Bottom from './Bottom';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../../../../redux/language/index';
+import { selectLanguage } from 'redux/language/index';
 
 const DetailsTrip = ({
   isDetailsModalVisibal,

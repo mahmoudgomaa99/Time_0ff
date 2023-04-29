@@ -79,6 +79,16 @@ const slice = createSlice({
     builder.addCase(thunks.doGetAgency.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(thunks.doAddFavourite.fulfilled, (state, action) => {
+      console.log(action.payload.data.data);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.data.message,
+      });
+    });
+    builder.addCase(thunks.doAddFavourite.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 

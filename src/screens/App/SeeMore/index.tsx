@@ -1,5 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Top from './Component/Top';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { useAppDispatch } from 'redux/store';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import SkeletonItem from 'components/molecules/SkeletonItem';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Card from '../MainPage/Components/Card';
 import { styles } from './styles';
 import { h } from 'values/Dimensions';
@@ -27,10 +27,11 @@ const SeeMore = () => {
     Journeys.thunks.doGetJourneys,
   );
 
-  useEffect(() => {
-    dispatch(Journeys.thunks.doGetJourneys({}));
-  }, []);
-  console.log(journeys, 'llll');
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(Journeys.thunks.doGetJourneys({}));
+    }, []),
+  );
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -55,7 +56,13 @@ const SeeMore = () => {
               <FlatList
                 contentContainerStyle={{ paddingBottom: h * 0.2 }}
                 data={journeys}
-                renderItem={(item?: any) => (
+                renderItem={({
+                  item,
+                  index,
+                }: {
+                  item?: any;
+                  index?: number;
+                }) => (
                   <TouchableOpacity
                     key={item?.id}
                     onPress={() => {
@@ -86,7 +93,7 @@ const SeeMore = () => {
                   </TouchableOpacity>
                 )}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(item): any => item?.id}
+                // keyExtractor={(item): any => item?.id}
               />
             )}
           </>

@@ -27,6 +27,7 @@ const FilterModel = ({
   setfilterData,
   setcategory,
   category,
+  search,
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
@@ -34,6 +35,7 @@ const FilterModel = ({
   setfilterData: any;
   setcategory: any;
   category: string;
+  search?: string;
 }) => {
   const dispatch = useAppDispatch();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -155,6 +157,7 @@ const FilterModel = ({
                 label={languages[lang].applyFilter}
                 style={styles().button}
                 onPress={() => {
+                  props.setFieldValue('search_key_word_name', search);
                   if (props.values.category) setcategory('');
                   else props.setFieldValue('category', category);
                   props.handleSubmit();

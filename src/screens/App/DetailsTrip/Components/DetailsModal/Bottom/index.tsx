@@ -11,7 +11,10 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import COLORS from 'values/colors';
 import Button from 'components/molecules/Button';
 import languages from 'values/languages';
-import { log } from 'react-native-reanimated';
+import useModalHandler from 'hooks/Modal';
+import AuthModal from 'components/organisms/AuthModal';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from 'redux/user';
 
 const Bottom = ({
   lang,
@@ -22,6 +25,8 @@ const Bottom = ({
   setisDetailsModalVisibal: any;
   isDarkMode?: boolean;
 }) => {
+  const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
+  const currentUser = useSelector(selectCurrentUser);
   // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
@@ -29,7 +34,11 @@ const Bottom = ({
     <Formik
       initialValues={{ date: '', time: '', members: '', terms: '' }}
       onSubmit={values => {
-        setisDetailsModalVisibal(false);
+        if (!currentUser) {
+          openCustomModal();
+        } else {
+          setisDetailsModalVisibal(false);
+        }
       }}>
       {props => (
         <View>
@@ -84,7 +93,6 @@ const Bottom = ({
               type={'primary'}
               data={[{ label: '3 Members', value: '3 Members' }]}
               name={'members'}
-              stylingProp={{ borderColor: 'red', borderWith: 30 }}
               placeholder={'Choose Memmbers number'}
             />
           </View>
@@ -129,6 +137,11 @@ const Bottom = ({
             formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}
+          />
+          <AuthModal
+            CustomModal={CustomModal}
+            closeCustomModal={closeCustomModal}
+            type="book"
           />
         </View>
       )}
