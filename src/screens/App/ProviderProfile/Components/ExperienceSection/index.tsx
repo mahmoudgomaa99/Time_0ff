@@ -18,6 +18,8 @@ const ExperienceSection = ({
   isGetJourneysLoading: any;
 }) => {
   const navigation = useNavigation<any>();
+  console.log(journeys, 'journeys');
+
   return (
     <View>
       {isGetJourneysLoading
@@ -26,7 +28,7 @@ const ExperienceSection = ({
               <SkeletonItem />
             </View>
           ))
-        : journeys?.map((item: any) => (
+        : journeys?.map((item?: any) => (
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('detailsTrip', { id: item._id });

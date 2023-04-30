@@ -10,7 +10,7 @@ import { images } from 'src/assets/images';
 import { w } from 'values/Dimensions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../../redux/language/index';
+import { selectLanguage } from 'redux/language/index';
 import {
   useFocusEffect,
   useNavigation,
@@ -34,7 +34,7 @@ const DetailsTrip = () => {
   const journey = useSelector(selectCurrentJourney);
   const lang = useSelector(selectLanguage);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isFavourite, setisFavourite] = useState(journey.is_favorite);
+  const [isFavourite, setisFavourite] = useState(journey?.is_favorite);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const route = useRoute<any>();
   const dispatch = useAppDispatch();
@@ -43,6 +43,7 @@ const DetailsTrip = () => {
       dispatch(Journeys.thunks.doGetJourney(route.params?.id));
     }, [route.params?.id]),
   );
+  console.log(journey?.agency_id);
 
   const renderItem = ({ item, index }: any) => {
     return (
@@ -114,7 +115,7 @@ const DetailsTrip = () => {
           <View style={styles().text}>
             <TextView
               title={
-                lang === 'en' ? journey?.category : journey?.arabic_category
+                lang === 'en' ? journey?.journey_name : journey?.arabic_category
               }
               style={[
                 styles(isDarkMode).title,

@@ -49,7 +49,7 @@ const ProviderProfile = () => {
 
   // console.log(agencyReviews, 'rating');
   // console.log(isGetAgencyReviews, 'boolean');
-  // console.log(journeys, 'this is journeys');
+  console.log(journeys, 'this is journeys', route.params?.id);
   console.log(agency);
 
   return (

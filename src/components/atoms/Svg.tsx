@@ -20,6 +20,7 @@ export type TSvgProps = SvgProps & {
 };
 export type TSvgCommponentProps = TSvgProps & {
   name: TName;
+  isTripDetails?: boolean;
 };
 
 const Svg = ({ name, ...props }: TSvgCommponentProps) => {

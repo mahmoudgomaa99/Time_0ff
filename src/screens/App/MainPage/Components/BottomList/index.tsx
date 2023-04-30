@@ -20,7 +20,6 @@ const BottomList = ({
   journeys: any;
 }) => {
   const navigation = useNavigation<any>();
-  console.log(journeys);
 
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
@@ -55,6 +54,7 @@ const BottomList = ({
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('detailsTrip', { id: item._id });
+                      console.log(item, 'jorney');
                     }}
                     style={{ marginTop: 2 }}>
                     <Card
@@ -75,7 +75,7 @@ const BottomList = ({
                       stars={item.rating ? item.rating : 0}
                       lang={lang}
                       isDarkMode={isDarkMode}
-                      isFav={item.is_favorite}
+                      isFav={item?.is_favorite || false}
                       urlImage={item.image}
                     />
                   </TouchableOpacity>

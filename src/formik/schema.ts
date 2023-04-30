@@ -39,9 +39,7 @@ export const ChangePasswordSchema = Yup.object().shape({
 
 export const loginSchema = (lang: string) => {
   return Yup.object().shape({
-    email: Yup.string()
-      .email(languages[lang].invalideEmail)
-      .required(languages[lang].required),
+    email: Yup.string().required(languages[lang].required),
     password: Yup.string()
       .required(languages[lang].required)
       .min(8, languages[lang].passwordShort),
