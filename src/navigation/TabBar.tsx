@@ -60,7 +60,7 @@ const TabBar = () => {
         }}
       />
       <Tab.Screen
-        name={languages[lang].exploreN}
+        name={languages[lang].whathot}
         component={Explore}
         options={{
           headerShown: false,

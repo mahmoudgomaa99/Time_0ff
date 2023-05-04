@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
@@ -18,6 +18,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
 import useModalHandler from 'hooks/Modal';
 import AuthModal from 'components/organisms/AuthModal';
+import axios from 'axios';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,28 @@ const EditProfile = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const currrentUser = useSelector(selectCurrentUser);
+
+  const [allData, setallData] = useState([]);
+  useEffect(() => {
+    const getCountries = () =>
+      axios.get('https://countriesnow.space/api/v0.1/countries');
+    getCountries().then(values => {
+      setallData(values.data.data);
+    });
+    getCountries();
+  }, []);
+
+  const countries = allData.map(i => ({ label: i.country, value: i.country }));
+  const getCities = (country: string) => {
+    const cieties = allData.filter(
+      i => i.country === country && country.length > 0,
+    );
+    const allCieties = cieties[0].cities.map(value => ({
+      label: value,
+      value: value,
+    }));
+    return allCieties;
+  };
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -37,6 +60,7 @@ const EditProfile = () => {
           phoneNumber: currrentUser?.phone.slice(3),
           email: currrentUser?.email,
           city: currrentUser?.city,
+          country: currrentUser?.country,
         }}
         onSubmit={values => {
           console.log(values);
@@ -46,6 +70,7 @@ const EditProfile = () => {
               email: values?.email,
               phone: values?.countryCode + values?.phoneNumber,
               city: values?.city,
+              country: values?.country,
             }),
           )
             .then(unwrapResult)
@@ -132,9 +157,19 @@ const EditProfile = () => {
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
-              data={[{ label: 'Sharm Elsheikh', value: 'sharm' }]}
+              data={countries}
+              placeholder={'Country'}
+              name={'country'}
+              values={props.values}
+            />
+            <Picker
+              {...props}
+              borderColor={'#F2F2F2'}
+              type={'primary'}
+              data={props.values.country ? getCities(props.values.country) : []}
               placeholder={'City'}
               name={'city'}
+              values={props.values}
             />
 
             <Button
@@ -147,7 +182,6 @@ const EditProfile = () => {
           </View>
         )}
       </Formik>
-    
     </SafeAreaView>
   );
 };

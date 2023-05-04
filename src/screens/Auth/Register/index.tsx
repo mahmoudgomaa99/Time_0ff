@@ -1,5 +1,5 @@
 import { View, Image, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
 import { useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ import { useLoadingSelector } from 'redux/selectors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import axios from 'axios';
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,28 @@ const Register = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
 
   const [secure, setSecure] = useState(true);
+
+  const [allData, setallData] = useState([]);
+  useEffect(() => {
+    const getCountries = () =>
+      axios.get('https://countriesnow.space/api/v0.1/countries');
+    getCountries().then(values => {
+      setallData(values.data.data);
+    });
+    getCountries();
+  }, []);
+
+  const countries = allData.map(i => ({ label: i.country, value: i.country }));
+  const getCities = (country: string) => {
+    const cieties = allData.filter(
+      i => i.country === country && country.length > 0,
+    );
+    const allCieties = cieties[0].cities.map(value => ({
+      label: value,
+      value: value,
+    }));
+    return allCieties;
+  };
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
@@ -49,6 +72,7 @@ const Register = () => {
           email: '',
           password: '',
           city: '',
+          country: '',
         }}
         onSubmit={values => {
           dispatch(
@@ -59,6 +83,7 @@ const Register = () => {
               password: values.password,
               type: 'user',
               city: values.city,
+              country: values.country,
             }),
           )
             .then(unwrapResult)
@@ -148,10 +173,16 @@ const Register = () => {
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
-              data={[
-                { label: 'egypt', value: 'egypt' },
-                { label: 'france', value: 'france' },
-              ]}
+              data={countries}
+              placeholder={'Country'}
+              name={'country'}
+              values={props.values}
+            />
+            <Picker
+              {...props}
+              borderColor={'#F2F2F2'}
+              type={'primary'}
+              data={props.values.country ? getCities(props.values.country) : []}
               placeholder={'City'}
               name={'city'}
               values={props.values}

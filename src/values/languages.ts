@@ -59,7 +59,7 @@ const languages: any = {
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
     bookNow: 'Book Now',
     selectCountry: 'Select a country',
-    addressConfirmation: 'Address Confirmation',
+    addressConfirmation: 'Confirm location',
     yourLocation: 'Your Location',
     enterYourPlace: 'Enter your place',
     date: 'Date',
@@ -123,8 +123,8 @@ const languages: any = {
     newPassword: 'New Password',
     confirmNewPassword: 'Confirm New Password',
     myBookings: 'My Bookings',
-    currentBooking: 'Current Bookings',
-    lastBooking: 'Last Bookings',
+    currentBooking: 'Leatest Bookings',
+    lastBooking: 'History',
     drivingActivity: 'Driving Activity',
     numOfPerson: '2 Member',
     onlyDate: '12-5-2021',
@@ -162,6 +162,7 @@ const languages: any = {
     apply: 'Apply',
     emailMustValid: 'email must ',
     active: 'Active',
+    whathot:"what's hot"
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -320,6 +321,7 @@ const languages: any = {
     homeService: 'الخدمة المنزلية',
     apply: 'طبق',
     active: 'القائم',
+    whathot:'المبيعات الساخنة'
   },
 };
 export default languages;

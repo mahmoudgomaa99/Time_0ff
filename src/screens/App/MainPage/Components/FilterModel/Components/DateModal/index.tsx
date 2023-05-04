@@ -7,6 +7,7 @@ import { styles } from './styles';
 import Top from './Components/Top';
 import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
+import languages from 'values/languages';
 const DateModal = ({
   selectedDate,
   setSelectedDate,
@@ -81,7 +82,7 @@ const DateModal = ({
           />
           <Button
             type="primary"
-            label="Book Now"
+            label={languages[lang].apply}
             style={styles().button}
             onPress={() => {
               console.log('clicked');

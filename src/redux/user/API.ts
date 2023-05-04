@@ -9,6 +9,7 @@ const SignUp = (data: {
   password: string;
   type: string;
   city: string;
+  country:string
 }) => api.post('signup', data);
 const ForgetPassword = (email: string) => api.post('forgot', email);
 const ResetPassword = (password: string) => api.post('reset', password);
@@ -18,6 +19,7 @@ const UpdateUser = (data: {
   email?: string;
   city?: string;
   phone?: string;
+  country?:string
 }) => api.put('users/me', data);
 const UserAPI = {
   LogIn,

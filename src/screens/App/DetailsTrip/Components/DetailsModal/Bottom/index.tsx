@@ -87,13 +87,13 @@ const Bottom = ({
                 { textAlign: lang === 'ar' ? 'right' : undefined },
               ]}
             />
-            <Picker
+            <InputView
               {...props}
-              borderColor={'#EEEEEE'}
-              type={'primary'}
-              data={[{ label: '3 Members', value: '3 Members' }]}
-              name={'members'}
-              placeholder={'Choose Memmbers number'}
+              name="members"
+              value={props.values.members}
+              inputContainerStyling={styles(isDarkMode).inputContainerStyling}
+              containerStyle={styles(isDarkMode).containerStyle}
+              keyboardType="number-pad"
             />
           </View>
 

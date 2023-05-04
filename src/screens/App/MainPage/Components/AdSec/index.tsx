@@ -1,5 +1,5 @@
 import { View, Image, Platform } from 'react-native';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { imageList } from '../data';
 import { styles } from './styles';
@@ -17,6 +17,15 @@ const AdSec = ({
   const renderItem = () => {
     return <Image source={imageList[indexSelected]} style={styles.img} />;
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(indexSelected);
+      setIndexSelected(prev => (prev === imageList.length - 1 ? 0 : prev + 1));
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View
