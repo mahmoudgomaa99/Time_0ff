@@ -42,6 +42,7 @@ export const cardData = (lang: string) => {
 };
 export const categData = (lang: string) => {
   const data: { title: string; svgName: any; value: string }[] = [
+    { title: languages[lang].diving, svgName: 'diving', value: 'diving' },
     { title: languages[lang].trips, svgName: 'trips', value: 'trips' },
     { title: languages[lang].aquaPark, svgName: 'garden', value: 'aquaPark' },
     {
@@ -51,7 +52,6 @@ export const categData = (lang: string) => {
     },
     { title: languages[lang].surfing, svgName: 'surfing', value: 'surfing' },
     { title: languages[lang].bBuggy, svgName: 'bbuggy', value: 'bBuggy' },
-    { title: languages[lang].diving, svgName: 'diving', value: 'diving' },
   ];
   return data;
 };

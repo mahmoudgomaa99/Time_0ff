@@ -50,6 +50,7 @@ const RangePrice = ({
             formikProps.setFieldValue('price_end', val[1]);
           }}
           step={1}
+          
         />
       </View>
       <View

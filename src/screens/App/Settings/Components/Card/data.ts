@@ -13,6 +13,6 @@ export const data = (lang: string) => {
       iconName: 'changePassword',
       show: 'changePassword',
     },
-    { title: languages[lang].helpCenter, iconName: 'contactUs',show:'help' },
+    { title: languages[lang].contactUs, iconName: 'contactUs',show:'help' },
   ];
 };

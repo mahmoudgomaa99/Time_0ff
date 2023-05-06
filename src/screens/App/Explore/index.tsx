@@ -96,7 +96,7 @@ const Explore = () => {
         setfilterData={setfilterData}
       />
       <TextView
-        title={languages[lang].hotOffers}
+        title={languages[lang].whathot}
         style={styles(lang, isDarkMode).Text}
       />
       <ScrollView
@@ -142,52 +142,6 @@ const Explore = () => {
         )}
       </ScrollView>
 
-      <TextView
-        title={languages[lang].discount}
-        style={styles(lang, isDarkMode).Text}
-      />
-      <ScrollView
-        style={{ height: journeysDiscount?.length ? h * 0.5 : h * 0.1 }}>
-        {journeysDiscount?.length > 0 ? (
-          isGetJourneysDiscount ? (
-            [...Array(10)].map(i => (
-              <View key={i}>
-                <SkeletonItem />
-              </View>
-            ))
-          ) : (
-            journeysDiscount?.map((item: any) => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('detailsTrip', { id: item._id });
-                }}>
-                <Card
-                  title={
-                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
-                  }
-                  description={
-                    lang === 'ar' ? item.arabic_description : item.description
-                  }
-                  location={
-                    lang === 'ar' ? item.arabic_location : item.location
-                  }
-                  name={item.agency_name}
-                  stars={item.rating ? item.rating : 0}
-                  lang={lang}
-                  isDarkMode={isDarkMode}
-                  isFav={item.is_favorite}
-                  urlImage={item.image}
-                />
-              </TouchableOpacity>
-            ))
-          )
-        ) : (
-          <TextView
-            title={languages[lang].noData}
-            style={styles(lang, isDarkMode).text}
-          />
-        )}
-      </ScrollView>
       {/* <BottomList isDarkMode={isDarkMode} lang={lang} /> */}
       <FilterModel
         isFilterModalVisable={isFilterModalVisable}

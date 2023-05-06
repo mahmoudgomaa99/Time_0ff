@@ -7,17 +7,14 @@ import { styles } from './styles';
 import Top from './Components/Top';
 import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
+import languages from 'values/languages';
 const DateModal = ({
-  selectedDate,
-  setSelectedDate,
   isDateModalVisable,
   setDateModalVisable,
   formikProps,
   lang,
   isDarkMode,
 }: {
-  selectedDate: any;
-  setSelectedDate: any;
   isDateModalVisable: any;
   setDateModalVisable: any;
   formikProps: FormikProps<any>;
@@ -26,9 +23,6 @@ const DateModal = ({
 }) => {
   // function to handle selecting a date
   const handleSelectDate = (date: any) => {
-    console.log(selectedDate);
-    setSelectedDate(date.dateString);
-    console.log(selectedDate);
     formikProps.setFieldValue('start_date', date.dateString);
   };
 
@@ -45,11 +39,11 @@ const DateModal = ({
             isDarkMode={isDarkMode}
           />
           <Calendar
-            current={selectedDate}
+            current={formikProps.values.start_date}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
             markedDates={{
-              [selectedDate]: {
+              [formikProps.values.start_date]: {
                 selected: true,
                 selectedColor: '#B5E633',
               },
@@ -81,11 +75,10 @@ const DateModal = ({
           />
           <Button
             type="primary"
-            label="Book Now"
+            label={languages[lang].apply}
             style={styles().button}
             onPress={() => {
-              console.log('clicked');
-              formikProps.handleSubmit();
+              setDateModalVisable(false);
             }}
           />
         </View>

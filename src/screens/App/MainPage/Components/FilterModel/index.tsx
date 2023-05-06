@@ -38,7 +38,6 @@ const FilterModel = ({
   search?: string;
 }) => {
   const dispatch = useAppDispatch();
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const lang = useSelector(selectLanguage);
   return (
@@ -167,8 +166,7 @@ const FilterModel = ({
           </View>
 
           <DateModal
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
+          
             isDateModalVisable={isDateModalVisable}
             setDateModalVisable={setDateModalVisable}
             formikProps={props}
