@@ -123,7 +123,7 @@ const languages: any = {
     newPassword: 'New Password',
     confirmNewPassword: 'Confirm New Password',
     myBookings: 'My Bookings',
-    currentBooking: 'Leatest Bookings',
+    currentBooking: 'Latest Bookings',
     lastBooking: 'History',
     drivingActivity: 'Driving Activity',
     numOfPerson: '2 Member',
@@ -162,7 +162,7 @@ const languages: any = {
     apply: 'Apply',
     emailMustValid: 'email must ',
     active: 'Active',
-    whathot:"what's hot"
+    whathot: "what's hot",
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -321,7 +321,7 @@ const languages: any = {
     homeService: 'الخدمة المنزلية',
     apply: 'طبق',
     active: 'القائم',
-    whathot:'المبيعات الساخنة'
+    whathot: 'المبيعات الساخنة',
   },
 };
 export default languages;

@@ -31,7 +31,7 @@ const RangePrice = ({
         <Slider
           value={[formikProps.values.price_start, formikProps.values.price_end]}
           minimumValue={0}
-          maximumValue={1000}
+          maximumValue={10000}
           thumbTintColor={isDarkMode ? COLORS.white : COLORS.blue}
           thumbStyle={{
             shadowOpacity: 0.1,
@@ -50,6 +50,7 @@ const RangePrice = ({
             formikProps.setFieldValue('price_end', val[1]);
           }}
           step={1}
+          
         />
       </View>
       <View

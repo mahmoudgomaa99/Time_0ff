@@ -12,7 +12,7 @@ const AdSec = ({
   lang: string;
   isDarkMode?: boolean;
 }) => {
-  const carouselRef = useRef();
+  const carouselRef = useRef<any>();
   const [indexSelected, setIndexSelected] = useState(0);
   const renderItem = () => {
     return <Image source={imageList[indexSelected]} style={styles.img} />;
@@ -20,10 +20,8 @@ const AdSec = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log(indexSelected);
-      setIndexSelected(prev => (prev === imageList.length - 1 ? 0 : prev + 1));
-    }, 2000);
-
+      carouselRef?.current?.snapToNext();
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -49,6 +47,7 @@ const AdSec = ({
           sliderWidth={w}
           itemWidth={w}
           onSnapToItem={(index: number) => setIndexSelected(index)}
+          loop
         />
       </View>
       <View

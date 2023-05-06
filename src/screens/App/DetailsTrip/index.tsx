@@ -52,6 +52,7 @@ const DetailsTrip = () => {
       </View>
     );
   };
+  console.log(journey);
 
   return (
     <View style={styles(isDarkMode).container}>
@@ -122,7 +123,18 @@ const DetailsTrip = () => {
                 { textAlign: lang === 'ar' ? 'right' : 'left' },
               ]}
             />
-
+            <View
+              style={{
+                marginBottom: 10,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Svg name="location" size={19} />
+              <TextView
+                title={journey?.location}
+                style={[styles(isDarkMode).subTitle, { marginHorizontal: 1 }]}
+              />
+            </View>
             <View
               style={[
                 styles().svgAndStar,

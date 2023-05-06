@@ -36,20 +36,21 @@ const Top = ({
         title={languages[lang].filter}
         style={styles(isDarkMode).filterText}
       />
-
-      <TextView
-        title={languages[lang].reset}
+      <TouchableOpacity
         onPress={() => {
-          props.setFieldValue('category', initialVslues.category);
-          props.setFieldValue('date', initialVslues.start_date);
-          props.setFieldValue('city', initialVslues.location);
-          props.setFieldValue('startPrice', initialVslues.price_start);
-          props.setFieldValue('endPrice', initialVslues.price_end);
-          props.setFieldValue('rating', initialVslues.rating);
+          props.setFieldValue('category', '');
+          props.setFieldValue('date', '');
+          props.setFieldValue('city', '');
+          props.setFieldValue('startPrice', 10);
+          props.setFieldValue('endPrice', 1000);
+          props.setFieldValue('rating', '');
           setfilterData({});
-        }}
-        style={styles(isDarkMode).resetText}
-      />
+        }}>
+        <TextView
+          title={languages[lang].reset}
+          style={styles(isDarkMode).resetText}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
