@@ -163,6 +163,7 @@ const languages: any = {
     emailMustValid: 'email must ',
     active: 'Active',
     whathot: "what's hot",
+    sort:'Sort'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -322,6 +323,7 @@ const languages: any = {
     apply: 'طبق',
     active: 'القائم',
     whathot: 'المبيعات الساخنة',
+    sort:'Sort'
   },
 };
 export default languages;

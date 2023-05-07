@@ -72,10 +72,10 @@ const DrawerNav = ({
       <View style={{ marginTop: 40 }}>
         {Data(lang).map((item, index) => (
           <TouchableOpacity
-            style={styles(currrentTab === item.name).item}
+            style={styles(currrentTab === item.name, lang).item}
             key={index}
             onPress={() => {
-            //   setCurrentTab(item.name);
+              //   setCurrentTab(item.name);
               if (item.sub) {
                 navigation.navigate(item.main, { screen: item.sub });
               } else if (item.value) {
@@ -99,10 +99,10 @@ const DrawerNav = ({
   );
 };
 export default DrawerNav;
-const styles = (iSCurrentTap?: boolean) =>
+const styles = (iSCurrentTap?: boolean, lang?: string) =>
   StyleSheet.create({
     item: {
-      flexDirection: 'row',
+      flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       marginVertical: 10,
       backgroundColor: iSCurrentTap ? COLORS.white : COLORS.primary,
       borderRadius: 10,

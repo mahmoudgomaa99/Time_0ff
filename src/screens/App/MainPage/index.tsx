@@ -21,6 +21,7 @@ import DrawerNav from 'navigation/DrawerNav';
 import languages from 'values/languages';
 import COLORS from 'values/colors';
 import Svg from 'atoms/Svg';
+import SortModel from './Components/SortModel';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -33,6 +34,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
+  const [isSortModel, setisSortModel] = useState(false);
   const [filterData, setfilterData] = useState<TInitialValues>();
   const [category, setcategory] = useState('');
   const lang = useSelector(selectLanguage);
@@ -72,8 +74,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       style={{
         flex: 1,
         backgroundColor: COLORS.primary,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        alignItems: lang === 'en' ? 'flex-start' : 'flex-end',
+        justifyContent: lang === 'en' ? 'flex-start' : 'flex-start',
       }}>
       <DrawerNav setCurrentTab={setCurrentTab} currrentTab={currentTab} />
       <Animated.View
@@ -86,7 +88,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         ]}>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: lang === 'en' ? 'row' : 'row-reverse',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
@@ -102,7 +104,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
 
               Animated.timing(offsetValue, {
                 // YOur Random Value...
-                toValue: showMenu ? 0 : 230,
+                toValue: showMenu ? 0 : lang === 'en' ? 230 : -230,
                 duration: 300,
                 useNativeDriver: true,
               }).start();
@@ -117,14 +119,21 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
               setShowMenu(!showMenu);
             }}>
             <Svg
-              style={{ marginLeft: -60, marginRight: 20 }}
+              style={{
+                marginLeft: lang === 'en' ? -60 : 20,
+                marginRight: lang === 'en' ? 20 : -60,
+              }}
               name="main"
               size={50}
             />
           </TouchableOpacity>
-          <Header isDarkMode={isDarkMode} lang={lang} />
+          <Header
+            isDarkMode={isDarkMode}
+            lang={lang}
+            isSortModel={isSortModel}
+            setisSortModel={setisSortModel}
+          />
         </View>
-
         <InputSec
           lang={lang}
           isFilterModalVisable={isFilterModalVisable}
@@ -164,6 +173,11 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           lang={lang}
           isFlightConfirmed={isFlightConfirmed}
           setisFlightConfirmed={setisFlightConfirmed}
+        />
+        <SortModel
+          isDarkMode={isDarkMode}
+          isSortModel={isSortModel}
+          setisSortModel={setisSortModel}
         />
       </Animated.View>
     </View>
