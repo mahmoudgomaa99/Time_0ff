@@ -13,9 +13,13 @@ import { images } from 'src/assets/images';
 const Header = ({
   lang,
   isDarkMode,
+  isSortModel,
+  setisSortModel
 }: {
   lang: string;
   isDarkMode?: boolean;
+  isSortModel:boolean,
+  setisSortModel:any
 }) => {
   const user = useSelector(selectCurrentUser);
   return (
@@ -65,6 +69,7 @@ const Header = ({
               //   // return data.json();
               //   console.log(data.json());
               // });
+              setisSortModel(true)
             }}
             title={languages[lang].welcomeBackHome}
             style={styles(isDarkMode).welcomeText}
