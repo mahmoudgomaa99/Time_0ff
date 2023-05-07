@@ -5,9 +5,16 @@ import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 export const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      // flex: 1,
       backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
       paddingTop: Platform.OS === 'android' ? h * 0.02 : h * 0.06,
+      flexGrow: 1,
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      paddingVertical: 20,
     },
     welcome: {
       marginLeft: 'auto',

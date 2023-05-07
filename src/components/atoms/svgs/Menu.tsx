@@ -12,21 +12,6 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
   return (
     <Svg {...computedSize} viewBox="0 0 187 187" {...props}>
-      {/* <Defs>
-        <Filter
-          id="Path_17071"
-          x="0"
-          y="0"
-          width="187"
-          height="187"
-          filterUnits="userSpaceOnUse">
-          <feOffset dy="3" input="SourceAlpha" />
-          <feGaussianBlur stdDeviation="25" result="blur" />
-          <feFlood flood-color="#c1c1c1" flood-opacity="0.588" />
-          <feComposite operator="in" in2="blur" />
-          <feComposite in="SourceGraphic" />
-        </Filter>
-      </Defs> */}
       <G id="menu" transform="translate(75 72)">
         <G id="Group_10950" data-name="Group 10950">
           <G transform="matrix(1, 0, 0, 1, -75, -72)" filter="url(#Path_17071)">
@@ -55,18 +40,9 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
             />
           </G>
         </G>
-        <g id="svgexport-6" transform="translate(9.9 13)">
-          <path
-            id="Path_17105"
-            data-name="Path 17105"
-            d="M4.275,77.655A.855.855,0,0,1,5.13,76.8H16.245a.855.855,0,1,1,0,1.71H5.13A.855.855,0,0,1,4.275,77.655Zm11.97,4.275H.855a.855.855,0,1,0,0,1.71h15.39a.855.855,0,1,0,0-1.71Zm0,5.13H8.55a.855.855,0,0,0,0,1.71h7.695a.855.855,0,0,0,0-1.71Z"
-            transform="translate(0 -76.8)"
-          />
-        </g>
       </G>
     </Svg>
   );
 }
 
 export default SvgComponent;
-

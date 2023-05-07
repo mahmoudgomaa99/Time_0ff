@@ -45,7 +45,8 @@ const NavigationHandler = () => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
     return (
-      <RootStack.Navigator initialRouteName={currentUser ? 'app' : 'auth'}>
+      // <RootStack.Navigator initialRouteName={currentUser ? 'app' : 'auth'}>
+      <RootStack.Navigator initialRouteName={'app'}>
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}

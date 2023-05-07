@@ -57,8 +57,12 @@ import Accepted from './Accepted';
 import Confirmed from './Confirmed';
 import NewActivity from './NewActivity';
 import Setting from './Setting';
+import Wishlist from './Whishlist';
+import Logout2 from './Logout2';
+import { log } from 'react-native-reanimated';
 const svgs = {
   default: Logo,
+
   rightArrow: RightArrow,
   leftArrow: LeftArrow,
   google: Google,
@@ -116,6 +120,8 @@ const svgs = {
   confirmed: Confirmed,
   newActivity: NewActivity,
   setting: Setting,
+  wishlist: Wishlist,
+  logout2: Logout2,
 };
 
 export default svgs;
