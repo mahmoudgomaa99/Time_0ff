@@ -6,20 +6,18 @@ import Svg from 'atoms/Svg';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
-import { log } from 'react-native-reanimated';
 import { h, w } from 'values/Dimensions';
-import { images } from 'src/assets/images';
 
 const Header = ({
   lang,
   isDarkMode,
   isSortModel,
-  setisSortModel
+  setisSortModel,
 }: {
   lang: string;
   isDarkMode?: boolean;
-  isSortModel:boolean,
-  setisSortModel:any
+  isSortModel: boolean;
+  setisSortModel: any;
 }) => {
   const user = useSelector(selectCurrentUser);
   return (
@@ -55,22 +53,6 @@ const Header = ({
           )}
 
           <TextView
-            onPress={async () => {
-              // try {
-              //   const response = await fetch(
-              //     'http://159.89.7.75/api/journeys/12',
-              //   );
-              //   console.log(response.json());
-              //   return response;
-              // } catch (err) {
-              //   console.log(err);
-              // }
-              // await fetch('http://159.89.7.75/api/journeys/12').then(data => {
-              //   // return data.json();
-              //   console.log(data.json());
-              // });
-              setisSortModel(true)
-            }}
             title={languages[lang].welcomeBackHome}
             style={styles(isDarkMode).welcomeText}
           />

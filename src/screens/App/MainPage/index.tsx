@@ -1,5 +1,5 @@
 import { View, Animated, TouchableOpacity } from 'react-native';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styles } from './styles';
 import Header from './Components/Header';
 import InputSec from './Components/InputSec';
@@ -22,6 +22,8 @@ import languages from 'values/languages';
 import COLORS from 'values/colors';
 import Svg from 'atoms/Svg';
 import SortModel from './Components/SortModel';
+import { SortJourneys } from './Components/utils/SortJourneys';
+import { set } from 'lodash';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -31,6 +33,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     Journeys.thunks.doGetJourneys,
   );
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState<number>();
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
@@ -58,14 +61,17 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       );
     }, [category, filterData, search]),
   );
+
+  // useEffect(() => {
+  //   if (sort) {
+  //     SortJourneys(journeys, sort,setSortedData);
+  //   }
+  // }, [sort]);
   const [currentTab, setCurrentTab] = useState(languages[lang].main);
-  // To get the curretn Status of menu ...
   const [showMenu, setShowMenu] = useState(false);
 
-  // Animated Properties...
-
   const offsetValue = useRef(new Animated.Value(0)).current;
-  // Scale Intially must be One...
+
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
 
@@ -94,8 +100,6 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              // Do Actions Here....
-              // Scaling the view...
               Animated.timing(scaleValue, {
                 toValue: showMenu ? 1 : 0.88,
                 duration: 300,
@@ -103,14 +107,12 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
               }).start();
 
               Animated.timing(offsetValue, {
-                // YOur Random Value...
                 toValue: showMenu ? 0 : lang === 'en' ? 230 : -230,
                 duration: 300,
                 useNativeDriver: true,
               }).start();
 
               Animated.timing(closeButtonOffset, {
-                // YOur Random Value...
                 toValue: !showMenu ? -30 : 0,
                 duration: 300,
                 useNativeDriver: true,
@@ -118,14 +120,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
 
               setShowMenu(!showMenu);
             }}>
-            <Svg
-              style={{
-                marginLeft: lang === 'en' ? -60 : 20,
-                marginRight: lang === 'en' ? 20 : -60,
-              }}
-              name="main"
-              size={50}
-            />
+            <View style={styles(isDarkMode, lang).menu_icon}>
+              <Svg style={{}} name="menu" size={40} />
+            </View>
           </TouchableOpacity>
           <Header
             isDarkMode={isDarkMode}
@@ -153,7 +150,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           lang={lang}
           isDarkMode={isDarkMode}
           isGetJourneysLoading={isGetJourneysLoading}
-          journeys={journeys}
+          journeys={SortJourneys(journeys, sort)}
+          setisSortModel={setisSortModel}
         />
         <FilterModel
           isFilterModalVisable={isFilterModalVisable}
@@ -178,6 +176,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           isDarkMode={isDarkMode}
           isSortModel={isSortModel}
           setisSortModel={setisSortModel}
+          setSort={setSort}
+          sort={sort}
         />
       </Animated.View>
     </View>

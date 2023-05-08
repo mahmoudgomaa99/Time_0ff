@@ -7,7 +7,7 @@ export const styles = (isDarkMode?: boolean) =>
     modalContainer: {
       position: 'relative',
       backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
-      height: h * 0.6,
+      height: h * 0.5,
       marginTop: 'auto',
       borderTopRightRadius: 30,
       borderTopLeftRadius: 30,
@@ -15,6 +15,4 @@ export const styles = (isDarkMode?: boolean) =>
       paddingTop: 30,
       // maxHeight: h * 0.9,
     },
-
-
   });

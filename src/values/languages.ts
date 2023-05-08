@@ -163,7 +163,11 @@ const languages: any = {
     emailMustValid: 'email must ',
     active: 'Active',
     whathot: "what's hot",
-    sort:'Sort'
+    sort: 'Sort',
+    latest: 'Latest',
+    hightPrice: 'Hight Price',
+    lowPrice: 'Low Price',
+    newest: 'Newest',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -323,7 +327,11 @@ const languages: any = {
     apply: 'طبق',
     active: 'القائم',
     whathot: 'المبيعات الساخنة',
-    sort:'Sort'
+    sort: 'Sort',
+    latest: 'الاحدث',
+    hightPrice: 'الاعلى سعرا',
+    lowPrice: 'الاقل سعرا',
+    newest: 'الاحدث',
   },
 };
 export default languages;

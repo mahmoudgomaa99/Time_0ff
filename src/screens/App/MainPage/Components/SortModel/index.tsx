@@ -12,15 +12,20 @@ import languages from 'values/languages';
 import { Formik } from 'formik';
 import { Data } from './data';
 import Button from 'components/molecules/Button';
+import { SortJourneys } from '../utils/SortJourneys';
 
 const SortModel = ({
   isSortModel,
   setisSortModel,
   isDarkMode,
+  setSort,
+  sort,
 }: {
   isSortModel: boolean;
   setisSortModel: any;
   isDarkMode?: boolean;
+  setSort?: any;
+  sort?: number;
 }) => {
   const lang = useSelector(selectLanguage);
   return (
@@ -42,7 +47,10 @@ const SortModel = ({
                   transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
                 }}>
                 <BouncyCheckbox
-                  onPress={(isChecked: boolean) => {}}
+                  onPress={(isChecked: boolean) => {
+                    setSort(value.value);
+                  }}
+                  isChecked={sort === value.value}
                   size={40}
                   fillColor={COLORS.darkBlue}
                   unfillColor={'#F3F3F3'}
@@ -59,7 +67,6 @@ const SortModel = ({
             ))
           }
         </Formik>
-        <Button type={'primary'} label={languages[lang].apply} />
       </View>
     </Modal>
   );

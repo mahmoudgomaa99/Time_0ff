@@ -59,7 +59,7 @@ import NewActivity from './NewActivity';
 import Setting from './Setting';
 import Wishlist from './Whishlist';
 import Logout2 from './Logout2';
-import { log } from 'react-native-reanimated';
+import Sort from './Sort';
 const svgs = {
   default: Logo,
 
@@ -122,6 +122,7 @@ const svgs = {
   setting: Setting,
   wishlist: Wishlist,
   logout2: Logout2,
+  sort: Sort,
 };
 
 export default svgs;

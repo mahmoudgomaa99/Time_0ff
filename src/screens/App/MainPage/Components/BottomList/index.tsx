@@ -7,17 +7,20 @@ import { styles } from './styles';
 import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 import SkeletonItem from 'components/molecules/SkeletonItem';
+import Svg from 'atoms/Svg';
 
 const BottomList = ({
   lang,
   isDarkMode,
   isGetJourneysLoading,
   journeys,
+  setisSortModel,
 }: {
   isDarkMode?: boolean;
   lang: string;
   isGetJourneysLoading: boolean;
   journeys: any;
+  setisSortModel?: any;
 }) => {
   const navigation = useNavigation<any>();
 
@@ -25,10 +28,18 @@ const BottomList = ({
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
       <View style={{ marginHorizontal: 15 }}>
         <View style={[styles(lang).experiences]}>
-          <TextView
-            title={languages[lang].activity}
-            style={styles(lang, isDarkMode).experiencesText}
-          />
+          <View style={{ flexDirection: 'row' }}>
+            <TextView
+              title={languages[lang].activity}
+              style={styles(lang, isDarkMode).experiencesText}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setisSortModel(true);
+              }}>
+              <Svg name="sort" size={40} />
+            </TouchableOpacity>
+          </View>
           <TextView
             title={languages[lang].seeMore}
             style={styles(lang, isDarkMode).seeMore}

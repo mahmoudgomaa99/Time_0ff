@@ -176,6 +176,31 @@ const DetailsTrip = () => {
                 />
               </Text>
             </View>
+            <View>
+              <TextView
+                title={languages[lang].termCondition}
+                style={[
+                  styles(isDarkMode).descriptionTitle,
+                  {
+                    textAlign: lang === 'ar' ? 'right' : 'left',
+                    marginTop: 15,
+                  },
+                ]}
+              />
+              <Text
+                style={{
+                  textAlign: lang === 'ar' ? 'right' : 'left',
+                  maxHeight: 70,
+                }}>
+                <TextView
+                  style={[
+                    styles(isDarkMode).descriptionText,
+                    { maxHeight: 20 },
+                  ]}
+                  title={languages[lang].lorem}
+                />
+              </Text>
+            </View>
           </View>
           <View
             style={[

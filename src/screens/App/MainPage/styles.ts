@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
 
-export const styles = (isDarkMode?: boolean) =>
+export const styles = (isDarkMode?: boolean, lang?: string) =>
   StyleSheet.create({
     container: {
       // flex: 1,
@@ -126,5 +126,22 @@ export const styles = (isDarkMode?: boolean) =>
     },
     paginationInactiveDot: {
       backgroundColor: '#FFFFFF',
+    },
+    menu_icon: {
+      width: 50,
+      height: 50,
+      resizeMode: 'contain',
+      tintColor: COLORS.white,
+      backgroundColor: COLORS.white,
+      // shadowOffset: { width: 0, height: 10 },
+      // shadowOpacity: 1,
+      // shadowRadius: 1,
+      shadowColor: COLORS.black,
+      elevation: 3,
+      marginLeft: lang === 'en' ? -70 : 20,
+      marginRight: lang === 'en' ? 20 : -60,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
     },
   });
