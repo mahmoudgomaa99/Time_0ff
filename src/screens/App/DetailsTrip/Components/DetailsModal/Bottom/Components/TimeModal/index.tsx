@@ -49,6 +49,7 @@ const TimeModal = ({
                 .format('h:mm A');
               formikProps.setFieldValue('time', formattedTime);
             }}
+            textColor="#000"
           />
           <Button
             type="primary"

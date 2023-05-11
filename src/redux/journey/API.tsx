@@ -139,6 +139,7 @@ const GetAgency = (id: number) => api.get(`agencies/28`);
 
 const GetAgencyReviews = (id: number) => api.get(`agencies/reviews/28`);
 const AddFavourite = (id: number) => api.put(`journeys/favorite/${id}`);
+const GetFavJourneys = () => api.get('users/journeys');
 
 const JourneysApi = {
   GetJourneys,
@@ -149,6 +150,7 @@ const JourneysApi = {
   GetDiscountJourneys,
   GetHotJourneys,
   AddFavourite,
+  GetFavJourneys,
 };
 
 export default JourneysApi;

@@ -1,35 +1,79 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
 import { styles } from './styles';
 import Top from './Components/Top';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
-import Card from '../MainPage/Components/Card';
-import { Data } from './data';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Journeys, { selectFavJourneys } from 'redux/journey';
+import Card from '../MainPage/Components/Card';
+import { useNavigation } from '@react-navigation/native';
+import TextView from 'atoms/TextView';
+import languages from 'values/languages';
+import COLORS from 'values/colors';
+import { h } from 'values/Dimensions';
+import { useAppDispatch } from 'redux/store';
 import { selectIsDarkMode } from 'redux/DarkMode';
 
 const Wishlist = () => {
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const favourites = useSelector(selectFavJourneys);
+  console.log(favourites, 'll');
+  useEffect(() => {
+    dispatch(Journeys.thunks.doGetFavJourneys({}));
+  }, []);
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginVertical: 20 }}>
-        {Data(lang).map(value => (
-          <Card
-            title={value.title}
-            description={value.description}
-            location={value.location}
-            name={value.name}
-            stars={value.stars}
-            lang={lang}
-            isDarkMode={isDarkMode}
+        {favourites?.length === 0 ? (
+          <TextView
+            title={languages[lang].noData}
+            style={{
+              color: COLORS.grey,
+              textAlign: 'center',
+              marginTop: h * 0.3,
+              fontWeight: '500',
+              fontSize: 16,
+            }}
           />
-        ))}
+        ) : (
+          <>
+            {favourites?.map(item => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('detailsTrip', { id: item._id });
+                  console.log(item, 'jorney');
+                }}
+                style={{ marginTop: 2 }}>
+                <Card
+                  title={
+                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
+                  }
+                  description={
+                    lang === 'ar' ? item.arabic_description : item.description
+                  }
+                  location={
+                    lang === 'ar' ? item.arabic_location : item.location
+                  }
+                  name={item.agency_name}
+                  stars={item.rating.toString() ? item.rating.toString() : '0'}
+                  lang={lang}
+                  isDarkMode={isDarkMode}
+                  isFav={true}
+                  urlImage={item.image}
+                />
+              </TouchableOpacity>
+            ))}
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

@@ -48,7 +48,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     },
     label_style: {
       color: '#C4C3C3',
-      fontSize: 14,
+      fontSize: 12,
       fontWeight: '400',
       lineHeight: 14,
       marginLeft: lang === 'en' ? 0 : 'auto',

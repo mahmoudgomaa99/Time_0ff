@@ -16,8 +16,6 @@ import User, { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
-import useModalHandler from 'hooks/Modal';
-import AuthModal from 'components/organisms/AuthModal';
 import axios from 'axios';
 
 const EditProfile = () => {
@@ -38,12 +36,15 @@ const EditProfile = () => {
     getCountries();
   }, []);
 
-  const countries = allData.map(i => ({ label: i.country, value: i.country }));
+  const countries = allData.map((i: any) => ({
+    label: i?.country,
+    value: i?.country,
+  }));
   const getCities = (country: string) => {
-    const cieties = allData.filter(
-      i => i.country === country && country.length > 0,
+    const cieties: any = allData.filter(
+      (i: any) => i.country === country && country.length > 0,
     );
-    const allCieties = cieties[0].cities.map(value => ({
+    const allCieties = cieties[0]?.cities.map((value: any) => ({
       label: value,
       value: value,
     }));
@@ -56,8 +57,8 @@ const EditProfile = () => {
       <Formik
         initialValues={{
           fullName: currrentUser?.name,
-          countryCode: currrentUser?.phone.slice(0, 3),
-          phoneNumber: currrentUser?.phone.slice(3),
+          countryCode: '+20',
+          phoneNumber: currrentUser?.phone,
           email: currrentUser?.email,
           city: currrentUser?.city,
           country: currrentUser?.country,

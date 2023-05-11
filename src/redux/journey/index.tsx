@@ -13,6 +13,7 @@ type TInitialValues = {
   agency?: Tagency;
   discountJourneys: Tjourneys;
   hotJourneys: Tjourneys;
+  favJourneys: Tjourneys;
 };
 
 const initialValues: TInitialValues = {
@@ -23,6 +24,7 @@ const initialValues: TInitialValues = {
   agency: undefined,
   discountJourneys: [],
   hotJourneys: [],
+  favJourneys: [],
 };
 
 const slice = createSlice({
@@ -89,6 +91,14 @@ const slice = createSlice({
     builder.addCase(thunks.doAddFavourite.rejected, (state, action) => {
       console.log(action);
     });
+
+    builder.addCase(thunks.doGetFavJourneys.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.favJourneys = action.payload.data.data;
+    });
+    builder.addCase(thunks.doGetFavJourneys.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -99,6 +109,8 @@ const Journeys = {
 
 export const selectCurrentJourneys = (state: RootState) =>
   state.journeys.journeys;
+export const selectFavJourneys = (state: RootState) =>
+  state.journeys.favJourneys;
 export const selectHotJourneys = (state: RootState) =>
   state.journeys.hotJourneys;
 export const selectCurrentJourney = (state: RootState) =>
