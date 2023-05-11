@@ -15,6 +15,7 @@ import useModalHandler from 'hooks/Modal';
 import AuthModal from 'components/organisms/AuthModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
+import TimeModal from './Components/TimeModal';
 
 const Bottom = ({
   lang,
@@ -30,10 +31,14 @@ const Bottom = ({
   // state to hold the selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDateModalVisable, setDateModalVisable] = useState(false);
+  const [selectTime, setselectTime] = useState(new Date());
+  const [isTimeModalVisable, setisTimeModalVisable] = useState(false);
+  console.log(selectTime, 'from home');
   return (
     <Formik
       initialValues={{ date: '', time: '', members: '', terms: '' }}
       onSubmit={values => {
+        console.log(values);
         if (!currentUser) {
           openCustomModal();
         } else {
@@ -75,7 +80,7 @@ const Bottom = ({
               value={props.values.time}
               inputContainerStyling={styles(isDarkMode).inputContainerStyling}
               containerStyle={styles(isDarkMode).containerStyle}
-              //   leftIcon={<Svg name="calendar" />}
+              onPressIn={() => setisTimeModalVisable(true)}
             />
           </View>
 
@@ -142,6 +147,15 @@ const Bottom = ({
             CustomModal={CustomModal}
             closeCustomModal={closeCustomModal}
             type="book"
+          />
+          <TimeModal
+            selectedTime={selectTime}
+            setSelectedTime={setselectTime}
+            isTimeModalVisable={isTimeModalVisable}
+            setTimeModalVisable={setisTimeModalVisable}
+            formikProps={props}
+            lang={lang}
+            isDarkMode={isDarkMode}
           />
         </View>
       )}
