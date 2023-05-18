@@ -18,8 +18,10 @@ import COLORS from 'values/colors';
 import LocationModel from './Components/LocationModel';
 import { selectCurrentAgencyJourneys } from 'redux/journey';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectUserType } from 'redux/UserType';
 
 const Map = () => {
+  const userType = useSelector(selectUserType);
   const [isLocationModel, setisLocationModel] = useState(true);
   const isDarkMode = useSelector(selectIsDarkMode);
   const navigation = useNavigation<any>();
@@ -108,7 +110,11 @@ const Map = () => {
           <Button
             type="primary"
             onPress={() => {
-              navigation.navigate('home');
+              if (userType === 'user') {
+                navigation.navigate('home');
+              } else {
+                navigation.navigate('vendor', { screen: 'home' });
+              }
             }}
             label={languages[lang].addressConfirmation}
           />

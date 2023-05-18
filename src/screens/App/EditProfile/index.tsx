@@ -58,7 +58,7 @@ const EditProfile = () => {
         initialValues={{
           fullName: currrentUser?.name,
           countryCode: '+20',
-          phoneNumber: currrentUser?.phone,
+          phoneNumber: currrentUser?.phone.slice(1),
           email: currrentUser?.email,
           city: currrentUser?.city,
           country: currrentUser?.country,

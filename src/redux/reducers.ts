@@ -8,6 +8,7 @@ import Present from './Presenting';
 import Location from './Location/index';
 import Journeys from './journey';
 import { DarkMode } from './DarkMode';
+import { UserType } from './UserType';
 
 const combinedReducer = combineReducers({
   _loading: loadingSlice.reducer,
@@ -19,6 +20,7 @@ const combinedReducer = combineReducers({
   [Location.slice.name]: Location.slice.reducer,
   [Journeys.slice.name]: Journeys.slice.reducer,
   [DarkMode.slice.name]: DarkMode.slice.reducer,
+  [UserType.slice.name]: UserType.slice.reducer,
 });
 
 export default combinedReducer;

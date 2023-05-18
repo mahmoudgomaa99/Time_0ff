@@ -17,10 +17,14 @@ import { useAppDispatch } from '../redux/store';
 import { StatusBar } from 'react-native';
 import COLORS from 'values/colors';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { UserType, selectUserType } from 'redux/UserType';
+import ChooseType from 'screens/PreApp/ChooseType';
+import VendorStack from './VendorStack';
 
 type TRootStack = {
   auth: undefined;
   app: undefined;
+  vendor: undefined;
 };
 const RootStack = createNativeStackNavigator<TRootStack>();
 
@@ -30,6 +34,7 @@ const NavigationHandler = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isSplashDone = useSelector(selectIsSplashDone);
   const isPresent = useSelector(selectIsPresenting);
+  const userType = useSelector(selectUserType);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(i => {
@@ -44,8 +49,12 @@ const NavigationHandler = () => {
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
+    if (!userType) return <ChooseType />;
     return (
-      <RootStack.Navigator initialRouteName={currentUser ? 'app' : 'auth'}>
+      <RootStack.Navigator
+        initialRouteName={
+          currentUser ? (userType === 'user' ? 'app' : 'vendor') : 'auth'
+        }>
         <RootStack.Screen
           options={{ headerShown: false }}
           component={AppStack}
@@ -56,9 +65,14 @@ const NavigationHandler = () => {
           name="auth"
           options={{ headerShown: false }}
         />
+        <RootStack.Screen
+          component={VendorStack}
+          name="vendor"
+          options={{ headerShown: false }}
+        />
       </RootStack.Navigator>
     );
-  }, [currentUser, isSplashDone, isPresent]);
+  }, [currentUser, isSplashDone, isPresent, userType]);
 
   return (
     <>

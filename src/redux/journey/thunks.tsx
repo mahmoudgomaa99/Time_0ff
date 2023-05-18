@@ -116,6 +116,7 @@ const doGetFavJourneys = createAsyncThunk<any, any, any>(
   },
 );
 
+
 const thunks = {
   doGetJourneys,
   doGetJourney,

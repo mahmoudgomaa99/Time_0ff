@@ -21,6 +21,15 @@ const UpdateUser = (data: {
   phone?: string;
   country?:string
 }) => api.put('users/me', data);
+const AddAgency = (data: {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  city: string;
+  description: string;
+  arabic_description: string;
+}) => api.post('agencies', data);
 const UserAPI = {
   LogIn,
   SignUp,
@@ -28,6 +37,7 @@ const UserAPI = {
   ForgetPassword,
   GetUser,
   UpdateUser,
+  AddAgency
 };
 
 export default UserAPI;

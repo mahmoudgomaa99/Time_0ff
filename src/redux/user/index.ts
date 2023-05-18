@@ -63,6 +63,13 @@ const slice = createSlice({
       console.log(action);
       Toast.show({ type: 'error', text2: action.payload.message });
     });
+    builder.addCase(thunks.doAddAgency.fulfilled, (state, action) => {
+      state.currentUser = action.payload.data.userData;
+      console.log(action);
+    });
+    builder.addCase(thunks.doAddAgency.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 

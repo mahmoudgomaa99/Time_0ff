@@ -30,6 +30,13 @@ const tokenReducer = createReducer(initialState, builder => {
         state.token = token;
         console.log(token);
       }
+    })
+    .addCase(User.thunks.doAddAgency.fulfilled, (state, action) => {
+      if (action.payload.data) {
+        const token = action.payload.data.token;
+        state.token = token;
+        console.log(token);
+      }
     });
 });
 

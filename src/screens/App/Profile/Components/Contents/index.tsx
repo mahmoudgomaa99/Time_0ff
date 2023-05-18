@@ -11,6 +11,7 @@ import User, { selectCurrentUser } from 'redux/user';
 import { useSelector } from 'react-redux';
 import AuthModal from 'components/organisms/AuthModal';
 import useModalHandler from 'hooks/Modal';
+import { UserType } from 'redux/UserType';
 
 const Contents = ({
   lang,
@@ -67,6 +68,7 @@ const Contents = ({
         <TouchableOpacity
           onPress={() => {
             dispatch(User.logout());
+            dispatch(UserType.setUserData(undefined));
           }}
           style={styles(lang).container}>
           <View style={styles(lang).innerContainer}>

@@ -140,6 +140,7 @@ const FilterModel = ({
                     { label: '(2 Star)', value: 2 },
                     { label: '(3 Star)', value: 3 },
                     { label: '(4 Star)', value: 4 },
+                    { label: '(5 Star)', value: 5 },
                   ]}
                   name={'rating'}
                   stylingProp={{
@@ -166,7 +167,6 @@ const FilterModel = ({
           </View>
 
           <DateModal
-          
             isDateModalVisable={isDateModalVisable}
             setDateModalVisable={setDateModalVisable}
             formikProps={props}

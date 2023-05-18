@@ -7,6 +7,7 @@ import languages from 'values/languages';
 import { useAppDispatch } from '../redux/store';
 import User from 'redux/user';
 import COLORS from 'values/colors';
+import { UserType } from 'redux/UserType';
 const Data = (
   lang: string,
 ): {
@@ -80,6 +81,7 @@ const DrawerNav = ({
                 navigation.navigate(item.main, { screen: item.sub });
               } else if (item.value) {
                 dispatch(User.logout());
+                dispatch(UserType.setUserData(undefined));
               } else {
                 navigation.navigate(item.main);
               }

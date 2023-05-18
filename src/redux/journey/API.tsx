@@ -151,6 +151,7 @@ const JourneysApi = {
   GetHotJourneys,
   AddFavourite,
   GetFavJourneys,
+  
 };
 
 export default JourneysApi;

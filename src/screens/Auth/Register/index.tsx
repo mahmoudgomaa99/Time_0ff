@@ -22,12 +22,18 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import axios from 'axios';
+import { selectUserType } from 'redux/UserType';
+import { h } from '../../../values/Dimensions';
+import Journeys from 'redux/journey';
 
 const Register = () => {
+  const userType = useSelector(selectUserType);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
 
   const isLoading = useLoadingSelector(User.thunks.doSignUp);
+  const isLoading2 = useLoadingSelector(User.thunks.doAddAgency);
+
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -43,12 +49,15 @@ const Register = () => {
     getCountries();
   }, []);
 
-  const countries = allData.map(i => ({ label: i.country, value: i.country }));
+  const countries = allData.map((i: any) => ({
+    label: i.country,
+    value: i.country,
+  }));
   const getCities = (country: string) => {
-    const cieties = allData.filter(
-      i => i.country === country && country.length > 0,
+    const cieties: any = allData.filter(
+      (i: any) => i.country === country && country.length > 0,
     );
-    const allCieties = cieties[0].cities.map(value => ({
+    const allCieties = cieties[0].cities.map((value: any) => ({
       label: value,
       value: value,
     }));
@@ -73,26 +82,51 @@ const Register = () => {
           password: '',
           city: '',
           country: '',
+          description: '',
+          arabic_description: '',
         }}
         onSubmit={values => {
-          dispatch(
-            User.thunks.doSignUp({
-              name: values.fullName,
-              phone: values.phoneNumber,
-              email: values.email,
-              password: values.password,
-              type: 'user',
-              city: values.city,
-              country: values.country,
-            }),
-          )
-            .then(unwrapResult)
-            .then(() => {
-              navigation.navigate('app', { screen: 'map' });
-            })
-            .catch(err => {
-              console.log(err);
-            });
+          if (userType === 'user') {
+            dispatch(
+              User.thunks.doSignUp({
+                name: values.fullName,
+                phone: values.phoneNumber,
+                email: values.email,
+                password: values.password,
+                type: 'user',
+                city: values.city,
+                country: values.country,
+              }),
+            )
+              .then(unwrapResult)
+              .then(() => {
+                navigation.navigate('app', { screen: 'map' });
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          } else {
+            dispatch(
+              User.thunks.doAddAgency({
+                name: values.fullName,
+                phone: values.phoneNumber,
+                email: values.email,
+                password: values.password,
+                type: 'agency',
+                city: values.city,
+                country: values.country,
+                description: values.description,
+                arabic_description: values.arabic_description,
+              }),
+            )
+              .then(unwrapResult)
+              .then(() => {
+                navigation.navigate('app', { screen: 'map' });
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
         }}
         validationSchema={registerScheme(lang)}>
         {props => (
@@ -169,6 +203,25 @@ const Register = () => {
               }
               secureTextEntry={secure}
             />
+            {userType === 'agency' && (
+              <InputView
+                {...props}
+                name={'description' && 'arabic_description'}
+                onChangeText={props.handleChange('email')}
+                value={props.values.email}
+                label={languages[lang].description}
+                inputContainerStyling={{
+                  direction: lang === 'ar' ? 'rtl' : 'ltr',
+                  borderBottomWidth: 0,
+                }}
+                containerStyle={[
+                  styles(isDarkMode).containerStyle,
+                  { marginTop: 10 },
+                ]}
+                labelStyle={[styles(isDarkMode).label_style]}
+              />
+            )}
+
             <Picker
               {...props}
               borderColor={'#F2F2F2'}
@@ -187,12 +240,13 @@ const Register = () => {
               name={'city'}
               values={props.values}
             />
+
             <Button
               onPress={props.handleSubmit}
               type="primary"
               label={languages[lang].register}
               style={{ marginTop: 10 }}
-              isLoading={isLoading}
+              isLoading={userType === 'user' ? isLoading : isLoading2}
             />
             <View
               style={[

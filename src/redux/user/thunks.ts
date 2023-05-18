@@ -80,6 +80,21 @@ const doUpdateUser = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doAddAgency = createAsyncThunk<any, any, any>(
+  'journeys/addAgency',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.AddAgency(data);
+      if (response.status === 403) {
+        throw response.data;
+      } else {
+        return { data: response };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doForgetPassword,
@@ -88,6 +103,7 @@ const thunks = {
   doSignUp,
   doResetPassword,
   doUpdateUser,
+  doAddAgency,
 };
 
 export default thunks;
