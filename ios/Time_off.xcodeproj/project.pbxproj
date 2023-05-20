@@ -26,6 +26,23 @@
 		57F364B14CEB932FE1B63B45 /* libPods-Time_off.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E91FE9A5880977E2228ECE9D /* libPods-Time_off.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F1C6EA64081B02A755FA7A73 /* libPods-Time_off-Time_offTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12EC97E23F4C49AE8AF8C52A /* libPods-Time_off-Time_offTests.a */; };
+		4A08C9AB1F494B1CBB66CFC1 /* MonumentExtended-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0706EAD3D1304B9090B4DAFF /* MonumentExtended-Regular.otf */; };
+		A05029F2393943D4A7B821A6 /* MonumentExtended-Ultrabold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB920A5BAE56491CBD6CCBEA /* MonumentExtended-Ultrabold.otf */; };
+		3CB92BB56A0147E2B6C6E03A /* Antonio-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B107BF1FC4CB40AB9A026B84 /* Antonio-VariableFont_wght.ttf */; };
+		DDB1C0293A9E4AB694FA5FD9 /* NeoSansArabic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23CF95FC39314392B59F7FFA /* NeoSansArabic.ttf */; };
+		057760ACA84E4D82916AE17B /* NeoSansArabicBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53C852D64EC04323BFC785DB /* NeoSansArabicBlack.ttf */; };
+		35C4930FE1BD468488CE6759 /* NeoSansArabicBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA6746C04192451DA25BA331 /* NeoSansArabicBold.ttf */; };
+		716CD9DAFB3A4B21B37575FA /* NeoSansArabicLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 192D689871BE478EBAED73AD /* NeoSansArabicLight.ttf */; };
+		19BF5222927641A785DED5C6 /* NeoSansArabicMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF4219BB441745B69ED4CEB9 /* NeoSansArabicMedium.ttf */; };
+		634C0AD429F649BD8BEADE84 /* NeoSansArabicUltra.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787172192E7240BB9FA66666 /* NeoSansArabicUltra.ttf */; };
+		384B2951290C4EA3A10B8A5B /* Cairo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 307DBFFF9CCC4940ABAF3B6A /* Cairo-Black.ttf */; };
+		11F8A8D276D840EE9446BE7E /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EBC07EFCD408E9F9F6092 /* Cairo-Bold.ttf */; };
+		C8B968D4D4EF4BBEA02691B7 /* Cairo-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05D9A61C056C4A87A2E59137 /* Cairo-ExtraBold.ttf */; };
+		9C055DC9556B46FE9B9AB6ED /* Cairo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77AD7A4F8A464C6490BAACC4 /* Cairo-ExtraLight.ttf */; };
+		7C93906BCD3F4478A880FE74 /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2D936F1D444470A93731482 /* Cairo-Light.ttf */; };
+		443EDB1E377C44F5ADD41E3C /* Cairo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70ED676012574585B3661B02 /* Cairo-Medium.ttf */; };
+		7903BFE3703A412197C1AA21 /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4F66AA8C9984788A60CF087 /* Cairo-Regular.ttf */; };
+		271943AFB95B413099F150D9 /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4664CD57B8243FCBFE3902B /* Cairo-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +85,23 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-Time_off-Time_offTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Time_off-Time_offTests.release.xcconfig"; path = "Target Support Files/Pods-Time_off-Time_offTests/Pods-Time_off-Time_offTests.release.xcconfig"; sourceTree = "<group>"; };
 		E91FE9A5880977E2228ECE9D /* libPods-Time_off.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Time_off.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		0706EAD3D1304B9090B4DAFF /* MonumentExtended-Regular.otf */ = {isa = PBXFileReference; name = "MonumentExtended-Regular.otf"; path = "../assets/fonts/MonumentExtended-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB920A5BAE56491CBD6CCBEA /* MonumentExtended-Ultrabold.otf */ = {isa = PBXFileReference; name = "MonumentExtended-Ultrabold.otf"; path = "../assets/fonts/MonumentExtended-Ultrabold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B107BF1FC4CB40AB9A026B84 /* Antonio-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Antonio-VariableFont_wght.ttf"; path = "../assets/fonts/Antonio-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		23CF95FC39314392B59F7FFA /* NeoSansArabic.ttf */ = {isa = PBXFileReference; name = "NeoSansArabic.ttf"; path = "../assets/fonts/NeoSansArabic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		53C852D64EC04323BFC785DB /* NeoSansArabicBlack.ttf */ = {isa = PBXFileReference; name = "NeoSansArabicBlack.ttf"; path = "../assets/fonts/NeoSansArabicBlack.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AA6746C04192451DA25BA331 /* NeoSansArabicBold.ttf */ = {isa = PBXFileReference; name = "NeoSansArabicBold.ttf"; path = "../assets/fonts/NeoSansArabicBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		192D689871BE478EBAED73AD /* NeoSansArabicLight.ttf */ = {isa = PBXFileReference; name = "NeoSansArabicLight.ttf"; path = "../assets/fonts/NeoSansArabicLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CF4219BB441745B69ED4CEB9 /* NeoSansArabicMedium.ttf */ = {isa = PBXFileReference; name = "NeoSansArabicMedium.ttf"; path = "../assets/fonts/NeoSansArabicMedium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		787172192E7240BB9FA66666 /* NeoSansArabicUltra.ttf */ = {isa = PBXFileReference; name = "NeoSansArabicUltra.ttf"; path = "../assets/fonts/NeoSansArabicUltra.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		307DBFFF9CCC4940ABAF3B6A /* Cairo-Black.ttf */ = {isa = PBXFileReference; name = "Cairo-Black.ttf"; path = "../assets/fonts/Cairo-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C76EBC07EFCD408E9F9F6092 /* Cairo-Bold.ttf */ = {isa = PBXFileReference; name = "Cairo-Bold.ttf"; path = "../assets/fonts/Cairo-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		05D9A61C056C4A87A2E59137 /* Cairo-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Cairo-ExtraBold.ttf"; path = "../assets/fonts/Cairo-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77AD7A4F8A464C6490BAACC4 /* Cairo-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Cairo-ExtraLight.ttf"; path = "../assets/fonts/Cairo-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C2D936F1D444470A93731482 /* Cairo-Light.ttf */ = {isa = PBXFileReference; name = "Cairo-Light.ttf"; path = "../assets/fonts/Cairo-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		70ED676012574585B3661B02 /* Cairo-Medium.ttf */ = {isa = PBXFileReference; name = "Cairo-Medium.ttf"; path = "../assets/fonts/Cairo-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B4F66AA8C9984788A60CF087 /* Cairo-Regular.ttf */ = {isa = PBXFileReference; name = "Cairo-Regular.ttf"; path = "../assets/fonts/Cairo-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4664CD57B8243FCBFE3902B /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; name = "Cairo-SemiBold.ttf"; path = "../assets/fonts/Cairo-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +192,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				C690C22ACFE7429E9772BC22 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -183,6 +218,31 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		C690C22ACFE7429E9772BC22 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0706EAD3D1304B9090B4DAFF /* MonumentExtended-Regular.otf */,
+				BB920A5BAE56491CBD6CCBEA /* MonumentExtended-Ultrabold.otf */,
+				B107BF1FC4CB40AB9A026B84 /* Antonio-VariableFont_wght.ttf */,
+				23CF95FC39314392B59F7FFA /* NeoSansArabic.ttf */,
+				53C852D64EC04323BFC785DB /* NeoSansArabicBlack.ttf */,
+				AA6746C04192451DA25BA331 /* NeoSansArabicBold.ttf */,
+				192D689871BE478EBAED73AD /* NeoSansArabicLight.ttf */,
+				CF4219BB441745B69ED4CEB9 /* NeoSansArabicMedium.ttf */,
+				787172192E7240BB9FA66666 /* NeoSansArabicUltra.ttf */,
+				307DBFFF9CCC4940ABAF3B6A /* Cairo-Black.ttf */,
+				C76EBC07EFCD408E9F9F6092 /* Cairo-Bold.ttf */,
+				05D9A61C056C4A87A2E59137 /* Cairo-ExtraBold.ttf */,
+				77AD7A4F8A464C6490BAACC4 /* Cairo-ExtraLight.ttf */,
+				C2D936F1D444470A93731482 /* Cairo-Light.ttf */,
+				70ED676012574585B3661B02 /* Cairo-Medium.ttf */,
+				B4F66AA8C9984788A60CF087 /* Cairo-Regular.ttf */,
+				F4664CD57B8243FCBFE3902B /* Cairo-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -292,6 +352,23 @@
 				1E097DDE29C71E4700007FED /* Roboto-Italic.ttf in Resources */,
 				1E097DDA29C71E4700007FED /* Roboto-MediumItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				4A08C9AB1F494B1CBB66CFC1 /* MonumentExtended-Regular.otf in Resources */,
+				A05029F2393943D4A7B821A6 /* MonumentExtended-Ultrabold.otf in Resources */,
+				3CB92BB56A0147E2B6C6E03A /* Antonio-VariableFont_wght.ttf in Resources */,
+				DDB1C0293A9E4AB694FA5FD9 /* NeoSansArabic.ttf in Resources */,
+				057760ACA84E4D82916AE17B /* NeoSansArabicBlack.ttf in Resources */,
+				35C4930FE1BD468488CE6759 /* NeoSansArabicBold.ttf in Resources */,
+				716CD9DAFB3A4B21B37575FA /* NeoSansArabicLight.ttf in Resources */,
+				19BF5222927641A785DED5C6 /* NeoSansArabicMedium.ttf in Resources */,
+				634C0AD429F649BD8BEADE84 /* NeoSansArabicUltra.ttf in Resources */,
+				384B2951290C4EA3A10B8A5B /* Cairo-Black.ttf in Resources */,
+				11F8A8D276D840EE9446BE7E /* Cairo-Bold.ttf in Resources */,
+				C8B968D4D4EF4BBEA02691B7 /* Cairo-ExtraBold.ttf in Resources */,
+				9C055DC9556B46FE9B9AB6ED /* Cairo-ExtraLight.ttf in Resources */,
+				7C93906BCD3F4478A880FE74 /* Cairo-Light.ttf in Resources */,
+				443EDB1E377C44F5ADD41E3C /* Cairo-Medium.ttf in Resources */,
+				7903BFE3703A412197C1AA21 /* Cairo-Regular.ttf in Resources */,
+				271943AFB95B413099F150D9 /* Cairo-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

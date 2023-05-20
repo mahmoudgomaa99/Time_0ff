@@ -25,6 +25,7 @@ import axios from 'axios';
 import { selectUserType } from 'redux/UserType';
 import { h } from '../../../values/Dimensions';
 import Journeys from 'redux/journey';
+import Fonts from 'values/fonts';
 
 const Register = () => {
   const userType = useSelector(selectUserType);
@@ -257,6 +258,10 @@ const Register = () => {
                 title={languages[lang].haveAccount}
                 style={{
                   color: isDarkMode ? COLORS.alfaBlack2 : COLORS.secondery,
+                  fontSize: 14,
+                  fontFamily: Fonts.Cairo_Regular,
+                  fontWeight: '400',
+                  lineHeight: 19,
                 }}
               />
               <TextView

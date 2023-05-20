@@ -39,5 +39,20 @@ const Fonts = {
   RobotoThin: Platform.OS === 'ios' ? 'Roboto-Thin' : 'Roboto-Thin',
   RobotoThinItalic:
     Platform.OS === 'ios' ? 'Roboto-ThinItalic' : 'Roboto-ThinItalic',
+  Antonio: 'Antonio-VariableFont_wght',
+  MonumentExtended_Regular: 'MonumentExtended-Regular',
+  MonumentExtended_Ultrabold: 'MonumentExtended-Ultrabold',
+  NeoSansArabic: 'NeoSansArabic',
+  NeoSansArabicBold: 'NeoSansArabic-Bold',
+  NeoSansArabicLight: 'NeoSansArabic-Light',
+  NeoSansArabicMedium: 'NeoSansArabic-Medium',
+  NeoSansArabicUltra: 'NeoSansArabicUltra',
+  Cairo_Black: 'Cairo-Black',
+  Cairo_Bold: 'Cairo-Black',
+  Cairo_ExtraLight: 'Cairo-ExtraLight',
+  Cairo_Light: 'Cairo-Light',
+  Cairo_Regular: 'Cairo-Regular',
+  Cairo_SemiBold: 'Cairo-SemiBold',
+  Cairo_Medium: 'Cairo-Medium',
 };
 export default Fonts;

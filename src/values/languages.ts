@@ -169,6 +169,11 @@ const languages: any = {
     lowPrice: 'Low Price',
     newest: 'Newest',
     newActivity:'New Activity',
+    welcomeToTimeOff: 'Welcome to Time Off',
+    who_are_you: 'Who are you?',
+    agency: 'Agency',
+    User: 'User',
+    next: 'Next',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -334,6 +339,11 @@ const languages: any = {
     lowPrice: 'الاقل سعرا',
     newest: 'الاحدث',
     newActivity:'نشاط جديد',
+    welcomeToTimeOff: 'Time Off مرحبا بك ف ',
+    who_are_you: 'من انت؟',
+    agency: 'وكالة',
+    User: 'مستخدم',
+    next: 'التالي',
   },
 };
 export default languages;
