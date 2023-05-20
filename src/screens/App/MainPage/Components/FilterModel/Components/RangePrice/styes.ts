@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
@@ -17,6 +18,7 @@ export const styles = (isDarkMode?: boolean) =>
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginTop: h * 0.009,
       marginBottom: 5,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     prices: {
       flexDirection: 'row',
@@ -27,5 +29,6 @@ export const styles = (isDarkMode?: boolean) =>
     priceText: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
+      fontFamily: Fonts.Cairo_Regular,
     },
   });

@@ -5,6 +5,7 @@ import { styles } from './styles';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 const Card = ({
   title,
@@ -80,12 +81,18 @@ const Card = ({
           ]}>
           <Svg name="smile" size={20} />
           <TextView
-            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            style={{
+              color: isDarkMode ? COLORS.white : COLORS.black,
+              fontFamily: Fonts.Cairo_Regular,
+            }}
             title={name}
           />
           <Svg name="star" size={20} />
           <TextView
-            style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+            style={{
+              color: isDarkMode ? COLORS.white : COLORS.black,
+              fontFamily: Fonts.Cairo_Regular,
+            }}
             title={`(${stars})`}
           />
         </View>

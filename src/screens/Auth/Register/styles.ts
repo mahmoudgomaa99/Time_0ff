@@ -1,6 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
@@ -13,6 +14,7 @@ export const styles = (isDarkMode?: boolean) =>
     title: {
       color: isDarkMode ? COLORS.white : COLORS.black,
       fontSize: 24,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     line: {
       width: Platform.OS === 'android' ? w * 0.16 : w * 0.18,
@@ -45,6 +47,10 @@ export const styles = (isDarkMode?: boolean) =>
       textDecorationColor: COLORS.blue,
       textDecorationLine: 'underline',
       marginHorizontal: 4,
+      fontSize: 14,
+      fontFamily: Fonts.Cairo_Regular,
+      fontWeight: '400',
+      lineHeight: 19,
     },
     label_style: {
       color: '#C4C3C3',

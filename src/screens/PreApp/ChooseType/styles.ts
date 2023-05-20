@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { h } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = (type?: string, choosen?: string) =>
   StyleSheet.create({
@@ -14,11 +15,13 @@ export const styles = (type?: string, choosen?: string) =>
       fontSize: 20,
       fontWeight: 'bold',
       color: COLORS.black,
+      fontFamily: Fonts.Cairo_Bold,
     },
     sub_title: {
       fontSize: 16,
       color: COLORS.black,
       marginTop: 20,
+      fontFamily: Fonts.Cairo_Regular,
     },
     btns: {
       flexDirection: 'row',
@@ -42,5 +45,8 @@ export const styles = (type?: string, choosen?: string) =>
     },
     btn_txt: {
       color: type === choosen ? COLORS.white : COLORS.primary,
+      fontSize: 16,
+      fontWeight: 'bold',
+      fontFamily: Fonts.Cairo_Bold,
     },
   });

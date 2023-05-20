@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { MarginsAndPaddings } from 'values/Dimensions';
 import { w, h } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
@@ -31,6 +32,7 @@ export const styles = (isDarkMode?: boolean) =>
       fontSize: 24,
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginBottom: 20,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     svgAndStar: {
       flexDirection: 'row',
@@ -41,15 +43,18 @@ export const styles = (isDarkMode?: boolean) =>
       fontSize: 14,
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginHorizontal: 5,
+      fontFamily: Fonts.Cairo_Regular,
     },
     descriptionTitle: {
       fontSize: 18,
       color: isDarkMode ? COLORS.white : '#0370D6',
       marginBottom: MarginsAndPaddings.xxl,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     descriptionText: {
       fontSize: 14,
       color: '#5B5959',
+      fontFamily: Fonts.Cairo_Regular,
     },
     bottom: {
       flex: 1,
@@ -62,6 +67,7 @@ export const styles = (isDarkMode?: boolean) =>
       color: isDarkMode ? COLORS.white : COLORS.black,
       lineHeight: 32,
       marginTop: '2.5%',
+      fontFamily: Fonts.Cairo_Medium,
     },
     arabic: {
       flexDirection: 'row-reverse',

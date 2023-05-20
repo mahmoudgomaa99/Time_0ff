@@ -2,6 +2,7 @@ import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h } from 'values/Dimensions';
 import { w } from '../../../values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = StyleSheet.create({
   backArrow: {
@@ -43,6 +44,7 @@ export const styles = StyleSheet.create({
     color: COLORS.white,
     lineHeight: 30,
     marginBottom: 5,
+    fontFamily: Fonts.Cairo_SemiBold,
   },
   desc: {
     maxHeight: h * 0.05,
@@ -50,5 +52,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     color: COLORS.white,
     lineHeight: 20,
+    fontFamily: Fonts.Cairo_Regular,
   },
 });

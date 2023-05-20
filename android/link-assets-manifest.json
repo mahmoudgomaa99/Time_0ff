@@ -1,0 +1,73 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Antonio-VariableFont_wght.ttf",
+      "sha1": "e08d8f33170fd3d31599e81a3e0f4c602da4408a"
+    },
+    {
+      "path": "assets/fonts/Cairo-Black.ttf",
+      "sha1": "c6e74ed642575b329af68f9c047e5a82daf18a56"
+    },
+    {
+      "path": "assets/fonts/Cairo-Bold.ttf",
+      "sha1": "66d7178700f68bf1b977675fb28e5c1ed3e7c42d"
+    },
+    {
+      "path": "assets/fonts/Cairo-ExtraBold.ttf",
+      "sha1": "b108cf1c3b867e6e1adbe55b314f019a7f34d195"
+    },
+    {
+      "path": "assets/fonts/Cairo-ExtraLight.ttf",
+      "sha1": "3b2a6f2c5878e419a2389dab9f4438692111fe24"
+    },
+    {
+      "path": "assets/fonts/Cairo-Light.ttf",
+      "sha1": "988da945c9fcff0dcf0c89b9623fa4d533d314db"
+    },
+    {
+      "path": "assets/fonts/Cairo-Medium.ttf",
+      "sha1": "400c10b6b6e55b1c18f6cf698d2afb346eec6128"
+    },
+    {
+      "path": "assets/fonts/Cairo-Regular.ttf",
+      "sha1": "9457acad819e3f1d8acb569355d6bcb2759bf144"
+    },
+    {
+      "path": "assets/fonts/Cairo-SemiBold.ttf",
+      "sha1": "24439f13e088e4a6cee82c556c021460a97c91a9"
+    },
+    {
+      "path": "assets/fonts/MonumentExtended-Regular.otf",
+      "sha1": "1e787896f58bb8ef3b6d5276f8c6d8da541150d9"
+    },
+    {
+      "path": "assets/fonts/MonumentExtended-Ultrabold.otf",
+      "sha1": "c34583b8a5b48d6b5e2f657fecdacccf77993835"
+    },
+    {
+      "path": "assets/fonts/NeoSansArabic.ttf",
+      "sha1": "ccc44aa8de42b5683782d5b177aa0f49866d64f5"
+    },
+    {
+      "path": "assets/fonts/NeoSansArabicBlack.ttf",
+      "sha1": "a1ce31ed99825128a7934d75e4fa8605eb2e9d8a"
+    },
+    {
+      "path": "assets/fonts/NeoSansArabicBold.ttf",
+      "sha1": "a6882e43438d6af875ea952122c08cc5400ca6ba"
+    },
+    {
+      "path": "assets/fonts/NeoSansArabicLight.ttf",
+      "sha1": "fb5f850abcdaf3fbc3c7176d55511348b6e31db2"
+    },
+    {
+      "path": "assets/fonts/NeoSansArabicMedium.ttf",
+      "sha1": "8b977f125b99fd2f96f8f227e5bcedb7648cdb8f"
+    },
+    {
+      "path": "assets/fonts/NeoSansArabicUltra.ttf",
+      "sha1": "7fa40c22311d3acbb44ff63d2742b263e2db4d5a"
+    }
+  ]
+}
