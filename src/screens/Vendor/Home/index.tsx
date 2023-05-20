@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
@@ -11,7 +11,7 @@ import { selectLanguage } from 'redux/language';
 import Header from './Components/Header';
 import Content from './Components/Content';
 import languages from 'values/languages';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const navigation = useNavigation<any>();
@@ -25,9 +25,11 @@ const Home = () => {
   );
   const journeys = useSelector(selectCurrentAgencyJourneys);
 
-  useEffect(() => {
-    dispatch(Journeys.thunks.doGetAgencyJourneys(userData._id));
-  }, []);
+  useFocusEffect(() => {
+    useCallback(() => {
+      dispatch(Journeys.thunks.doGetAgencyJourneys(userData._id));
+    }, [userData._id]);
+  });
   console.log(journeys, 'this is journeys');
   return (
     <View style={styles(lang, isDarkMode).container}>
