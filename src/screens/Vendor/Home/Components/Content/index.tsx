@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import Card from 'screens/App/MainPage/Components/Card';
+import { Tjourneys } from 'redux/journey/model';
 
 const Content = ({
   lang,
@@ -12,7 +13,7 @@ const Content = ({
 }: {
   isDarkMode?: boolean;
   lang: string;
-  journeys: any;
+  journeys: Tjourneys;
   isGetJourneysLoading: any;
 }) => {
   const navigation = useNavigation<any>();
@@ -26,7 +27,7 @@ const Content = ({
               <SkeletonItem />
             </View>
           ))
-        : journeys?.map((item?: any) => (
+        : journeys.map((item?: any) => (
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('detailsTrip', { id: item._id });

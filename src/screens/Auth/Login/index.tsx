@@ -20,8 +20,10 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { log } from 'react-native-reanimated';
 import COLORS from 'values/colors';
+import { selectUserType } from 'redux/UserType';
 
 const Login = () => {
+  const userType = useSelector(selectUserType);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [secure, setsecure] = useState(true);
   const lang = useSelector(selectLanguage);
@@ -31,13 +33,16 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
-      <TextView
-        title={languages[lang].skip}
-        style={[styles(isDarkMode).skip]}
-        onPress={() => {
-          navigation.navigate('app', { screen: 'map' });
-        }}
-      />
+      {userType === 'user' && (
+        <TextView
+          title={languages[lang].skip}
+          style={[styles(isDarkMode).skip]}
+          onPress={() => {
+            navigation.navigate('app', { screen: 'map' });
+          }}
+        />
+      )}
+
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />
         <TextView

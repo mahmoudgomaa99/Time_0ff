@@ -115,7 +115,21 @@ const doGetFavJourneys = createAsyncThunk<any, any, any>(
     }
   },
 );
-
+const doAddJourney = createAsyncThunk<any, any, any>(
+  'journeys/addJourney',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.AddJourney(data);
+      if (response.status === 400) {
+        throw response.data;
+      } else {
+        return { data: response };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doGetJourneys,
@@ -127,6 +141,7 @@ const thunks = {
   doGetHotJourneys,
   doAddFavourite,
   doGetFavJourneys,
+  doAddJourney,
 };
 
 export default thunks;

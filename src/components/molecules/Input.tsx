@@ -61,7 +61,7 @@ const InputView = ({
         {...props}
         placeholder={placeholder}
         autoComplete={'off'}
-        disabled={loading ? true : false}
+        disabled={props.disabled ? true : loading ? true : false}
         placeholderTextColor="#C4C3C3"
         value={values[name]}
         errorStyle={{

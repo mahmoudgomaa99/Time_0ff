@@ -11,6 +11,7 @@ import { selectIsDarkMode } from 'redux/DarkMode';
 import Home from 'screens/Vendor/Home';
 import Profile from 'screens/Vendor/Profile';
 import Notefication from 'screens/Vendor/Notefication';
+import Settings from 'screens/App/Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -91,6 +92,30 @@ const VendorTabBar = () => {
             return (
               <Svg
                 name="profile2"
+                style={{ marginBottom: -10 }}
+                bgColor={
+                  focused
+                    ? isDarkMode
+                      ? COLORS.white
+                      : '#0370D6'
+                    : isDarkMode
+                    ? COLORS.alfaBlack
+                    : '#000000'
+                }
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name={languages[lang].settings}
+        component={Settings}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => {
+            return (
+              <Svg
+                name="setting"
                 style={{ marginBottom: -10 }}
                 bgColor={
                   focused
