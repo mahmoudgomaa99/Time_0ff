@@ -1,6 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
@@ -15,6 +16,7 @@ const styles = (isDarkMode?: boolean) =>
       fontWeight: '400',
       lineHeight: 24,
       marginTop: Platform.OS === 'android' ? h * 0.006 : 0,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     title: {
       color: isDarkMode ? COLORS.white : COLORS.black,
@@ -22,6 +24,7 @@ const styles = (isDarkMode?: boolean) =>
       fontSize: 30,
       lineHeight: 40,
       fontWeight: '500',
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     line: {
       width: w * 0.13,
@@ -40,6 +43,7 @@ const styles = (isDarkMode?: boolean) =>
       marginRight: 'auto',
       fontSize: 18,
       fontWeight: '400',
+      fontFamily: Fonts.Cairo_Regular,
       // maxWidth: w * 0.3,
     },
 
@@ -58,6 +62,7 @@ const styles = (isDarkMode?: boolean) =>
       marginBottom: h * 0.04,
       fontWeight: '400',
       lineHeight: 21,
+      fontFamily: Fonts.Cairo_Regular,
     },
     or: {
       textAlign: 'center',
@@ -66,6 +71,7 @@ const styles = (isDarkMode?: boolean) =>
       lineHeight: 21,
       fontWeight: '500',
       marginTop: 10,
+      fontFamily: Fonts.Cairo_Regular,
     },
     containerMedia: {
       flexDirection: 'row',
@@ -99,18 +105,22 @@ const styles = (isDarkMode?: boolean) =>
       // marginHorizontal: 4,
       lineHeight: 19,
       textAlign: 'center',
+      fontWeight: '400',
+      fontFamily: Fonts.Cairo_Regular,
     },
     label_style: {
       color: '#C4C3C3',
       fontSize: 14,
       fontWeight: '400',
-      lineHeight: 14,
+      lineHeight: 19,
+      fontFamily: Fonts.Cairo_Regular,
     },
     notMember: {
       fontSize: 14,
       fontWeight: '400',
       lineHeight: 19,
       color: isDarkMode ? COLORS.alfaBlack2 : COLORS.secondery,
+      fontFamily: Fonts.Cairo_Regular,
     },
   });
 

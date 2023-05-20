@@ -1,12 +1,11 @@
 import { View, Text, Image } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
 import Svg from 'atoms/Svg';
 import Button from 'components/molecules/Button';
 import languages from 'values/languages';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
-import { images } from 'src/assets/images';
 import { w } from 'values/Dimensions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';

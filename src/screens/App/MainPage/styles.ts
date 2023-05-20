@@ -1,6 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { BorderRadius, h, MarginsAndPaddings, w } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (isDarkMode?: boolean, lang?: string) =>
   StyleSheet.create({
@@ -28,11 +29,13 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
     welcomeText: {
       fontSize: 14,
       color: COLORS.black,
+      fontFamily: Fonts.Cairo_Regular,
     },
     nameText: {
       fontSize: 16,
       color: COLORS.black,
       textAlign: 'center',
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     search: {
       flexDirection: 'row',
