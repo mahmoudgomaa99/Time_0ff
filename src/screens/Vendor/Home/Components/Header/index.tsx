@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
@@ -7,7 +7,7 @@ import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 import { h, w } from 'values/Dimensions';
-import { images } from 'src/assets/images';
+import { useNavigation } from '@react-navigation/native';
 
 const Header = ({
   lang,
@@ -16,6 +16,7 @@ const Header = ({
   lang: string;
   isDarkMode?: boolean;
 }) => {
+  const navigation = useNavigation<any>();
   const user = useSelector(selectCurrentUser);
   return (
     <View

@@ -45,6 +45,7 @@ export const styles = (isDarkMode?: boolean) =>
       lineHeight: 19,
       textAlign: 'center',
       fontWeight: '400',
-      marginBottom:10
+      marginBottom: 10,
     },
+    
   });
