@@ -27,8 +27,9 @@ const Content = ({
               <SkeletonItem />
             </View>
           ))
-        : journeys.map((item?: any) => (
+        : journeys?.map((item?: any) => (
             <TouchableOpacity
+              disabled
               onPress={() => {
                 // navigation.navigate('detailsTrip', { id: item._id });
               }}>
