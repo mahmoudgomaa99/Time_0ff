@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string) => {
   return StyleSheet.create({
@@ -8,6 +9,7 @@ export const styles = (lang: string) => {
       textAlign: 'center',
       marginVertical: MarginsAndPaddings.ml,
       fontWeight: '900',
+      fontFamily:Fonts.Cairo_SemiBold
     },
   });
 };

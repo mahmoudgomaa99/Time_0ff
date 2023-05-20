@@ -37,6 +37,5 @@ export const Data = (lang: string) => {
       date: languages[lang].Date,
       iconName: 'newActivity',
     },
-
   ];
 };

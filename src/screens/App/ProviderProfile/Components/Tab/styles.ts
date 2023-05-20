@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { MarginsAndPaddings, w } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -16,10 +17,12 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     blackText: {
       fontSize: 18,
       color: isDarkMode ? COLORS.white : COLORS.black,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     greyText: {
       fontSize: 18,
       color: '#D6D6D6',
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     line: {
       width: 20,

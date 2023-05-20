@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, h } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -31,6 +32,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     text: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
+      fontFamily: Fonts.Cairo_Regular,
     },
     flexRow: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

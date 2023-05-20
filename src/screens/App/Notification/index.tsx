@@ -27,6 +27,7 @@ const Notification = () => {
           contentContainerStyle={{ marginHorizontal: 10 }}>
           {Data(lang).map(value => (
             <Card
+              key={value.id}
               lang={lang}
               iconName={value.iconName}
               message={value.message}

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h, MarginsAndPaddings } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -22,6 +23,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontSize: 18,
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginHorizontal: MarginsAndPaddings.m,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     arrow: {
       transform: [{ rotate: lang === 'en' ? '180deg' : '0deg' }],

@@ -92,6 +92,7 @@ const BottomList = ({
                   </TouchableOpacity>
                 )}
                 showsVerticalScrollIndicator={false}
+                keyExtractor={item => item.id}
               />
             ) : (
               <TextView

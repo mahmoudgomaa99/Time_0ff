@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,5 +13,6 @@ export const styles = StyleSheet.create({
   text: {
     color: COLORS.black,
     marginTop: 10,
+    fontFamily: Fonts.Cairo_SemiBold,
   },
 });

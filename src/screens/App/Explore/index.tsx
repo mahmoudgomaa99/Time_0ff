@@ -109,8 +109,9 @@ const Explore = () => {
               </View>
             ))
           ) : (
-            journeysOffers?.map((item: any) => (
+            journeysOffers?.map((item: any, index) => (
               <TouchableOpacity
+                key={index}
                 onPress={() => {
                   navigation.navigate('detailsTrip', { id: item._id });
                 }}>

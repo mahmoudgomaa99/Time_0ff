@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { w } from 'values/Dimensions';
 import { h } from '../../../../../values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (isDarkMode?: boolean, lang?: string) =>
   StyleSheet.create({

@@ -12,6 +12,7 @@ import languages from 'values/languages';
 import { h } from '../values/Dimensions';
 import COLORS from 'values/colors';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import Fonts from 'values/fonts';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,8 +31,9 @@ const TabBar = () => {
           borderWidth: 0,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 13,
           marginBottom: Platform.OS === 'android' ? 5 : -10,
+          fontFamily: Fonts.Cairo_SemiBold,
         },
         // tabBarBackground:[]
       }}>

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
 import { h, MarginsAndPaddings, w } from 'values/Dimensions';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -12,7 +13,6 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       paddingTop: 10,
       paddingBottom: 5,
       backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
-      
     },
     imageContainer: {
       flex: 1.3,
@@ -40,12 +40,14 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       color: isDarkMode ? COLORS.white : COLORS.black,
       maxWidth: '70%',
       marginLeft: lang === 'en' ? 10 : 0,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     review: {
       fontSize: 14,
       color: '#5B5959',
       maxHeight: h * 0.025,
       textAlign: lang === 'ar' ? 'right' : undefined,
+      fontFamily: Fonts.Cairo_Regular,
     },
   });
 };

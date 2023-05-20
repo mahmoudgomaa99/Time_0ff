@@ -30,6 +30,7 @@ const ExperienceSection = ({
           ))
         : journeys?.map((item?: any) => (
             <TouchableOpacity
+              key={item.id}
               onPress={() => {
                 navigation.navigate('detailsTrip', { id: item._id });
               }}>

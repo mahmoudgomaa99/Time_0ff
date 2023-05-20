@@ -11,6 +11,7 @@ import { selectIsDarkMode } from 'redux/DarkMode';
 import Home from 'screens/Vendor/Home';
 import Profile from 'screens/Vendor/Profile';
 import Notefication from 'screens/Vendor/Notefication';
+import Fonts from 'values/fonts';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,8 +30,9 @@ const VendorTabBar = () => {
           borderWidth: 0,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 13,
           marginBottom: Platform.OS === 'android' ? 5 : -10,
+          fontFamily: Fonts.Cairo_SemiBold,
         },
         // tabBarBackground:[]
       }}>

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -12,6 +13,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontSize: 18,
       color: isDarkMode ? COLORS.white : COLORS.black,
       margin: MarginsAndPaddings.xl,
+      fontFamily:Fonts.Cairo_SemiBold
     },
     text: {
       fontSize: 18,
@@ -19,6 +21,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       marginVertical: MarginsAndPaddings.ml,
       fontWeight: '900',
       color: isDarkMode ? COLORS.white : COLORS.black,
+      fontFamily:Fonts.Cairo_SemiBold
     },
   });
 };
