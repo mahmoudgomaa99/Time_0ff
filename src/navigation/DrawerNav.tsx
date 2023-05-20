@@ -8,6 +8,7 @@ import { useAppDispatch } from '../redux/store';
 import User from 'redux/user';
 import COLORS from 'values/colors';
 import { UserType } from 'redux/UserType';
+import Fonts from 'values/fonts';
 const Data = (
   lang: string,
 ): {
@@ -113,8 +114,9 @@ const styles = (iSCurrentTap?: boolean, lang?: string) =>
     },
     item_name: {
       fontSize: 18,
-      lineHeight: 24,
+      lineHeight: 27,
       color: iSCurrentTap ? COLORS.black : COLORS.white,
       marginHorizontal: 10,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
   });

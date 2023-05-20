@@ -23,7 +23,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontSize: 18,
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginHorizontal: MarginsAndPaddings.m,
-      fontFamily:Fonts.Cairo_SemiBold
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     arrow: {
       transform: [{ rotate: lang === 'en' ? '180deg' : '0deg' }],

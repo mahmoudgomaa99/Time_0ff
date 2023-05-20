@@ -28,7 +28,7 @@ const Contents = ({
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value: any, index) => (
-        <View>
+        <View key={index}>
           <TouchableOpacity
             onPress={() => {
               if (value.iconName !== 'setting') {

@@ -16,6 +16,7 @@ import { h } from 'values/Dimensions';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 const SeeMore = () => {
   const lang = useSelector(selectLanguage);
@@ -49,7 +50,10 @@ const SeeMore = () => {
               <View style={styles(lang, isDarkMode).body}>
                 <TextView
                   title={languages[lang].noData}
-                  style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+                  style={{
+                    color: isDarkMode ? COLORS.white : COLORS.black,
+                    fontFamily: Fonts.Cairo_SemiBold,
+                  }}
                 />
               </View>
             ) : (

@@ -15,6 +15,7 @@ import COLORS from 'values/colors';
 import { h } from 'values/Dimensions';
 import { useAppDispatch } from 'redux/store';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import Fonts from 'values/fonts';
 
 const Wishlist = () => {
   const dispatch = useAppDispatch();
@@ -42,6 +43,7 @@ const Wishlist = () => {
               marginTop: h * 0.3,
               fontWeight: '500',
               fontSize: 16,
+              fontFamily: Fonts.Cairo_SemiBold,
             }}
           />
         ) : (

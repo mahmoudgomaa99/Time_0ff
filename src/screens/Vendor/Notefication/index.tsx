@@ -6,6 +6,8 @@ import { selectLanguage } from 'redux/language';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { Data } from './data';
 import Card from './Components/Card';
+import languages from 'values/languages';
+import TextView from 'atoms/TextView';
 
 const Notefication = () => {
   const lang = useSelector(selectLanguage);
@@ -26,16 +28,14 @@ const Notefication = () => {
             />
           ))}
         </ScrollView>
-      ) : // ) : (
-      //   <View style={styles(lang).noInbox}>
-      //     <Svg name="bill" size={200} />
-      //     <TextView
-      //       title={languages[lang].notHaveInbox}
-      //       style={styles(lang).text}
-      //     />
-      //   </View>
-      // )}
-      null}
+      ) : (
+        <View style={styles(lang).noInbox}>
+          <TextView
+            title={languages[lang].noNotification}
+            style={styles(lang).text}
+          />
+        </View>
+      )}
     </View>
   );
 };

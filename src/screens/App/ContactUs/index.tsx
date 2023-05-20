@@ -15,8 +15,9 @@ const ContactUs = () => {
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
-      {Data(lang).map(value => (
+      {Data(lang).map((value, index) => (
         <Card
+          key={index}
           lang={lang}
           iconName={value.iconName}
           title={value.title}

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { h, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string, isDarkMode?: boolean) => {
   return StyleSheet.create({
@@ -27,6 +28,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     title: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     subTitle: {
       fontSize: 14,
@@ -34,6 +36,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       maxWidth: w * 0.7,
       marginTop: 3,
       maxHeight: 20,
+      fontFamily: Fonts.Cairo_Regular,
     },
   });
 };

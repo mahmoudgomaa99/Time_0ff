@@ -28,8 +28,9 @@ const ReviewSection = ({
             </View>
           ))
         ) : (
-          agencyReviews.map((item: any) => (
+          agencyReviews.map((item: any, index: number) => (
             <Card
+              key={index}
               lang={lang}
               isDarkMode={isDarkMode}
               name={item.user_name}
