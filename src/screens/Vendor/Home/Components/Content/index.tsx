@@ -13,7 +13,7 @@ const Content = ({
 }: {
   isDarkMode?: boolean;
   lang: string;
-  journeys: Tjourneys;
+  journeys?: Tjourneys;
   isGetJourneysLoading: any;
 }) => {
   const navigation = useNavigation<any>();

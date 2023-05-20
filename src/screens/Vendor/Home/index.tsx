@@ -25,11 +25,11 @@ const Home = () => {
   );
   const journeys = useSelector(selectCurrentAgencyJourneys);
 
-  useFocusEffect(() => {
+  useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetAgencyJourneys(userData._id));
-    }, [userData._id]);
-  });
+    }, [userData._id]),
+  );
   console.log(journeys, 'this is journeys');
   return (
     <View style={styles(lang, isDarkMode).container}>
