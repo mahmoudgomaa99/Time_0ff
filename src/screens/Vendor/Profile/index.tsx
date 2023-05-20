@@ -1,11 +1,22 @@
-import { View, Text } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import React from 'react';
+import { styles } from './styles';
+import { useSelector } from 'react-redux';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectLanguage } from 'redux/language';
+import ImageSection from './Components/ImageSection';
+import Contents from './Components/Contents';
 
 const Profile = () => {
+  const isDarkMode = useSelector(selectIsDarkMode);
+  const lang = useSelector(selectLanguage);
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <SafeAreaView style={styles(lang, isDarkMode).container}>
+      <ImageSection isDarkMode={isDarkMode} lang={lang} />
+      <ScrollView>
+        <Contents isDarkMode={isDarkMode} lang={lang} />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

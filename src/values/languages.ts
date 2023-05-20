@@ -168,6 +168,7 @@ const languages: any = {
     hightPrice: 'Hight Price',
     lowPrice: 'Low Price',
     newest: 'Newest',
+    newActivity:'New Activity',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -332,6 +333,7 @@ const languages: any = {
     hightPrice: 'الاعلى سعرا',
     lowPrice: 'الاقل سعرا',
     newest: 'الاحدث',
+    newActivity:'نشاط جديد',
   },
 };
 export default languages;
