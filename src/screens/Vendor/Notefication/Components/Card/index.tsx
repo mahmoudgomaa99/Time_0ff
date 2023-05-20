@@ -37,18 +37,20 @@ const Card = ({
           />
           <TextView title={date} style={styles(lang).date} />
         </View>
-      </View>
-      <View style={styles(lang, isDarkMode).buttons}>
-        <TouchableOpacity
-          onPress={() => {}}
-          style={styles(lang, isDarkMode).firstButton}>
-          <TextView title={'accept'} style={styles(lang, isDarkMode).text} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {}}
-          style={styles(lang, isDarkMode).secondButton}>
-          <TextView title={'delete'} style={styles(lang, isDarkMode).text} />
-        </TouchableOpacity>
+        <View style={styles(lang, isDarkMode).buttons}>
+          <TouchableOpacity onPress={() => {}}>
+            <View style={styles(lang, isDarkMode).rigth}>
+              <View style={styles(lang, isDarkMode).lineOneR}></View>
+              <View style={styles(lang, isDarkMode).lineTwoR}></View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {}}>
+            <View style={styles(lang, isDarkMode).close}>
+              <View style={styles(lang, isDarkMode).lineOneC}></View>
+              <View style={styles(lang, isDarkMode).lineTwoC}></View>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

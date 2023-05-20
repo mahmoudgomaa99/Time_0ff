@@ -27,7 +27,7 @@ const DateModal = ({
   // function to handle selecting a date
   const [date, setDate] = useState('');
   const handleSelectDate = (date: any) => {
-    formikProps.setFieldValue(name, moment(date.dateString).format('L'));
+    formikProps.setFieldValue(name, date.dateString);
     setDate(date.dateString);
   };
 

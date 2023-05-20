@@ -7,16 +7,19 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       alignItems: 'center',
-      marginBottom: h * 0.01,
+      marginBottom: h * 0.025,
       borderRadius: 10,
       paddingTop: 10,
-      // paddingBottom: 5,
+      paddingBottom: 5,
+      backgroundColor: 'white',
+      elevation: 13,
+      shadowColor: '#ddd',
     },
     first: {
       flex: 1.4,
     },
     second: {
-      flex: 6,
+      flex: 4.6,
       marginHorizontal: 7,
     },
     message: {
@@ -33,6 +36,8 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     buttons: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       justifyContent: 'space-around',
+      alignItems: 'center',
+      flex: 1.4,
     },
     firstButton: {
       flex: 1,
@@ -52,6 +57,41 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontSize: 25,
       paddingHorizontal: 10,
       paddingVertical: 5,
+    },
+
+    rigth: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 2,
+    },
+    lineOneR: {
+      width: 20,
+      height: 3,
+      backgroundColor: 'green',
+      transform: [{ rotate: '-45deg' }],
+    },
+    lineTwoR: {
+      width: 12,
+      height: 3,
+      backgroundColor: 'green',
+      transform: [{ rotate: '45deg' }, { translateX: -7 }, { translateY: 8 }],
+    },
+    close: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      transform: [{ rotate: '45deg' }],
+    },
+    lineOneC: {
+      width: 20,
+      height: 3,
+      backgroundColor: 'red',
+      transform: [{ rotate: '180deg' }, { translateY: -3 }],
+    },
+    lineTwoC: {
+      width: 20,
+      height: 3,
+      backgroundColor: 'red',
+      transform: [{ rotate: '90deg' }],
     },
   });
 };

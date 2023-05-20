@@ -30,7 +30,7 @@ const Content = ({
         : journeys.map((item?: any) => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('detailsTrip', { id: item._id });
+                // navigation.navigate('detailsTrip', { id: item._id });
               }}>
               <Card
                 title={

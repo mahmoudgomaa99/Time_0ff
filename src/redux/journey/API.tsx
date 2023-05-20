@@ -154,7 +154,10 @@ const AddJourney = (data: {
   arabic_category: string;
   availability: {
     date: any;
-    hours: any[];
+    details: {
+      hour: string;
+      capacity: number;
+    }[];
   }[];
 }) => api.post('journeys', data);
 

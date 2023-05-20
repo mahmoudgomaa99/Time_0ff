@@ -49,12 +49,12 @@ const Home = () => {
           <Text style={styles().plus}>+</Text>
         </TouchableOpacity>
       </View>
-      {/* <Content
+      <Content
         isDarkMode={isDarkMode}
         lang={lang}
         journeys={journeys}
         isGetJourneysLoading={isGetJourneysLoading}
-      /> */}
+      />
     </View>
   );
 };
