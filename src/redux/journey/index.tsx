@@ -99,7 +99,12 @@ const slice = createSlice({
     builder.addCase(thunks.doGetFavJourneys.rejected, (state, action) => {
       console.log(action);
     });
-   
+    builder.addCase(thunks.doAddJourney.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doAddJourney.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 

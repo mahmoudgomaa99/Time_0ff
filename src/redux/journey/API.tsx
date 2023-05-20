@@ -140,6 +140,23 @@ const GetAgency = (id: number) => api.get(`agencies/28`);
 const GetAgencyReviews = (id: number) => api.get(`agencies/reviews/28`);
 const AddFavourite = (id: number) => api.put(`journeys/favorite/${id}`);
 const GetFavJourneys = () => api.get('users/journeys');
+const AddJourney = (data: {
+  journey_name: string;
+  category: string;
+  description: string;
+  start_date: any;
+  capacity: number;
+  price: number;
+  location: string;
+  arabic_journey_name: string;
+  arabic_description: string;
+  arabic_location: string;
+  arabic_category: string;
+  availability: {
+    date: any;
+    hours: any[];
+  }[];
+}) => api.post('journeys', data);
 
 const JourneysApi = {
   GetJourneys,
@@ -151,7 +168,7 @@ const JourneysApi = {
   GetHotJourneys,
   AddFavourite,
   GetFavJourneys,
-  
+  AddJourney,
 };
 
 export default JourneysApi;

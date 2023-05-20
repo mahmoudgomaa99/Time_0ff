@@ -164,7 +164,7 @@ const Picker = ({
                   borderColor:
                     props.errors[props.name] && props.touched[props.name]
                       ? COLORS.red
-                      : '#F2F2F2',
+                      : borderColor,
                 },
                 modalViewMiddle: styles(isDarkMode)[`${type}_modalHeader`],
                 modalViewBottom: styles(isDarkMode)[`${type}_modalBody`],
