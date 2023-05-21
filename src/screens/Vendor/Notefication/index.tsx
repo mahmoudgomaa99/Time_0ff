@@ -32,7 +32,7 @@ const Notefication = () => {
         <View style={styles(lang).noInbox}>
           <TextView
             title={languages[lang].noNotification}
-            style={styles(lang).text}
+            style={styles(lang, isDarkMode).text}
           />
         </View>
       )}

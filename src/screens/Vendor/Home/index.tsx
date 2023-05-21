@@ -42,7 +42,9 @@ const Home = () => {
           marginVertical: 20,
           marginHorizontal: 10,
         }}>
-        <Text style={styles().title}>{languages[lang].journeys}</Text>
+        <Text style={styles(lang, isDarkMode).title}>
+          {languages[lang].journeys}
+        </Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('addJourney');

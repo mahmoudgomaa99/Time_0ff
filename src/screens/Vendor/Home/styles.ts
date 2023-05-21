@@ -26,7 +26,6 @@ export const styles = (lang?: string, isDarkMode?: boolean) => {
       fontSize: 20,
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginHorizontal: 20,
-
       fontFamily: Fonts.Cairo_SemiBold,
     },
   });
