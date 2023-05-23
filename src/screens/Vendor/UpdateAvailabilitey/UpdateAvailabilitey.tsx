@@ -15,7 +15,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
-import Picker from 'components/molecules/Picker';
 import Svg from 'atoms/Svg';
 import DateModal from './Components/DateModal';
 import Button from 'components/molecules/Button';
@@ -27,11 +26,9 @@ import moment from 'moment';
 import { useAppDispatch } from 'redux/store';
 import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-const AddJourney = () => {
+const UpdateAvailabilitey = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
@@ -40,7 +37,9 @@ const AddJourney = () => {
   const [isTimeModalVisable, setisTimeModalVisable] = useState(false);
   const [name, setName] = useState('');
   const [name2, setName2] = useState('');
-  const isLoading = useLoadingSelector(Journeys.thunks.doAddJourney);
+  const isLoading = useLoadingSelector(
+    Journeys.thunks.doUpdateJourneyAvailabilitey,
+  );
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -48,13 +47,6 @@ const AddJourney = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Formik
           initialValues={{
-            journey_name: '',
-            category: '',
-            capacity: 0,
-            price: 0,
-            location: '',
-            description: '',
-            start_date: '',
             availability: [
               {
                 date: '',
@@ -69,167 +61,9 @@ const AddJourney = () => {
           }}
           onSubmit={values => {
             console.log(values.availability[0].details);
-            dispatch(
-              Journeys.thunks.doAddJourney({
-                journey_name: values.journey_name,
-                category: values.category,
-                description: values.description,
-                start_date: values.start_date,
-                capacity: values.capacity,
-                price: values.price,
-                location: values.location,
-                arabic_journey_name: values.journey_name,
-                arabic_description: values.description,
-                arabic_location: values.location,
-                arabic_category: values.category,
-                availability: values.availability,
-                end_date: values.start_date,
-              }),
-            )
-              .then(unwrapResult)
-              .then(() => {
-                navigation.goBack();
-              })
-              .catch(err => {
-                console.log(err, 'll');
-                Toast.show({
-                  type: 'error',
-                  text2: err.message,
-                });
-              });
-            // console.log(values.availability);
           }}>
           {props => (
             <View>
-              <InputView
-                style={styles(lang).input}
-                {...props}
-                name={'journey_name'}
-                label={languages[lang].journey_name}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 4 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                placeholder={'Enter journey name'}
-              />
-              <Picker
-                {...props}
-                borderColor={'#6a6969'}
-                type={'primary'}
-                data={[
-                  { label: 'diving', value: 'diving' },
-                  { label: 'trips', value: 'trips' },
-                  { label: 'aquaPark', value: 'aquaPark' },
-                  { label: 'nileTrip', value: 'nileTrip' },
-                  { label: 'bBuggy', value: 'bBuggy' },
-                  { label: 'surfing', value: 'surfing' },
-                ]}
-                name={'category'}
-                stylingProp={{ borderColor: 'red', borderWith: 30 }}
-                placeholder={'Select category'}
-              />
-              <InputView
-                style={styles(lang).input}
-                {...props}
-                name={'description'}
-                label={languages[lang].description}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 4 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                placeholder="Enter description"
-              />
-              <InputView
-                style={styles(lang).input}
-                {...props}
-                name={'location'}
-                label={languages[lang].location}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 4 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                placeholder="Enter location"
-              />
-              <InputView
-                style={styles(lang).input}
-                {...props}
-                name={'capacity'}
-                label={languages[lang].capacity}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 4 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                keyboardType="number-pad"
-                placeholder="Enter capacity"
-              />
-              <InputView
-                style={styles(lang).input}
-                placeholder="Enter price"
-                {...props}
-                name={'price'}
-                label={languages[lang].price}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 4 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                keyboardType="number-pad"
-              />
-              <TouchableOpacity
-                onPress={() => {
-                  setName('start_date');
-                  setDateModalVisable(true);
-                }}
-                style={[
-                  styles(lang, isDarkMode).containerStyle,
-                  {
-                    marginTop: 20,
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    paddingHorizontal: 10,
-                  },
-                ]}>
-                <Svg name="calendar" />
-                <Text
-                  style={[
-                    styles(lang, isDarkMode).text,
-                    {
-                      fontSize: 14,
-                      marginTop: -8,
-                      marginLeft: 6,
-                      color:
-                        props.values.start_date.length > 1 ? '#000' : '#cdc9c9',
-                    },
-                  ]}>
-                  {props.values.start_date.length > 1
-                    ? props.values.start_date
-                    : languages[lang].start_date}
-                </Text>
-              </TouchableOpacity>
               <View
                 style={{
                   flexDirection: 'row',
@@ -259,20 +93,9 @@ const AddJourney = () => {
                   title={languages[lang].add}
                 />
               </View>
-              <View
-                style={{
-                  height: 0.8,
-                  width: w * 0.98,
-                  backgroundColor: COLORS.black,
-                  marginTop: 23,
-                }}
-              />
+
               {props.values.availability.map((item, index) => (
-                <View style={{ marginTop: 10 }} key={index}>
-                  <TextView
-                    style={styles(lang, isDarkMode).text}
-                    title={languages[lang].day}
-                  />
+                <View key={index}>
                   <TouchableOpacity
                     onPress={() => {
                       setName(`availability[${index}].date`);
@@ -476,4 +299,4 @@ const AddJourney = () => {
   );
 };
 
-export default AddJourney;
+export default UpdateAvailabilitey;

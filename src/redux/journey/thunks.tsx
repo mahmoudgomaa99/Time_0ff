@@ -120,11 +120,62 @@ const doAddJourney = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.AddJourney(data);
-      if (response.status === 400) {
+      if (response.status === 400 || response.status === 401) {
         throw response.data;
       } else {
         return { data: response };
       }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doUpdatJourney_Image = createAsyncThunk<any, any, any>(
+  'journeys/updateJourneyImage',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.UpdateJourney_Image(data);
+      // if (response.status === 400) {
+      //   throw response.data;
+      // } else {
+      return { data: response };
+      // }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doGetJourneysAvilabilitey = createAsyncThunk<any, any, any>(
+  'journeys/GetJourneysAvilabilitey',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetJourneyAvailabilitey(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doUpdateJourneyAvailabilitey = createAsyncThunk<any, any, any>(
+  'journeys/UpdateJourneyAvailabilitey',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.UpdateJourneyAvailabilitey(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doRemoveJourneys = createAsyncThunk<any, any, any>(
+  'journeys/RemoveJourneys',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.RemoveJourney(data);
+      if (response.status === 500) {
+        throw response.data;
+      }
+      return { data: response.data };
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -142,6 +193,10 @@ const thunks = {
   doAddFavourite,
   doGetFavJourneys,
   doAddJourney,
+  doUpdatJourney_Image,
+  doGetJourneysAvilabilitey,
+  doUpdateJourneyAvailabilitey,
+  doRemoveJourneys,
 };
 
 export default thunks;

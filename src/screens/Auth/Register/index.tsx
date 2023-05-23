@@ -16,30 +16,22 @@ import Svg from 'atoms/Svg';
 import COLORS from 'values/colors';
 import { useAppDispatch } from 'redux/store';
 import User from 'redux/user';
-import { log } from 'react-native-reanimated';
 import { useLoadingSelector } from 'redux/selectors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import axios from 'axios';
 import { selectUserType } from 'redux/UserType';
-import { h } from '../../../values/Dimensions';
-import Journeys from 'redux/journey';
 import Fonts from 'values/fonts';
 
 const Register = () => {
   const userType = useSelector(selectUserType);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
-
   const isLoading = useLoadingSelector(User.thunks.doSignUp);
-  const isLoading2 = useLoadingSelector(User.thunks.doAddAgency);
-
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
-
   const [secure, setSecure] = useState(true);
-
   const [allData, setallData] = useState([]);
   useEffect(() => {
     const getCountries = () =>
@@ -83,51 +75,26 @@ const Register = () => {
           password: '',
           city: '',
           country: '',
-          description: '',
-          arabic_description: '',
         }}
         onSubmit={values => {
-          if (userType === 'user') {
-            dispatch(
-              User.thunks.doSignUp({
-                name: values.fullName,
-                phone: values.phoneNumber,
-                email: values.email,
-                password: values.password,
-                type: 'user',
-                city: values.city,
-                country: values.country,
-              }),
-            )
-              .then(unwrapResult)
-              .then(() => {
-                navigation.navigate('app', { screen: 'map' });
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          } else {
-            dispatch(
-              User.thunks.doAddAgency({
-                name: values.fullName,
-                phone: values.phoneNumber,
-                email: values.email,
-                password: values.password,
-                type: 'agency',
-                city: values.city,
-                country: values.country,
-                description: values.description,
-                arabic_description: values.arabic_description,
-              }),
-            )
-              .then(unwrapResult)
-              .then(() => {
-                navigation.navigate('app', { screen: 'map' });
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          }
+          dispatch(
+            User.thunks.doSignUp({
+              name: values.fullName,
+              phone: values.phoneNumber,
+              email: values.email,
+              password: values.password,
+              type: userType,
+              city: values.city,
+              country: values.country,
+            }),
+          )
+            .then(unwrapResult)
+            .then(() => {
+              navigation.navigate('app', { screen: 'map' });
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }}
         validationSchema={registerScheme(lang)}>
         {props => (
@@ -204,7 +171,7 @@ const Register = () => {
               }
               secureTextEntry={secure}
             />
-            {userType === 'agency' && (
+            {/* {userType === 'agency' && (
               <InputView
                 {...props}
                 name={'description' && 'arabic_description'}
@@ -221,7 +188,7 @@ const Register = () => {
                 ]}
                 labelStyle={[styles(isDarkMode).label_style]}
               />
-            )}
+            )} */}
 
             <Picker
               {...props}
@@ -247,7 +214,7 @@ const Register = () => {
               type="primary"
               label={languages[lang].register}
               style={{ marginTop: 10 }}
-              isLoading={userType === 'user' ? isLoading : isLoading2}
+              isLoading={isLoading}
             />
             <View
               style={[

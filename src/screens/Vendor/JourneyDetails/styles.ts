@@ -67,9 +67,19 @@ export const styles = (lang?: string, isDarkMode?: boolean) =>
       fontFamily: Fonts.Cairo_SemiBold,
     },
     button: {
-      marginTop: 20,
+      marginTop: 30,
       width: w * 0.8,
       marginLeft: 'auto',
       marginRight: 'auto',
+    },
+    img_container: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: 10,
+    },
+    img: {
+      width: w * 0.3,
+      height: w * 0.3,
+      borderRadius: w * 0.1,
     },
   });

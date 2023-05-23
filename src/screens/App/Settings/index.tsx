@@ -11,9 +11,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import AuthModal from 'components/organisms/AuthModal';
 import useModalHandler from 'hooks/Modal';
+import { UserType, selectUserType } from 'redux/UserType';
+import { TouchableOpacity, View } from 'react-native';
+import User from 'redux/user';
+import { useAppDispatch } from 'redux/store';
+import languages from 'values/languages';
+import TextView from 'atoms/TextView';
+import Svg from 'atoms/Svg';
 
 const Settings = () => {
+  const dispatch = useAppDispatch();
   const isDarkMode = useSelector(selectIsDarkMode);
+  const userType = useSelector(selectUserType);
   const lang = useSelector(selectLanguage);
   const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler();
   const [isLanguageModel, setisLanguageModel] = useState(false);
@@ -32,6 +41,22 @@ const Settings = () => {
         setisPasswordModel={setisPasswordModel}
         openCustomModal={openCustomModal}
       />
+      {userType && (
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(User.logout());
+            dispatch(UserType.setUserData(undefined));
+          }}
+          style={styles(lang, isDarkMode).Lcontainer}>
+          <View style={styles(lang, isDarkMode).innerContainer}>
+            <Svg name="logout" size={60} />
+            <TextView
+              title={languages[lang].logout}
+              style={styles(lang, isDarkMode).text}
+            />
+          </View>
+        </TouchableOpacity>
+      )}
       <LanguageModel
         isLanguageModel={isLanguageModel}
         setisLanguageModel={setisLanguageModel}
