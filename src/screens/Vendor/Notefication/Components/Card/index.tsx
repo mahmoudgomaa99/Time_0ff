@@ -16,12 +16,11 @@ const Card = ({
   iconName: any;
   message: string;
   date: string;
-
   isDarkMode?: boolean;
 }) => {
   return (
     <View>
-      <View style={styles(lang).container}>
+      <View style={styles(lang, isDarkMode).container}>
         <View style={styles(lang).first}>
           <Svg name={iconName} size={80} />
         </View>

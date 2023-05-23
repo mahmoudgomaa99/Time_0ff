@@ -18,21 +18,23 @@ const Notefication = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ marginHorizontal: 10 }}>
-          {Data(lang).map(value => (
-            <Card
-              lang={lang}
-              iconName={value.iconName}
-              message={value.message}
-              date={value.date}
-              isDarkMode={isDarkMode}
-            />
+          {Data(lang).map((value, index) => (
+            <View key={index}>
+              <Card
+                lang={lang}
+                iconName={value.iconName}
+                message={value.message}
+                date={value.date}
+                isDarkMode={isDarkMode}
+              />
+            </View>
           ))}
         </ScrollView>
       ) : (
         <View style={styles(lang).noInbox}>
           <TextView
             title={languages[lang].noNotification}
-            style={styles(lang).text}
+            style={styles(lang, isDarkMode).text}
           />
         </View>
       )}

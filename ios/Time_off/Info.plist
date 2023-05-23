@@ -44,6 +44,8 @@
 	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>InstaPadel App need the permission to select a photo from your Library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-ThinItalic.ttf</string>

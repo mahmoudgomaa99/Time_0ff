@@ -4,6 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import Card from 'screens/App/MainPage/Components/Card';
 import { Tjourneys } from 'redux/journey/model';
+import languages from 'values/languages';
+import COLORS from 'values/colors';
+import { h } from 'values/Dimensions';
 
 const Content = ({
   lang,
@@ -21,17 +24,19 @@ const Content = ({
 
   return (
     <ScrollView>
-      {isGetJourneysLoading
-        ? [...Array(20)].map(i => (
-            <View key={i}>
-              <SkeletonItem />
-            </View>
-          ))
-        : journeys?.map((item?: any) => (
+      {isGetJourneysLoading ? (
+        [...Array(20)].map(i => (
+          <View key={i}>
+            <SkeletonItem />
+          </View>
+        ))
+      ) : journeys?.length !== 0 ? (
+        <>
+          {journeys?.map((item?: any) => (
             <TouchableOpacity
-              disabled
+              key={item._id}
               onPress={() => {
-                // navigation.navigate('detailsTrip', { id: item._id });
+                navigation.navigate('journeyDetails', { id: item._id });
               }}>
               <Card
                 title={
@@ -50,6 +55,19 @@ const Content = ({
               />
             </TouchableOpacity>
           ))}
+        </>
+      ) : (
+        <View>
+          <Text
+            style={{
+              textAlign: 'center',
+              marginTop: h * 0.1,
+              color: COLORS.grey,
+            }}>
+            {languages[lang].noJourneys}
+          </Text>
+        </View>
+      )}
     </ScrollView>
   );
 };

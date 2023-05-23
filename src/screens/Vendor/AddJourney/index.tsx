@@ -29,6 +29,7 @@ import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const AddJourney = () => {
   const dispatch = useAppDispatch();
@@ -42,9 +43,9 @@ const AddJourney = () => {
   const isLoading = useLoadingSelector(Journeys.thunks.doAddJourney);
 
   return (
-    <SafeAreaView style={styles().container}>
+    <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Formik
           initialValues={{
             journey_name: '',
@@ -72,7 +73,7 @@ const AddJourney = () => {
               Journeys.thunks.doAddJourney({
                 journey_name: values.journey_name,
                 category: values.category,
-                description: values.category,
+                description: values.description,
                 start_date: values.start_date,
                 capacity: values.capacity,
                 price: values.price,
@@ -90,7 +91,11 @@ const AddJourney = () => {
                 navigation.goBack();
               })
               .catch(err => {
-                console.log(err);
+                console.log(err, 'll');
+                Toast.show({
+                  type: 'error',
+                  text2: err.message,
+                });
               });
             // console.log(values.availability);
           }}>
@@ -110,6 +115,7 @@ const AddJourney = () => {
                   { marginTop: 4 },
                 ]}
                 labelStyle={[styles(lang).label_style]}
+                placeholder={'Enter journey name'}
               />
               <Picker
                 {...props}
@@ -141,6 +147,7 @@ const AddJourney = () => {
                   { marginTop: 4 },
                 ]}
                 labelStyle={[styles(lang).label_style]}
+                placeholder="Enter description"
               />
               <InputView
                 style={styles(lang).input}
@@ -156,6 +163,7 @@ const AddJourney = () => {
                   { marginTop: 4 },
                 ]}
                 labelStyle={[styles(lang).label_style]}
+                placeholder="Enter location"
               />
               <InputView
                 style={styles(lang).input}
@@ -172,9 +180,11 @@ const AddJourney = () => {
                 ]}
                 labelStyle={[styles(lang).label_style]}
                 keyboardType="number-pad"
+                placeholder="Enter capacity"
               />
               <InputView
                 style={styles(lang).input}
+                placeholder="Enter price"
                 {...props}
                 name={'price'}
                 label={languages[lang].price}
@@ -249,9 +259,20 @@ const AddJourney = () => {
                   title={languages[lang].add}
                 />
               </View>
-
+              <View
+                style={{
+                  height: 0.8,
+                  width: w * 0.98,
+                  backgroundColor: COLORS.black,
+                  marginTop: 23,
+                }}
+              />
               {props.values.availability.map((item, index) => (
-                <View key={index}>
+                <View style={{ marginTop: 10 }} key={index}>
+                  <TextView
+                    style={styles(lang, isDarkMode).text}
+                    title={languages[lang].day}
+                  />
                   <TouchableOpacity
                     onPress={() => {
                       setName(`availability[${index}].date`);
@@ -311,6 +332,7 @@ const AddJourney = () => {
                   </View>
                   {props.values.availability[index].details.map((item, i) => (
                     <View
+                      key={i}
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -373,6 +395,7 @@ const AddJourney = () => {
                           ]}
                           labelStyle={[styles(lang).label_style]}
                           keyboardType="number-pad"
+                          placeholder="0"
                         />
                       </View>
 

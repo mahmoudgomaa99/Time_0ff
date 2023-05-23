@@ -187,6 +187,13 @@ const languages: any = {
     remove: 'Remove',
     availabilities: 'Availabilities',
     hour: 'Hour',
+    journeysDetails: 'Journeys Details',
+    edit_image: 'Edit Image',
+    edit: 'Edit',
+    day: 'Day',
+    delete: 'Delete',
+    select_image: 'Select Image',
+    noJourneys: 'There is no journeys',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -370,6 +377,13 @@ const languages: any = {
     remove: 'حذف',
     availabilities: 'التوفر',
     hour: 'ساعة',
+    journeyDetails: 'تفاصيل الرحلة',
+    edit_image: 'تعديل الصورة',
+    edit: 'تعديل',
+    day: 'يوم',
+    delete: 'حذف',
+    select_image: 'اختر صورة',
+    noJourneys: 'لا يوجد رحلات',
   },
 };
 export default languages;

@@ -60,9 +60,10 @@ import Setting from './Setting';
 import Wishlist from './Whishlist';
 import Logout2 from './Logout2';
 import Sort from './Sort';
+import Trash from './Trash';
 const svgs = {
   default: Logo,
-
+  trash: Trash,
   rightArrow: RightArrow,
   leftArrow: LeftArrow,
   google: Google,

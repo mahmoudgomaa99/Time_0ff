@@ -4,6 +4,7 @@ import thunks from './thunks';
 import { RootState } from 'redux/store';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Tagency, Tjourneys } from './model';
+import { data } from '../../screens/App/Settings/Components/Card/data';
 
 type TInitialValues = {
   journeys: Tjourneys;
@@ -14,6 +15,12 @@ type TInitialValues = {
   discountJourneys: Tjourneys;
   hotJourneys: Tjourneys;
   favJourneys: Tjourneys;
+  journey_availabilitey: {
+    _id: number;
+    available_date: string;
+    hour: string;
+    capacity: number;
+  }[];
 };
 
 const initialValues: TInitialValues = {
@@ -25,6 +32,7 @@ const initialValues: TInitialValues = {
   discountJourneys: [],
   hotJourneys: [],
   favJourneys: [],
+  journey_availabilitey: [],
 };
 
 const slice = createSlice({
@@ -100,10 +108,59 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doAddJourney.fulfilled, (state, action) => {
-      console.log(action);
+      console.log(action.payload.data.data);
     });
     builder.addCase(thunks.doAddJourney.rejected, (state, action) => {
+      console.log(action.payload);
+    });
+    builder.addCase(thunks.doUpdatJourney_Image.fulfilled, (state, action) => {
+      console.log(action.payload.data, 'kkkk');
+    });
+    builder.addCase(
+      thunks.doUpdatJourney_Image.rejected,
+      (state, action: any) => {
+        console.log(action.payload.data, 'lll');
+      },
+    );
+    builder.addCase(
+      thunks.doGetJourneysAvilabilitey.fulfilled,
+      (state, action) => {
+        // console.log(action.payload.data.data);
+        state.journey_availabilitey = action.payload.data.data;
+      },
+    );
+    builder.addCase(
+      thunks.doGetJourneysAvilabilitey.rejected,
+      (state, action) => {
+        console.log(action.payload);
+      },
+    );
+    builder.addCase(
+      thunks.doUpdateJourneyAvailabilitey.fulfilled,
+      (state, action) => {
+        console.log(action.payload.data);
+      },
+    );
+
+    builder.addCase(
+      thunks.doUpdateJourneyAvailabilitey.rejected,
+      (state, action) => {
+        console.log(action.payload);
+      },
+    );
+    builder.addCase(thunks.doRemoveJourneys.fulfilled, (state, action) => {
+      console.log(action.payload.data);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.data.message,
+      });
+    });
+    builder.addCase(thunks.doRemoveJourneys.rejected, (state, action: any) => {
       console.log(action);
+      Toast.show({
+        type: 'error',
+        text2: action.payload.message,
+      });
     });
   },
 });
@@ -128,5 +185,7 @@ export const selectCurrentAgencyReviews = (state: RootState) =>
 export const selectCurrentAgency = (state: RootState) => state.journeys.agency;
 export const selectCurrentDiscountJourneys = (state: RootState) =>
   state.journeys.discountJourneys;
+export const selectCurrentJourneysAvilabilitey = (state: RootState) =>
+  state.journeys.journey_availabilitey;
 
 export default Journeys;

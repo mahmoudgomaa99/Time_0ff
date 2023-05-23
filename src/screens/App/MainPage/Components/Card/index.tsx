@@ -6,6 +6,8 @@ import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
+import { selectUserType } from 'redux/UserType/index';
+import { useSelector } from 'react-redux';
 
 const Card = ({
   title,
@@ -28,6 +30,7 @@ const Card = ({
   isFav: boolean;
   urlImage: string;
 }) => {
+  const userType = useSelector(selectUserType);
   return (
     <View
       style={[
@@ -48,11 +51,12 @@ const Card = ({
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
           <TextView title={title} style={styles(isDarkMode).title} />
-          <View style={styles(isDarkMode).heart}>
-            <Svg name="heart" size={20} bgColor={isFav ? 'red' : 'white'} />
-          </View>
+          {userType === 'user' && (
+            <View style={styles(isDarkMode).heart}>
+              <Svg name="heart" size={20} bgColor={isFav ? 'red' : 'white'} />
+            </View>
+          )}
         </View>
-
         <View>
           <TextView
             title={description}
@@ -67,6 +71,7 @@ const Card = ({
           style={[
             styles(isDarkMode).location,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
+            
           ]}>
           <Svg name="location" size={20} />
           <TextView title={location} style={styles(isDarkMode).locationText} />

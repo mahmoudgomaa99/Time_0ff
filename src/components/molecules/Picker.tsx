@@ -45,6 +45,7 @@ type TProps = {
   placeholder?: any;
   onDonePressed?: any;
   borderColor: any;
+  disabled?: boolean;
 };
 
 const Picker = ({
@@ -56,6 +57,7 @@ const Picker = ({
   svgName,
   onDonePressed,
   borderColor,
+  disabled,
   ...props
 }: TProps) => {
   const lang = useSelector(selectLanguage);
@@ -73,6 +75,7 @@ const Picker = ({
         {Platform.OS === 'ios' ? (
           <RNPickerSelect
             {...props}
+            disabled={disabled}
             // errorText={{ fontSize: 30 }}
 
             placeholder={{
@@ -136,6 +139,7 @@ const Picker = ({
                   : borderColor,
             }}>
             <RNPickerSelect
+              disabled={disabled}
               {...props}
               placeholder={{
                 label: props.placeholder || 'Select an Item',

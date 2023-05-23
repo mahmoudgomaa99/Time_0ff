@@ -19,6 +19,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontSize: 18,
       fontWeight: '600',
       fontFamily: Fonts.Cairo_SemiBold,
+      color: isDarkMode ? COLORS.white : COLORS.black,
     },
   });
 };

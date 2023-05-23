@@ -55,12 +55,12 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
     location: {
       flexDirection: 'row',
       alignItems: 'center',
+      marginVertical: 5,
     },
     locationText: {
       fontSize: 10,
       color: isDarkMode ? COLORS.white : '#000000',
-      marginBottom: 5,
-      lineHeight: 14,
+      lineHeight: 16,
       fontFamily: Fonts.Cairo_Regular,
     },
     end: {

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { h, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
@@ -38,6 +39,7 @@ export const styles = (isDarkMode?: boolean) =>
       fontSize: 14,
       color: isDarkMode ? COLORS.white : COLORS.black,
       lineHeight: 19,
+      fontFamily: Fonts.Cairo_Regular,
     },
     nameText: {
       fontSize: 16,
@@ -46,6 +48,7 @@ export const styles = (isDarkMode?: boolean) =>
       textAlign: 'center',
       fontWeight: '400',
       marginBottom: 10,
+      fontFamily: Fonts.Cairo_SemiBold,
+      marginTop: 5,
     },
-    
   });

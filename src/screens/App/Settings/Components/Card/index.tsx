@@ -37,7 +37,7 @@ const Card = ({
   return (
     <View style={styles(lang).parentContainer}>
       {data(lang).map((value: any, index) => (
-        <View>
+        <View key={index}>
           <TouchableOpacity
             onPress={() => {
               value.show === 'language'
@@ -48,7 +48,7 @@ const Card = ({
                 ? currentUser
                   ? setisPasswordModel(true)
                   : openCustomModal()
-                : navigation.navigate('contactUs');
+                : navigation.navigate('app', { screen: 'contactUs' });
             }}
             style={styles(lang).container}>
             <View style={styles(lang).innerContainer}>
