@@ -49,7 +49,8 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetUser.fulfilled, (state, action) => {
-      console.log(action);
+      console.log(action.payload.data, 'lllll');
+      state.currentUser = action.payload.data.data;
     });
     builder.addCase(thunks.doGetUser.rejected, (state, action) => {
       console.log(action);
@@ -68,6 +69,12 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doAddAgency.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doUpdateImage.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doUpdateImage.rejected, (state, action) => {
       console.log(action);
     });
   },

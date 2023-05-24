@@ -132,9 +132,9 @@ const doAddJourney = createAsyncThunk<any, any, any>(
 );
 const doUpdatJourney_Image = createAsyncThunk<any, any, any>(
   'journeys/updateJourneyImage',
-  async (data, { rejectWithValue }) => {
+  async ({ data, id }, { rejectWithValue }) => {
     try {
-      const response = await JourneysApi.UpdateJourney_Image(data);
+      const response = await JourneysApi.UpdateJourney_Image(data, id);
       // if (response.status === 400) {
       //   throw response.data;
       // } else {

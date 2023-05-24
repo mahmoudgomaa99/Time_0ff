@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from 'redux/user';
+import User, { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import Journeys, { selectCurrentAgencyJourneys } from 'redux/journey';
 import { useAppDispatch } from 'redux/store';
@@ -18,6 +18,7 @@ const Home = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
+  
   // console.log(userData);
   const dispatch = useAppDispatch();
   const isGetJourneysLoading = useLoadingSelector(
@@ -27,8 +28,13 @@ const Home = () => {
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetAgencyJourneys(userData._id));
-    }, [userData._id]),
+      dispatch(Journeys.thunks.doGetAgencyJourneys(userData?._id));
+    }, [userData?._id]),
+  );
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(User.thunks.doGetUser({}));
+    }, []),
   );
   // console.log(journeys, 'this is journeys');
   return (
