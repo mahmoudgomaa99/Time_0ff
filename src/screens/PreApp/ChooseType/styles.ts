@@ -3,23 +3,23 @@ import { h } from 'values/Dimensions';
 import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 
-export const styles = (type?: string, choosen?: string) =>
+export const styles = (type?: string, choosen?: string, isDarkMode?: boolean) =>
   StyleSheet.create({
     conatiner: {
       flex: 1,
-      backgroundColor: COLORS.white,
+      backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
       alignItems: 'center',
       paddingTop: h * 0.07,
     },
     title: {
       fontSize: 20,
       fontWeight: 'bold',
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       fontFamily: Fonts.Cairo_Bold,
     },
     sub_title: {
       fontSize: 16,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       marginTop: 20,
       fontFamily: Fonts.Cairo_Regular,
     },

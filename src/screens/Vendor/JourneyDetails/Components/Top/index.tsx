@@ -10,6 +10,7 @@ import Journeys from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useLoadingSelector } from 'redux/selectors';
 import COLORS from 'values/colors';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const Top = ({
   lang,
@@ -45,7 +46,11 @@ const Top = ({
             .catch(err => {})
         }>
         {isLoading ? (
-          <ActivityIndicator size="large" color={COLORS.red} />
+          <SkeletonPlaceholder borderRadius={15} backgroundColor="#c8c8c8">
+            <SkeletonPlaceholder.Item marginLeft={'auto'} marginRight={'auto'}>
+              <View style={styles(lang, isDarkMode).image} />
+            </SkeletonPlaceholder.Item>
+          </SkeletonPlaceholder>
         ) : (
           <Svg name="trash" size={60} />
         )}

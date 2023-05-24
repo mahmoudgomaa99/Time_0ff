@@ -32,7 +32,7 @@ const ImageSection = ({
   const { source, pick } = useLibraryPermission();
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
   const user = useSelector(selectCurrentUser);
-
+  console.log(user ,'this is user')
   return (
     <View style={styles(lang,isDarkMode).container}>
       <TouchableOpacity

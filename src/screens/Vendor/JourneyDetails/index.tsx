@@ -36,6 +36,8 @@ import {
 import Top from './Components/Top';
 import useLibraryPermission from 'hooks/useLibraryPermission';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import Skeleton from '../Profile/Components/Skeleton';
 
 const JourneyDetails = () => {
   const dispatch = useAppDispatch();
@@ -59,14 +61,14 @@ const JourneyDetails = () => {
     }, [id]),
   );
   //   console.log(journey, source);
+  console.log(id, 'sss');
+  console.log(journey?._id, 'test');
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
-      <Top lang={lang} isDarkMode={isDarkMode} id={journey._id} />
+      <Top lang={lang} isDarkMode={isDarkMode} id={journey?._id} />
       {isLoading ? (
-        <View>
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        </View>
+        <Skeleton />
       ) : (
         <ScrollView
           contentContainerStyle={{ paddingBottom: h * 0.04 }}
@@ -162,8 +164,8 @@ const JourneyDetails = () => {
                   ]}
                   labelStyle={[styles(lang).label_style]}
                   placeholder={
-                    journey.journey_name ||
-                    journey.arabic_journey_name ||
+                    journey?.journey_name ||
+                    journey?.arabic_journey_name ||
                     'Enter journey name'
                   }
                   disabled
@@ -183,8 +185,8 @@ const JourneyDetails = () => {
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
                   placeholder={
-                    journey.category ||
-                    journey.arabic_category ||
+                    journey?.category ||
+                    journey?.arabic_category ||
                     'Select category'
                   }
                   disabled={true}
@@ -204,8 +206,8 @@ const JourneyDetails = () => {
                   ]}
                   labelStyle={[styles(lang).label_style]}
                   placeholder={
-                    journey.description ||
-                    journey.arabic_description ||
+                    journey?.description ||
+                    journey?.arabic_description ||
                     'Enter description'
                   }
                   disabled
@@ -225,8 +227,8 @@ const JourneyDetails = () => {
                   ]}
                   labelStyle={[styles(lang).label_style]}
                   placeholder={
-                    journey.location ||
-                    journey.arabic_location ||
+                    journey?.location ||
+                    journey?.arabic_location ||
                     'Enter location'
                   }
                   disabled
@@ -246,12 +248,12 @@ const JourneyDetails = () => {
                   ]}
                   labelStyle={[styles(lang).label_style]}
                   keyboardType="number-pad"
-                  placeholder={journey.capacity.toString() || 'Enter capacity'}
+                  placeholder={journey?.capacity.toString() || 'Enter capacity'}
                   disabled
                 />
                 <InputView
                   style={styles(lang).input}
-                  placeholder={journey.price.toString() || 'Enter price'}
+                  placeholder={journey?.price.toString() || 'Enter price'}
                   {...props}
                   name={'price'}
                   label={languages[lang].price}

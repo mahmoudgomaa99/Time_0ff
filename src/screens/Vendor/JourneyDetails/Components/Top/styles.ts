@@ -24,5 +24,10 @@ export const styles = (lang: string, isDarkMode: boolean) => {
       marginRight: 'auto',
       fontFamily: Fonts.Cairo_SemiBold,
     },
+    image:{
+      width:50,
+      height:50,
+      borderRadius:30
+    }
   });
 };
