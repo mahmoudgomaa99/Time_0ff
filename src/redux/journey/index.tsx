@@ -114,12 +114,12 @@ const slice = createSlice({
       console.log(action.payload);
     });
     builder.addCase(thunks.doUpdatJourney_Image.fulfilled, (state, action) => {
-      console.log(action.payload.data, 'kkkk');
+      // console.log(action.payload.data, 'kkkk');
     });
     builder.addCase(
       thunks.doUpdatJourney_Image.rejected,
       (state, action: any) => {
-        console.log(action.payload.data, 'lll');
+        // console.log(action.payload.data, 'lll');
       },
     );
     builder.addCase(

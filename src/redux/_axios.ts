@@ -6,7 +6,7 @@ import { create } from 'apisauce';
 
 export const api = create({
   baseURL: env.BASE_URL,
-  headers: { 'Content-Type': 'application/json' },
+  // headers: { 'Content-Type': 'application/json' },
 });
 export type TTokenKeys = {
   [K in TokenKeys]: any;
@@ -44,6 +44,10 @@ const initAxios = (store: TStore) => {
       assign(config.headers, {
         'Content-Type': 'multipart/form-data',
       });
+    } else {
+      assign(config.headers, {
+        'Content-Type': 'application/json',
+      });
     }
     return config;
   };
@@ -55,6 +59,7 @@ const initAxios = (store: TStore) => {
     return Promise.reject(error?.response);
   });
   axios.interceptors.request.use(handleFormData);
+  api.axiosInstance.interceptors.request.use(handleFormData);
 };
 
 export default initAxios;

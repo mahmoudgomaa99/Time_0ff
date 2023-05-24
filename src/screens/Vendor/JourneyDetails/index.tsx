@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -34,6 +35,7 @@ import {
 } from '@react-navigation/native';
 import Top from './Components/Top';
 import useLibraryPermission from 'hooks/useLibraryPermission';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const JourneyDetails = () => {
   const dispatch = useAppDispatch();
@@ -88,7 +90,7 @@ const JourneyDetails = () => {
                 <TouchableOpacity
                   onPress={async () => {
                     pick();
-                    props.setFieldValue('image', source?.assets);
+                    props.setFieldValue('image', source);
                   }}
                   style={styles().img_container}>
                   <Image
@@ -99,12 +101,24 @@ const JourneyDetails = () => {
                 <TouchableOpacity
                   disabled={!source}
                   onPress={() => {
+                    const body = new FormData();
+                    body.append('image', {
+                      uri:
+                        Platform.OS === 'android'
+                          ? source.assets[0].uri
+                          : source.assets[0].uri.replace('file://', ''),
+                      name: source?.assets[0].fileName,
+                      type: source?.assets[0].type,
+                    });
                     dispatch(
-                      Journeys.thunks.doUpdatJourney_Image({
-                        id: id,
-                        image: source?.assets[0].uri,
-                      }),
-                    );
+                      Journeys.thunks.doUpdatJourney_Image({ data: body, id }),
+                    ).then(res => {
+                      console.log('res', res);
+                      Toast.show({
+                        type: 'success',
+                        text2: languages[lang].imageUpdatedSuccefuly,
+                      });
+                    });
                   }}
                   style={{
                     alignItems: 'center',

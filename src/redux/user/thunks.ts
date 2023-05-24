@@ -60,9 +60,9 @@ const doResetPassword = createAsyncThunk<any, any, any>(
 );
 const doGetUser = createAsyncThunk<any, any, any>(
   'user/getUser',
-  async (data, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await UserAPI.GetUser(data);
+      const response = await UserAPI.GetUser();
       return { data: response };
     } catch (error) {
       return rejectWithValue(error);
@@ -95,6 +95,17 @@ const doAddAgency = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doUpdateImage = createAsyncThunk<any, any, any>(
+  'user/updateImage',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.UpdateMyImage(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doForgetPassword,
@@ -104,6 +115,7 @@ const thunks = {
   doResetPassword,
   doUpdateUser,
   doAddAgency,
+  doUpdateImage,
 };
 
 export default thunks;

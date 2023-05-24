@@ -160,8 +160,8 @@ const AddJourney = (data: {
     }[];
   }[];
 }) => api.post('journeys', data);
-const UpdateJourney_Image = (data: any) =>
-  api.put(`journeys/${data.id}/image`, data.img);
+const UpdateJourney_Image = (data: any, id: any) =>
+  api.put(`journeys/${id}/image`, data);
 const GetJourneyAvailabilitey = (id: number) =>
   api.get(`journeys/availability/${id}`);
 const UpdateJourneyAvailabilitey = (data: {

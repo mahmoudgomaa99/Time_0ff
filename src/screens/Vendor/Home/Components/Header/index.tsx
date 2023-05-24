@@ -1,13 +1,22 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from 'redux/user';
+import User, { selectCurrentUser } from 'redux/user';
 import { h, w } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
+import { useLoadingSelector } from 'redux/selectors';
+import { color } from 'react-native-reanimated';
+import COLORS from 'values/colors';
 
 const Header = ({
   lang,
@@ -18,6 +27,7 @@ const Header = ({
 }) => {
   const navigation = useNavigation<any>();
   const user = useSelector(selectCurrentUser);
+  const isLoading = useLoadingSelector(User.thunks.doGetUser);
   return (
     <View
       style={[
@@ -30,24 +40,30 @@ const Header = ({
             styles().welcomeBack,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
-          {user ? (
-            <Image
-              source={
-                user.image
-                  ? { uri: user.image }
-                  : {
-                      uri: 'http://159.89.7.75:80/uploads/users/29/29_1681941966186_default.png',
-                    }
-              }
-              style={{
-                width: w * 0.08,
-                height: h * 0.04,
-                marginHorizontal: 5,
-                borderRadius: 10,
-              }}
-            />
+          {isLoading ? (
+            <ActivityIndicator size="large" color={COLORS.primary} />
           ) : (
-            <Svg name="profile" size={50} />
+            <>
+              {user ? (
+                <Image
+                  source={
+                    user.image
+                      ? { uri: user.image }
+                      : {
+                          uri: 'http://159.89.7.75:80/uploads/users/29/29_1681941966186_default.png',
+                        }
+                  }
+                  style={{
+                    width: w * 0.08,
+                    height: h * 0.04,
+                    marginHorizontal: 5,
+                    borderRadius: 10,
+                  }}
+                />
+              ) : (
+                <Svg name="profile" size={50} />
+              )}
+            </>
           )}
 
           <TextView

@@ -9,17 +9,17 @@ const SignUp = (data: {
   password: string;
   type: string;
   city: string;
-  country:string
+  country: string;
 }) => api.post('signup', data);
 const ForgetPassword = (email: string) => api.post('forgot', email);
 const ResetPassword = (password: string) => api.post('reset', password);
-const GetUser = (id: number) => api.get(`users/${id}`);
+const GetUser = () => api.get(`users/me`);
 const UpdateUser = (data: {
   name?: string;
   email?: string;
   city?: string;
   phone?: string;
-  country?:string
+  country?: string;
 }) => api.put('users/me', data);
 const AddAgency = (data: {
   name: string;
@@ -30,6 +30,7 @@ const AddAgency = (data: {
   description: string;
   arabic_description: string;
 }) => api.post('agencies', data);
+const UpdateMyImage = (data: any) => api.put('users/me/image', data);
 const UserAPI = {
   LogIn,
   SignUp,
@@ -37,7 +38,8 @@ const UserAPI = {
   ForgetPassword,
   GetUser,
   UpdateUser,
-  AddAgency
+  AddAgency,
+  UpdateMyImage,
 };
 
 export default UserAPI;

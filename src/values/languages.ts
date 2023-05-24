@@ -194,6 +194,7 @@ const languages: any = {
     delete: 'Delete',
     select_image: 'Select Image',
     noJourneys: 'There is no journeys',
+    imageUpdatedSuccefuly: 'Image Updated Succefuly',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -384,6 +385,7 @@ const languages: any = {
     delete: 'حذف',
     select_image: 'اختر صورة',
     noJourneys: 'لا يوجد رحلات',
+    imageUpdatedSuccefuly: 'تم تحديث الصورة بنجاح',
   },
 };
 export default languages;
