@@ -6,17 +6,17 @@ import languages from 'values/languages';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
+import { TUser } from 'redux/user/model';
 
 const ImageSection = ({
   lang,
   isDarkMode,
+  user,
 }: {
   lang: string;
   isDarkMode: boolean;
+  user: any;
 }) => {
-  const user = useSelector(selectCurrentUser);
-  console.log(user);
-
   return (
     <View style={styles(lang).container}>
       <Image

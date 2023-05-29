@@ -31,13 +31,14 @@ const Profile = () => {
   const lang = useSelector(selectLanguage);
   const currentUser = useSelector(selectCurrentUser);
   const isLoading = useLoadingSelector(User.thunks.doGetUser);
+  const isLoading2 = useLoadingSelector(User.thunks.doUpdateUser);
+  const [refresh, setRefresh] = useState(false);
   const [Update, setUpdate] = useState(true);
   useFocusEffect(
     useCallback(() => {
       dispatch(User.thunks.doGetUser({}));
-    }, []),
+    }, [refresh]),
   );
-  console.log(currentUser);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -73,6 +74,7 @@ const Profile = () => {
                 )
                   .then(unwrapResult)
                   .then(() => {
+                    setUpdate(true);
                     navigation.goBack();
                   })
                   .catch(err => {});
@@ -204,9 +206,9 @@ const Profile = () => {
                       label={languages[lang].apply}
                       style={styles(lang, isDarkMode).button}
                       onPress={() => {
-                        setUpdate(prev => !prev);
                         props.handleSubmit();
                       }}
+                      isLoading={isLoading2}
                     />
                   )}
                 </View>

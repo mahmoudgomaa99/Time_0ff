@@ -1,5 +1,5 @@
 import { ScrollView, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
@@ -15,7 +15,7 @@ import { useAppDispatch } from 'redux/store';
 import User, { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import ImageSection from './Components/ImageSection';
 
@@ -26,7 +26,6 @@ const EditProfile = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const currrentUser = useSelector(selectCurrentUser);
-
   const [allData, setallData] = useState([]);
   useEffect(() => {
     const getCountries = () =>
@@ -36,6 +35,11 @@ const EditProfile = () => {
     });
     getCountries();
   }, []);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(User.thunks.doGetUser({}));
+    }, []),
+  );
 
   const countries = allData.map((i: any) => ({
     label: i?.country,

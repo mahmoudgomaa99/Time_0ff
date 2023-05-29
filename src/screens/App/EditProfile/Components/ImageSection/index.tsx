@@ -6,7 +6,7 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { images } from 'src/assets/images';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
@@ -20,6 +20,8 @@ import COLORS from 'values/colors';
 import { w } from 'values/Dimensions';
 import { useLoadingSelector } from 'redux/selectors';
 import { useFocusEffect } from '@react-navigation/native';
+import { set } from 'lodash';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const ImageSection = ({
   lang,
@@ -32,12 +34,14 @@ const ImageSection = ({
   const { source, pick } = useLibraryPermission();
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
   const user = useSelector(selectCurrentUser);
-  console.log(user ,'this is user')
+  const [edit, setEdit] = useState(false);
+
   return (
-    <View style={styles(lang,isDarkMode).container}>
+    <View style={styles(lang, isDarkMode).container}>
       <TouchableOpacity
         onPress={async () => {
           pick();
+          setEdit(true);
         }}
         style={styles().img_container}>
         <Image
@@ -57,17 +61,24 @@ const ImageSection = ({
             name: source?.assets[0].fileName,
             type: source?.assets[0].type,
           });
-          dispatch(User.thunks.doUpdateImage(body)).then(res => {
-            console.log('res', res);
-            Toast.show({
-              type: 'success',
-              text2: languages[lang].imageUpdatedSuccefuly,
+          dispatch(User.thunks.doUpdateImage(body))
+            .then(unwrapResult)
+            .then(res => {
+              console.log('res', res);
+              Toast.show({
+                type: 'success',
+                text2: languages[lang].imageUpdatedSuccefuly,
+              });
+              setEdit(false);
             });
-          });
         }}
         style={{
           alignItems: 'center',
-          backgroundColor: source ? COLORS.primary : COLORS.grey,
+          backgroundColor: edit
+            ? source
+              ? COLORS.primary
+              : COLORS.grey
+            : COLORS.grey,
           width: w * 0.3,
           height: w * 0.1,
           borderRadius: w * 0.2,
@@ -82,7 +93,11 @@ const ImageSection = ({
           <TextView
             style={[styles(lang, isDarkMode).text, { color: COLORS.white }]}
             title={
-              source ? languages[lang].edit_image : languages[lang].select_image
+              edit
+                ? source
+                  ? languages[lang].edit_image
+                  : languages[lang].select_image
+                : languages[lang].select_image
             }
           />
         )}
