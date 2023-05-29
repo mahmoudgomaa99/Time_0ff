@@ -20,8 +20,8 @@ import COLORS from 'values/colors';
 import { w } from 'values/Dimensions';
 import { useLoadingSelector } from 'redux/selectors';
 import { useFocusEffect } from '@react-navigation/native';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { set } from 'lodash';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const ImageSection = ({
   lang,
@@ -33,8 +33,8 @@ const ImageSection = ({
   const dispatch = useAppDispatch();
   const { source, pick } = useLibraryPermission();
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
-  const [edit, setEdit] = useState(false);
   const user = useSelector(selectCurrentUser);
+  const [edit, setEdit] = useState(false);
 
   return (
     <View style={styles(lang, isDarkMode).container}>

@@ -16,13 +16,14 @@ import { UserType } from 'redux/UserType';
 const Contents = ({
   lang,
   isDarkMode,
+  currentUser,
 }: {
   lang: string;
   isDarkMode: boolean;
+  currentUser: any;
 }) => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const currentUser = useSelector(selectCurrentUser);
   const { openCustomModal, closeCustomModal, CustomModal } = useModalHandler();
 
   return (

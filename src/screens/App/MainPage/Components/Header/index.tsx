@@ -35,8 +35,8 @@ const Header = ({
           {user ? (
             <Image
               source={
-                user.imageUrl
-                  ? { uri: user.imageUrl }
+                user.image
+                  ? { uri: user.image }
                   : {
                       uri: 'http://159.89.7.75:80/uploads/users/29/29_1681941966186_default.png',
                     }

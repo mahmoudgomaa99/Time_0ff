@@ -12,22 +12,21 @@ import TextView from 'atoms/TextView';
 const Notefication = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
+
   return (
     <View style={styles(lang, isDarkMode).container}>
       {Data(lang).length > 0 ? (
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ marginHorizontal: 10 }}>
-          {Data(lang).map((value, index) => (
-            <View key={index}>
-              <Card
-                lang={lang}
-                iconName={value.iconName}
-                message={value.message}
-                date={value.date}
-                isDarkMode={isDarkMode}
-              />
-            </View>
+          {Data(lang).map(value => (
+            <Card
+              lang={lang}
+              iconName={value.iconName}
+              message={value.message}
+              date={value.date}
+              isDarkMode={isDarkMode}
+            />
           ))}
         </ScrollView>
       ) : (
