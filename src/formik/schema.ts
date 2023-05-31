@@ -25,17 +25,15 @@ export const NewPasswordSchema = Yup.object().shape({
     .matches(includeCharRegExp, 'password must include at least one character'),
 });
 
-export const ChangePasswordSchema = Yup.object().shape({
-  new_confirm_password: Yup.string()
-    .required('Confirm password is Required')
-    .oneOf([Yup.ref('new_password')], 'The passwords do not match.'),
-  new_password: Yup.string()
-    .required('a New Password is Required')
-    .min(8, 'password must be at least 8 characters')
-    .matches(includeDigRegExp, 'password must include at least one number')
-    .matches(includeCharRegExp, 'password must include at least one character'),
-  old_password: Yup.string().required('Old password is Required'),
-});
+export const ChangePasswordSchema = (lang: string) =>
+  Yup.object().shape({
+    newPassword: Yup.string()
+      .required(languages[lang].newPassRequired)
+      .min(8, languages[lang].passwordShort),
+    confirmNewPassword: Yup.string()
+      .required(languages[lang].confirmPassRequired)
+      .oneOf([Yup.ref('newPassword')], languages[lang].passwordNotMatch),
+  });
 
 export const loginSchema = (lang: string) => {
   return Yup.object().shape({

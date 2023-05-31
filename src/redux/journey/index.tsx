@@ -21,6 +21,15 @@ type TInitialValues = {
     hour: string;
     capacity: number;
   }[];
+  journey_availabilitey_vendor: {
+    date: any;
+    details: {
+      _id: number;
+      hour: string;
+      capacity: number;
+      numberOfBookings: number;
+    }[];
+  }[];
 };
 
 const initialValues: TInitialValues = {
@@ -33,6 +42,7 @@ const initialValues: TInitialValues = {
   hotJourneys: [],
   favJourneys: [],
   journey_availabilitey: [],
+  journey_availabilitey_vendor: [],
 };
 
 const slice = createSlice({
@@ -136,9 +146,26 @@ const slice = createSlice({
       },
     );
     builder.addCase(
+      thunks.doGetJourneysAvilabilitey_Vendor.fulfilled,
+      (state, action) => {
+        console.log(action.payload.data);
+        state.journey_availabilitey_vendor = action.payload.data.data;
+      },
+    );
+    builder.addCase(
+      thunks.doGetJourneysAvilabilitey_Vendor.rejected,
+      (state, action) => {
+        console.log(action.payload);
+      },
+    );
+    builder.addCase(
       thunks.doUpdateJourneyAvailabilitey.fulfilled,
       (state, action) => {
         console.log(action.payload.data);
+        Toast.show({
+          type: 'success',
+          text2: action.payload.data.data.message,
+        });
       },
     );
 
@@ -187,5 +214,7 @@ export const selectCurrentDiscountJourneys = (state: RootState) =>
   state.journeys.discountJourneys;
 export const selectCurrentJourneysAvilabilitey = (state: RootState) =>
   state.journeys.journey_availabilitey;
+export const selectCurrentJourneysAvilabilitey_Vendor = (state: RootState) =>
+  state.journeys.journey_availabilitey_vendor;
 
 export default Journeys;

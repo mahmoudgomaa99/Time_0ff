@@ -13,7 +13,7 @@ const slice = createSlice({
   reducers: {
     changeLanguage: state => {
       state.language = state.language === 'ar' ? 'en' : 'ar';
-      setTimeout(() => RNRestart.Restart(), 40);
+      // setTimeout(() => RNRestart.Restart(), 40);
     },
   },
 });

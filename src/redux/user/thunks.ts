@@ -52,7 +52,11 @@ const doResetPassword = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.ResetPassword(data);
-      return { data: response };
+      if (response.status === 403) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
     } catch (error) {
       return rejectWithValue(error);
     }

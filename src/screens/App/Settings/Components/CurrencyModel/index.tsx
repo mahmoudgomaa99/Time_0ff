@@ -23,7 +23,7 @@ const CurrencyModel = ({
     <Modal isVisible={isCurrencyModel}>
       <View style={styles(lang, isDarkMode).modalContainer}>
         <Formik
-          initialValues={{ currency: '' }}
+          initialValues={{ currency: 'EGP' }}
           onSubmit={value => console.log(value)}>
           {props => (
             <View style={styles(lang).container}>
@@ -31,10 +31,10 @@ const CurrencyModel = ({
                 {...props}
                 borderColor={isDarkMode ? '#2b2c3a' : '#F2F2F2'}
                 type={'primary'}
-                data={[{ label: 'SAR', value: 'SAR' }]}
+                data={[{ label: 'EGP', value: 'EGP' }]}
                 placeholder={'currency'}
                 name={'currency'}
-                
+                disabled={true}
               />
               <View style={styles(lang).buttonsContainer}>
                 <Button
