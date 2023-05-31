@@ -32,12 +32,11 @@ const Profile = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isLoading = useLoadingSelector(User.thunks.doGetUser);
   const isLoading2 = useLoadingSelector(User.thunks.doUpdateUser);
-  const [refresh, setRefresh] = useState(false);
   const [Update, setUpdate] = useState(true);
   useFocusEffect(
     useCallback(() => {
       dispatch(User.thunks.doGetUser({}));
-    }, [refresh]),
+    }, []),
   );
 
   return (

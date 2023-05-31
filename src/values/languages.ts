@@ -195,6 +195,11 @@ const languages: any = {
     select_image: 'Select Image',
     noJourneys: 'There is no journeys',
     imageUpdatedSuccefuly: 'Image Updated Succefuly',
+    newPassRequired: 'New Password is required',
+    confirmPassRequired: 'Confirm Password is required',
+    passwordNotMatch: "Password doesn't match",
+    update: 'Update',
+    updateAvailabilitey: 'Update Availabilitey',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -386,6 +391,11 @@ const languages: any = {
     select_image: 'اختر صورة',
     noJourneys: 'لا يوجد رحلات',
     imageUpdatedSuccefuly: 'تم تحديث الصورة بنجاح',
+    newPassRequired: 'كلمة المرور الجديدة مطلوبة',
+    confirmPassRequired: 'تأكيد كلمة المرور الجديدة مطلوبة',
+    passwordNotMatch: 'كلمة المرور غير متطابقة',
+    update: 'تحديث',
+    updateAvailabilitey: 'تحديث التوفر',
   },
 };
 export default languages;

@@ -156,6 +156,17 @@ const doGetJourneysAvilabilitey = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doGetJourneysAvilabilitey_Vendor = createAsyncThunk<any, any, any>(
+  'journeys/GetJourneysAvilabiliteyVendor',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetJourneyAvailabilitey_Vendor(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 const doUpdateJourneyAvailabilitey = createAsyncThunk<any, any, any>(
   'journeys/UpdateJourneyAvailabilitey',
   async (data, { rejectWithValue }) => {
@@ -197,6 +208,7 @@ const thunks = {
   doGetJourneysAvilabilitey,
   doUpdateJourneyAvailabilitey,
   doRemoveJourneys,
+  doGetJourneysAvilabilitey_Vendor,
 };
 
 export default thunks;

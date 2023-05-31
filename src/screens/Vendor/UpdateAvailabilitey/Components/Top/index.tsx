@@ -17,7 +17,7 @@ const Top = ({ lang, isDarkMode }: { lang: string; isDarkMode: boolean }) => {
         onPress={() => navigation.goBack()}
       />
       <TextView
-        title={languages[lang].addJourney}
+        title={languages[lang].updateAvailabilitey}
         style={styles(lang, isDarkMode).screenText}
       />
     </View>

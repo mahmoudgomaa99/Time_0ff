@@ -3,6 +3,7 @@ import Users from '../user';
 import { createReducer } from '@reduxjs/toolkit';
 import { log } from 'react-native-reanimated';
 import User from '../user';
+import { RootState } from 'redux/store';
 
 const initialState = {
   token: null,
@@ -30,14 +31,8 @@ const tokenReducer = createReducer(initialState, builder => {
         state.token = token;
         console.log(token);
       }
-    })
-    .addCase(User.thunks.doAddAgency.fulfilled, (state, action) => {
-      if (action.payload.data) {
-        const token = action.payload.data.token;
-        state.token = token;
-        console.log(token);
-      }
     });
 });
+export const selectCurrentToken = (state: RootState) => state.tokens.token;
 
 export default tokenReducer;

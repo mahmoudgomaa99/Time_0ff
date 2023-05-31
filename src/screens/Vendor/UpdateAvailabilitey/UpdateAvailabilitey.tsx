@@ -24,11 +24,20 @@ import COLORS from 'values/colors';
 import TimeModal from './Components/TimeModal';
 import moment from 'moment';
 import { useAppDispatch } from 'redux/store';
-import Journeys from 'redux/journey';
+import Journeys, {
+  selectCurrentJourneysAvilabilitey_Vendor,
+} from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { unwrapResult } from '@reduxjs/toolkit';
+import {
+  GetAvailabilitey,
+  GetAvailabiliteyForString,
+} from './utils/GetAvilabilitey';
 
 const UpdateAvailabilitey = () => {
+  const routes: any = useRoute();
+  const { id, availabilitey } = routes.params;
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
@@ -40,27 +49,30 @@ const UpdateAvailabilitey = () => {
   const isLoading = useLoadingSelector(
     Journeys.thunks.doUpdateJourneyAvailabilitey,
   );
-
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <Formik
           initialValues={{
-            availability: [
-              {
-                date: '',
-                details: [
-                  {
-                    hour: '',
-                    capacity: 0,
-                  },
-                ],
-              },
-            ],
+            availability: availabilitey,
           }}
           onSubmit={values => {
-            console.log(values.availability[0].details);
+            console.log(GetAvailabilitey(values.availability)[0]);
+            dispatch(
+              Journeys.thunks.doUpdateJourneyAvailabilitey({
+                id: id,
+                availability: {
+                  availability: GetAvailabilitey(values.availability),
+                },
+              }),
+            )
+              .then(unwrapResult)
+              .then(() => {
+                navigation.goBack();
+              })
+              .catch(() => {});
           }}>
           {props => (
             <View>
@@ -94,7 +106,7 @@ const UpdateAvailabilitey = () => {
                 />
               </View>
 
-              {props.values.availability.map((item, index) => (
+              {props.values.availability.map((item: any, index: number) => (
                 <View key={index}>
                   <TouchableOpacity
                     onPress={() => {
@@ -153,94 +165,103 @@ const UpdateAvailabilitey = () => {
                       title={languages[lang].add}
                     />
                   </View>
-                  {props.values.availability[index].details.map((item, i) => (
-                    <View
-                      key={i}
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
+                  {props.values.availability[index].details.map(
+                    (item2: any, i: number) => (
                       <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity
-                          onPress={() => {
-                            setName2(
-                              `availability[${index}].details[${i}].hour`,
-                            );
-                            setisTimeModalVisable(true);
-                          }}
-                          style={[
-                            styles(lang, isDarkMode).containerStyle,
-                            {
-                              marginTop: 20,
-                              alignItems: 'center',
-                              flexDirection: 'row',
-                              paddingHorizontal: 10,
-                              width: w * 0.26,
-                            },
-                          ]}>
-                          <Text
+                        key={i}
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}>
+                          <TouchableOpacity
+                            onPress={() => {
+                              setName2(
+                                `availability[${index}].details[${i}].hour`,
+                              );
+                              setisTimeModalVisable(true);
+                            }}
                             style={[
-                              styles(lang, isDarkMode).text,
+                              styles(lang, isDarkMode).containerStyle,
                               {
-                                fontSize: 14,
-                                marginTop: -8,
-                                marginLeft: 6,
-                                color: props.values.availability[index]
-                                  ?.details[i].hour
-                                  ? '#000'
-                                  : '#cdc9c9',
+                                marginTop: 20,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                paddingHorizontal: 10,
+                                width: w * 0.26,
                               },
                             ]}>
-                            {props.values.availability[index].details[i].hour
-                              ? moment(
+                            <Text
+                              style={[
+                                styles(lang, isDarkMode).text,
+                                {
+                                  fontSize: 14,
+                                  marginTop: -8,
+                                  marginLeft: 6,
+                                  color: props.values.availability[index]
+                                    ?.details[i].hour
+                                    ? '#000'
+                                    : '#cdc9c9',
+                                },
+                              ]}>
+                              {props.values.availability[index].details[i].hour
+                                ? moment(
+                                    props.values.availability[index].details[i]
+                                      .hour,
+                                    'HH:mm:ss',
+                                  ).format('h:mm A')
+                                : languages[lang].hour}
+                            </Text>
+                          </TouchableOpacity>
+                          <InputView
+                            style={styles(lang).input}
+                            {...props}
+                            name={`availability[${index}].details[${i}].capacity`}
+                            label={languages[lang].capacity}
+                            inputContainerStyling={{
+                              direction: lang === 'ar' ? 'rtl' : 'ltr',
+                              borderBottomWidth: 0,
+                              // marginLeft: 10,
+                            }}
+                            containerStyle={[
+                              styles(lang, isDarkMode).containerStyle,
+                              { marginTop: 4, marginLeft: 15, width: w * 0.4 },
+                            ]}
+                            labelStyle={[styles(lang).label_style]}
+                            keyboardType="number-pad"
+                            placeholder={availabilitey[index]?.details[
+                              i
+                            ]?.capacity.toString()}
+                          />
+                        </View>
+                        {/* <TextView
+                          onPress={() => {
+                            props.setFieldValue(
+                              `availability[${index}].details`,
+                              props.values.availability[index].details.filter(
+                                (item: any, index2: number) =>
+                                  item._id !==
                                   props.values.availability[index].details[i]
-                                    .hour,
-                                  'HH:mm:ss',
-                                ).format('h:mm A')
-                              : languages[lang].hour}
-                          </Text>
-                        </TouchableOpacity>
-                        <InputView
-                          style={styles(lang).input}
-                          {...props}
-                          name={`availability[${index}].details[${i}].capacity`}
-                          label={languages[lang].capacity}
-                          inputContainerStyling={{
-                            direction: lang === 'ar' ? 'rtl' : 'ltr',
-                            borderBottomWidth: 0,
-                            // marginLeft: 10,
+                                    ._id,
+                              ),
+                            );
                           }}
-                          containerStyle={[
-                            styles(lang, isDarkMode).containerStyle,
-                            { marginTop: 4, marginLeft: 15, width: w * 0.4 },
+                          style={[
+                            styles(lang, isDarkMode).text,
+                            { fontSize: 14 },
                           ]}
-                          labelStyle={[styles(lang).label_style]}
-                          keyboardType="number-pad"
-                          placeholder="0"
-                        />
+                          title={languages[lang].remove}
+                        /> */}
                       </View>
+                    ),
+                  )}
 
-                      <TextView
-                        onPress={() => {
-                          props.setFieldValue(
-                            `availability[${index}].details`,
-                            props.values.availability[index].details.filter(
-                              (item, index2) => index2 !== i,
-                            ),
-                          );
-                        }}
-                        style={[
-                          styles(lang, isDarkMode).text,
-                          { fontSize: 14 },
-                        ]}
-                        title={languages[lang].remove}
-                      />
-                    </View>
-                  ))}
-
-                  <TextView
+                  {/* <TextView
                     style={[
                       styles(lang, isDarkMode).text,
                       { textAlign: 'center' },
@@ -250,11 +271,11 @@ const UpdateAvailabilitey = () => {
                       props.setFieldValue(
                         'availability',
                         props.values.availability.filter(
-                          (item, index2) => index2 !== index,
+                          (item: any, index2: number) => index2 !== index,
                         ),
                       );
                     }}
-                  />
+                  /> */}
                   <View
                     style={{
                       height: 0.8,
@@ -268,7 +289,7 @@ const UpdateAvailabilitey = () => {
 
               <Button
                 type="primary"
-                label={languages[lang].addJourney}
+                label={languages[lang].update}
                 style={styles().button}
                 onPress={() => {
                   props.handleSubmit();
