@@ -39,6 +39,7 @@ const Home = () => {
   );
   // const token = useSelector(selectCurrentToken);
   // console.log(token);
+  console.log(journeys[0]);
 
   return (
     <View style={styles(lang, isDarkMode).container}>

@@ -20,7 +20,6 @@ const Content = ({
   isGetJourneysLoading: any;
 }) => {
   const navigation = useNavigation<any>();
-  console.log(journeys, 'journeys');
 
   return (
     <ScrollView>

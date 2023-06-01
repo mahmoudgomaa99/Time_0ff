@@ -67,8 +67,8 @@ const JourneyDetails = () => {
     }, []),
   );
 
-  //   console.log(journey, source);
-  console.log(id, 'sss');
+  // console.log(journey, source);
+  // console.log(id, 'sss');
   // console.log(avilabilties, 'test');
 
   return (
@@ -103,7 +103,7 @@ const JourneyDetails = () => {
                     }}
                     style={styles().img_container}>
                     <Image
-                      source={source?.assets || { uri: journey?.image }}
+                      source={source?.assets || { uri: journey?.images[0] }}
                       style={styles().img}
                     />
                   </TouchableOpacity>
@@ -111,21 +111,51 @@ const JourneyDetails = () => {
                     disabled={!source}
                     onPress={() => {
                       const body = new FormData();
-                      body.append('image', {
-                        uri:
+                      // write how to create body with multiple images form data
+
+                      // source?.assets?.forEach((item: any, index: number) => {
+                      //   body.append(`images[]`, {
+                      //     uri:
+                      //       Platform.OS === 'android'
+                      //         ? item.uri
+                      //         : item.uri.replace('file://', ''),
+                      //     name: item.fileName,
+                      //     type: item.type,
+                      //   });
+                      // });
+                      source?.assets?.forEach((item: any, index: any) => {
+                        const uri =
                           Platform.OS === 'android'
-                            ? source.assets[0].uri
-                            : source.assets[0].uri.replace('file://', ''),
-                        name: source?.assets[0].fileName,
-                        type: source?.assets[0].type,
+                            ? item.uri
+                            : item.uri.replace('file://', '');
+                        body.append('images', {
+                          uri,
+                          name: item.fileName || `image_${index}`,
+                          type: item.type || 'image/jpeg', // Modify the type as per your needs
+                        });
                       });
+                      // body.append(
+                      //   'images',
+                      //   source.assets.map((i: any) => {
+                      //     return {
+                      //       uri:
+                      //         Platform.OS === 'android'
+                      //           ? i?.uri
+                      //           : i?.uri.replace('file://', ''),
+                      //       name: i?.fileName,
+                      //       type: i?.type,
+                      //     };
+                      //   }),
+                      // );
+                      console.log(body, 'body');
+
                       dispatch(
                         Journeys.thunks.doUpdatJourney_Image({
                           data: body,
                           id,
                         }),
                       ).then(res => {
-                        console.log('res', res);
+                        console.log('res', res.payload.data);
                         Toast.show({
                           type: 'success',
                           text2: languages[lang].imageUpdatedSuccefuly,
