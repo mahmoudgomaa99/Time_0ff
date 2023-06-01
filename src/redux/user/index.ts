@@ -4,7 +4,6 @@ import thunks from './thunks';
 import { RootState } from '../store';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import * as actions from './actions';
-import { data } from '../../screens/App/Settings/Components/Card/data';
 
 type TInitialValues = {
   currentUser?: any;
@@ -44,9 +43,11 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doResetPassword.fulfilled, (state, action) => {
       console.log(action);
+      Toast.show({ type: 'success', text2: action.payload.data.message });
     });
-    builder.addCase(thunks.doResetPassword.rejected, (state, action) => {
+    builder.addCase(thunks.doResetPassword.rejected, (state, action: any) => {
       console.log(action);
+      Toast.show({ type: 'error', text2: action.payload.message });
     });
     builder.addCase(thunks.doGetUser.fulfilled, (state, action) => {
       console.log(action.payload.data, 'lllll');
