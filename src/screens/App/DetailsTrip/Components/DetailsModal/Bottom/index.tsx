@@ -16,16 +16,24 @@ import AuthModal from 'components/organisms/AuthModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 import TimeModal from './Components/TimeModal';
+import Journeys from 'redux/journey';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useAppDispatch } from 'redux/store';
 
 const Bottom = ({
   lang,
   setisDetailsModalVisibal,
   isDarkMode,
+  availableDates,
+  availabilityJourneys,
 }: {
   lang: string;
   setisDetailsModalVisibal: any;
   isDarkMode?: boolean;
+  availableDates?: any;
+  availabilityJourneys?: any;
 }) => {
+  const dispatch = useAppDispatch();
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const currentUser = useSelector(selectCurrentUser);
   // state to hold the selected date
@@ -33,7 +41,9 @@ const Bottom = ({
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [selectTime, setselectTime] = useState(new Date());
   const [isTimeModalVisable, setisTimeModalVisable] = useState(false);
-  console.log(selectTime, 'from home');
+  const [Date_, setDate_] = useState('');
+  const [Times, setTimes] = useState([])
+
   return (
     <Formik
       initialValues={{ date: '', time: '', members: '', terms: '' }}
@@ -42,6 +52,16 @@ const Bottom = ({
         if (!currentUser) {
           openCustomModal();
         } else {
+          dispatch(
+            Journeys.thunks.doAddBooking({
+              journey_slot_id: values.time,
+              number_of_seats: values.members,
+            }),
+          )
+            .then(unwrapResult)
+            .catch(err => {
+              console.log(err);
+            });
           setisDetailsModalVisibal(false);
         }
       }}>
@@ -58,7 +78,6 @@ const Bottom = ({
             <InputView
               {...props}
               name="date"
-              disabled
               value={props.values.date}
               inputContainerStyling={styles(isDarkMode).inputContainerStyling}
               containerStyle={styles(isDarkMode).containerStyle}
@@ -66,7 +85,7 @@ const Bottom = ({
               leftIcon={<Svg name="calendar" />}
             />
           </View>
-          <View>
+          {/* <View>
             <TextView
               title={languages[lang].time}
               style={[
@@ -82,8 +101,16 @@ const Bottom = ({
               containerStyle={styles(isDarkMode).containerStyle}
               onPressIn={() => setisTimeModalVisable(true)}
             />
-          </View>
-
+          </View> */}
+          <Picker
+            {...props}
+            borderColor={'#F2F2F2'}
+            type={'primary'}
+            data={Times}
+            placeholder={'Time'}
+            name={'time'}
+            values={props.values}
+          />
           <View>
             <TextView
               title={languages[lang].numberOfPerson}
@@ -142,13 +169,17 @@ const Bottom = ({
             formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}
+            availableDates={availableDates}
+            Times={Times}
+            setTimes={setTimes}
+            availabilityJourneys={availabilityJourneys}
           />
           <AuthModal
             CustomModal={CustomModal}
             closeCustomModal={closeCustomModal}
             type="book"
           />
-          <TimeModal
+          {/* <TimeModal
             selectedTime={selectTime}
             setSelectedTime={setselectTime}
             isTimeModalVisable={isTimeModalVisable}
@@ -156,7 +187,7 @@ const Bottom = ({
             formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}
-          />
+          /> */}
         </View>
       )}
     </Formik>

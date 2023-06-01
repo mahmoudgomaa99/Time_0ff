@@ -58,7 +58,7 @@ const BottomList = ({
           ))
         ) : (
           <>
-            {journeys.length !== 0 ? (
+            {journeys?.length !== 0 ? (
               <FlatList
                 data={journeys}
                 renderItem={({ item }) => (

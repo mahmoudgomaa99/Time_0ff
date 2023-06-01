@@ -33,6 +33,5 @@ const tokenReducer = createReducer(initialState, builder => {
       }
     });
 });
-export const selectCurrentToken = (state: RootState) => state.tokens.token;
-
+export const selectToken= (state:RootState)=> state.tokens.token
 export default tokenReducer;

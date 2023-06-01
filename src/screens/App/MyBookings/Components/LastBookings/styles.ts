@@ -44,7 +44,7 @@ export const styles = (lang: string, color?: string, isDarkMode?: boolean) => {
       width: 11,
       height: 11,
       backgroundColor: color,
-      borderRadius: 100,
+      borderRadius: 10,
       marginHorizontal: MarginsAndPaddings.s,
     },
     statusText: {

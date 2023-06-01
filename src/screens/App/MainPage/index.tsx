@@ -24,6 +24,8 @@ import Svg from 'atoms/Svg';
 import SortModel from './Components/SortModel';
 import { SortJourneys } from './Components/utils/SortJourneys';
 import { set } from 'lodash';
+import { selectToken } from 'redux/tokens/reducer';
+import DeviceInfo from 'react-native-device-info';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -49,7 +51,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       });
     }, 100);
   }
-
+  const tokens = useSelector( selectToken);
+  console.log(tokens);
+  
   useFocusEffect(
     useCallback(() => {
       dispatch(
@@ -75,6 +79,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
 
+  const deviceToken =  DeviceInfo.getUniqueId();
+  console.log(deviceToken , 'device token');
+  
   return (
     <View
       style={{

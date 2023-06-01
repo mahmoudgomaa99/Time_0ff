@@ -193,6 +193,45 @@ const doRemoveJourneys = createAsyncThunk<any, any, any>(
   },
 );
 
+const doAddBooking = createAsyncThunk<any, any, any>(
+  'journeys/addBooking',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.AddBooking(data);
+      if (response.status === 401) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doGetBooking = createAsyncThunk<any, any, any>(
+  'journeys/GetBooking',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetBooking(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doGetAllBookings = createAsyncThunk<any, any, any>(
+  'journeys/GetAllBookings',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetAllBookings(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doGetJourneys,
   doGetJourney,
@@ -208,6 +247,9 @@ const thunks = {
   doGetJourneysAvilabilitey,
   doUpdateJourneyAvailabilitey,
   doRemoveJourneys,
+  doAddBooking,
+  doGetBooking,
+  doGetAllBookings,
   doGetJourneysAvilabilitey_Vendor,
 };
 

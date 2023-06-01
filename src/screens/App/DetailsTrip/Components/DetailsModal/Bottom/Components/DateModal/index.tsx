@@ -15,6 +15,10 @@ const DateModal = ({
   formikProps,
   lang,
   isDarkMode,
+  availableDates,
+  Times,
+  setTimes,
+  availabilityJourneys,
 }: {
   selectedDate: any;
   setSelectedDate: any;
@@ -23,15 +27,29 @@ const DateModal = ({
   formikProps: FormikProps<any>;
   lang: string;
   isDarkMode?: boolean;
+  availableDates?: any;
+  Times?: any;
+  setTimes?: any;
+  availabilityJourneys?: any;
 }) => {
   // function to handle selecting a date
   const handleSelectDate = (date: any) => {
-    console.log(selectedDate);
     setSelectedDate(date.dateString);
-    console.log(selectedDate);
+    const [year, month, day] = date.dateString.split('-');
+    const Date = `${parseInt(month)}/${parseInt(day)}/${parseInt(year)}`;
+    const times = availabilityJourneys
+      .map((i: any) => {
+        if (Date == i.available_date) {
+          return { label: i.hour, value: i._id };
+        } else {
+          return undefined;
+        }
+      })
+      .filter((i: any) => i !== undefined);
+    setTimes(times);
     formikProps.setFieldValue('date', date.dateString);
   };
-
+  console.log(availableDates);
   return (
     <Modal
       isVisible={isDateModalVisable}
@@ -49,11 +67,13 @@ const DateModal = ({
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
             markedDates={{
+              ...availableDates,
               [selectedDate]: {
                 selected: true,
                 selectedColor: '#B5E633',
               },
             }}
+            disabledByDefault={true}
             style={{
               backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
               borderRadius: 10,

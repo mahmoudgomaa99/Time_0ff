@@ -5,6 +5,9 @@ import { RootState } from 'redux/store';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Tagency, Tjourneys } from './model';
 import { data } from '../../screens/App/Settings/Components/Card/data';
+import languages from 'values/languages';
+import { selectLanguage } from 'redux/language';
+import { useSelector } from 'react-redux';
 
 type TInitialValues = {
   journeys: Tjourneys;
@@ -21,6 +24,9 @@ type TInitialValues = {
     hour: string;
     capacity: number;
   }[];
+  getBooking: any;
+  allBookings: any;
+  currentIdBook: any;
   journey_availabilitey_vendor: {
     date: any;
     details: {
@@ -42,6 +48,9 @@ const initialValues: TInitialValues = {
   hotJourneys: [],
   favJourneys: [],
   journey_availabilitey: [],
+  getBooking: null,
+  allBookings: null,
+  currentIdBook: null,
   journey_availabilitey_vendor: [],
 };
 
@@ -189,6 +198,35 @@ const slice = createSlice({
         text2: action.payload.message,
       });
     });
+    builder.addCase(thunks.doAddBooking.fulfilled, (state, action) => {
+      state.currentIdBook = action.meta.arg.journey_slot_id;
+      Toast.show({
+        type: 'success',
+        text2: languages['en'].bookingAdd,
+      });
+    });
+    builder.addCase(thunks.doAddBooking.rejected, (state, action: any) => {
+      console.log(action, 'from faild');
+      Toast.show({
+        type: 'error',
+        text2: languages['en'].bookingaddFaild,
+      });
+    });
+
+    builder.addCase(thunks.doGetBooking.fulfilled, (state, action) => {
+      // console.log(action.payload.data.data);
+      state.getBooking = action.payload.data.data;
+    });
+    builder.addCase(thunks.doGetBooking.rejected, (state, action) => {
+      console.log(action.payload);
+    });
+    builder.addCase(thunks.doGetAllBookings.fulfilled, (state, action) => {
+      console.log(action.payload.data.data.bookings);
+      state.allBookings = action.payload.data.data.bookings;
+    });
+    builder.addCase(thunks.doGetAllBookings.rejected, (state, action) => {
+      console.log(action.payload);
+    });
   },
 });
 
@@ -214,6 +252,12 @@ export const selectCurrentDiscountJourneys = (state: RootState) =>
   state.journeys.discountJourneys;
 export const selectCurrentJourneysAvilabilitey = (state: RootState) =>
   state.journeys.journey_availabilitey;
+export const selectCurrentBooking = (state: RootState) =>
+  state.journeys.getBooking;
+export const selectCurrentAllBookings = (state: RootState) =>
+  state.journeys.allBookings;
+export const selectCurrentIdBook = (state: RootState) =>
+  state.journeys.currentIdBook;
 export const selectCurrentJourneysAvilabilitey_Vendor = (state: RootState) =>
   state.journeys.journey_availabilitey_vendor;
 

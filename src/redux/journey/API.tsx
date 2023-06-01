@@ -179,6 +179,15 @@ const UpdateJourneyAvailabilitey = (data: {
 }) => api.post(`journeys/availability/${data.id}`, data.availability);
 const RemoveJourney = (id: number) => api.delete(`journeys/${id}`);
 
+const AddBooking = (data: {
+  journey_slot_id: string;
+  number_of_seats: string;
+}) => api.post(`journeys/book`, data);
+
+const GetBooking = (id: number) => api.get(`journeys/book/${id}`);
+
+const GetAllBookings = (id: number) => api.get(`journeys/book/user/${id}`);
+
 const JourneysApi = {
   GetJourneys,
   GetJourney,
@@ -194,6 +203,9 @@ const JourneysApi = {
   GetJourneyAvailabilitey,
   UpdateJourneyAvailabilitey,
   RemoveJourney,
+  AddBooking,
+  GetBooking,
+  GetAllBookings,
   GetJourneyAvailabilitey_Vendor,
 };
 

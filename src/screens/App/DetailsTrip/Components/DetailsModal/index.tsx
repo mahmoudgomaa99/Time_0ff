@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Modal from 'react-native-modal';
 import { styles } from './styles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -12,6 +12,13 @@ import Top from './Top';
 import Bottom from './Bottom';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
+import Journeys, {
+  selectCurrentJourney,
+  selectCurrentJourneysAvilabilitey,
+} from 'redux/journey';
+import { useLoadingSelector } from 'redux/selectors';
+import { useAppDispatch } from 'redux/store';
+import { useFocusEffect } from '@react-navigation/native';
 
 const DetailsTrip = ({
   isDetailsModalVisibal,
@@ -23,6 +30,35 @@ const DetailsTrip = ({
   isDarkMode?: boolean;
 }) => {
   const lang = useSelector(selectLanguage);
+  const journey = useSelector(selectCurrentJourney);
+  const availabilityJourneys = useSelector(selectCurrentJourneysAvilabilitey);
+  const isGetJourneysLoading = useLoadingSelector(
+    Journeys.thunks.doGetJourneysAvilabilitey,
+  );
+  const dispatch = useAppDispatch();
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey._id));
+    }, []),
+  );
+
+  const Dates: any = {};
+  const getDates = (Journeys: any) => {
+    const dates = Journeys?.map((journey: any) => {
+      const [month, day, year] = journey.available_date.split('/');
+      const newDateStr = `${year}-${month.padStart(2, '0')}-${day.padStart(
+        2,
+        '0',
+      )}`;
+      Dates[newDateStr] = {
+        disabled: false,
+      };
+      return journey.available_date;
+    });
+    console.log(Dates);
+  };
+  getDates(availabilityJourneys);
+
   return (
     <Modal
       isVisible={isDetailsModalVisibal}
@@ -48,6 +84,8 @@ const DetailsTrip = ({
             lang={lang}
             setisDetailsModalVisibal={setisDetailsModalVisibal}
             isDarkMode={isDarkMode}
+            availableDates={Dates}
+            availabilityJourneys={availabilityJourneys}
           />
         </ScrollView>
       </View>
