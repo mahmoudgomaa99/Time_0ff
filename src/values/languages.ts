@@ -195,6 +195,8 @@ const languages: any = {
     select_image: 'Select Image',
     noJourneys: 'There is no journeys',
     imageUpdatedSuccefuly: 'Image Updated Succefuly',
+    bookingAdd:'Booking Add Successful',
+    bookingaddFaild:'Booking Add Failed'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -386,6 +388,8 @@ const languages: any = {
     select_image: 'اختر صورة',
     noJourneys: 'لا يوجد رحلات',
     imageUpdatedSuccefuly: 'تم تحديث الصورة بنجاح',
+    bookingAdd:'تم الحجز',
+    bookingaddFaild:'لم يتم الحجز'
   },
 };
 export default languages;

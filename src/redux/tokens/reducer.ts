@@ -3,6 +3,7 @@ import Users from '../user';
 import { createReducer } from '@reduxjs/toolkit';
 import { log } from 'react-native-reanimated';
 import User from '../user';
+import { RootState } from 'redux/store';
 
 const initialState = {
   token: null,
@@ -39,5 +40,5 @@ const tokenReducer = createReducer(initialState, builder => {
       }
     });
 });
-
+export const selectToken= (state:RootState)=> state.tokens.token
 export default tokenReducer;
