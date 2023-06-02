@@ -40,17 +40,23 @@ const ProviderProfile = () => {
     Journeys.thunks.doGetAgencyReviews,
   );
   const agencyReviews = useSelector(selectCurrentAgencyReviews);
-
+  const [pageJourneys, setpageJourneys] = useState(1);
+  const [pageReviews, setpageReviews] = useState(1);
   useEffect(() => {
-    dispatch(Journeys.thunks.doGetAgencyJourneys(route.params?.id));
-    dispatch(Journeys.thunks.doGetAgencyReviews(route.params?.id));
+    dispatch(
+      Journeys.thunks.doGetAgencyJourneys({
+        id: route.params?.id,
+        page: pageJourneys,
+      }),
+    );
+    dispatch(
+      Journeys.thunks.doGetAgencyReviews({
+        id: route.params?.id,
+        page: pageReviews,
+      }),
+    );
     dispatch(Journeys.thunks.doGetAgency(route.params?.id));
-  }, [route.params?.id]);
-
-  // console.log(agencyReviews, 'rating');
-  // console.log(isGetAgencyReviews, 'boolean');
-  console.log(journeys, 'this is journeys', route.params?.id);
-  console.log(agency);
+  }, [route.params?.id, pageJourneys, pageReviews]);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -62,28 +68,31 @@ const ProviderProfile = () => {
         select={select}
         setselect={setselect}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {select === 1 ? (
-          <AboutSection
-            lang={lang}
-            description={agency?.agencyDataRes.description}
-          />
-        ) : select === 2 ? (
-          <ExperienceSection
-            isDarkMode={isDarkMode}
-            lang={lang}
-            journeys={journeys}
-            isGetJourneysLoading={isGetJourneysLoading}
-          />
-        ) : select === 3 ? (
-          <ReviewSection
-            isDarkMode={isDarkMode}
-            lang={lang}
-            isGetAgencyReviews={isGetAgencyReviews}
-            agencyReviews={agencyReviews}
-          />
-        ) : null}
-      </ScrollView>
+
+      {select === 1 ? (
+        <AboutSection
+          lang={lang}
+          description={agency?.agencyDataRes.description}
+        />
+      ) : select === 2 ? (
+        <ExperienceSection
+          pageJourneys={pageJourneys}
+          setpageJourneys={setpageJourneys}
+          isDarkMode={isDarkMode}
+          lang={lang}
+          journeys={journeys}
+          isGetJourneysLoading={isGetJourneysLoading}
+        />
+      ) : select === 3 ? (
+        <ReviewSection
+          pageReviews={pageReviews}
+          setpageReviews={setpageReviews}
+          isDarkMode={isDarkMode}
+          lang={lang}
+          isGetAgencyReviews={isGetAgencyReviews}
+          agencyReviews={agencyReviews}
+        />
+      ) : null}
     </SafeAreaView>
   );
 };

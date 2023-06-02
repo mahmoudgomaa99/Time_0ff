@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from 'react-native';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import User, { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
@@ -12,7 +12,7 @@ import Header from './Components/Header';
 import Content from './Components/Content';
 import languages from 'values/languages';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { selectCurrentToken } from 'redux/tokens/reducer';
+
 
 const Home = () => {
   const navigation = useNavigation<any>();
@@ -26,11 +26,13 @@ const Home = () => {
     Journeys.thunks.doGetAgencyJourneys,
   );
   const journeys = useSelector(selectCurrentAgencyJourneys);
-
+  const [page, setpage] = useState(1);
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetAgencyJourneys(userData?._id));
-    }, [userData?._id]),
+      dispatch(
+        Journeys.thunks.doGetAgencyJourneys({ id: userData?._id, page: page }),
+      );
+    }, [userData?._id, page]),
   );
   useFocusEffect(
     useCallback(() => {
@@ -64,6 +66,8 @@ const Home = () => {
         </TouchableOpacity>
       </View>
       <Content
+        page={page}
+        setpage={setpage}
         isDarkMode={isDarkMode}
         lang={lang}
         journeys={journeys}

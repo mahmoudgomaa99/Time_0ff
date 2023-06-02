@@ -133,11 +133,13 @@ const GetDiscountJourneys = (data: {
 
 const GetJourney = (id: number) => api.get(`journeys/${id}`);
 
-const GetAgencyJourneys = (id: number) => api.get(`agencies/journeys/${id}`);
+const GetAgencyJourneys = (data: { id: number; page: number }) =>
+  api.get(`agencies/journeys/${data.id}?page=${data.page}`);
 
-const GetAgency = (id: number) => api.get(`agencies/28`);
+const GetAgency = (id: number) => api.get(`agencies/${id}`);
 
-const GetAgencyReviews = (id: number) => api.get(`agencies/reviews/28`);
+const GetAgencyReviews = (data: { id: number; page: number }) =>
+  api.get(`agencies/reviews/${data.id}?page=${data.page}`);
 const AddFavourite = (id: number) => api.put(`journeys/favorite/${id}`);
 const GetFavJourneys = () => api.get('users/journeys');
 const AddJourney = (data: {
@@ -186,7 +188,7 @@ const AddBooking = (data: {
 
 const GetBooking = (id: number) => api.get(`journeys/book/${id}`);
 
-const GetAllBookings = (id: number) => api.get(`journeys/book/user/${id}`);
+const GetAllBookings = (data:{id: number,page:number}) => api.get(`journeys/book/user/${data.id}?page=${data.page}`);
 const UpdateJourneyData = (data: any) =>
   api.put(`journeys/${data.id}`, data.data);
 

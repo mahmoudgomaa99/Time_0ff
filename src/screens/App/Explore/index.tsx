@@ -1,4 +1,10 @@
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
@@ -23,6 +29,7 @@ import { useAppDispatch } from 'redux/store';
 import { h } from 'values/Dimensions';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import COLORS from 'values/colors';
 
 const Explore = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +46,7 @@ const Explore = () => {
   const isGetJourneysDiscount = useLoadingSelector(
     Journeys.thunks.doGetDiscountJourneys,
   );
+  const [page, setpage] = useState(1);
   useFocusEffect(
     useCallback(() => {
       dispatch(
@@ -52,8 +60,14 @@ const Explore = () => {
                 price_end: filterData.price_end,
                 rating: 4,
                 search_key_word_name: search,
+                page: page,
               }
-            : { category: category, rating: 4, search_key_word_name: search },
+            : {
+                category: category,
+                rating: 4,
+                search_key_word_name: search,
+                page: page,
+              },
         ),
       );
       dispatch(
@@ -75,8 +89,10 @@ const Explore = () => {
               },
         ),
       );
-    }, [category, filterData, search]),
+    }, [category, filterData, search, page]),
   );
+  console.log(page, 'this is the page');
+  console.log(journeysOffers);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -99,8 +115,7 @@ const Explore = () => {
         title={languages[lang].whathot}
         style={styles(lang, isDarkMode).Text}
       />
-      <ScrollView
-        style={{ height: journeysOffers?.length ? h * 0.2 : h * 0.1 }}>
+      <View style={{ height: journeysOffers?.length ? h * 0.2 : h * 0.1 }}>
         {journeysOffers?.length > 0 ? (
           isGetJourneysOffers ? (
             [...Array(10)].map(i => (
@@ -109,31 +124,74 @@ const Explore = () => {
               </View>
             ))
           ) : (
-            journeysOffers?.map((item: any, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => {
-                  navigation.navigate('detailsTrip', { id: item._id });
-                }}>
-                <Card
-                  title={
-                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
-                  }
-                  description={
-                    lang === 'ar' ? item.arabic_description : item.description
-                  }
-                  location={
-                    lang === 'ar' ? item.arabic_location : item.location
-                  }
-                  name={item.agency_name}
-                  stars={item.rating ? item.rating : 0}
-                  lang={lang}
-                  isDarkMode={isDarkMode}
-                  isFav={item.is_favorite}
-                  urlImage={item.image}
-                />
-              </TouchableOpacity>
-            ))
+            <>
+              <FlatList
+                onEndReached={() => {
+                  setpage((prev: number) => prev + 1);
+                }}
+                data={journeysOffers}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('detailsTrip', { id: item._id });
+                    }}>
+                    <Card
+                      title={
+                        lang === 'ar'
+                          ? item.arabic_journey_name
+                          : item.journey_name
+                      }
+                      description={
+                        lang === 'ar'
+                          ? item.arabic_description
+                          : item.description
+                      }
+                      location={
+                        lang === 'ar' ? item.arabic_location : item.location
+                      }
+                      name={item.agency_name}
+                      stars={item.rating ? item.rating : 0}
+                      lang={lang}
+                      isDarkMode={isDarkMode}
+                      isFav={item.is_favorite}
+                      urlImage={item.image}
+                    />
+                  </TouchableOpacity>
+                )}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={item => item.id}
+              />
+              {isGetJourneysOffers && page !== 1 && (
+                <View style={{ marginBottom: 10 }}>
+                  <ActivityIndicator size="large" color={COLORS.primary} />
+                </View>
+              )}
+            </>
+            // journeysOffers?.map((item: any, index) => (
+            //   <TouchableOpacity
+            //     key={index}
+            //     onPress={() => {
+            //       navigation.navigate('detailsTrip', { id: item._id });
+            //     }}>
+            //     <Card
+            //       title={
+            //         lang === 'ar' ? item.arabic_journey_name : item.journey_name
+            //       }
+            //       description={
+            //         lang === 'ar' ? item.arabic_description : item.description
+            //       }
+            //       location={
+            //         lang === 'ar' ? item.arabic_location : item.location
+            //       }
+            //       name={item.agency_name}
+            //       stars={item.rating ? item.rating : 0}
+            //       lang={lang}
+            //       isDarkMode={isDarkMode}
+            //       isFav={item.is_favorite}
+            //       urlImage={item.image}
+            //     />
+            //   </TouchableOpacity>
+            // ))
           )
         ) : (
           <TextView
@@ -141,7 +199,7 @@ const Explore = () => {
             style={styles(lang, isDarkMode).text}
           />
         )}
-      </ScrollView>
+      </View>
 
       {/* <BottomList isDarkMode={isDarkMode} lang={lang} /> */}
       <FilterModel

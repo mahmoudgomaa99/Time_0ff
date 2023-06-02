@@ -43,6 +43,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const [filterData, setfilterData] = useState<TInitialValues>();
   const [category, setcategory] = useState('');
   const lang = useSelector(selectLanguage);
+  const [page, setpage] = useState(1);
   if (route.params?.modal) {
     setTimeout(() => {
       setisFlightConfirmed(true);
@@ -51,19 +52,19 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       });
     }, 100);
   }
-  const tokens = useSelector( selectToken);
-  console.log(tokens);
-  
+  const tokens = useSelector(selectToken);
+  // console.log(tokens);
+
   useFocusEffect(
     useCallback(() => {
       dispatch(
         Journeys.thunks.doGetJourneys(
           filterData
-            ? filterData
-            : { category: category, search_key_word_name: search },
+            ? { ...filterData, page: page }
+            : { category: category, search_key_word_name: search, page: page },
         ),
       );
-    }, [category, filterData, search]),
+    }, [category, filterData, search, page]),
   );
 
   // useEffect(() => {
@@ -79,9 +80,12 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
 
-  const deviceToken =  DeviceInfo.getUniqueId();
-  console.log(deviceToken , 'device token');
-  
+  const deviceToken = DeviceInfo.getUniqueId();
+  // console.log(deviceToken, 'device token');
+  // console.log(journeys.length, 'tttttttttt');
+
+  console.log(page);
+
   return (
     <View
       style={{
@@ -159,6 +163,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           isGetJourneysLoading={isGetJourneysLoading}
           journeys={SortJourneys(journeys, sort)}
           setisSortModel={setisSortModel}
+          page={page}
+          setpage={setpage}
         />
         <FilterModel
           isFilterModalVisable={isFilterModalVisable}

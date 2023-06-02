@@ -1,4 +1,9 @@
-import { View, TouchableOpacity, FlatList } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import Card from '../Card';
 import TextView from 'atoms/TextView';
@@ -8,6 +13,8 @@ import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import Svg from 'atoms/Svg';
+import { number } from 'yup';
+import COLORS from 'values/colors';
 
 const BottomList = ({
   lang,
@@ -15,12 +22,16 @@ const BottomList = ({
   isGetJourneysLoading,
   journeys,
   setisSortModel,
+  page,
+  setpage,
 }: {
   isDarkMode?: boolean;
   lang: string;
   isGetJourneysLoading: boolean;
   journeys: any;
   setisSortModel?: any;
+  page: number;
+  setpage: any;
 }) => {
   const navigation = useNavigation<any>();
 
@@ -50,7 +61,7 @@ const BottomList = ({
         </View>
       </View>
       <View style={{ paddingTop: 0 }}>
-        {isGetJourneysLoading ? (
+        {isGetJourneysLoading && page === 1 ? (
           [...Array(20)].map(i => (
             <View key={i}>
               <SkeletonItem />
@@ -59,41 +70,51 @@ const BottomList = ({
         ) : (
           <>
             {journeys?.length !== 0 ? (
-              <FlatList
-                data={journeys}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate('detailsTrip', { id: item._id });
-                      console.log(item, 'jorney');
-                    }}
-                    style={{ marginTop: 2 }}>
-                    <Card
-                      title={
-                        lang === 'ar'
-                          ? item.arabic_journey_name
-                          : item.journey_name
-                      }
-                      description={
-                        lang === 'ar'
-                          ? item.arabic_description
-                          : item.description
-                      }
-                      location={
-                        lang === 'ar' ? item.arabic_location : item.location
-                      }
-                      name={item.agency_name}
-                      stars={item.rating ? item.rating : 0}
-                      lang={lang}
-                      isDarkMode={isDarkMode}
-                      isFav={item?.is_favorite || false}
-                      urlImage={item.image}
-                    />
-                  </TouchableOpacity>
+              <>
+                <FlatList
+                  onEndReached={() => {
+                    setpage((prev: number) => prev + 1);
+                  }}
+                  data={journeys}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('detailsTrip', { id: item._id });
+                        console.log(item, 'jorney');
+                      }}
+                      style={{ marginTop: 2 }}>
+                      <Card
+                        title={
+                          lang === 'ar'
+                            ? item.arabic_journey_name
+                            : item.journey_name
+                        }
+                        description={
+                          lang === 'ar'
+                            ? item.arabic_description
+                            : item.description
+                        }
+                        location={
+                          lang === 'ar' ? item.arabic_location : item.location
+                        }
+                        name={item.agency_name}
+                        stars={item.rating ? item.rating : 0}
+                        lang={lang}
+                        isDarkMode={isDarkMode}
+                        isFav={item?.is_favorite || false}
+                        urlImage={item.image}
+                      />
+                    </TouchableOpacity>
+                  )}
+                  showsVerticalScrollIndicator={false}
+                  keyExtractor={item => item.id}
+                />
+                {isGetJourneysLoading && page !== 1 && (
+                  <View style={{ marginBottom: 10 }}>
+                    <ActivityIndicator size="large" color={COLORS.primary} />
+                  </View>
                 )}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.id}
-              />
+              </>
             ) : (
               <TextView
                 title={languages[lang].noData}
