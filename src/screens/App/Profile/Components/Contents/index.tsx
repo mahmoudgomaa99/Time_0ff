@@ -65,22 +65,20 @@ const Contents = ({
           </TouchableOpacity>
         </View>
       ))}
-      {currentUser && (
-        <TouchableOpacity
-          onPress={() => {
-            dispatch(User.logout());
-            dispatch(UserType.setUserData(undefined));
-          }}
-          style={styles(lang).container}>
-          <View style={styles(lang).innerContainer}>
-            <Svg name="logout" size={60} />
-            <TextView
-              title={languages[lang].logout}
-              style={styles(lang, isDarkMode).text}
-            />
-          </View>
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(User.actions.logoutAction());
+          dispatch(UserType.setUserData(undefined));
+        }}
+        style={styles(lang).container}>
+        <View style={styles(lang).innerContainer}>
+          <Svg name="logout" size={60} />
+          <TextView
+            title={languages[lang].logout}
+            style={styles(lang, isDarkMode).text}
+          />
+        </View>
+      </TouchableOpacity>
       <AuthModal
         closeCustomModal={closeCustomModal}
         CustomModal={CustomModal}
