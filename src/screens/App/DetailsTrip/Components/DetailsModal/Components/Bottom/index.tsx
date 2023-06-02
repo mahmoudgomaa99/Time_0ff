@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React, { useState } from 'react';
 import TextView from 'atoms/TextView';
 import { Formik } from 'formik';
@@ -15,10 +15,14 @@ import useModalHandler from 'hooks/Modal';
 import AuthModal from 'components/organisms/AuthModal';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
-import TimeModal from './Components/TimeModal';
+import { useAppDispatch } from 'redux/store';
+import { getTimes } from './utils/GetTimes';
+import { getSlotsIdArray } from './utils/GetSlotsIdArray';
 import Journeys from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useAppDispatch } from 'redux/store';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { selectToken } from 'redux/tokens/reducer';
+import { useLoadingSelector } from 'redux/selectors';
 
 const Bottom = ({
   lang,
@@ -36,19 +40,19 @@ const Bottom = ({
   const dispatch = useAppDispatch();
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const currentUser = useSelector(selectCurrentUser);
+  const token = useSelector(selectToken);
   // state to hold the selected date
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
-  const [selectTime, setselectTime] = useState(new Date());
-  const [isTimeModalVisable, setisTimeModalVisable] = useState(false);
-  const [Date_, setDate_] = useState('');
-  const [Times, setTimes] = useState([])
+  console.log(availabilityJourneys);
+  console.log(currentUser);
 
   return (
     <Formik
       initialValues={{ date: '', time: '', members: '', terms: '' }}
       onSubmit={values => {
-        console.log(values);
+        // console.log(values.time, getTimes(availabilityJourneys, values.date));
+        console.log(token, values);
         if (!currentUser) {
           openCustomModal();
         } else {
@@ -59,10 +63,16 @@ const Bottom = ({
             }),
           )
             .then(unwrapResult)
+            .then(() => {
+              setisDetailsModalVisibal(false);
+            })
             .catch(err => {
               console.log(err);
+              Toast.show({
+                type: 'error',
+                text2: err.message,
+              });
             });
-          setisDetailsModalVisibal(false);
         }
       }}>
       {props => (
@@ -106,7 +116,7 @@ const Bottom = ({
             {...props}
             borderColor={'#F2F2F2'}
             type={'primary'}
-            data={Times}
+            data={getTimes(availabilityJourneys, props.values.date)}
             placeholder={'Time'}
             name={'time'}
             values={props.values}
@@ -159,20 +169,19 @@ const Bottom = ({
               props.handleSubmit();
             }}
             style={styles().button}
+            isLoading={isLoading}
           />
 
           <DateModal
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
+            // selectedDate={selectedDate}
+            // setSelectedDate={setSelectedDate}
             isDateModalVisable={isDateModalVisable}
             setDateModalVisable={setDateModalVisable}
-            formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}
             availableDates={availableDates}
-            Times={Times}
-            setTimes={setTimes}
             availabilityJourneys={availabilityJourneys}
+            formikProps={props}
           />
           <AuthModal
             CustomModal={CustomModal}

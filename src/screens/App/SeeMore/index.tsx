@@ -1,5 +1,11 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import React, { useCallback, useEffect } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Top from './Component/Top';
 import { useSelector } from 'react-redux';
@@ -27,18 +33,20 @@ const SeeMore = () => {
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneys,
   );
+  const [page, setpage] = useState(1);
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetJourneys({}));
-    }, []),
+      dispatch(Journeys.thunks.doGetJourneys({ page: page }));
+    }, [page]),
   );
+  console.log(journeys.length);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} />
       <View style={{ paddingTop: 0 }}>
-        {isGetJourneysLoading ? (
+        {isGetJourneysLoading && page === 1 ? (
           [...Array(20)].map(i => (
             <View key={i}>
               <SkeletonItem />
@@ -57,48 +65,68 @@ const SeeMore = () => {
                 />
               </View>
             ) : (
-              <FlatList
-                contentContainerStyle={{ paddingBottom: h * 0.2 }}
-                data={journeys}
-                renderItem={({
-                  item,
-                  index,
-                }: {
-                  item?: any;
-                  index?: number;
-                }) => (
-                  <TouchableOpacity
-                    key={item?.id}
-                    onPress={() => {
-                      navigation.navigate('detailsTrip', { id: item?._id });
-                    }}
-                    style={{ marginTop: 2 }}>
-                    <Card
-                      title={
-                        lang === 'ar'
-                          ? item?.arabic_journey_name
-                          : item?.journey_name
-                      }
-                      description={
-                        lang === 'ar'
-                          ? item.arabic_description
-                          : item.description
-                      }
-                      location={
-                        lang === 'ar' ? item.arabic_location : item.location
-                      }
-                      name={item?.agency_name}
-                      stars={item.rating ? item.rating : 0}
-                      lang={lang}
-                      isDarkMode={isDarkMode}
-                      isFav={item.is_favorite}
-                      urlImage={item.image}
+              <>
+                <FlatList
+                  onEndReached={() => {
+                    setpage((prev: number) => prev + 1);
+                  }}
+                  contentContainerStyle={{ paddingBottom: h * 0.2 }}
+                  data={journeys}
+                  keyExtractor={(item, index): any => index.toString()}
+                  renderItem={({
+                    item,
+                    index,
+                  }: {
+                    item?: any;
+                    index?: number;
+                  }) => (
+                    <TouchableOpacity
+                      key={item?.id}
+                      onPress={() => {
+                        navigation.navigate('detailsTrip', { id: item?._id });
+                      }}
+                      style={{ marginTop: 2 }}>
+                      <Card
+                        title={
+                          lang === 'ar'
+                            ? item?.arabic_journey_name
+                            : item?.journey_name
+                        }
+                        description={
+                          lang === 'ar'
+                            ? item.arabic_description
+                            : item.description
+                        }
+                        location={
+                          lang === 'ar' ? item.arabic_location : item.location
+                        }
+                        name={item?.agency_name}
+                        stars={item.rating ? item.rating : 0}
+                        lang={lang}
+                        isDarkMode={isDarkMode}
+                        isFav={item.is_favorite}
+                        urlImage={item.images[0]}
+                      />
+                    </TouchableOpacity>
+                  )}
+                  showsVerticalScrollIndicator={false}
+                  // keyExtractor={(item): any => item?.id}
+                />
+                {isGetJourneysLoading && page !== 1 && (
+                  <View
+                    style={{
+                      height: 50,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <ActivityIndicator
+                      color={COLORS.black}
+                      style={{ marginVertical: h * 0 }}
+                      size={'large'}
                     />
-                  </TouchableOpacity>
+                  </View>
                 )}
-                showsVerticalScrollIndicator={false}
-                // keyExtractor={(item): any => item?.id}
-              />
+              </>
             )}
           </>
         )}

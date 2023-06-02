@@ -227,10 +227,6 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doAddBooking.rejected, (state, action: any) => {
       console.log(action, 'from faild');
-      Toast.show({
-        type: 'error',
-        text2: languages['en'].bookingaddFaild,
-      });
     });
 
     builder.addCase(thunks.doGetBooking.fulfilled, (state, action) => {
@@ -245,7 +241,10 @@ const slice = createSlice({
       if (action.meta.arg.page === 1) {
         state.allBookings = action.payload.data.data.bookings;
       } else {
-        state.allBookings = [...state.allBookings, ...action.payload.data.data.bookings];
+        state.allBookings = [
+          ...state.allBookings,
+          ...action.payload.data.data.bookings,
+        ];
       }
     });
     builder.addCase(thunks.doGetAllBookings.rejected, (state, action) => {

@@ -52,7 +52,7 @@ export const styles = (isDarkMode?: boolean) =>
       fontFamily: Fonts.Cairo_SemiBold,
     },
     descriptionText: {
-      fontSize: 14,
+      fontSize: 13,
       color: '#5B5959',
       fontFamily: Fonts.Cairo_Regular,
     },

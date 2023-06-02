@@ -34,6 +34,7 @@ const BottomList = ({
   setpage: any;
 }) => {
   const navigation = useNavigation<any>();
+  console.log(journeys[0], 'journeys');
 
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
@@ -102,7 +103,7 @@ const BottomList = ({
                         lang={lang}
                         isDarkMode={isDarkMode}
                         isFav={item?.is_favorite || false}
-                        urlImage={item.image}
+                        urlImage={item.images[0]}
                       />
                     </TouchableOpacity>
                   )}
@@ -110,7 +111,7 @@ const BottomList = ({
                   keyExtractor={item => item.id}
                 />
                 {isGetJourneysLoading && page !== 1 && (
-                  <View style={{ marginBottom: 10 }}>
+                  <View style={{ marginBottom: h * 0.1 }}>
                     <ActivityIndicator size="large" color={COLORS.primary} />
                   </View>
                 )}

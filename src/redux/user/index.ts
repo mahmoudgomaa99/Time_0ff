@@ -17,7 +17,9 @@ const slice = createSlice({
   name: EntityKeys.USERS,
   initialState: initialValues,
   reducers: {
-    LOG_OUT: () => initialValues,
+    LOG_OUT: state => {
+      state.currentUser = null;
+    },
   },
   extraReducers: builder => {
     builder.addCase(thunks.doLogIn.fulfilled, (state, action) => {

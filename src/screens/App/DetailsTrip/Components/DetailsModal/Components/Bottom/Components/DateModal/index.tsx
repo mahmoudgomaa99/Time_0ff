@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native';
-import React, { useState } from 'react';
+import { View } from 'react-native';
+import React from 'react';
 import { Calendar } from 'react-native-calendars';
 import Modal from 'react-native-modal';
 import { FormikProps } from 'formik';
@@ -7,49 +7,40 @@ import { styles } from './styles';
 import Top from './Components/Top';
 import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
+
 const DateModal = ({
-  selectedDate,
-  setSelectedDate,
   isDateModalVisable,
   setDateModalVisable,
   formikProps,
   lang,
   isDarkMode,
   availableDates,
-  Times,
-  setTimes,
-  availabilityJourneys,
 }: {
-  selectedDate: any;
-  setSelectedDate: any;
   isDateModalVisable: any;
   setDateModalVisable: any;
   formikProps: FormikProps<any>;
   lang: string;
   isDarkMode?: boolean;
   availableDates?: any;
-  Times?: any;
-  setTimes?: any;
+
   availabilityJourneys?: any;
 }) => {
-  // function to handle selecting a date
   const handleSelectDate = (date: any) => {
-    setSelectedDate(date.dateString);
-    const [year, month, day] = date.dateString.split('-');
-    const Date = `${parseInt(month)}/${parseInt(day)}/${parseInt(year)}`;
-    const times = availabilityJourneys
-      .map((i: any) => {
-        if (Date == i.available_date) {
-          return { label: i.hour, value: i._id };
-        } else {
-          return undefined;
-        }
-      })
-      .filter((i: any) => i !== undefined);
-    setTimes(times);
     formikProps.setFieldValue('date', date.dateString);
+    // const Date = moment(date.dateString).format('YYYY/MM/DD');
+    // console.log(Date);
+    // const times = availabilityJourneys
+    //   .map((i: any) => {
+    //     if (Date == i.available_date) {
+    //       return { label: i.hour, value: i._id };
+    //     } else {
+    //       return undefined;
+    //     }
+    //   })
+    //   // .filter((i: any) => i !== undefined);
+    // setTimes(times);
+    // formikProps.setFieldValue('date', date.dateString);
   };
-  console.log(availableDates);
   return (
     <Modal
       isVisible={isDateModalVisable}
@@ -63,12 +54,12 @@ const DateModal = ({
             isDarkMode={isDarkMode}
           />
           <Calendar
-            current={selectedDate}
+            current={formikProps.values.date}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
             markedDates={{
               ...availableDates,
-              [selectedDate]: {
+              [formikProps.values.date]: {
                 selected: true,
                 selectedColor: '#B5E633',
               },
@@ -105,7 +96,8 @@ const DateModal = ({
             style={styles().button}
             onPress={() => {
               console.log('clicked');
-              formikProps.handleSubmit;
+              // formikProps.handleSubmit();
+              setDateModalVisable(false);
             }}
           />
         </View>
