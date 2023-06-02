@@ -60,17 +60,23 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(thunks.doGetJourneys.fulfilled, (state, action) => {
-      console.log(action.meta.arg);
-
-      state.journeys = action.payload.data.data;
+      console.log(action.meta.arg, 'test test');
+      if (action.meta.arg.page === 1) {
+        state.journeys = action.payload.data.data;
+      } else {
+        state.journeys = [...state.journeys, ...action.payload.data.data];
+      }
     });
     builder.addCase(thunks.doGetJourneys.rejected, (state, action) => {
       console.log(action);
     });
     builder.addCase(thunks.doGetHotJourneys.fulfilled, (state, action) => {
       console.log(action.meta.arg);
-
-      state.hotJourneys = action.payload.data.data;
+      if (action.meta.arg.page === 1) {
+        state.hotJourneys = action.payload.data.data;
+      } else {
+        state.hotJourneys = [...state.hotJourneys, ...action.payload.data.data];
+      }
     });
     builder.addCase(thunks.doGetHotJourneys.rejected, (state, action) => {
       console.log(action);
@@ -90,13 +96,27 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetAgencyJourneys.fulfilled, (state, action) => {
-      state.agencyJorneys = action.payload.data.data;
+      if (action.meta.arg.page === 1) {
+        state.agencyJorneys = action.payload.data.data;
+      } else {
+        state.agencyJorneys = [
+          ...state.agencyJorneys,
+          ...action.payload.data.data,
+        ];
+      }
     });
     builder.addCase(thunks.doGetAgencyJourneys.rejected, (state, action) => {
       console.log(action);
     });
     builder.addCase(thunks.doGetAgencyReviews.fulfilled, (state, action) => {
-      state.agencyReviews = action.payload.data.data.reviews;
+      if (action.meta.arg.page === 1) {
+        state.agencyReviews = action.payload.data.data;
+      } else {
+        state.agencyReviews = [
+          ...state.agencyReviews,
+          ...action.payload.data.data,
+        ];
+      }
     });
     builder.addCase(thunks.doGetAgencyReviews.rejected, (state, action) => {
       console.log(action);
@@ -222,7 +242,11 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doGetAllBookings.fulfilled, (state, action) => {
       console.log(action.payload.data.data.bookings);
-      state.allBookings = action.payload.data.data.bookings;
+      if (action.meta.arg.page === 1) {
+        state.allBookings = action.payload.data.data.bookings;
+      } else {
+        state.allBookings = [...state.allBookings, ...action.payload.data.data.bookings];
+      }
     });
     builder.addCase(thunks.doGetAllBookings.rejected, (state, action) => {
       console.log(action.payload);

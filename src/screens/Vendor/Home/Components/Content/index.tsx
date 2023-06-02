@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import SkeletonItem from 'components/molecules/SkeletonItem';
@@ -13,17 +20,21 @@ const Content = ({
   isDarkMode,
   journeys,
   isGetJourneysLoading,
+  page,
+  setpage,
 }: {
   isDarkMode?: boolean;
   lang: string;
   journeys?: Tjourneys;
   isGetJourneysLoading: any;
+  page: number;
+  setpage: any;
 }) => {
   const navigation = useNavigation<any>();
 
   return (
-    <ScrollView>
-      {isGetJourneysLoading ? (
+    <>
+      {isGetJourneysLoading && page === 1 ? (
         [...Array(20)].map(i => (
           <View key={i}>
             <SkeletonItem />
@@ -31,7 +42,49 @@ const Content = ({
         ))
       ) : journeys?.length !== 0 ? (
         <>
-          {journeys?.map((item?: any) => (
+          <>
+            <FlatList
+              onEndReached={() => {
+                setpage((prev: number) => prev + 1);
+              }}
+              data={journeys}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  key={item._id}
+                  onPress={() => {
+                    navigation.navigate('journeyDetails', { id: item._id });
+                  }}>
+                  <Card
+                    title={
+                      lang === 'ar'
+                        ? item.arabic_journey_name
+                        : item.journey_name
+                    }
+                    description={
+                      lang === 'ar' ? item.arabic_description : item.description
+                    }
+                    location={
+                      lang === 'ar' ? item.arabic_location : item.location
+                    }
+                    name={item.agency_name}
+                    stars={item.rating ? item.rating : 0}
+                    lang={lang}
+                    isDarkMode={isDarkMode}
+                    isFav={item.is_favorite}
+                    urlImage={item.image}
+                  />
+                </TouchableOpacity>
+              )}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item._id}
+            />
+            {isGetJourneysLoading && page !== 1 && (
+              <View style={{ marginBottom: 10 }}>
+                <ActivityIndicator size="large" color={COLORS.primary} />
+              </View>
+            )}
+          </>
+          {/* {journeys?.map((item?: any) => (
             <TouchableOpacity
               key={item._id}
               onPress={() => {
@@ -53,7 +106,7 @@ const Content = ({
                 urlImage={item.image}
               />
             </TouchableOpacity>
-          ))}
+          ))} */}
         </>
       ) : (
         <View>
@@ -67,7 +120,7 @@ const Content = ({
           </Text>
         </View>
       )}
-    </ScrollView>
+    </>
   );
 };
 

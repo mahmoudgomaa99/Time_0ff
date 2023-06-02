@@ -52,5 +52,12 @@ export const styles = (lang: string, color?: string, isDarkMode?: boolean) => {
       color: color,
       fontFamily: Fonts.Cairo_Regular,
     },
+    noReviews: {
+      fontSize: 18,
+      textAlign: 'center',
+      marginVertical: MarginsAndPaddings.ml,
+      fontWeight: '900',
+      fontFamily:Fonts.Cairo_SemiBold
+    },
   });
 };
