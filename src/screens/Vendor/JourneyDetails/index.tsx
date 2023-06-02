@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Platform,
 } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import { selectIsDarkMode } from 'redux/DarkMode';
@@ -21,7 +21,6 @@ import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import { h, w } from 'values/Dimensions';
 import COLORS from 'values/colors';
-import moment from 'moment';
 import { useAppDispatch } from 'redux/store';
 import Journeys, {
   selectCurrentJourney,
@@ -37,10 +36,17 @@ import Top from './Components/Top';
 import useLibraryPermission from 'hooks/useLibraryPermission';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import Skeleton from '../Profile/Components/Skeleton';
+import Button from 'components/molecules/Button';
+import moment from 'moment';
+import { set } from 'lodash';
+import { unwrapResult } from '@reduxjs/toolkit';
+import DateModal from '../AddJourney/Components/DateModal';
 
 const JourneyDetails = () => {
   const dispatch = useAppDispatch();
+  const routes: any = useRoute();
   const navigation = useNavigation<any>();
+  const { id } = routes.params;
   const isLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const isLoadin2 = useLoadingSelector(
     Journeys.thunks.doGetJourneysAvilabilitey_Vendor,
@@ -48,13 +54,17 @@ const JourneyDetails = () => {
   const isImageLoading = useLoadingSelector(
     Journeys.thunks.doUpdatJourney_Image,
   );
+  const isUpdateDataLoading = useLoadingSelector(
+    Journeys.thunks.doUpdateJourneyData,
+  );
   const avilabilties = useSelector(selectCurrentJourneysAvilabilitey_Vendor);
-  const routes: any = useRoute();
-  const { id } = routes.params;
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const journey = useSelector(selectCurrentJourney);
   const { source, pick } = useLibraryPermission();
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDateModalVisable, setDateModalVisable] = useState(false);
+  const [name, setName] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -66,10 +76,6 @@ const JourneyDetails = () => {
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(id));
     }, []),
   );
-
-  // console.log(journey, source);
-  // console.log(id, 'sss');
-  // console.log(avilabilties, 'test');
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -89,7 +95,36 @@ const JourneyDetails = () => {
             start_date: journey?.start_date,
             availability: avilabilties,
           }}
-          onSubmit={values => {}}>
+          onSubmit={values => {
+            dispatch(
+              Journeys.thunks.doUpdateJourneyData({
+                data: {
+                  journey_name: values.journey_name,
+                  description: values.description,
+                  start_date: values.start_date,
+                  end_date: values.start_date,
+                  capacity: values.capacity,
+                  location: values.location,
+                  category: values.category,
+                  price: values.price,
+                  arabic_journey_name: values.journey_name,
+                  arabic_description: values.description,
+                  arabic_location: values.location,
+                  arabic_category: values.category,
+                },
+                id: id,
+              }),
+            )
+              .then(unwrapResult)
+              .then(() => {
+                setIsDisabled(true);
+                Toast.show({
+                  type: 'success',
+                  text2: languages[lang].journeyUpdatedSuccefuly,
+                });
+              })
+              .catch(() => {});
+          }}>
           {props => (
             <View>
               {isLoading ? (
@@ -111,18 +146,6 @@ const JourneyDetails = () => {
                     disabled={!source}
                     onPress={() => {
                       const body = new FormData();
-                      // write how to create body with multiple images form data
-
-                      // source?.assets?.forEach((item: any, index: number) => {
-                      //   body.append(`images[]`, {
-                      //     uri:
-                      //       Platform.OS === 'android'
-                      //         ? item.uri
-                      //         : item.uri.replace('file://', ''),
-                      //     name: item.fileName,
-                      //     type: item.type,
-                      //   });
-                      // });
                       source?.assets?.forEach((item: any, index: any) => {
                         const uri =
                           Platform.OS === 'android'
@@ -134,21 +157,6 @@ const JourneyDetails = () => {
                           type: item.type || 'image/jpeg', // Modify the type as per your needs
                         });
                       });
-                      // body.append(
-                      //   'images',
-                      //   source.assets.map((i: any) => {
-                      //     return {
-                      //       uri:
-                      //         Platform.OS === 'android'
-                      //           ? i?.uri
-                      //           : i?.uri.replace('file://', ''),
-                      //       name: i?.fileName,
-                      //       type: i?.type,
-                      //     };
-                      //   }),
-                      // );
-                      console.log(body, 'body');
-
                       dispatch(
                         Journeys.thunks.doUpdatJourney_Image({
                           data: body,
@@ -156,6 +164,7 @@ const JourneyDetails = () => {
                         }),
                       ).then(res => {
                         console.log('res', res.payload.data);
+
                         Toast.show({
                           type: 'success',
                           text2: languages[lang].imageUpdatedSuccefuly,
@@ -208,7 +217,7 @@ const JourneyDetails = () => {
                       journey?.arabic_journey_name ||
                       'Enter journey name'
                     }
-                    disabled
+                    disabled={isDisabled}
                   />
                   <Picker
                     {...props}
@@ -229,7 +238,7 @@ const JourneyDetails = () => {
                       journey?.arabic_category ||
                       'Select category'
                     }
-                    disabled={true}
+                    disabled={isDisabled}
                   />
                   <InputView
                     style={styles(lang).input}
@@ -250,7 +259,7 @@ const JourneyDetails = () => {
                       journey?.arabic_description ||
                       'Enter description'
                     }
-                    disabled
+                    disabled={isDisabled}
                   />
                   <InputView
                     style={styles(lang).input}
@@ -271,7 +280,7 @@ const JourneyDetails = () => {
                       journey?.arabic_location ||
                       'Enter location'
                     }
-                    disabled
+                    disabled={isDisabled}
                   />
                   <InputView
                     style={styles(lang).input}
@@ -291,7 +300,7 @@ const JourneyDetails = () => {
                     placeholder={
                       journey?.capacity.toString() || 'Enter capacity'
                     }
-                    disabled
+                    disabled={isDisabled}
                   />
                   <InputView
                     style={styles(lang).input}
@@ -309,11 +318,14 @@ const JourneyDetails = () => {
                     ]}
                     labelStyle={[styles(lang).label_style]}
                     keyboardType="number-pad"
-                    disabled
+                    disabled={isDisabled}
                   />
                   <TouchableOpacity
-                    disabled
-                    onPress={() => {}}
+                    disabled={isDisabled}
+                    onPress={() => {
+                      setName('start_date');
+                      setDateModalVisable(true);
+                    }}
                     style={[
                       styles(lang, isDarkMode).containerStyle,
                       {
@@ -339,6 +351,23 @@ const JourneyDetails = () => {
                         : languages[lang].start_date}
                     </Text>
                   </TouchableOpacity>
+                  <Button
+                    type="primary"
+                    label={
+                      isDisabled
+                        ? languages[lang].pressToStartEdit
+                        : languages[lang].apply
+                    }
+                    style={styles().button}
+                    onPress={() => {
+                      if (isDisabled) {
+                        setIsDisabled(false);
+                      } else {
+                        props.handleSubmit();
+                      }
+                    }}
+                    isLoading={isUpdateDataLoading}
+                  />
                   <View
                     style={{
                       flexDirection: 'row',
@@ -487,16 +516,14 @@ const JourneyDetails = () => {
                   ))}
                 </>
               )}
-
-              {/* <Button
-                  type="primary"
-                  label={languages[lang].delete}
-                  style={styles().button}
-                  onPress={() => {
-                    props.handleSubmit();
-                  }}
-                  isLoading={isLoading}
-                /> */}
+              <DateModal
+                isDateModalVisable={isDateModalVisable}
+                setDateModalVisable={setDateModalVisable}
+                formikProps={props}
+                lang={lang}
+                isDarkMode={isDarkMode}
+                name={name}
+              />
             </View>
           )}
         </Formik>
