@@ -232,6 +232,18 @@ const doGetAllBookings = createAsyncThunk<any, any, any>(
   },
 );
 
+const doUpdateJourneyData = createAsyncThunk<any, any, any>(
+  'journeys/UpdateJourneyData',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.UpdateJourneyData(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doGetJourneys,
   doGetJourney,
@@ -251,6 +263,7 @@ const thunks = {
   doGetBooking,
   doGetAllBookings,
   doGetJourneysAvilabilitey_Vendor,
+  doUpdateJourneyData,
 };
 
 export default thunks;

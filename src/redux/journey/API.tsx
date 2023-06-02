@@ -187,6 +187,8 @@ const AddBooking = (data: {
 const GetBooking = (id: number) => api.get(`journeys/book/${id}`);
 
 const GetAllBookings = (id: number) => api.get(`journeys/book/user/${id}`);
+const UpdateJourneyData = (data: any) =>
+  api.put(`journeys/${data.id}`, data.data);
 
 const JourneysApi = {
   GetJourneys,
@@ -207,6 +209,7 @@ const JourneysApi = {
   GetBooking,
   GetAllBookings,
   GetJourneyAvailabilitey_Vendor,
+  UpdateJourneyData,
 };
 
 export default JourneysApi;
