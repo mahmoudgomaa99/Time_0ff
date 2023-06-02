@@ -7,9 +7,9 @@ import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 
 import languages from 'values/languages';
-import Card from './Card';
-import Top from './Top';
-import Bottom from './Bottom';
+import Card from './Components/Card';
+import Top from './Components/Top';
+import Bottom from './Components/Bottom';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
 import Journeys, {
@@ -19,6 +19,8 @@ import Journeys, {
 import { useLoadingSelector } from 'redux/selectors';
 import { useAppDispatch } from 'redux/store';
 import { useFocusEffect } from '@react-navigation/native';
+import moment from 'moment';
+import { getDates } from './utils/GetDates';
 
 const DetailsTrip = ({
   isDetailsModalVisibal,
@@ -39,25 +41,8 @@ const DetailsTrip = ({
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey._id));
-    }, []),
+    }, [journey._id]),
   );
-
-  const Dates: any = {};
-  const getDates = (Journeys: any) => {
-    const dates = Journeys?.map((journey: any) => {
-      const [month, day, year] = journey.available_date.split('/');
-      const newDateStr = `${year}-${month.padStart(2, '0')}-${day.padStart(
-        2,
-        '0',
-      )}`;
-      Dates[newDateStr] = {
-        disabled: false,
-      };
-      return journey.available_date;
-    });
-    console.log(Dates);
-  };
-  getDates(availabilityJourneys);
 
   return (
     <Modal
@@ -84,7 +69,7 @@ const DetailsTrip = ({
             lang={lang}
             setisDetailsModalVisibal={setisDetailsModalVisibal}
             isDarkMode={isDarkMode}
-            availableDates={Dates}
+            availableDates={getDates(availabilityJourneys)}
             availabilityJourneys={availabilityJourneys}
           />
         </ScrollView>

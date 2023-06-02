@@ -182,8 +182,8 @@ const UpdateJourneyAvailabilitey = (data: {
 const RemoveJourney = (id: number) => api.delete(`journeys/${id}`);
 
 const AddBooking = (data: {
-  journey_slot_id: string;
-  number_of_seats: string;
+  journey_slot_id: any;
+  number_of_seats: any;
 }) => api.post(`journeys/book`, data);
 
 const GetBooking = (id: number) => api.get(`journeys/book/${id}`);

@@ -198,6 +198,7 @@ const doAddBooking = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.AddBooking(data);
+      console.log(response, 'ressss');
       if (response.status === 401) {
         throw response.data;
       } else {

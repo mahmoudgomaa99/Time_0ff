@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
@@ -6,7 +6,7 @@ import Svg from 'atoms/Svg';
 import Button from 'components/molecules/Button';
 import languages from 'values/languages';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
-import { w } from 'values/Dimensions';
+import { h, w } from 'values/Dimensions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
@@ -92,7 +92,7 @@ const DetailsTrip = () => {
             <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
               <Carousel
                 layout={'default'}
-                data={[journey?.image, journey?.image, journey?.image]}
+                data={journey?.images}
                 sliderWidth={w}
                 itemWidth={w}
                 renderItem={renderItem}
@@ -112,95 +112,107 @@ const DetailsTrip = () => {
               inactiveDotScale={0.6}
             />
           </View>
-          <View style={styles().text}>
-            <TextView
-              title={
-                lang === 'en' ? journey?.journey_name : journey?.arabic_category
-              }
-              style={[
-                styles(isDarkMode).title,
-                { textAlign: lang === 'ar' ? 'right' : 'left' },
-              ]}
-            />
-            <View
-              style={{
-                marginBottom: 10,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Svg name="location" size={19} />
-              <TextView
-                title={journey?.location}
-                style={[styles(isDarkMode).subTitle, { marginHorizontal: 1 }]}
-              />
-            </View>
-            <View
-              style={[
-                styles().svgAndStar,
-                lang === 'ar' ? styles().arabic : null,
-              ]}>
-              <Svg name="smile" />
-              <TextView
-                onPress={() => {
-                  navigation.navigate('providerProfile', {
-                    id: journey?.agency_id,
-                  });
-                }}
-                title={journey?.agency_name}
-                style={styles(isDarkMode).subTitle}
-              />
-              <Svg name="star" size={17} />
-              <TextView
-                style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
-                title={`(${journey?.rating})`}
-              />
-            </View>
-
-            <View>
-              <TextView
-                title={languages[lang].description}
-                style={[
-                  styles(isDarkMode).descriptionTitle,
-                  { textAlign: lang === 'ar' ? 'right' : 'left' },
-                ]}
-              />
-              <Text style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
+          <View style={{ height: h * 0.42 }}>
+            <ScrollView
+              style={{ flex: 1 }}
+              contentContainerStyle={{ paddingBottom: h * 0.07 }}>
+              <View style={styles().text}>
                 <TextView
-                  style={styles(isDarkMode).descriptionText}
                   title={
                     lang === 'en'
-                      ? journey?.description
-                      : journey?.arabic_description
+                      ? journey?.journey_name
+                      : journey?.arabic_category
                   }
-                />
-              </Text>
-            </View>
-            <View>
-              <TextView
-                title={languages[lang].termCondition}
-                style={[
-                  styles(isDarkMode).descriptionTitle,
-                  {
-                    textAlign: lang === 'ar' ? 'right' : 'left',
-                    marginTop: 15,
-                  },
-                ]}
-              />
-              <Text
-                style={{
-                  textAlign: lang === 'ar' ? 'right' : 'left',
-                  maxHeight: 70,
-                }}>
-                <TextView
                   style={[
-                    styles(isDarkMode).descriptionText,
-                    { maxHeight: 20 },
+                    styles(isDarkMode).title,
+                    { textAlign: lang === 'ar' ? 'right' : 'left' },
                   ]}
-                  title={languages[lang].lorem}
                 />
-              </Text>
-            </View>
+                <View
+                  style={{
+                    marginBottom: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Svg name="location" size={19} />
+                  <TextView
+                    title={journey?.location}
+                    style={[
+                      styles(isDarkMode).subTitle,
+                      { marginHorizontal: 1 },
+                    ]}
+                  />
+                </View>
+                <View
+                  style={[
+                    styles().svgAndStar,
+                    lang === 'ar' ? styles().arabic : null,
+                  ]}>
+                  <Svg name="smile" />
+                  <TextView
+                    onPress={() => {
+                      navigation.navigate('providerProfile', {
+                        id: journey?.agency_id,
+                      });
+                    }}
+                    title={journey?.agency_name}
+                    style={styles(isDarkMode).subTitle}
+                  />
+                  <Svg name="star" size={17} />
+                  <TextView
+                    style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
+                    title={`(${journey?.rating})`}
+                  />
+                </View>
+
+                <View>
+                  <TextView
+                    title={languages[lang].description}
+                    style={[
+                      styles(isDarkMode).descriptionTitle,
+                      { textAlign: lang === 'ar' ? 'right' : 'left' },
+                    ]}
+                  />
+                  <Text style={{ textAlign: lang === 'ar' ? 'right' : 'left' }}>
+                    <TextView
+                      style={styles(isDarkMode).descriptionText}
+                      title={
+                        lang === 'en'
+                          ? journey?.description
+                          : journey?.arabic_description
+                      }
+                    />
+                  </Text>
+                </View>
+                <View>
+                  <TextView
+                    title={languages[lang].termCondition}
+                    style={[
+                      styles(isDarkMode).descriptionTitle,
+                      {
+                        textAlign: lang === 'ar' ? 'right' : 'left',
+                        marginTop: 15,
+                      },
+                    ]}
+                  />
+                  <Text
+                    style={{
+                      textAlign: lang === 'ar' ? 'right' : 'left',
+                      maxHeight: 70,
+                    }}>
+                    <TextView
+                      style={[
+                        styles(isDarkMode).descriptionText,
+                        { maxHeight: 20 },
+                      ]}
+                      title={languages[lang].lorem}
+                    />
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
           </View>
+
           <View
             style={[
               styles().bottom,
