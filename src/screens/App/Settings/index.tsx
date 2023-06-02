@@ -44,8 +44,7 @@ const Settings = () => {
       {userType && (
         <TouchableOpacity
           onPress={() => {
-            dispatch(User.logout());
-            dispatch(UserType.setUserData(undefined));
+            dispatch(User.actions.logoutAction());
           }}
           style={styles(lang, isDarkMode).Lcontainer}>
           <View style={styles(lang, isDarkMode).innerContainer}>

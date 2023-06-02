@@ -44,7 +44,7 @@ const BookingDetails = ({
         {Data(lang).map((value: any, index: number) => (
           <View style={styles(lang).container}>
             <View>
-              <Svg name={value.icon} size={60} />
+              <Svg name={value?.icon} size={60} />
             </View>
             <View>
               <TextView
@@ -54,11 +54,11 @@ const BookingDetails = ({
               <TextView
                 title={
                   index === 0
-                    ? book.activity
+                    ? book?.activity
                     : index === 1
-                    ? `${book.number_of_seats} Members`
+                    ? `${book?.number_of_seats} Members`
                     : index === 2
-                    ? book.createdAt.slice(0, 10)
+                    ? book?.createdAt.slice(0, 10)
                     : null
                 }
                 style={styles(lang, isDarkMode).secondText}

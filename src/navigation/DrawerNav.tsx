@@ -81,8 +81,9 @@ const DrawerNav = ({
               if (item.sub) {
                 navigation.navigate(item.main, { screen: item.sub });
               } else if (item.value) {
-                dispatch(User.logout());
+                dispatch(User.actions.logoutAction());
                 dispatch(UserType.setUserData(undefined));
+                // User.actions.logout()
               } else {
                 navigation.navigate(item.main);
               }

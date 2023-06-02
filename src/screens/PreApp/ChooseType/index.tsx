@@ -9,13 +9,17 @@ import { set } from 'lodash';
 import Button from 'components/molecules/Button';
 import { h, w } from 'values/Dimensions';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectToken } from 'redux/tokens/reducer';
+import { selectCurrentUser } from 'redux/user';
 
 const ChooseType = () => {
   const dispatch = useDispatch();
   const userType = useSelector(selectUserType);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [type, setType] = useState<string>();
-  console.log(userType);
+  const token = useSelector(selectToken);
+  const currentUser = useSelector(selectCurrentUser);
+  console.log(token, currentUser);
 
   return (
     <SafeAreaView style={styles(undefined, undefined, isDarkMode).conatiner}>
