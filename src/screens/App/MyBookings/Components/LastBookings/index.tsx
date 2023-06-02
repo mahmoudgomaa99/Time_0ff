@@ -39,7 +39,9 @@ const LastBookings = ({
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetAllBookings({ id: 15, page: page }));
+      dispatch(
+        Journeys.thunks.doGetAllBookings({ id: currentUser._id, page: page }),
+      );
     }, [page]),
   );
 

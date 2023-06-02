@@ -28,7 +28,7 @@ const BookingDetails = ({
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetBooking(10));
+      dispatch(Journeys.thunks.doGetBooking(bookId));
     }, []),
   );
 

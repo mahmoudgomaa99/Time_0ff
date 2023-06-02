@@ -14,6 +14,7 @@ const Card = ({
   stars,
   lang,
   isDarkMode,
+  urlImage,
 }: {
   title: string;
   description: string;
@@ -22,6 +23,7 @@ const Card = ({
   stars: string;
   lang: string;
   isDarkMode?: boolean;
+  urlImage: string;
 }) => {
   return (
     <View
@@ -30,7 +32,10 @@ const Card = ({
         { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
       ]}>
       <View style={styles(isDarkMode).imageContainer}>
-        <Image source={images.present} style={styles(isDarkMode).image} />
+        <Image
+          source={urlImage ? { uri: urlImage } : images.branding2}
+          style={styles().image}
+        />
       </View>
 
       <View style={styles(isDarkMode).contentContainer}>
