@@ -43,6 +43,7 @@ const DetailsTrip = ({
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey._id));
     }, [journey._id]),
   );
+  console.log(journey, 'gggggggggggggggg');
 
   return (
     <Modal
@@ -57,13 +58,20 @@ const DetailsTrip = ({
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Card
-            title={languages[lang].cardTitle}
-            description={languages[lang].cardDescription}
-            location={languages[lang].cardLocation}
-            name={languages[lang].cardName}
-            stars={languages[lang].cardStars}
+            title={
+              lang === 'ar' ? journey.arabic_journey_name : journey.journey_name
+            }
+            description={
+              lang === 'ar' ? journey.arabic_description : journey.description
+            }
+            location={
+              lang === 'ar' ? journey.arabic_location : journey.location
+            }
+            name={journey.agency_name}
+            stars={journey.rating ? journey.rating : 0}
             lang={lang}
             isDarkMode={isDarkMode}
+            urlImage={journey.images[0]}
           />
           <Bottom
             lang={lang}
