@@ -17,10 +17,11 @@ const ImageSection = ({
   isDarkMode: boolean;
   user: any;
 }) => {
+  console.log(user);
   return (
     <View style={styles(lang).container}>
       <Image
-        source={user ? { uri: user.imageUrl || user.image } : images.present}
+        source={user ? { uri: user?.imageUrl || user?.image } : images.present}
         style={styles(lang).image}
       />
       <TextView

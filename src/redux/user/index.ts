@@ -53,7 +53,7 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doGetUser.fulfilled, (state, action) => {
       console.log(action.payload.data, 'lllll');
-      state.currentUser = action.payload.data.data;
+      state.currentUser = action.payload.data;
     });
     builder.addCase(thunks.doGetUser.rejected, (state, action) => {
       console.log(action);
@@ -79,6 +79,9 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doUpdateImage.rejected, (state, action) => {
       console.log(action);
+    });
+    builder.addCase(actions.logoutAction, (state, action) => {
+      state.currentUser = initialValues.currentUser;
     });
   },
 });

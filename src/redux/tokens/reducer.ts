@@ -1,7 +1,6 @@
 import { logoutAction } from 'redux/user/actions';
 import Users from '../user';
 import { createReducer } from '@reduxjs/toolkit';
-import { log } from 'react-native-reanimated';
 import User from '../user';
 import { RootState } from 'redux/store';
 
@@ -29,9 +28,9 @@ const tokenReducer = createReducer(initialState, builder => {
       if (action.payload.data) {
         const token = action.payload.data.token;
         state.token = token;
-        console.log(token);
+        console.log(token, 'token');
       }
     });
 });
-export const selectToken= (state:RootState)=> state.tokens.token
+export const selectToken = (state: RootState) => state.tokens.token;
 export default tokenReducer;
