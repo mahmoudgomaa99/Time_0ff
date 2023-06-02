@@ -251,6 +251,12 @@ const slice = createSlice({
     builder.addCase(thunks.doGetAllBookings.rejected, (state, action) => {
       console.log(action.payload);
     });
+    builder.addCase(thunks.doUpdateJourneyData.fulfilled, (state, action) => {
+      console.log(action.payload.data.data);
+    });
+    builder.addCase(thunks.doUpdateJourneyData.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
