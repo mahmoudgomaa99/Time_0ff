@@ -26,10 +26,14 @@ const DetailsTrip = ({
   isDetailsModalVisibal,
   setisDetailsModalVisibal,
   isDarkMode,
+  isRequestReceive,
+  setisRequestReceive,
 }: {
   isDetailsModalVisibal: boolean;
   setisDetailsModalVisibal: any;
   isDarkMode?: boolean;
+  isRequestReceive: boolean;
+  setisRequestReceive: any;
 }) => {
   const lang = useSelector(selectLanguage);
   const journey = useSelector(selectCurrentJourney);
@@ -78,6 +82,8 @@ const DetailsTrip = ({
             isDarkMode={isDarkMode}
             availableDates={getDates(availabilityJourneys)}
             availabilityJourneys={availabilityJourneys}
+            isRequestReceive={isRequestReceive}
+            setisRequestReceive={setisRequestReceive}
           />
         </ScrollView>
       </View>

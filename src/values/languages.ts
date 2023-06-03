@@ -205,6 +205,8 @@ const languages: any = {
     pressToStartEdit: 'Press to start edit',
     journeyUpdatedSuccefuly: 'Journey Updated Succefuly',
     chooseDate: 'Choose Date',
+    nobook: 'There Is No Book',
+    nobooks:'There Is No Books'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -406,6 +408,8 @@ const languages: any = {
     pressToStartEdit: 'اضغط للتعديل',
     journeyUpdatedSuccefuly: 'تم تحديث الرحلة بنجاح',
     chooseDate: 'اختر التاريخ',
+    nobook: 'لا يوجد حجز',
+    nobooks: 'لا يوجد حجوزات',
   },
 };
 export default languages;

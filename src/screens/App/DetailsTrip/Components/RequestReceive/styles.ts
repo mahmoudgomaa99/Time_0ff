@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { MarginsAndPaddings, h } from 'values/Dimensions';
 import COLORS from 'values/colors';
+import Fonts from 'values/fonts';
 
 export const styles = (lang: string) => {
   return StyleSheet.create({
@@ -15,7 +16,8 @@ export const styles = (lang: string) => {
       marginTop: 15,
       fontSize: 18,
       color: COLORS.black,
-      textAlign:'center'
+      textAlign: 'center',
+      fontFamily: Fonts.Cairo_SemiBold,
     },
     textContainer: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

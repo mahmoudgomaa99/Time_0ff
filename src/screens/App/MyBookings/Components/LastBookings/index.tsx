@@ -51,149 +51,159 @@ const LastBookings = ({
         title={languages[lang].lastBooking}
         style={styles(lang, 'f', isDarkMode).title}
       />
-      {isGetAllBookingsLoading && page === 1 ? (
-        [...Array(10)].map(i => (
-          <View key={i}>
-            <SkeletonItem />
-          </View>
-        ))
-      ) : (
-        <>
-          <FlatList
-            onEndReached={() => {
-              setpage((prev: number) => prev + 1);
-            }}
-            data={Allbookings}
-            renderItem={({ item }) => (
-              <View style={styles(lang).container}>
-                <View
-                  style={{
-                    marginLeft: lang === 'en' ? -10 : 0,
-                    marginRight: lang === 'ar' ? -10 : 0,
-                  }}>
-                  <Svg name="cube" size={60} />
-                </View>
-                <View>
-                  <TextView
-                    title={item.category}
-                    style={styles(lang, item.color, isDarkMode).text}
-                  />
-                  <View style={styles(lang).innerContainer}>
+      {Allbookings.length > 0 ? (
+        isGetAllBookingsLoading && page === 1 ? (
+          [...Array(10)].map(i => (
+            <View key={i}>
+              <SkeletonItem />
+            </View>
+          ))
+        ) : (
+          <>
+            <FlatList
+              onEndReached={() => {
+                setpage((prev: number) => prev + 1);
+              }}
+              data={Allbookings}
+              renderItem={({ item }) => (
+                <View style={styles(lang).container}>
+                  <View
+                    style={{
+                      marginLeft: lang === 'en' ? -10 : 0,
+                      marginRight: lang === 'ar' ? -10 : 0,
+                    }}>
+                    <Svg name="cube" size={60} />
+                  </View>
+                  <View>
                     <TextView
-                      title={item.createdAt.substring(0, 10)}
-                      style={styles(lang).date}
+                      title={item.category}
+                      style={styles(lang, item.color, isDarkMode).text}
                     />
-                    <View style={styles(lang).circleContainer}>
-                      <View
-                        style={
-                          styles(
-                            lang,
-                            item.status === 'confirmed'
-                              ? '#B5E633'
-                              : item.status === 'cancelled'
-                              ? '#f91e1e'
-                              : item.status === 'pending'
-                              ? '#ECE634'
-                              : item.status === 'rejected'
-                              ? '#FF7B7B'
-                              : '#000',
-                          ).circle
-                        }></View>
+                    <View style={styles(lang).innerContainer}>
                       <TextView
-                        title={item.status}
-                        style={
-                          styles(
-                            lang,
-                            item.status === 'confirmed'
-                              ? '#B5E633'
-                              : item.status === 'cancelled'
-                              ? '#f91e1e'
-                              : item.status === 'pending'
-                              ? '#ECE634'
-                              : item.status === 'rejected'
-                              ? '#FF7B7B'
-                              : '#000',
-                          ).statusText
-                        }
+                        title={item.createdAt.substring(0, 10)}
+                        style={styles(lang).date}
                       />
+                      <View style={styles(lang).circleContainer}>
+                        <View
+                          style={
+                            styles(
+                              lang,
+                              item.status === 'confirmed'
+                                ? '#B5E633'
+                                : item.status === 'cancelled'
+                                ? '#f91e1e'
+                                : item.status === 'pending'
+                                ? '#ECE634'
+                                : item.status === 'rejected'
+                                ? '#FF7B7B'
+                                : '#000',
+                            ).circle
+                          }></View>
+                        <TextView
+                          title={item.status}
+                          style={
+                            styles(
+                              lang,
+                              item.status === 'confirmed'
+                                ? '#B5E633'
+                                : item.status === 'cancelled'
+                                ? '#f91e1e'
+                                : item.status === 'pending'
+                                ? '#ECE634'
+                                : item.status === 'rejected'
+                                ? '#FF7B7B'
+                                : '#000',
+                            ).statusText
+                          }
+                        />
+                      </View>
                     </View>
                   </View>
                 </View>
+              )}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.id}
+            />
+            {isGetAllBookingsLoading && page !== 1 && (
+              <View style={{ marginBottom: 10 }}>
+                <ActivityIndicator size="large" color={COLORS.primary} />
               </View>
             )}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={item => item.id}
-          />
-          {isGetAllBookingsLoading && page !== 1 && (
-            <View style={{ marginBottom: 10 }}>
-              <ActivityIndicator size="large" color={COLORS.primary} />
-            </View>
-          )}
-        </>
+          </>
+        )
+      ) : (
+        <TextView
+          title={languages[lang].nobooks}
+          style={styles(lang).noReviews}
+        />
       )}
-      {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: h * 0.2 }}>
-        {Allbookings.map((value: any) => (
-          <View style={styles(lang).container}>
-            <View
-              style={{
-                marginLeft: lang === 'en' ? -10 : 0,
-                marginRight: lang === 'ar' ? -10 : 0,
-              }}>
-              <Svg name="cube" size={60} />
-            </View>
-            <View>
-              <TextView
-                title={value.category}
-                style={styles(lang, value.color, isDarkMode).text}
-              />
-              <View style={styles(lang).innerContainer}>
-                <TextView
-                  title={value.createdAt.substring(0, 10)}
-                  style={styles(lang).date}
-                />
-                <View style={styles(lang).circleContainer}>
-                  <View
-                    style={
-                      styles(
-                        lang,
-                        value.status === 'confirmed'
-                          ? '#B5E633'
-                          : value.status === 'cancelled'
-                          ? '#f91e1e'
-                          : value.status === 'pending'
-                          ? '#ECE634'
-                          : value.status === 'rejected'
-                          ? '#FF7B7B'
-                          : '#000',
-                      ).circle
-                    }></View>
-                  <TextView
-                    title={value.status}
-                    style={
-                      styles(
-                        lang,
-                        value.status === 'confirmed'
-                          ? '#B5E633'
-                          : value.status === 'cancelled'
-                          ? '#f91e1e'
-                          : value.status === 'pending'
-                          ? '#ECE634'
-                          : value.status === 'rejected'
-                          ? '#FF7B7B'
-                          : '#000',
-                      ).statusText
-                    }
-                  />
-                </View>
-              </View>
-            </View>
-          </View>
-        ))}
-      </ScrollView> */}
     </View>
   );
 };
 
 export default LastBookings;
+
+{
+  /* <ScrollView
+  showsVerticalScrollIndicator={false}
+  contentContainerStyle={{ paddingBottom: h * 0.2 }}>
+  {Allbookings.map((value: any) => (
+    <View style={styles(lang).container}>
+      <View
+        style={{
+          marginLeft: lang === 'en' ? -10 : 0,
+          marginRight: lang === 'ar' ? -10 : 0,
+        }}>
+        <Svg name="cube" size={60} />
+      </View>
+      <View>
+        <TextView
+          title={value.category}
+          style={styles(lang, value.color, isDarkMode).text}
+        />
+        <View style={styles(lang).innerContainer}>
+          <TextView
+            title={value.createdAt.substring(0, 10)}
+            style={styles(lang).date}
+          />
+          <View style={styles(lang).circleContainer}>
+            <View
+              style={
+                styles(
+                  lang,
+                  value.status === 'confirmed'
+                    ? '#B5E633'
+                    : value.status === 'cancelled'
+                    ? '#f91e1e'
+                    : value.status === 'pending'
+                    ? '#ECE634'
+                    : value.status === 'rejected'
+                    ? '#FF7B7B'
+                    : '#000',
+                ).circle
+              }></View>
+            <TextView
+              title={value.status}
+              style={
+                styles(
+                  lang,
+                  value.status === 'confirmed'
+                    ? '#B5E633'
+                    : value.status === 'cancelled'
+                    ? '#f91e1e'
+                    : value.status === 'pending'
+                    ? '#ECE634'
+                    : value.status === 'rejected'
+                    ? '#FF7B7B'
+                    : '#000',
+                ).statusText
+              }
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  ))}
+</ScrollView> */
+}

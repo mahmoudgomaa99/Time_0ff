@@ -220,10 +220,6 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doAddBooking.fulfilled, (state, action) => {
       state.currentIdBook = action.meta.arg.journey_slot_id;
-      Toast.show({
-        type: 'success',
-        text2: languages['en'].bookingAdd,
-      });
     });
     builder.addCase(thunks.doAddBooking.rejected, (state, action: any) => {
       console.log(action, 'from faild');

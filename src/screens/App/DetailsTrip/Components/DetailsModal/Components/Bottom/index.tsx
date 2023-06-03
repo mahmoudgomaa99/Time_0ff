@@ -30,12 +30,16 @@ const Bottom = ({
   isDarkMode,
   availableDates,
   availabilityJourneys,
+  isRequestReceive,
+  setisRequestReceive,
 }: {
   lang: string;
   setisDetailsModalVisibal: any;
   isDarkMode?: boolean;
   availableDates?: any;
   availabilityJourneys?: any;
+  isRequestReceive: boolean;
+  setisRequestReceive: any;
 }) => {
   const dispatch = useAppDispatch();
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
@@ -61,6 +65,10 @@ const Bottom = ({
             .then(unwrapResult)
             .then(() => {
               setisDetailsModalVisibal(false);
+              Toast.show({
+                type: 'success',
+                text2: languages[lang].bookingAdd,
+              });
             })
             .catch(err => {
               console.log(err);
@@ -164,6 +172,7 @@ const Bottom = ({
             type="primary"
             label={languages[lang].bookNow}
             onPress={() => {
+              setisRequestReceive(true);
               props.handleSubmit();
             }}
             style={styles().button}

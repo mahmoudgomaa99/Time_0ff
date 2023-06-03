@@ -53,6 +53,12 @@ const DetailsTrip = () => {
   };
  
 
+  isRequestReceive
+    ? setTimeout(() => {
+        setisRequestReceive(false);
+      }, 4000)
+    : null;
+
   return (
     <View style={styles(isDarkMode).container}>
       {isGetJourneyLoading ? (
@@ -247,6 +253,8 @@ const DetailsTrip = () => {
         isDetailsModalVisibal={isDetailsModalVisibal}
         setisDetailsModalVisibal={setisDetailsModalVisibal}
         isDarkMode={isDarkMode}
+        isRequestReceive={isRequestReceive}
+        setisRequestReceive={setisRequestReceive}
       />
       <RequestReceive
         lang={lang}
