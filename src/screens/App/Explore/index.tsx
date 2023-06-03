@@ -91,8 +91,6 @@ const Explore = () => {
       );
     }, [category, filterData, search, page]),
   );
-  console.log(page, 'this is the page');
-  console.log(journeysOffers);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -159,7 +157,7 @@ const Explore = () => {
                   </TouchableOpacity>
                 )}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.id}
+                keyExtractor={(item: any) => item.id}
               />
               {isGetJourneysOffers && page !== 1 && (
                 <View style={{ marginBottom: 10 }}>

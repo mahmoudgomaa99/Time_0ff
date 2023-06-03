@@ -42,7 +42,7 @@ const DetailsTrip = () => {
       dispatch(Journeys.thunks.doGetJourney(route.params?.id));
     }, [route.params?.id]),
   );
-  console.log(journey?.agency_id);
+  
 
   const renderItem = ({ item, index }: any) => {
     return (
@@ -51,7 +51,7 @@ const DetailsTrip = () => {
       </View>
     );
   };
-  console.log(journey);
+ 
 
   return (
     <View style={styles(isDarkMode).container}>

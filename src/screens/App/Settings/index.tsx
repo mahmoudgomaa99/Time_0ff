@@ -18,11 +18,13 @@ import { useAppDispatch } from 'redux/store';
 import languages from 'values/languages';
 import TextView from 'atoms/TextView';
 import Svg from 'atoms/Svg';
+import { useNavigation } from '@react-navigation/native';
 
 const Settings = () => {
   const dispatch = useAppDispatch();
   const isDarkMode = useSelector(selectIsDarkMode);
   const userType = useSelector(selectUserType);
+  const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
   const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler();
   const [isLanguageModel, setisLanguageModel] = useState(false);
@@ -45,6 +47,8 @@ const Settings = () => {
         <TouchableOpacity
           onPress={() => {
             dispatch(User.actions.logoutAction());
+            dispatch(UserType.setUserData(null));
+            navigation.navigate('auth', { screen: 'chooseType' });
           }}
           style={styles(lang, isDarkMode).Lcontainer}>
           <View style={styles(lang, isDarkMode).innerContainer}>

@@ -29,9 +29,7 @@ const ExperienceSection = ({
   setpageJourneys: any;
 }) => {
   const navigation = useNavigation<any>();
-  // console.log(journeys, 'journeys');
 
-  console.log(pageJourneys, 'from inner');
 
   return (
     <View>

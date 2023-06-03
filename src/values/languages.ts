@@ -204,6 +204,7 @@ const languages: any = {
     updateAvailabilitey: 'Update Availabilitey',
     pressToStartEdit: 'Press to start edit',
     journeyUpdatedSuccefuly: 'Journey Updated Succefuly',
+    chooseDate: 'Choose Date',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -404,6 +405,7 @@ const languages: any = {
     updateAvailabilitey: 'تحديث التوفر',
     pressToStartEdit: 'اضغط للتعديل',
     journeyUpdatedSuccefuly: 'تم تحديث الرحلة بنجاح',
+    chooseDate: 'اختر التاريخ',
   },
 };
 export default languages;

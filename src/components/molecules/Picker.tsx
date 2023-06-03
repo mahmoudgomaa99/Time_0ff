@@ -67,7 +67,7 @@ const Picker = ({
       <View
         style={[
           styles(isDarkMode)[`${type}_iosButtonWrapper`],
-          { borderWidth: 0 },
+          { borderWidth: isDarkMode ? 0 : 1 },
         ]}>
         {type !== 'matches' &&
           // <MixedText title={title || ''} required={props.required || false} />
@@ -168,7 +168,7 @@ const Picker = ({
                   borderColor:
                     props.errors[props.name] && props.touched[props.name]
                       ? COLORS.red
-                      : borderColor,
+                      : COLORS.black,
                 },
                 modalViewMiddle: styles(isDarkMode)[`${type}_modalHeader`],
                 modalViewBottom: styles(isDarkMode)[`${type}_modalBody`],
@@ -240,7 +240,7 @@ const styles: TTstyles = (isDarkMode?: boolean) =>
     primary_androidWrapper: {
       borderRadius: 10,
       overflow: 'hidden',
-      borderColor: COLORS.lightGrey,
+      borderColor: COLORS.black,
       // borderWidth: 1,
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
     },

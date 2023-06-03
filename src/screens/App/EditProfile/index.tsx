@@ -75,7 +75,6 @@ const EditProfile = () => {
               country: currrentUser?.country,
             }}
             onSubmit={values => {
-              console.log(values);
               dispatch(
                 User.thunks.doUpdateUser({
                   name: values?.fullName,

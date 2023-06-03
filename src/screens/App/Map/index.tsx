@@ -58,7 +58,6 @@ const Map = () => {
           placeholder={languages[lang].enterYourPlace}
           onPress={(data, details) => {
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
           }}
           query={{
             key: 'AIzaSyCi9NgyCxICx83KQSRnGZMbQANkRaRbvpU',

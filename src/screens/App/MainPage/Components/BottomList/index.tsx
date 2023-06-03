@@ -34,7 +34,6 @@ const BottomList = ({
   setpage: any;
 }) => {
   const navigation = useNavigation<any>();
-  console.log(journeys[0], 'journeys');
 
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
@@ -49,7 +48,11 @@ const BottomList = ({
               onPress={() => {
                 setisSortModel(true);
               }}>
-              <Svg name="sort" size={40} />
+              <Svg
+                name="sort"
+                bgColor={isDarkMode ? COLORS.white : COLORS.black}
+                size={40}
+              />
             </TouchableOpacity>
           </View>
           <TextView
@@ -81,7 +84,6 @@ const BottomList = ({
                     <TouchableOpacity
                       onPress={() => {
                         navigation.navigate('detailsTrip', { id: item._id });
-                        console.log(item, 'jorney');
                       }}
                       style={{ marginTop: 2 }}>
                       <Card

@@ -69,6 +69,7 @@ const Contents = ({
         onPress={() => {
           dispatch(User.actions.logoutAction());
           dispatch(UserType.setUserData(undefined));
+          navigation.navigate('auth', { screen: 'chooseType' });
         }}
         style={styles(lang).container}>
         <View style={styles(lang).innerContainer}>

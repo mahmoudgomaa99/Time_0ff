@@ -23,7 +23,7 @@ const Wishlist = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const favourites = useSelector(selectFavJourneys);
-  console.log(favourites, 'll');
+
   useEffect(() => {
     dispatch(Journeys.thunks.doGetFavJourneys({}));
   }, []);
@@ -52,7 +52,6 @@ const Wishlist = () => {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('detailsTrip', { id: item._id });
-                  console.log(item, 'jorney');
                 }}
                 style={{ marginTop: 2 }}>
                 <Card

@@ -31,7 +31,7 @@ const ImageSection = ({
   isDarkMode: boolean;
 }) => {
   const dispatch = useAppDispatch();
-  const { source, pick } = useLibraryPermission();
+  const { source, pick } = useLibraryPermission(1);
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
   const user = useSelector(selectCurrentUser);
   const [edit, setEdit] = useState(false);

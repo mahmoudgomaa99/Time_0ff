@@ -43,7 +43,6 @@ const DetailsTrip = ({
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey._id));
     }, [journey._id]),
   );
-  console.log(journey, 'gggggggggggggggg');
 
   return (
     <Modal

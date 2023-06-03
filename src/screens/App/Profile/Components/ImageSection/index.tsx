@@ -17,7 +17,6 @@ const ImageSection = ({
   isDarkMode: boolean;
   user: any;
 }) => {
-  console.log(user);
   return (
     <View style={styles(lang).container}>
       <Image

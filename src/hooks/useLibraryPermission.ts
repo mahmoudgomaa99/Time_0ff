@@ -3,7 +3,7 @@ import { check, PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Platform } from 'react-native';
 
-function useLibraryPermission() {
+function useLibraryPermission(limit: number) {
   const [isGranted, setIsGranted] = useState<any>();
   const [source, setSource] = useState<any>();
 
@@ -47,7 +47,7 @@ function useLibraryPermission() {
       launchImageLibrary({
         quality: 0.5,
         mediaType: 'photo',
-        selectionLimit: 3,
+        selectionLimit: limit,
       }).then(res => setSource(res));
     }
   };

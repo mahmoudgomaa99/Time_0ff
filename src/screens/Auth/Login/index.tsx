@@ -21,6 +21,7 @@ import { selectIsDarkMode } from 'redux/DarkMode';
 import { log } from 'react-native-reanimated';
 import COLORS from 'values/colors';
 import { selectUserType } from 'redux/UserType';
+import navigation from 'navigation/index';
 
 const Login = () => {
   const userType = useSelector(selectUserType);
@@ -30,9 +31,17 @@ const Login = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
+  console.log('userType', userType);
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('chooseType');
+        }}
+        style={{ position: 'absolute', left: 20, top: 20 }}>
+        <Svg name="leftArrow" size={25} />
+      </TouchableOpacity>
       {userType === 'user' && (
         <TextView
           title={languages[lang].skip}

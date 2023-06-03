@@ -49,7 +49,6 @@ const NavigationHandler = () => {
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;
-    if (!userType) return <ChooseType />;
     return (
       <RootStack.Navigator
         initialRouteName={

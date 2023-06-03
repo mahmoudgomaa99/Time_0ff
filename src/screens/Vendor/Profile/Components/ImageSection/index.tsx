@@ -31,10 +31,11 @@ const ImageSection = ({
   isDarkMode: boolean;
 }) => {
   const dispatch = useAppDispatch();
-  const { source, pick } = useLibraryPermission();
+  const { source, pick } = useLibraryPermission(1);
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
   const [edit, setEdit] = useState(false);
   const user = useSelector(selectCurrentUser);
+  console.log(source);
 
   return (
     <View style={styles(lang, isDarkMode).container}>
@@ -50,21 +51,20 @@ const ImageSection = ({
         />
       </TouchableOpacity>
       <TouchableOpacity
-        disabled={!source}
+        disabled={!source || source?.didCancel === true}
         onPress={() => {
           const body = new FormData();
           body.append('image', {
             uri:
               Platform.OS === 'android'
-                ? source.assets[0].uri
-                : source.assets[0].uri.replace('file://', ''),
-            name: source?.assets[0].fileName,
-            type: source?.assets[0].type,
+                ? source?.assets[0]?.uri
+                : source?.assets[0]?.uri.replace('file://', ''),
+            name: source?.assets[0]?.fileName,
+            type: source?.assets[0]?.type,
           });
           dispatch(User.thunks.doUpdateImage(body))
             .then(unwrapResult)
             .then(res => {
-              console.log('res', res);
               Toast.show({
                 type: 'success',
                 text2: languages[lang].imageUpdatedSuccefuly,
@@ -75,7 +75,7 @@ const ImageSection = ({
         style={{
           alignItems: 'center',
           backgroundColor: edit
-            ? source
+            ? source && source?.didCancel === false
               ? COLORS.primary
               : COLORS.grey
             : COLORS.grey,
@@ -94,7 +94,7 @@ const ImageSection = ({
             style={[styles(lang, isDarkMode).text, { color: COLORS.white }]}
             title={
               edit
-                ? source
+                ? source && source?.didCancel === false
                   ? languages[lang].edit_image
                   : languages[lang].select_image
                 : languages[lang].select_image
