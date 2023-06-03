@@ -17,23 +17,25 @@ import { useFocusEffect } from '@react-navigation/native';
 const BookingDetails = ({
   lang,
   isDarkMode,
+  book
 }: {
   isDarkMode?: boolean;
   lang: string;
+  book:any
 }) => {
-  const dispatch = useAppDispatch();
-  const book = useSelector(selectCurrentBooking);
+  // const dispatch = useAppDispatch();
+  // const book = useSelector(selectCurrentBooking);
   const bookId = useSelector(selectCurrentIdBook);
-  const isGetBookLoading = useLoadingSelector(Journeys.thunks.doGetBooking);
+  // const isGetBookLoading = useLoadingSelector(Journeys.thunks.doGetBooking);
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(Journeys.thunks.doGetBooking(bookId));
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(Journeys.thunks.doGetBooking(bookId));
+  //   }, []),
+  // );
 
-  console.log(book, 'book');
-  console.log(bookId, 'book id');
+  // console.log(book, 'book');
+  // console.log(bookId, 'book id');
   return (
     <View>
       <TextView
