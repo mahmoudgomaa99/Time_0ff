@@ -8,7 +8,6 @@ import Top from './Components/Top';
 import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
 import languages from 'values/languages';
-import moment from 'moment';
 const DateModal = ({
   isDateModalVisable,
   setDateModalVisable,
@@ -44,6 +43,7 @@ const DateModal = ({
             isDarkMode={isDarkMode}
           />
           <Calendar
+            minDate={new Date().toISOString().split('T')[0]}
             current={formikProps.values[name]}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
@@ -66,6 +66,8 @@ const DateModal = ({
             }}
             theme={{
               calendarBackground: isDarkMode ? COLORS.darkMode : COLORS.white,
+              dayTextColor: isDarkMode ? COLORS.white : '#000',
+              textDisabledColor: '#d6d5d52d',
               'stylesheet.calendar.header': {
                 headerContainer: {
                   color: isDarkMode ? COLORS.white : COLORS.black,

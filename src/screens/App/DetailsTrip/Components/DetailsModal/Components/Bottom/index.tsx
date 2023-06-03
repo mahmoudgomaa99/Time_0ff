@@ -48,15 +48,11 @@ const Bottom = ({
   // state to hold the selected date
   const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
-  console.log(availabilityJourneys);
-  console.log(currentUser);
 
   return (
     <Formik
       initialValues={{ date: '', time: '', members: '', terms: '' }}
       onSubmit={values => {
-        // console.log(values.time, getTimes(availabilityJourneys, values.date));
-        console.log(token, values);
         if (!currentUser) {
           openCustomModal();
         } else {
@@ -101,6 +97,7 @@ const Bottom = ({
               containerStyle={styles(isDarkMode).containerStyle}
               onPressIn={() => setDateModalVisable(true)}
               leftIcon={<Svg name="calendar" />}
+              placeholder={languages[lang].chooseDate}
             />
           </View>
           {/* <View>
@@ -144,6 +141,7 @@ const Bottom = ({
               inputContainerStyling={styles(isDarkMode).inputContainerStyling}
               containerStyle={styles(isDarkMode).containerStyle}
               keyboardType="number-pad"
+              placeholder={languages[lang].numberOfPerson}
             />
           </View>
 

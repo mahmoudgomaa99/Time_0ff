@@ -17,6 +17,7 @@ const styles = (isDarkMode?: boolean) =>
       lineHeight: 24,
       marginTop: Platform.OS === 'android' ? h * 0.006 : 0,
       fontFamily: Fonts.Cairo_SemiBold,
+      textAlign: 'right',
     },
     title: {
       color: isDarkMode ? COLORS.white : COLORS.black,

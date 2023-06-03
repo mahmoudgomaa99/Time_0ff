@@ -30,7 +30,12 @@ export const styles = (type?: string, choosen?: string, isDarkMode?: boolean) =>
       marginTop: h * 0.1,
     },
     btn: {
-      backgroundColor: type === choosen ? COLORS.primary : COLORS.white,
+      backgroundColor:
+        type === choosen
+          ? COLORS.primary
+          : isDarkMode
+          ? COLORS.darkMode
+          : COLORS.white,
       width: '40%',
       height: h * 0.18,
       alignItems: 'center',
@@ -44,7 +49,12 @@ export const styles = (type?: string, choosen?: string, isDarkMode?: boolean) =>
       elevation: 7,
     },
     btn_txt: {
-      color: type === choosen ? COLORS.white : COLORS.primary,
+      color:
+        type === choosen
+          ? COLORS.white
+          : isDarkMode
+          ? COLORS.white
+          : COLORS.primary,
       fontSize: 16,
       fontWeight: 'bold',
       fontFamily: Fonts.Cairo_Bold,

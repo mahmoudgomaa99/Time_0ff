@@ -44,6 +44,7 @@ const Content = ({
         <>
           <>
             <FlatList
+              contentContainerStyle={{ paddingBottom: 50 }}
               onEndReached={() => {
                 setpage((prev: number) => prev + 1);
               }}
@@ -76,7 +77,7 @@ const Content = ({
                 </TouchableOpacity>
               )}
               showsVerticalScrollIndicator={false}
-              keyExtractor={item => item._id}
+              keyExtractor={(item: any) => item._id}
             />
             {isGetJourneysLoading && page !== 1 && (
               <View style={{ marginBottom: 10 }}>

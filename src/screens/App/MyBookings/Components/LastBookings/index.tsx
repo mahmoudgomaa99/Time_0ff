@@ -45,12 +45,6 @@ const LastBookings = ({
     }, [page]),
   );
 
-  // console.log(Allbookings, 'all bookings');
-  console.log(currentUser);
-  // console.log(page, 'this is');
-  // console.log(isGetAllBookingsLoading, 'sdsdsds');
-  console.log(Allbookings, 'jhohioholjok');
-
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <TextView

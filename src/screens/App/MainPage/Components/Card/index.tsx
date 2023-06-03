@@ -24,7 +24,7 @@ const Card = ({
   description: string;
   location: string;
   name: string;
-  stars: string;
+  stars: any;
   lang: string;
   isDarkMode?: boolean;
   isFav: boolean;
@@ -71,7 +71,6 @@ const Card = ({
           style={[
             styles(isDarkMode).location,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
-            
           ]}>
           <Svg name="location" size={20} />
           <TextView title={location} style={styles(isDarkMode).locationText} />

@@ -7,6 +7,7 @@ import { styles } from './styles';
 import Top from './Components/Top';
 import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
+import languages from 'values/languages';
 
 const DateModal = ({
   isDateModalVisable,
@@ -78,6 +79,8 @@ const DateModal = ({
             }}
             theme={{
               calendarBackground: isDarkMode ? COLORS.darkMode : COLORS.white,
+              dayTextColor: isDarkMode ? COLORS.white : '#000',
+              textDisabledColor: '#d6d5d52d',
               'stylesheet.calendar.header': {
                 headerContainer: {
                   color: isDarkMode ? COLORS.white : COLORS.black,
@@ -92,10 +95,9 @@ const DateModal = ({
           />
           <Button
             type="primary"
-            label="Book Now"
+            label={languages[lang].apply}
             style={styles().button}
             onPress={() => {
-              console.log('clicked');
               // formikProps.handleSubmit();
               setDateModalVisable(false);
             }}

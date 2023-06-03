@@ -59,7 +59,6 @@ const UpdateAvailabilitey = () => {
             availability: availabilitey,
           }}
           onSubmit={values => {
-            console.log(GetAvailabilitey(values.availability)[0]);
             dispatch(
               Journeys.thunks.doUpdateJourneyAvailabilitey({
                 id: id,
@@ -132,7 +131,9 @@ const UpdateAvailabilitey = () => {
                           marginLeft: 6,
                           color:
                             props.values.availability[index]?.date?.length > 1
-                              ? '#000'
+                              ? isDarkMode
+                                ? COLORS.white
+                                : '#000'
                               : '#cdc9c9',
                         },
                       ]}>
@@ -205,7 +206,9 @@ const UpdateAvailabilitey = () => {
                                   marginLeft: 6,
                                   color: props.values.availability[index]
                                     ?.details[i].hour
-                                    ? '#000'
+                                    ? isDarkMode
+                                      ? COLORS.white
+                                      : '#000'
                                     : '#cdc9c9',
                                 },
                               ]}>

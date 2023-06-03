@@ -61,7 +61,7 @@ const JourneyDetails = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const journey = useSelector(selectCurrentJourney);
-  const { source, pick } = useLibraryPermission();
+  const { source, pick } = useLibraryPermission(3);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [name, setName] = useState('');
@@ -143,7 +143,7 @@ const JourneyDetails = () => {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    disabled={!source}
+                    disabled={!source && source?.didCancel === true}
                     onPress={() => {
                       const body = new FormData();
                       source?.assets?.forEach((item: any, index: any) => {
@@ -154,7 +154,7 @@ const JourneyDetails = () => {
                         body.append('images', {
                           uri,
                           name: item.fileName || `image_${index}`,
-                          type: item.type || 'image/jpeg', // Modify the type as per your needs
+                          type: item.type || 'image/jpeg',
                         });
                       });
                       dispatch(
@@ -163,8 +163,6 @@ const JourneyDetails = () => {
                           id,
                         }),
                       ).then(res => {
-                        console.log('res', res.payload.data);
-
                         Toast.show({
                           type: 'success',
                           text2: languages[lang].imageUpdatedSuccefuly,
@@ -173,7 +171,10 @@ const JourneyDetails = () => {
                     }}
                     style={{
                       alignItems: 'center',
-                      backgroundColor: source ? COLORS.primary : COLORS.grey,
+                      backgroundColor:
+                        source && source?.didCancel === false
+                          ? COLORS.primary
+                          : COLORS.grey,
                       width: w * 0.3,
                       height: w * 0.1,
                       borderRadius: w * 0.2,
@@ -191,7 +192,7 @@ const JourneyDetails = () => {
                           { color: COLORS.white },
                         ]}
                         title={
-                          source
+                          source && source?.didCancel === false
                             ? languages[lang].edit_image
                             : languages[lang].select_image
                         }
@@ -221,7 +222,7 @@ const JourneyDetails = () => {
                   />
                   <Picker
                     {...props}
-                    borderColor={'#6a6969'}
+                    borderColor={'#000'}
                     type={'primary'}
                     data={[
                       { label: 'diving', value: 'diving' },

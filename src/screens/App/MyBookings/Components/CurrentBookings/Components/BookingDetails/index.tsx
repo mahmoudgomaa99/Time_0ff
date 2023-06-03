@@ -34,8 +34,6 @@ const BookingDetails = ({
   //   }, []),
   // );
 
-  // console.log(book, 'book');
-  // console.log(bookId, 'book id');
   return (
     <View>
       <TextView

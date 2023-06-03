@@ -20,7 +20,7 @@ const Top = ({
     <View style={styles().top}>
       <TouchableOpacity
         onPress={() => {
-          console.log('clicked');
+         
           setTimeModalVisable(false);
         }}>
         <Svg name="close" size={50} />

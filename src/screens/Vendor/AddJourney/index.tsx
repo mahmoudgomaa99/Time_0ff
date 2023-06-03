@@ -68,7 +68,6 @@ const AddJourney = () => {
             ],
           }}
           onSubmit={values => {
-            console.log(values.availability[0].details);
             dispatch(
               Journeys.thunks.doAddJourney({
                 journey_name: values.journey_name,
@@ -91,13 +90,11 @@ const AddJourney = () => {
                 navigation.goBack();
               })
               .catch(err => {
-                console.log(err, 'll');
                 Toast.show({
                   type: 'error',
                   text2: err.message,
                 });
               });
-            // console.log(values.availability);
           }}>
           {props => (
             <View>
@@ -222,7 +219,11 @@ const AddJourney = () => {
                       marginTop: -8,
                       marginLeft: 6,
                       color:
-                        props.values.start_date.length > 1 ? '#000' : '#cdc9c9',
+                        props.values.start_date.length > 1
+                          ? isDarkMode
+                            ? COLORS.white
+                            : '#000'
+                          : '#cdc9c9',
                     },
                   ]}>
                   {props.values.start_date.length > 1
@@ -297,7 +298,9 @@ const AddJourney = () => {
                           marginLeft: 6,
                           color:
                             props.values.availability[index]?.date?.length > 1
-                              ? '#000'
+                              ? isDarkMode
+                                ? COLORS.white
+                                : '#000'
                               : '#cdc9c9',
                         },
                       ]}>

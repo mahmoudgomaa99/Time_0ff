@@ -40,7 +40,7 @@ const SeeMore = () => {
       dispatch(Journeys.thunks.doGetJourneys({ page: page }));
     }, [page]),
   );
-  console.log(journeys.length);
+  
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>

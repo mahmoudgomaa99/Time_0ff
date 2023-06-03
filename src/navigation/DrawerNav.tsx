@@ -83,6 +83,7 @@ const DrawerNav = ({
               } else if (item.value) {
                 dispatch(User.actions.logoutAction());
                 dispatch(UserType.setUserData(undefined));
+                navigation.navigate('auth', { screen: 'chooseType' });
                 // User.actions.logout()
               } else {
                 navigation.navigate(item.main);

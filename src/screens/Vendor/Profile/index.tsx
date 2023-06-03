@@ -18,8 +18,6 @@ import { Formik } from 'formik';
 import { useLoadingSelector } from 'redux/selectors';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
-import COLORS from 'values/colors';
-import { h } from 'values/Dimensions';
 import Button from 'components/molecules/Button';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Skeleton from './Components/Skeleton';
@@ -38,6 +36,7 @@ const Profile = () => {
       dispatch(User.thunks.doGetUser({}));
     }, []),
   );
+  console.log('currentUser', currentUser);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -56,13 +55,12 @@ const Profile = () => {
               initialValues={{
                 fullName: currentUser?.name,
                 countryCode: '+20',
-                phoneNumber: currentUser?.phone.slice(1),
+                phoneNumber: currentUser?.phone.slice(3),
                 email: currentUser?.email,
                 city: currentUser?.city,
                 desc: currentUser?.country,
               }}
               onSubmit={values => {
-                console.log(values);
                 dispatch(
                   User.thunks.doUpdateUser({
                     name: values?.fullName,

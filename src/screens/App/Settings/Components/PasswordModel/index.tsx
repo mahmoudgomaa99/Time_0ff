@@ -53,7 +53,7 @@ const PasswordModel = ({
                 setisPasswordModel(false);
               })
               .catch(() => {});
-            console.log(values);
+            
           }}>
           {props => (
             <View style={styles(lang).container}>

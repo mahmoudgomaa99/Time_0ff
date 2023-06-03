@@ -20,7 +20,7 @@ const Home = () => {
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
 
-  // console.log(userData);
+ 
   const dispatch = useAppDispatch();
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetAgencyJourneys,
@@ -39,9 +39,7 @@ const Home = () => {
       dispatch(User.thunks.doGetUser({}));
     }, []),
   );
-  // const token = useSelector(selectCurrentToken);
-  // console.log(token);
-  console.log(journeys[0]);
+
 
   return (
     <View style={styles(lang, isDarkMode).container}>
