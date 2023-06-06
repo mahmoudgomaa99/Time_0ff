@@ -206,7 +206,8 @@ const languages: any = {
     journeyUpdatedSuccefuly: 'Journey Updated Succefuly',
     chooseDate: 'Choose Date',
     nobook: 'There Is No Book',
-    nobooks:'There Is No Books'
+    nobooks:'There Is No Books',
+    wellness:'Wellness'
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -410,6 +411,7 @@ const languages: any = {
     chooseDate: 'اختر التاريخ',
     nobook: 'لا يوجد حجز',
     nobooks: 'لا يوجد حجوزات',
+    wellness:'صحة'
   },
 };
 export default languages;

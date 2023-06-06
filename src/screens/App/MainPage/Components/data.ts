@@ -43,6 +43,7 @@ export const cardData = (lang: string) => {
 export const categData = (lang: string) => {
   const data: { title: string; svgName: any; value: string }[] = [
     { title: languages[lang].diving, svgName: 'diving', value: 'diving' },
+    { title: languages[lang].wellness, svgName: 'wellness', value: 'wellness' },
     { title: languages[lang].trips, svgName: 'trips', value: 'trips' },
     { title: languages[lang].aquaPark, svgName: 'garden', value: 'aquaPark' },
     {

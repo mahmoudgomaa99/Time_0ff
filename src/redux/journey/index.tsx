@@ -36,6 +36,7 @@ type TInitialValues = {
       numberOfBookings: number;
     }[];
   }[];
+  agencyNotification: any;
 };
 
 const initialValues: TInitialValues = {
@@ -52,6 +53,7 @@ const initialValues: TInitialValues = {
   allBookings: null,
   currentIdBook: null,
   journey_availabilitey_vendor: [],
+  agencyNotification: null,
 };
 
 const slice = createSlice({
@@ -252,6 +254,50 @@ const slice = createSlice({
     builder.addCase(thunks.doUpdateJourneyData.rejected, (state, action) => {
       console.log(action);
     });
+
+    builder.addCase(
+      thunks.doGetAgencyNotification.fulfilled,
+      (state, action) => {
+        console.log(action, ' from index');
+
+        if (action.meta.arg.page === 1) {
+          state.agencyNotification =
+            action.payload.data.data.reversedNotifications;
+        } else {
+          state.agencyReviews = [
+            ...state.agencyNotification,
+            ...action.payload.data.data.reversedNotifications,
+          ];
+        }
+      },
+    );
+    builder.addCase(
+      thunks.doGetAgencyNotification.rejected,
+      (state, action) => {
+        console.log(action);
+      },
+    );
+
+    builder.addCase(thunks.doConfirmBooking.fulfilled, (state, action) => {
+      console.log(action);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.data.message,
+      });
+    });
+    builder.addCase(thunks.doConfirmBooking.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doCancelBooking.fulfilled, (state, action) => {
+      console.log(action);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.data.message,
+      });
+    });
+    builder.addCase(thunks.doCancelBooking.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -285,5 +331,7 @@ export const selectCurrentIdBook = (state: RootState) =>
   state.journeys.currentIdBook;
 export const selectCurrentJourneysAvilabilitey_Vendor = (state: RootState) =>
   state.journeys.journey_availabilitey_vendor;
+export const selectCurrentAgencyNotification = (state: RootState) =>
+  state.journeys.agencyNotification;
 
 export default Journeys;

@@ -61,6 +61,7 @@ import Wishlist from './Whishlist';
 import Logout2 from './Logout2';
 import Sort from './Sort';
 import Trash from './Trash';
+import Wellness from './Wellness';
 const svgs = {
   default: Logo,
   trash: Trash,
@@ -124,6 +125,7 @@ const svgs = {
   wishlist: Wishlist,
   logout2: Logout2,
   sort: Sort,
+  wellness: Wellness,
 };
 
 export default svgs;

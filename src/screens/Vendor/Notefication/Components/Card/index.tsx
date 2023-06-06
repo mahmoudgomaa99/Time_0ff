@@ -3,21 +3,26 @@ import React from 'react';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import { styles } from './styles';
+import { useAppDispatch } from 'redux/store';
+import Journeys from 'redux/journey';
+import Toast from 'react-native-toast-message';
 
 const Card = ({
   lang,
   iconName,
   message,
   date,
-
   isDarkMode,
+  id,
 }: {
   lang: string;
   iconName: any;
   message: string;
   date: string;
   isDarkMode?: boolean;
+  id: number;
 }) => {
+  const dispatch = useAppDispatch();
   return (
     <View>
       <View style={styles(lang, isDarkMode).container}>
@@ -37,13 +42,21 @@ const Card = ({
           <TextView title={date} style={styles(lang).date} />
         </View>
         <View style={styles(lang, isDarkMode).buttons}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('pressed');
+              dispatch(Journeys.thunks.doConfirmBooking(id));
+            }}>
             <View style={styles(lang, isDarkMode).rigth}>
               <View style={styles(lang, isDarkMode).lineOneR}></View>
               <View style={styles(lang, isDarkMode).lineTwoR}></View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('pressed cancel');
+              dispatch(Journeys.thunks.doCancelBooking(id));
+            }}>
             <View style={styles(lang, isDarkMode).close}>
               <View style={styles(lang, isDarkMode).lineOneC}></View>
               <View style={styles(lang, isDarkMode).lineTwoC}></View>
