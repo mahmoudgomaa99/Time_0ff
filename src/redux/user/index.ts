@@ -7,10 +7,12 @@ import * as actions from './actions';
 
 type TInitialValues = {
   currentUser?: any;
+  notefications: any[];
 };
 
 const initialValues: TInitialValues = {
   currentUser: null,
+  notefications: [],
 };
 
 const slice = createSlice({
@@ -83,6 +85,16 @@ const slice = createSlice({
     builder.addCase(actions.logoutAction, (state, action) => {
       state.currentUser = initialValues.currentUser;
     });
+    builder.addCase(
+      thunks.doGetUserNotefications.fulfilled,
+      (state, action) => {
+        state.notefications = action.payload.reversedNotifications;
+        console.log(action);
+      },
+    );
+    builder.addCase(thunks.doGetUserNotefications.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -94,5 +106,6 @@ const User = {
 };
 
 export const selectCurrentUser = (state: RootState) => state.users.currentUser;
-
+export const selectUserNotefications = (state: RootState) =>
+  state.users.notefications;
 export default User;

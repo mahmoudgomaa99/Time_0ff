@@ -199,7 +199,7 @@ const doAddBooking = createAsyncThunk<any, any, any>(
     try {
       const response = await JourneysApi.AddBooking(data);
       console.log(response, 'ressss');
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 400) {
         throw response.data;
       } else {
         return { data: response.data };
@@ -215,7 +215,11 @@ const doGetBooking = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetBooking(data);
-      return { data: response };
+      if (response.status === 400) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -244,6 +248,49 @@ const doUpdateJourneyData = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doGetAgencyNotification = createAsyncThunk<any, any, any>(
+  'agency/agencyNotification',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetAgencyNotification(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doConfirmBooking = createAsyncThunk<any, any, any>(
+  'journeys/book/confirmBooking',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.ConfirmBooking(data);
+      console.log(response, 'ressss');
+      if (response.status === 401) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doCancelBooking = createAsyncThunk<any, any, any>(
+  'journeys/book/cancelBooking',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.CancelBooking(data);
+      if (response.status === 401) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doGetJourneys,
@@ -265,6 +312,9 @@ const thunks = {
   doGetAllBookings,
   doGetJourneysAvilabilitey_Vendor,
   doUpdateJourneyData,
+  doGetAgencyNotification,
+  doConfirmBooking,
+  doCancelBooking,
 };
 
 export default thunks;

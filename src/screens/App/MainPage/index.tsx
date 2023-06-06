@@ -23,7 +23,6 @@ import COLORS from 'values/colors';
 import Svg from 'atoms/Svg';
 import SortModel from './Components/SortModel';
 import { SortJourneys } from './Components/utils/SortJourneys';
-import { selectToken } from 'redux/tokens/reducer';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -50,7 +49,6 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       });
     }, 100);
   }
-  const tokens = useSelector(selectToken);
 
   useFocusEffect(
     useCallback(() => {
@@ -64,20 +62,11 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     }, [category, filterData, search, page]),
   );
 
-  // useEffect(() => {
-  //   if (sort) {
-  //     SortJourneys(journeys, sort,setSortedData);
-  //   }
-  // }, [sort]);
   const [currentTab, setCurrentTab] = useState(languages[lang].main);
   const [showMenu, setShowMenu] = useState(false);
-
   const offsetValue = useRef(new Animated.Value(0)).current;
-
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
-
-  // const deviceToken = DeviceInfo.getUniqueId();
 
   return (
     <View

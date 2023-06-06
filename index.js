@@ -6,4 +6,7 @@ import Animated from 'react-native-reanimated';
 import { Navigation } from 'react-native-navigation';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
+
+
+
 AppRegistry.registerComponent(appName, () => gestureHandlerRootHOC(App));

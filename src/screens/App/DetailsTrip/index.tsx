@@ -255,6 +255,7 @@ const DetailsTrip = () => {
         isDarkMode={isDarkMode}
         isRequestReceive={isRequestReceive}
         setisRequestReceive={setisRequestReceive}
+        journey={journey}
       />
       <RequestReceive
         lang={lang}

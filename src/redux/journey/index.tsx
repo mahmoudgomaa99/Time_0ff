@@ -36,6 +36,7 @@ type TInitialValues = {
       numberOfBookings: number;
     }[];
   }[];
+  agencyNotification: any;
 };
 
 const initialValues: TInitialValues = {
@@ -52,6 +53,7 @@ const initialValues: TInitialValues = {
   allBookings: null,
   currentIdBook: null,
   journey_availabilitey_vendor: [],
+  agencyNotification: null,
 };
 
 const slice = createSlice({
@@ -219,18 +221,19 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doAddBooking.fulfilled, (state, action) => {
-      state.currentIdBook = action.meta.arg.journey_slot_id;
+      state.currentIdBook = action.payload.data._id;
+      // console.log(action.payload.data);
     });
     builder.addCase(thunks.doAddBooking.rejected, (state, action: any) => {
-      console.log(action, 'from faild');
+      // console.log(action, 'from faild');
     });
 
     builder.addCase(thunks.doGetBooking.fulfilled, (state, action) => {
-      // console.log(action.payload.data.data);
-      state.getBooking = action.payload.data.data;
+      console.log(action.payload, 'kk');
+      state.getBooking = action.payload.data;
     });
     builder.addCase(thunks.doGetBooking.rejected, (state, action) => {
-      console.log(action.payload);
+      console.log(action.payload, 'll');
     });
     builder.addCase(thunks.doGetAllBookings.fulfilled, (state, action) => {
       console.log(action.payload.data.data.bookings);
@@ -250,6 +253,50 @@ const slice = createSlice({
       console.log(action.payload.data.data);
     });
     builder.addCase(thunks.doUpdateJourneyData.rejected, (state, action) => {
+      console.log(action);
+    });
+
+    builder.addCase(
+      thunks.doGetAgencyNotification.fulfilled,
+      (state, action) => {
+        console.log(action, ' from index');
+
+        if (action.meta.arg.page === 1) {
+          state.agencyNotification =
+            action.payload.data.data.reversedNotifications;
+        } else {
+          state.agencyReviews = [
+            ...state.agencyNotification,
+            ...action.payload.data.data.reversedNotifications,
+          ];
+        }
+      },
+    );
+    builder.addCase(
+      thunks.doGetAgencyNotification.rejected,
+      (state, action) => {
+        console.log(action);
+      },
+    );
+
+    builder.addCase(thunks.doConfirmBooking.fulfilled, (state, action) => {
+      console.log(action);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.data.message,
+      });
+    });
+    builder.addCase(thunks.doConfirmBooking.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doCancelBooking.fulfilled, (state, action) => {
+      console.log(action);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.data.message,
+      });
+    });
+    builder.addCase(thunks.doCancelBooking.rejected, (state, action) => {
       console.log(action);
     });
   },
@@ -285,5 +332,7 @@ export const selectCurrentIdBook = (state: RootState) =>
   state.journeys.currentIdBook;
 export const selectCurrentJourneysAvilabilitey_Vendor = (state: RootState) =>
   state.journeys.journey_availabilitey_vendor;
+export const selectCurrentAgencyNotification = (state: RootState) =>
+  state.journeys.agencyNotification;
 
 export default Journeys;

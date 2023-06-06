@@ -1,7 +1,5 @@
 import {
   View,
-  Text,
-  ScrollView,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
@@ -9,10 +7,7 @@ import React, { useCallback, useState } from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { styles } from './styles';
-import { Data } from './data';
 import Svg from 'atoms/Svg';
-import { h } from 'values/Dimensions';
-import { color } from 'react-native-reanimated';
 import { useAppDispatch } from 'redux/store';
 import { useSelector } from 'react-redux';
 import Journeys, { selectCurrentAllBookings } from 'redux/journey';
@@ -51,7 +46,7 @@ const LastBookings = ({
         title={languages[lang].lastBooking}
         style={styles(lang, 'f', isDarkMode).title}
       />
-      {Allbookings.length > 0 ? (
+      {Allbookings?.length > 0 ? (
         isGetAllBookingsLoading && page === 1 ? (
           [...Array(10)].map(i => (
             <View key={i}>

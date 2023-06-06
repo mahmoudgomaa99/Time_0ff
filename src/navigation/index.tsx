@@ -20,6 +20,9 @@ import { selectIsDarkMode } from 'redux/DarkMode';
 import { UserType, selectUserType } from 'redux/UserType';
 import ChooseType from 'screens/PreApp/ChooseType';
 import VendorStack from './VendorStack';
+import messaging from '@react-native-firebase/messaging';
+import { PermissionsAndroid } from 'react-native';
+import { doSetDeviceToken } from 'redux/tokens/actions';
 
 type TRootStack = {
   auth: undefined;
@@ -36,6 +39,22 @@ const NavigationHandler = () => {
   const isPresent = useSelector(selectIsPresenting);
   const userType = useSelector(selectUserType);
 
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+      messaging()
+        .getToken()
+        .then(token => {
+          dispatch(doSetDeviceToken(token));
+        });
+    }
+  }
+  useEffect(() => {
+    requestUserPermission();
+  }, []);
   useEffect(() => {
     Geolocation.getCurrentPosition(i => {
       dispatch(

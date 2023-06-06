@@ -23,11 +23,13 @@ import { selectIsDarkMode } from 'redux/DarkMode';
 import axios from 'axios';
 import { selectUserType } from 'redux/UserType';
 import Fonts from 'values/fonts';
+import { selectDeviceToken } from 'redux/tokens/reducer';
 
 const Register = () => {
-  const userType = useSelector(selectUserType);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
+  const device_token = useSelector(selectDeviceToken);
+  const userType = useSelector(selectUserType);
   const isLoading = useLoadingSelector(User.thunks.doSignUp);
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -86,6 +88,7 @@ const Register = () => {
               type: userType,
               city: values.city,
               country: values.country,
+              device_token: device_token ? device_token : '',
             }),
           )
             .then(unwrapResult)

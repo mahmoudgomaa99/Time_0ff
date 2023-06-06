@@ -18,12 +18,11 @@ import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectIsDarkMode } from 'redux/DarkMode';
-import { log } from 'react-native-reanimated';
-import COLORS from 'values/colors';
 import { selectUserType } from 'redux/UserType';
-import navigation from 'navigation/index';
+import { selectDeviceToken } from 'redux/tokens/reducer';
 
 const Login = () => {
+  const device_token = useSelector(selectDeviceToken);
   const userType = useSelector(selectUserType);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [secure, setsecure] = useState(true);
@@ -31,7 +30,6 @@ const Login = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
-  console.log('userType', userType);
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
@@ -72,6 +70,7 @@ const Login = () => {
             User.thunks.doLogIn({
               email: values.email,
               password: values.password,
+              device_token: device_token ? device_token : '',
             }),
           )
             .then(unwrapResult) // filter result

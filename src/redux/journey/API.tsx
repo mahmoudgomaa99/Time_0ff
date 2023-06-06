@@ -181,16 +181,21 @@ const UpdateJourneyAvailabilitey = (data: {
 }) => api.post(`journeys/availability/${data.id}`, data.availability);
 const RemoveJourney = (id: number) => api.delete(`journeys/${id}`);
 
-const AddBooking = (data: {
-  journey_slot_id: any;
-  number_of_seats: any;
-}) => api.post(`journeys/book`, data);
+const AddBooking = (data: { journey_slot_id: any; number_of_seats: any }) =>
+  api.post(`journeys/book`, data);
 
 const GetBooking = (id: number) => api.get(`journeys/book/${id}`);
 
-const GetAllBookings = (data:{id: number,page:number}) => api.get(`journeys/book/user/${data.id}?page=${data.page}`);
+const GetAllBookings = (data: { id: number; page: number }) =>
+  api.get(`journeys/book/user/${data.id}?page=${data.page}`);
 const UpdateJourneyData = (data: any) =>
   api.put(`journeys/${data.id}`, data.data);
+
+const GetAgencyNotification = (data: { id: number; page: number }) =>
+  api.get(`agencies/notification/${data.id}?page=${data.page}`);
+
+const ConfirmBooking = (id: number) => api.put(`journeys/book/${id}`);
+const CancelBooking = (id: number) => api.post(`journeys/book/${id}`);
 
 const JourneysApi = {
   GetJourneys,
@@ -212,6 +217,9 @@ const JourneysApi = {
   GetAllBookings,
   GetJourneyAvailabilitey_Vendor,
   UpdateJourneyData,
+  GetAgencyNotification,
+  ConfirmBooking,
+  CancelBooking
 };
 
 export default JourneysApi;
