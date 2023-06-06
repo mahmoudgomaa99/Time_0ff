@@ -29,17 +29,17 @@ const CurrentBookings = ({
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetBooking(bookId));
-    }, []),
+    }, [bookId]),
   );
 
   console.log(book, 'book');
-  console.log(bookId, 'book id');
+
   return (
     <View style={{ marginHorizontal: 15 }}>
-      {book.activity ? (
+      {book?.activity ? (
         <>
           <BookingDetails isDarkMode={isDarkMode} lang={lang} book={book} />
-          <Payment isDarkMode={isDarkMode} lang={lang} />
+          <Payment book={book} isDarkMode={isDarkMode} lang={lang} />
         </>
       ) : (
         <TextView

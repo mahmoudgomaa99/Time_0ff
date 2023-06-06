@@ -28,15 +28,16 @@ const DetailsTrip = ({
   isDarkMode,
   isRequestReceive,
   setisRequestReceive,
+  journey,
 }: {
   isDetailsModalVisibal: boolean;
   setisDetailsModalVisibal: any;
   isDarkMode?: boolean;
   isRequestReceive: boolean;
   setisRequestReceive: any;
+  journey: any;
 }) => {
   const lang = useSelector(selectLanguage);
-  const journey = useSelector(selectCurrentJourney);
   const availabilityJourneys = useSelector(selectCurrentJourneysAvilabilitey);
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneysAvilabilitey,
@@ -44,8 +45,8 @@ const DetailsTrip = ({
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey._id));
-    }, [journey._id]),
+      dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey?._id));
+    }, [journey?._id]),
   );
 
   return (
@@ -62,19 +63,21 @@ const DetailsTrip = ({
         <ScrollView showsVerticalScrollIndicator={false}>
           <Card
             title={
-              lang === 'ar' ? journey.arabic_journey_name : journey.journey_name
+              lang === 'ar'
+                ? journey?.arabic_journey_name
+                : journey?.journey_name
             }
             description={
-              lang === 'ar' ? journey.arabic_description : journey.description
+              lang === 'ar' ? journey?.arabic_description : journey?.description
             }
             location={
-              lang === 'ar' ? journey.arabic_location : journey.location
+              lang === 'ar' ? journey?.arabic_location : journey?.location
             }
-            name={journey.agency_name}
-            stars={journey.rating ? journey.rating : 0}
+            name={journey?.agency_name}
+            stars={journey?.rating ? journey?.rating : 0}
             lang={lang}
             isDarkMode={isDarkMode}
-            urlImage={journey.images[0]}
+            urlImage={journey?.images[0]}
           />
           <Bottom
             lang={lang}

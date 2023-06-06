@@ -23,6 +23,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectToken } from 'redux/tokens/reducer';
 import { useLoadingSelector } from 'redux/selectors';
+import { toString } from 'lodash';
 
 const Bottom = ({
   lang,
@@ -59,12 +60,13 @@ const Bottom = ({
           dispatch(
             Journeys.thunks.doAddBooking({
               journey_slot_id: values.time,
-              number_of_seats: values.members,
+              number_of_seats: Number(values.members),
             }),
           )
             .then(unwrapResult)
             .then(() => {
               setisDetailsModalVisibal(false);
+              setisRequestReceive(true);
               Toast.show({
                 type: 'success',
                 text2: languages[lang].bookingAdd,
@@ -172,7 +174,6 @@ const Bottom = ({
             type="primary"
             label={languages[lang].bookNow}
             onPress={() => {
-              setisRequestReceive(true);
               props.handleSubmit();
             }}
             style={styles().button}

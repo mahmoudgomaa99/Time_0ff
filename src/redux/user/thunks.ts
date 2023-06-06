@@ -114,6 +114,17 @@ const doUpdateImage = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doGetUserNotefications = createAsyncThunk<any, any, any>(
+  'user/notefications',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.GetUserNotefications(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doForgetPassword,
@@ -124,6 +135,7 @@ const thunks = {
   doUpdateUser,
   doAddAgency,
   doUpdateImage,
+  doGetUserNotefications,
 };
 
 export default thunks;

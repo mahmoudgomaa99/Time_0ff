@@ -1,16 +1,9 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  ActivityIndicator,
-  FlatList,
-} from 'react-native';
+import { View, ActivityIndicator, FlatList } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import { selectIsDarkMode } from 'redux/DarkMode';
-import { Data } from './data';
 import Card from './Components/Card';
 import languages from 'values/languages';
 import TextView from 'atoms/TextView';
@@ -43,7 +36,7 @@ const Notefication = () => {
   );
   console.log(notification);
   const token = useSelector(selectToken);
-  // console.log(token);
+  console.log(token);
   return (
     <View style={styles(lang, isDarkMode).container}>
       <>

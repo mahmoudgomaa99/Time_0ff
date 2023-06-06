@@ -1,11 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import { styles } from './styles';
 import { useAppDispatch } from 'redux/store';
 import Journeys from 'redux/journey';
-import Toast from 'react-native-toast-message';
 
 const Card = ({
   lang,
@@ -44,7 +43,6 @@ const Card = ({
         <View style={styles(lang, isDarkMode).buttons}>
           <TouchableOpacity
             onPress={() => {
-              console.log('pressed');
               dispatch(Journeys.thunks.doConfirmBooking(id));
             }}>
             <View style={styles(lang, isDarkMode).rigth}>
@@ -54,7 +52,6 @@ const Card = ({
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              console.log('pressed cancel');
               dispatch(Journeys.thunks.doCancelBooking(id));
             }}>
             <View style={styles(lang, isDarkMode).close}>

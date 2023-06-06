@@ -221,18 +221,19 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doAddBooking.fulfilled, (state, action) => {
-      state.currentIdBook = action.meta.arg.journey_slot_id;
+      state.currentIdBook = action.payload.data._id;
+      // console.log(action.payload.data);
     });
     builder.addCase(thunks.doAddBooking.rejected, (state, action: any) => {
-      console.log(action, 'from faild');
+      // console.log(action, 'from faild');
     });
 
     builder.addCase(thunks.doGetBooking.fulfilled, (state, action) => {
-      // console.log(action.payload.data.data);
-      state.getBooking = action.payload.data.data;
+      console.log(action.payload, 'kk');
+      state.getBooking = action.payload.data;
     });
     builder.addCase(thunks.doGetBooking.rejected, (state, action) => {
-      console.log(action.payload);
+      console.log(action.payload, 'll');
     });
     builder.addCase(thunks.doGetAllBookings.fulfilled, (state, action) => {
       console.log(action.payload.data.data.bookings);

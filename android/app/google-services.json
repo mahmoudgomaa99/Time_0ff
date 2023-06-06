@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223064211464",
+    "project_id": "timeoff-3f1aa",
+    "storage_bucket": "timeoff-3f1aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223064211464:android:be5e2c5b9395bae52fd1bd",
+        "android_client_info": {
+          "package_name": "com.time_off"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx9FdlNA2rvm-s8eEFmvs3iqJJKcETKoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,9 +8,11 @@ import { Data } from './data';
 const Payment = ({
   lang,
   isDarkMode,
+  book,
 }: {
   isDarkMode?: boolean;
   lang: string;
+  book: any;
 }) => {
   return (
     <View>
@@ -19,7 +21,7 @@ const Payment = ({
         style={styles(lang, isDarkMode).title}
       />
       <View style={styles(lang).outerContainer}>
-        {Data(lang).map(value => (
+        {Data(lang, book).map(value => (
           <View style={styles(lang).container}>
             <TextView
               title={value.title}
@@ -41,7 +43,7 @@ const Payment = ({
           style={styles(lang, isDarkMode).firstText}
         />
         <TextView
-          title={`${Data(lang)[0].value + Data(lang)[1].value} ${
+          title={`${Data(lang,book)[0].value + Data(lang,book)[1].value} ${
             languages[lang].le
           }`}
           style={styles(lang, isDarkMode).secondText}
