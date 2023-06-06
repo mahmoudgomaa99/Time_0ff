@@ -54,7 +54,7 @@ const NavigationHandler = () => {
   }
   useEffect(() => {
     requestUserPermission();
-  }, []);
+  }, [currentUser]);
   useEffect(() => {
     Geolocation.getCurrentPosition(i => {
       dispatch(

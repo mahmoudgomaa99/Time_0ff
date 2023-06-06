@@ -8,7 +8,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     container: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',
       alignItems: 'center',
-      marginBottom: h * 0.025,
+      // marginBottom: h * 0.025,
       borderRadius: 10,
       paddingTop: 10,
       paddingBottom: 5,

@@ -1,10 +1,15 @@
-import { View, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import { styles } from './styles';
 import { useAppDispatch } from 'redux/store';
 import Journeys from 'redux/journey';
+import { useLoadingSelector } from 'redux/selectors';
+import COLORS from 'values/colors';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { set } from 'lodash';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const Card = ({
   lang,
@@ -13,6 +18,9 @@ const Card = ({
   date,
   isDarkMode,
   id,
+  user,
+  page,
+  setPage,
 }: {
   lang: string;
   iconName: any;
@@ -20,8 +28,12 @@ const Card = ({
   date: string;
   isDarkMode?: boolean;
   id: number;
+  user: any;
+  page: number;
+  setPage: any;
 }) => {
   const dispatch = useAppDispatch();
+
   return (
     <View>
       <View style={styles(lang, isDarkMode).container}>
@@ -43,7 +55,18 @@ const Card = ({
         <View style={styles(lang, isDarkMode).buttons}>
           <TouchableOpacity
             onPress={() => {
-              dispatch(Journeys.thunks.doConfirmBooking(id));
+              dispatch(Journeys.thunks.doConfirmBooking(id))
+                .then(unwrapResult)
+                .then(res => {
+                  setPage(1);
+                  dispatch(
+                    Journeys.thunks.doGetAgencyNotification({
+                      id: user._id,
+                      page: 1,
+                    }),
+                  );
+                })
+                .catch(() => {});
             }}>
             <View style={styles(lang, isDarkMode).rigth}>
               <View style={styles(lang, isDarkMode).lineOneR}></View>
@@ -52,7 +75,18 @@ const Card = ({
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              dispatch(Journeys.thunks.doCancelBooking(id));
+              dispatch(Journeys.thunks.doCancelBooking(id))
+                .then(unwrapResult)
+                .then(() => {
+                  setPage(1);
+                  dispatch(
+                    Journeys.thunks.doGetAgencyNotification({
+                      id: user._id,
+                      page: 1,
+                    }),
+                  );
+                })
+                .catch(() => {});
             }}>
             <View style={styles(lang, isDarkMode).close}>
               <View style={styles(lang, isDarkMode).lineOneC}></View>

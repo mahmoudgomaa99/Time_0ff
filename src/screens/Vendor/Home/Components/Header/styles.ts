@@ -44,7 +44,7 @@ export const styles = (isDarkMode?: boolean) =>
     nameText: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
-      lineHeight: 19,
+      lineHeight: 24,
       textAlign: 'center',
       fontWeight: '400',
       marginBottom: 10,

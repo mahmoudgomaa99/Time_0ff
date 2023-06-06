@@ -30,6 +30,7 @@ const Login = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
+  console.log(device_token,';;');
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>

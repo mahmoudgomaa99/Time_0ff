@@ -265,8 +265,7 @@ const doConfirmBooking = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.ConfirmBooking(data);
-      console.log(response, 'ressss');
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 400) {
         throw response.data;
       } else {
         return { data: response.data };
@@ -281,7 +280,8 @@ const doCancelBooking = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.CancelBooking(data);
-      if (response.status === 401) {
+      console.log(response, 'ressss');
+      if (response.status === 401 || response.status === 400) {
         throw response.data;
       } else {
         return { data: response.data };

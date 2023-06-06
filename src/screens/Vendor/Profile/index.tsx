@@ -31,11 +31,11 @@ const Profile = () => {
   const isLoading = useLoadingSelector(User.thunks.doGetUser);
   const isLoading2 = useLoadingSelector(User.thunks.doUpdateUser);
   const [Update, setUpdate] = useState(true);
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(User.thunks.doGetUser({}));
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(User.thunks.doGetUser({}));
+  //   }, []),
+  // );
   console.log('currentUser', currentUser);
 
   return (

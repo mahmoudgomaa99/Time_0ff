@@ -32,17 +32,17 @@ const DetailsTrip = () => {
   const navigation = useNavigation<any>();
   const journey = useSelector(selectCurrentJourney);
   const lang = useSelector(selectLanguage);
+  const route = useRoute<any>();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFavourite, setisFavourite] = useState(journey?.is_favorite);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
-  const route = useRoute<any>();
+
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetJourney(route.params?.id));
     }, [route.params?.id]),
   );
-  
 
   const renderItem = ({ item, index }: any) => {
     return (
@@ -51,7 +51,6 @@ const DetailsTrip = () => {
       </View>
     );
   };
- 
 
   isRequestReceive
     ? setTimeout(() => {

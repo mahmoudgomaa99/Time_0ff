@@ -18,11 +18,11 @@ const Profile = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const lang = useSelector(selectLanguage);
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(User.thunks.doGetUser({}));
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(User.thunks.doGetUser({}));
+  //   }, []),
+  // );
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
