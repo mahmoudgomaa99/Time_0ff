@@ -36,11 +36,11 @@ const EditProfile = () => {
     });
     getCountries();
   }, []);
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(User.thunks.doGetUser({}));
-    }, []),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(User.thunks.doGetUser({}));
+  //   }, []),
+  // );
 
   const countries = allData.map((i: any) => ({
     label: i?.country,

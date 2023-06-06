@@ -17,15 +17,15 @@ import SkeletonItem from 'components/molecules/SkeletonItem';
 import { selectToken } from 'redux/tokens/reducer';
 
 const Notefication = () => {
+  const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
-  const [page, setpage] = useState(1);
-  const user = useSelector(selectCurrentUser);
   const notification = useSelector(selectCurrentAgencyNotification);
-  const dispatch = useAppDispatch();
   const isGetNotificationLoading = useLoadingSelector(
     Journeys.thunks.doGetAgencyNotification,
   );
+  const user = useSelector(selectCurrentUser);
+  const [page, setpage] = useState(1);
 
   useFocusEffect(
     useCallback(() => {
@@ -34,9 +34,8 @@ const Notefication = () => {
       );
     }, [user?._id, page]),
   );
-  console.log(notification);
-  const token = useSelector(selectToken);
-  console.log(token);
+  // console.log(notification[0], user);
+
   return (
     <View style={styles(lang, isDarkMode).container}>
       <>
@@ -49,7 +48,7 @@ const Notefication = () => {
         ) : notification?.length !== 0 ? (
           <>
             <FlatList
-              contentContainerStyle={{ paddingBottom: 50 }}
+              contentContainerStyle={{ paddingBottom: 20 }}
               onEndReached={() => {
                 setpage((prev: number) => prev + 1);
               }}
@@ -61,16 +60,17 @@ const Notefication = () => {
                   message={item.message}
                   date={item.createdAt.slice(0, 10)}
                   isDarkMode={isDarkMode}
-                  id={item._id}
+                  id={item.booking_id}
+                  user={user}
+                  page={page}
+                  setPage={setpage}
                 />
               )}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item: any) => item._id}
             />
             {isGetNotificationLoading && page !== 1 && (
-              <View style={{ marginBottom: 10 }}>
-                <ActivityIndicator size="large" color={COLORS.primary} />
-              </View>
+              <ActivityIndicator size="large" color={COLORS.primary} />
             )}
           </>
         ) : (

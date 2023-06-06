@@ -12,15 +12,16 @@ import Header from './Components/Header';
 import Content from './Components/Content';
 import languages from 'values/languages';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-
+import { selectToken } from 'redux/tokens/reducer';
 
 const Home = () => {
   const navigation = useNavigation<any>();
   const isDarkMode = useSelector(selectIsDarkMode);
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
+  const token = useSelector(selectToken);
+  console.log(token);
 
- 
   const dispatch = useAppDispatch();
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetAgencyJourneys,
@@ -34,12 +35,11 @@ const Home = () => {
       );
     }, [userData?._id, page]),
   );
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(User.thunks.doGetUser({}));
-    }, []),
-  );
-
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(User.thunks.doGetUser({}));
+  //   }, []),
+  // );
 
   return (
     <View style={styles(lang, isDarkMode).container}>

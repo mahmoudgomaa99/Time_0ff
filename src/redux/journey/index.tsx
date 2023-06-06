@@ -280,20 +280,20 @@ const slice = createSlice({
     );
 
     builder.addCase(thunks.doConfirmBooking.fulfilled, (state, action) => {
-      console.log(action);
+      // console.log(action);
       Toast.show({
         type: 'success',
-        text2: action.payload.data.data.message,
+        text2: action.payload.data.message,
       });
     });
     builder.addCase(thunks.doConfirmBooking.rejected, (state, action) => {
-      console.log(action);
+      // console.log(action);
     });
     builder.addCase(thunks.doCancelBooking.fulfilled, (state, action) => {
-      console.log(action);
+      // console.log(action);
       Toast.show({
         type: 'success',
-        text2: action.payload.data.data.message,
+        text2: action.payload.data.message,
       });
     });
     builder.addCase(thunks.doCancelBooking.rejected, (state, action) => {
