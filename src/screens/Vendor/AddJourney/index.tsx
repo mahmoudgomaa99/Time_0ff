@@ -119,12 +119,13 @@ const AddJourney = () => {
                 borderColor={'#6a6969'}
                 type={'primary'}
                 data={[
-                  { label: 'diving', value: 'diving' },
-                  { label: 'trips', value: 'trips' },
-                  { label: 'aquaPark', value: 'aquaPark' },
-                  { label: 'nileTrip', value: 'nileTrip' },
-                  { label: 'bBuggy', value: 'bBuggy' },
-                  { label: 'surfing', value: 'surfing' },
+                  { label: 'Diving', value: 'diving' },
+                  { label: 'Trips', value: 'trips' },
+                  { label: 'AquaPark', value: 'aquaPark' },
+                  { label: 'NileTrip', value: 'nileTrip' },
+                  { label: 'BBuggy', value: 'bBuggy' },
+                  { label: 'Surfing', value: 'surfing' },
+                  { label: 'Willness', value: 'willness' },
                 ]}
                 name={'category'}
                 stylingProp={{ borderColor: 'red', borderWith: 30 }}

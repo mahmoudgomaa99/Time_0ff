@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator<TAuthStack>();
 const AuthStack = () => {
   const userType = useSelector(selectUserType);
   return (
-    <Stack.Navigator initialRouteName={userType ? 'login' : 'chooseType'}>
+    <Stack.Navigator initialRouteName={'login'}>
       <Stack.Screen
         name="login"
         component={Login}

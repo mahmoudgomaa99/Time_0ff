@@ -21,7 +21,6 @@ const ChooseType = () => {
   const [type, setType] = useState<string>();
   const token = useSelector(selectToken);
   const currentUser = useSelector(selectCurrentUser);
-  console.log('currentUser', currentUser, token);
 
   return (
     <SafeAreaView style={styles(undefined, undefined, isDarkMode).conatiner}>
@@ -54,7 +53,7 @@ const ChooseType = () => {
         style={{ marginTop: h * 0.2, width: w * 0.8 }}
         onPress={() => {
           dispatch(UserType.setUserData(type));
-          navigation.navigate('login');
+          navigation.navigate('register');
         }}
       />
     </SafeAreaView>

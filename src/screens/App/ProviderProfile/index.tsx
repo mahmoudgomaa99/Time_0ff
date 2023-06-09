@@ -72,7 +72,7 @@ const ProviderProfile = () => {
       {select === 1 ? (
         <AboutSection
           lang={lang}
-          description={agency?.agencyDataRes.description}
+          description={agency?.agencyDataRes?.description}
         />
       ) : select === 2 ? (
         <ExperienceSection

@@ -30,12 +30,11 @@ const ExperienceSection = ({
 }) => {
   const navigation = useNavigation<any>();
 
-
   return (
     <View>
       {
         isGetJourneysLoading && pageJourneys === 1 ? (
-          [...Array(20)].map(i => (
+          [...Array(5)].map(i => (
             <View key={i}>
               <SkeletonItem />
             </View>
@@ -43,6 +42,7 @@ const ExperienceSection = ({
         ) : (
           <>
             <FlatList
+              contentContainerStyle={{ paddingBottom: 100 }}
               onEndReached={() => {
                 setpageJourneys((prev: number) => prev + 1);
               }}

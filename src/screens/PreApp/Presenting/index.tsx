@@ -171,7 +171,7 @@ const PresentingScreen = () => {
           dispatch(Present.setIsPresent());
         }}
         style={styles.backArrow}>
-        <Text style={styles.desc}>Skip</Text>
+        <Text style={[styles.desc, { lineHeight: 20 }]}>Skip</Text>
       </TouchableOpacity>
     </ImageBackground>
   );

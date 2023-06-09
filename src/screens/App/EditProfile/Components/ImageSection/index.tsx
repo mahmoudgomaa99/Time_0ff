@@ -65,6 +65,7 @@ const ImageSection = ({
             .then(unwrapResult)
             .then(res => {
               console.log('res', res);
+              dispatch(User.thunks.doGetUser({}));
               Toast.show({
                 type: 'success',
                 text2: languages[lang].imageUpdatedSuccefuly,

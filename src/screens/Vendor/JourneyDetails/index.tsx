@@ -41,6 +41,7 @@ import moment from 'moment';
 import { set } from 'lodash';
 import { unwrapResult } from '@reduxjs/toolkit';
 import DateModal from '../AddJourney/Components/DateModal';
+import { selectCurrentUser } from 'redux/user';
 
 const JourneyDetails = () => {
   const dispatch = useAppDispatch();
@@ -57,6 +58,7 @@ const JourneyDetails = () => {
   const isUpdateDataLoading = useLoadingSelector(
     Journeys.thunks.doUpdateJourneyData,
   );
+  const user = useSelector(selectCurrentUser);
   const avilabilties = useSelector(selectCurrentJourneysAvilabilitey_Vendor);
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -65,6 +67,7 @@ const JourneyDetails = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [name, setName] = useState('');
+  const [edit, setEdit] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -134,6 +137,7 @@ const JourneyDetails = () => {
                   <TouchableOpacity
                     onPress={async () => {
                       pick();
+                      setEdit(true);
                       props.setFieldValue('image', source);
                     }}
                     style={styles().img_container}>
@@ -143,7 +147,7 @@ const JourneyDetails = () => {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    disabled={!source && source?.didCancel === true}
+                    disabled={!source || source?.didCancel === true}
                     onPress={() => {
                       const body = new FormData();
                       source?.assets?.forEach((item: any, index: any) => {
@@ -163,18 +167,24 @@ const JourneyDetails = () => {
                           id,
                         }),
                       ).then(res => {
-                        Toast.show({
-                          type: 'success',
-                          text2: languages[lang].imageUpdatedSuccefuly,
-                        });
+                        setEdit(false);
+                        Journeys.thunks.doGetAgencyJourneys({
+                          id: user?._id,
+                          page: 1,
+                        }),
+                          Toast.show({
+                            type: 'success',
+                            text2: languages[lang].imageUpdatedSuccefuly,
+                          });
                       });
                     }}
                     style={{
                       alignItems: 'center',
-                      backgroundColor:
-                        source && source?.didCancel === false
+                      backgroundColor: edit
+                        ? source || source?.didCancel === false
                           ? COLORS.primary
-                          : COLORS.grey,
+                          : COLORS.grey
+                        : COLORS.grey,
                       width: w * 0.3,
                       height: w * 0.1,
                       borderRadius: w * 0.2,
@@ -192,8 +202,10 @@ const JourneyDetails = () => {
                           { color: COLORS.white },
                         ]}
                         title={
-                          source && source?.didCancel === false
-                            ? languages[lang].edit_image
+                          edit
+                            ? source || source?.didCancel === false
+                              ? languages[lang].edit_image
+                              : languages[lang].select_image
                             : languages[lang].select_image
                         }
                       />

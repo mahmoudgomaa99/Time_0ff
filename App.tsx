@@ -17,7 +17,7 @@ const App = () => {
   useEffect(() => {
     messaging().setBackgroundMessageHandler(async remoteMessage => {});
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage, 'remoteMessage');
+      // console.log(remoteMessage, 'remoteMessage');
       notefRef.current?.show({
         appIconSource: images.logo,
         appIconColor: '#004dcf',

@@ -17,7 +17,7 @@ const RequestReceive = ({
   return (
     <Modal isVisible={isRequestReceive}>
       <View style={styles(lang).modalContainer}>
-        <Svg name="planet" size={100} />
+        <Svg name="sand" size={100} />
         <TextView
           title={languages[lang].requestReceive}
           style={styles(lang).title}

@@ -1,8 +1,4 @@
-import {
-  View,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
@@ -39,7 +35,7 @@ const LastBookings = ({
       );
     }, [page]),
   );
-
+  console.log(currentUser);
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <TextView
@@ -48,7 +44,7 @@ const LastBookings = ({
       />
       {Allbookings?.length > 0 ? (
         isGetAllBookingsLoading && page === 1 ? (
-          [...Array(10)].map(i => (
+          [...Array(5)].map(i => (
             <View key={i}>
               <SkeletonItem />
             </View>

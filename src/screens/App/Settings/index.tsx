@@ -48,7 +48,7 @@ const Settings = () => {
           onPress={() => {
             dispatch(User.actions.logoutAction());
             dispatch(UserType.setUserData(null));
-            navigation.navigate('auth', { screen: 'chooseType' });
+            navigation.navigate('auth', { screen: 'login' });
           }}
           style={styles(lang, isDarkMode).Lcontainer}>
           <View style={styles(lang, isDarkMode).innerContainer}>

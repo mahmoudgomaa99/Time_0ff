@@ -25,6 +25,7 @@ const slice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(thunks.doLogIn.fulfilled, (state, action) => {
+      // console.log(action.payload.data.userData, 'lllll');
       state.currentUser = action.payload.data.userData;
     });
     builder.addCase(thunks.doLogIn.rejected, (state, action: any) => {
@@ -88,7 +89,12 @@ const slice = createSlice({
     builder.addCase(
       thunks.doGetUserNotefications.fulfilled,
       (state, action) => {
-        state.notefications = action.payload.reversedNotifications;
+        console.log(action.meta.arg.page);
+        if (action.meta.arg.page === 1) {
+          state.notefications = action.payload;
+        } else {
+          state.notefications = [...state.notefications, ...action.payload];
+        }
         console.log(action);
       },
     );

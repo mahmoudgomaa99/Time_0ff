@@ -41,7 +41,7 @@ const GetJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}page=${data.page}`;
   if (data.rating)
     params += `${params.length === 0 ? '?' : '&'}rating=${data.rating}`;
-  console.log(params, 'from api');
+  // console.log(params, 'from api');
   return api.get('journeys' + params);
 };
 const GetHotJourneys = (data: {
@@ -84,7 +84,7 @@ const GetHotJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}page=${data.page}`;
   if (data.rating)
     params += `${params.length === 0 ? '?' : '&'}rating=${data.rating}`;
-  console.log(params, 'from api');
+  // console.log(params, 'from api');
   return api.get('journeys' + params);
 };
 const GetDiscountJourneys = (data: {
@@ -127,7 +127,7 @@ const GetDiscountJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}page=${data.page}`;
   if (data.rating)
     params += `${params.length === 0 ? '?' : '&'}rating=${data.rating}`;
-  console.log(params, 'from api');
+  // console.log(params, 'from api');
   return api.get('journeys' + params);
 };
 
@@ -186,7 +186,7 @@ const AddBooking = (data: { journey_slot_id: any; number_of_seats: any }) =>
 
 const GetBooking = (id: number) => api.get(`journeys/book/${id}`);
 
-const GetAllBookings = (data: { id: number; page: number }) =>
+const GetAllBookings = (data: { id: number; page?: number }) =>
   api.get(`journeys/book/user/${data.id}?page=${data.page}`);
 const UpdateJourneyData = (data: any) =>
   api.put(`journeys/${data.id}`, data.data);

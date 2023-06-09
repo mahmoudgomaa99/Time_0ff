@@ -49,7 +49,7 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
       fontSize: 10,
       color: '#B8B8B8',
       marginVertical: 5,
-      maxHeight: lang === 'en' ? h * 0.03 : h * 0.05,
+      maxHeight: lang === 'en' ? h * 0.04 : h * 0.05,
       fontFamily: Fonts.Cairo_Regular,
     },
     location: {

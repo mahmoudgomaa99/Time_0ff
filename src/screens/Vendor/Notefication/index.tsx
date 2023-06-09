@@ -25,6 +25,7 @@ const Notefication = () => {
     Journeys.thunks.doGetAgencyNotification,
   );
   const user = useSelector(selectCurrentUser);
+  const token = useSelector(selectToken);
   const [page, setpage] = useState(1);
 
   useFocusEffect(
@@ -34,13 +35,13 @@ const Notefication = () => {
       );
     }, [user?._id, page]),
   );
-  // console.log(notification[0], user);
+  console.log(token);
 
   return (
     <View style={styles(lang, isDarkMode).container}>
       <>
         {isGetNotificationLoading && page === 1 ? (
-          [...Array(20)].map(i => (
+          [...Array(5)].map(i => (
             <View key={i}>
               <SkeletonItem />
             </View>

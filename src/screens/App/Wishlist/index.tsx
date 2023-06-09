@@ -16,6 +16,8 @@ import { h } from 'values/Dimensions';
 import { useAppDispatch } from 'redux/store';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import Fonts from 'values/fonts';
+import { useLoadingSelector } from 'redux/selectors';
+import SkeletonItem from 'components/molecules/SkeletonItem';
 
 const Wishlist = () => {
   const dispatch = useAppDispatch();
@@ -23,56 +25,72 @@ const Wishlist = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const favourites = useSelector(selectFavJourneys);
+  const isLoading = useLoadingSelector(Journeys.thunks.doGetFavJourneys);
 
   useEffect(() => {
     dispatch(Journeys.thunks.doGetFavJourneys({}));
   }, []);
-
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ marginVertical: 20 }}>
-        {favourites?.length === 0 ? (
-          <TextView
-            title={languages[lang].noData}
-            style={{
-              color: COLORS.grey,
-              textAlign: 'center',
-              marginTop: h * 0.3,
-              fontWeight: '500',
-              fontSize: 16,
-              fontFamily: Fonts.Cairo_SemiBold,
-            }}
-          />
+        {isLoading ? (
+          <>
+            {[...Array(5).keys()].map(i => (
+              <SkeletonItem />
+            ))}
+          </>
         ) : (
           <>
-            {favourites?.map(item => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('detailsTrip', { id: item._id });
+            {favourites?.length === 0 ? (
+              <TextView
+                title={languages[lang].noData}
+                style={{
+                  color: COLORS.grey,
+                  textAlign: 'center',
+                  marginTop: h * 0.3,
+                  fontWeight: '500',
+                  fontSize: 16,
+                  fontFamily: Fonts.Cairo_SemiBold,
                 }}
-                style={{ marginTop: 2 }}>
-                <Card
-                  title={
-                    lang === 'ar' ? item.arabic_journey_name : item.journey_name
-                  }
-                  description={
-                    lang === 'ar' ? item.arabic_description : item.description
-                  }
-                  location={
-                    lang === 'ar' ? item.arabic_location : item.location
-                  }
-                  name={item.agency_name}
-                  stars={item.rating.toString() ? item.rating.toString() : '0'}
-                  lang={lang}
-                  isDarkMode={isDarkMode}
-                  isFav={true}
-                  urlImage={item.image}
-                />
-              </TouchableOpacity>
-            ))}
+              />
+            ) : (
+              <>
+                {favourites?.map(item => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('detailsTrip', { id: item._id });
+                    }}
+                    style={{ marginTop: 2 }}>
+                    <Card
+                      title={
+                        lang === 'ar'
+                          ? item.arabic_journey_name
+                          : item.journey_name
+                      }
+                      description={
+                        lang === 'ar'
+                          ? item.arabic_description
+                          : item.description
+                      }
+                      location={
+                        lang === 'ar' ? item.arabic_location : item.location
+                      }
+                      name={item.agency_name}
+                      stars={
+                        item.rating.toString() ? item.rating.toString() : '0'
+                      }
+                      lang={lang}
+                      isDarkMode={isDarkMode}
+                      isFav={true}
+                      urlImage={item.image}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </>
+            )}
           </>
         )}
       </ScrollView>

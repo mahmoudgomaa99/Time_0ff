@@ -24,19 +24,30 @@ const Card = ({
   return (
     <View style={styles(lang).container}>
       <View style={styles(lang).first}>
-        <Svg name={iconName} size={80} />
+        <Svg
+          name={
+            iconName === 'rejected' || iconName === 'canceled'
+              ? 'rejected'
+              : iconName === 'confirmed'
+              ? 'accepted'
+              : iconName === 'pending'
+              ? 'newActivity'
+              : 'newActivity'
+          }
+          size={80}
+        />
       </View>
       <View style={styles(lang).second}>
         <TextView
           title={message}
-          style={styles(lang,isDarkMode).message}
+          style={styles(lang, isDarkMode).message}
           onPress={() => {
             message.includes('accepted') || message.includes('قبول')
               ? setisPayment(true)
               : null;
           }}
         />
-        <TextView title={date} style={styles(lang).date} />
+        <TextView title={date.slice(0, 10)} style={styles(lang).date} />
       </View>
     </View>
   );

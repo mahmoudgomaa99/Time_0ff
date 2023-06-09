@@ -62,6 +62,7 @@ import Logout2 from './Logout2';
 import Sort from './Sort';
 import Trash from './Trash';
 import Wellness from './Wellness';
+import Sand from './Sand';
 const svgs = {
   default: Logo,
   trash: Trash,
@@ -126,6 +127,7 @@ const svgs = {
   logout2: Logout2,
   sort: Sort,
   wellness: Wellness,
+  sand: Sand,
 };
 
 export default svgs;
