@@ -13,7 +13,9 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: h * 0.05,
     right: 30,
-    padding: 12,
+    paddingHorizontal: 15,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
   bottom: {
     marginHorizontal: 16,
@@ -51,7 +53,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: COLORS.white,
-    lineHeight: 20,
+    lineHeight: 17,
     fontFamily: Fonts.Cairo_Regular,
   },
 });

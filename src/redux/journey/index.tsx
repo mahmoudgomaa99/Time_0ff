@@ -4,10 +4,6 @@ import thunks from './thunks';
 import { RootState } from 'redux/store';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Tagency, Tjourneys } from './model';
-import { data } from '../../screens/App/Settings/Components/Card/data';
-import languages from 'values/languages';
-import { selectLanguage } from 'redux/language';
-import { useSelector } from 'react-redux';
 
 type TInitialValues = {
   journeys: Tjourneys;
@@ -262,12 +258,11 @@ const slice = createSlice({
         console.log(action, ' from index');
 
         if (action.meta.arg.page === 1) {
-          state.agencyNotification =
-            action.payload.data.data.reversedNotifications;
+          state.agencyNotification = action.payload.data.data;
         } else {
           state.agencyReviews = [
             ...state.agencyNotification,
-            ...action.payload.data.data.reversedNotifications,
+            ...action.payload.data.data,
           ];
         }
       },
@@ -280,17 +275,17 @@ const slice = createSlice({
     );
 
     builder.addCase(thunks.doConfirmBooking.fulfilled, (state, action) => {
-      // console.log(action);
+      console.log(action);
       Toast.show({
         type: 'success',
         text2: action.payload.data.message,
       });
     });
     builder.addCase(thunks.doConfirmBooking.rejected, (state, action) => {
-      // console.log(action);
+      console.log(action);
     });
     builder.addCase(thunks.doCancelBooking.fulfilled, (state, action) => {
-      // console.log(action);
+      console.log(action);
       Toast.show({
         type: 'success',
         text2: action.payload.data.message,

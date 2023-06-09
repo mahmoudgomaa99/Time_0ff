@@ -18,19 +18,17 @@ import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectIsDarkMode } from 'redux/DarkMode';
-import { selectUserType } from 'redux/UserType';
+import { UserType, selectUserType } from 'redux/UserType';
 import { selectDeviceToken } from 'redux/tokens/reducer';
 
 const Login = () => {
   const device_token = useSelector(selectDeviceToken);
-  const userType = useSelector(selectUserType);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [secure, setsecure] = useState(true);
   const lang = useSelector(selectLanguage);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
-  console.log(device_token,';;');
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
@@ -41,15 +39,15 @@ const Login = () => {
         style={{ position: 'absolute', left: 20, top: 20 }}>
         <Svg name="leftArrow" size={25} />
       </TouchableOpacity>
-      {userType === 'user' && (
-        <TextView
-          title={languages[lang].skip}
-          style={[styles(isDarkMode).skip]}
-          onPress={() => {
-            navigation.navigate('app', { screen: 'map' });
-          }}
-        />
-      )}
+
+      <TextView
+        title={languages[lang].skip}
+        style={[styles(isDarkMode).skip]}
+        onPress={() => {
+          dispatch(UserType.setUserData('user'));
+          navigation.navigate('app', { screen: 'map' });
+        }}
+      />
 
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />
@@ -63,7 +61,6 @@ const Login = () => {
         />
         <View style={styles(isDarkMode).line} />
       </View>
-
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={values =>
@@ -75,8 +72,11 @@ const Login = () => {
             }),
           )
             .then(unwrapResult) // filter result
-            .then(() => {
+            .then(res => {
+              dispatch(UserType.setUserData(res.data.userData.type));
               navigation.navigate('app', { screen: 'map' });
+              values.email = '';
+              values.password = '';
             })
             .catch(err => {
               console.log(err);
@@ -200,7 +200,7 @@ const Login = () => {
                 title={languages[lang].createAccount}
                 style={styles(isDarkMode).create}
                 onPress={() => {
-                  navigation.navigate('register');
+                  navigation.navigate('chooseType');
                   props.setErrors({});
                 }}
               />

@@ -17,7 +17,6 @@ import { useAppDispatch } from 'redux/store';
 import User, { selectCurrentUser, selectUserNotefications } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import SkeletonItem from 'components/molecules/SkeletonItem';
-import { h } from 'values/Dimensions';
 import COLORS from 'values/colors';
 
 const Notification = () => {
@@ -33,11 +32,9 @@ const Notification = () => {
   const [isPayment, setisPayment] = useState(false);
 
   useEffect(() => {
-    dispatch(User.thunks.doGetUserNotefications({ id: 15, page: page }));
+    dispatch(User.thunks.doGetUserNotefications({ id: user._id, page: page }));
   }, [page]);
-  console.log(notefications);
-  console.log(page);
-
+  // console.log(notefications);
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
@@ -60,7 +57,7 @@ const Notification = () => {
         </ScrollView>
       ) : ( */}
       {isGetNotificationLoading && page === 1 ? (
-        [...Array(20)].map(i => (
+        [...Array(5)].map(i => (
           <View key={i}>
             <SkeletonItem />
           </View>
@@ -90,9 +87,9 @@ const Notification = () => {
                 keyExtractor={item => item.id}
               />
               {isGetNotificationLoading && page !== 1 && (
-                <View style={{ marginBottom: h * 0.1 }}>
-                  <ActivityIndicator size="large" color={COLORS.primary} />
-                </View>
+                // <View style={{ marginBottom: h * 0.1 }}>
+                <ActivityIndicator size="small" color={COLORS.primary} />
+                // </View>
               )}
             </>
           ) : (

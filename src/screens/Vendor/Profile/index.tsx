@@ -36,7 +36,6 @@ const Profile = () => {
   //     dispatch(User.thunks.doGetUser({}));
   //   }, []),
   // );
-  console.log('currentUser', currentUser);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -72,6 +71,7 @@ const Profile = () => {
                   .then(unwrapResult)
                   .then(() => {
                     setUpdate(true);
+                    dispatch(User.thunks.doGetUser({}));
                     navigation.goBack();
                   })
                   .catch(err => {});

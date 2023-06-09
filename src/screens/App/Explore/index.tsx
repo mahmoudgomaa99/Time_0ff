@@ -116,7 +116,7 @@ const Explore = () => {
       <View style={{ height: journeysOffers?.length ? h * 0.2 : h * 0.1 }}>
         {journeysOffers?.length > 0 ? (
           isGetJourneysOffers ? (
-            [...Array(10)].map(i => (
+            [...Array(5)].map(i => (
               <View key={i}>
                 <SkeletonItem />
               </View>

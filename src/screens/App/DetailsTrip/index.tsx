@@ -34,7 +34,7 @@ const DetailsTrip = () => {
   const lang = useSelector(selectLanguage);
   const route = useRoute<any>();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isFavourite, setisFavourite] = useState(journey?.is_favorite);
+  // const [isFavourite, setisFavourite] = useState(journey?.is_favorite);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
 
   const dispatch = useAppDispatch();
@@ -58,6 +58,7 @@ const DetailsTrip = () => {
       }, 4000)
     : null;
 
+  console.log('journey', journey);
   return (
     <View style={styles(isDarkMode).container}>
       {isGetJourneyLoading ? (
@@ -83,14 +84,15 @@ const DetailsTrip = () => {
                   dispatch(Journeys.thunks.doAddFavourite(journey?._id))
                     .then(unwrapResult)
                     .then(() => {
-                      setisFavourite(!isFavourite);
+                      // setisFavourite(!isFavourite);
+                      dispatch(Journeys.thunks.doGetJourney(route.params?.id));
                     })
                     .catch(() => {});
                 }}>
                 <Svg
                   name="heartRed"
                   size={60}
-                  bgColor={isFavourite ? '#FF4646' : '#dddddd'}
+                  bgColor={journey.is_favorite ? '#FF4646' : '#dddddd'}
                 />
               </TouchableOpacity>
             </View>

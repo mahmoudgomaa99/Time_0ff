@@ -25,6 +25,7 @@ const slice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(thunks.doLogIn.fulfilled, (state, action) => {
+      // console.log(action.payload.data.userData, 'lllll');
       state.currentUser = action.payload.data.userData;
     });
     builder.addCase(thunks.doLogIn.rejected, (state, action: any) => {

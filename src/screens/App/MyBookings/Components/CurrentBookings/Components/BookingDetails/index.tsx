@@ -17,22 +17,13 @@ import { useFocusEffect } from '@react-navigation/native';
 const BookingDetails = ({
   lang,
   isDarkMode,
-  book
+  book,
 }: {
   isDarkMode?: boolean;
   lang: string;
-  book:any
+  book: any;
 }) => {
-  // const dispatch = useAppDispatch();
-  // const book = useSelector(selectCurrentBooking);
-  const bookId = useSelector(selectCurrentIdBook);
-  // const isGetBookLoading = useLoadingSelector(Journeys.thunks.doGetBooking);
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(Journeys.thunks.doGetBooking(bookId));
-  //   }, []),
-  // );
+  console.log(book, 'book');
 
   return (
     <View>
@@ -54,7 +45,7 @@ const BookingDetails = ({
               <TextView
                 title={
                   index === 0
-                    ? book?.activity
+                    ? book?.activity || book.category
                     : index === 1
                     ? `${book?.number_of_seats} Members`
                     : index === 2

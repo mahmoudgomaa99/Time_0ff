@@ -20,7 +20,6 @@ const Home = () => {
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
   const token = useSelector(selectToken);
-  console.log(token);
 
   const dispatch = useAppDispatch();
   const isGetJourneysLoading = useLoadingSelector(

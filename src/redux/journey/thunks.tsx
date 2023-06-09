@@ -63,7 +63,11 @@ const doGetAgencyJourneys = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetAgencyJourneys(data);
-      return { data: response };
+      if (response.status == 404) {
+        throw response.data;
+      } else {
+        return { data: response };
+      }
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -87,7 +91,11 @@ const doGetAgency = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetAgency(data);
-      return { data: response };
+      if (response.status == 404) {
+        throw response.data;
+      } else {
+        return { data: response };
+      }
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -198,7 +206,7 @@ const doAddBooking = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.AddBooking(data);
-      console.log(response, 'ressss');
+      // console.log(response, 'ressss');
       if (response.status === 401 || response.status === 400) {
         throw response.data;
       } else {
@@ -280,7 +288,7 @@ const doCancelBooking = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.CancelBooking(data);
-      console.log(response, 'ressss');
+      // console.log(response, 'ressss');
       if (response.status === 401 || response.status === 400) {
         throw response.data;
       } else {

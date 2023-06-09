@@ -35,7 +35,7 @@ const Content = ({
   return (
     <>
       {isGetJourneysLoading && page === 1 ? (
-        [...Array(20)].map(i => (
+        [...Array(5)].map(i => (
           <View key={i}>
             <SkeletonItem />
           </View>

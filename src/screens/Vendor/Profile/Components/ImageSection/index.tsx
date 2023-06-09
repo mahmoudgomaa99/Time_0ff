@@ -35,7 +35,6 @@ const ImageSection = ({
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
   const [edit, setEdit] = useState(false);
   const user = useSelector(selectCurrentUser);
-  console.log(source);
 
   return (
     <View style={styles(lang, isDarkMode).container}>
@@ -65,6 +64,7 @@ const ImageSection = ({
           dispatch(User.thunks.doUpdateImage(body))
             .then(unwrapResult)
             .then(res => {
+              dispatch(User.thunks.doGetUser({}));
               Toast.show({
                 type: 'success',
                 text2: languages[lang].imageUpdatedSuccefuly,
@@ -75,7 +75,7 @@ const ImageSection = ({
         style={{
           alignItems: 'center',
           backgroundColor: edit
-            ? source && source?.didCancel === false
+            ? source || source?.didCancel === false
               ? COLORS.primary
               : COLORS.grey
             : COLORS.grey,
@@ -94,7 +94,7 @@ const ImageSection = ({
             style={[styles(lang, isDarkMode).text, { color: COLORS.white }]}
             title={
               edit
-                ? source && source?.didCancel === false
+                ? source || source?.didCancel === false
                   ? languages[lang].edit_image
                   : languages[lang].select_image
                 : languages[lang].select_image

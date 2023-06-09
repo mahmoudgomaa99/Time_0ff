@@ -17,11 +17,9 @@ import { useAppDispatch } from '../redux/store';
 import { StatusBar } from 'react-native';
 import COLORS from 'values/colors';
 import { selectIsDarkMode } from 'redux/DarkMode';
-import { UserType, selectUserType } from 'redux/UserType';
-import ChooseType from 'screens/PreApp/ChooseType';
+import {  selectUserType } from 'redux/UserType';
 import VendorStack from './VendorStack';
 import messaging from '@react-native-firebase/messaging';
-import { PermissionsAndroid } from 'react-native';
 import { doSetDeviceToken } from 'redux/tokens/actions';
 
 type TRootStack = {

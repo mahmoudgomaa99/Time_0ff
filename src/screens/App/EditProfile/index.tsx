@@ -60,143 +60,140 @@ const EditProfile = () => {
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
-      {isLoading ? (
-        <Skeleton />
-      ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <ImageSection isDarkMode={isDarkMode} lang={lang} />
-          <Formik
-            initialValues={{
-              fullName: currrentUser?.name,
-              countryCode: '+20',
-              phoneNumber: currrentUser?.phone.slice(1),
-              email: currrentUser?.email,
-              city: currrentUser?.city,
-              country: currrentUser?.country,
-            }}
-            onSubmit={values => {
-              dispatch(
-                User.thunks.doUpdateUser({
-                  name: values?.fullName,
-                  email: values?.email,
-                  phone: values?.countryCode + values?.phoneNumber,
-                  city: values?.city,
-                  country: values?.country,
-                }),
-              )
-                .then(unwrapResult)
-                .then(() => {
-                  navigation.goBack();
-                })
-                .catch(err => {});
-            }}>
-            {props => (
-              <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ImageSection isDarkMode={isDarkMode} lang={lang} />
+        <Formik
+          initialValues={{
+            fullName: currrentUser?.name,
+            countryCode: '+20',
+            phoneNumber: currrentUser?.phone.slice(1),
+            email: currrentUser?.email,
+            city: currrentUser?.city,
+            country: currrentUser?.country,
+          }}
+          onSubmit={values => {
+            dispatch(
+              User.thunks.doUpdateUser({
+                name: values?.fullName,
+                email: values?.email,
+                phone: values?.countryCode + values?.phoneNumber,
+                city: values?.city,
+                country: values?.country,
+              }),
+            )
+              .then(unwrapResult)
+              .then(() => {
+                dispatch(User.thunks.doGetUser({}));
+                navigation.goBack();
+              })
+              .catch(err => {});
+          }}>
+          {props => (
+            <View>
+              <InputView
+                style={styles(lang).input}
+                {...props}
+                name="fullName"
+                onChangeText={props.handleChange('fullName')}
+                value={props.values.fullName}
+                label={languages[lang].fullName}
+                inputContainerStyling={{
+                  direction: lang === 'ar' ? 'rtl' : 'ltr',
+                  borderBottomWidth: 0,
+                }}
+                containerStyle={[
+                  styles(lang, isDarkMode).containerStyle,
+                  { marginTop: 4 },
+                ]}
+                labelStyle={[styles(lang).label_style]}
+              />
+              <View style={styles(lang).flexRow}>
                 <InputView
                   style={styles(lang).input}
                   {...props}
-                  name="fullName"
-                  onChangeText={props.handleChange('fullName')}
-                  value={props.values.fullName}
-                  label={languages[lang].fullName}
+                  name="countryCode"
+                  onChangeText={props.handleChange('countryCode')}
+                  value={props.values.countryCode}
+                  label={languages[lang].countryCode}
                   inputContainerStyling={{
                     direction: lang === 'ar' ? 'rtl' : 'ltr',
                     borderBottomWidth: 0,
                   }}
                   containerStyle={[
-                    styles(lang, isDarkMode).containerStyle,
-                    { marginTop: 4 },
-                  ]}
-                  labelStyle={[styles(lang).label_style]}
-                />
-                <View style={styles(lang).flexRow}>
-                  <InputView
-                    style={styles(lang).input}
-                    {...props}
-                    name="countryCode"
-                    onChangeText={props.handleChange('countryCode')}
-                    value={props.values.countryCode}
-                    label={languages[lang].countryCode}
-                    inputContainerStyling={{
-                      direction: lang === 'ar' ? 'rtl' : 'ltr',
-                      borderBottomWidth: 0,
-                    }}
-                    containerStyle={[
-                      styles(lang, isDarkMode).containerStyleCountry,
-                      { marginTop: 10 },
-                    ]}
-                    labelStyle={[styles(lang).label_style]}
-                  />
-                  <InputView
-                    style={styles(lang).input}
-                    {...props}
-                    name="phoneNumber"
-                    onChangeText={props.handleChange('phoneNumber')}
-                    value={props.values.phoneNumber}
-                    label={languages[lang].phoneNumber}
-                    inputContainerStyling={{
-                      direction: lang === 'ar' ? 'rtl' : 'ltr',
-                      borderBottomWidth: 0,
-                    }}
-                    containerStyle={[
-                      styles(lang, isDarkMode).containerStylePhone,
-                      { marginTop: 10 },
-                    ]}
-                    labelStyle={[styles(lang).label_style]}
-                  />
-                </View>
-
-                <InputView
-                  style={styles(lang).input}
-                  {...props}
-                  name="email"
-                  onChangeText={props.handleChange('email')}
-                  value={props.values.email}
-                  label={languages[lang].email}
-                  inputContainerStyling={{
-                    direction: lang === 'ar' ? 'rtl' : 'ltr',
-                    borderBottomWidth: 0,
-                  }}
-                  containerStyle={[
-                    styles(lang, isDarkMode).containerStyle,
+                    styles(lang, isDarkMode).containerStyleCountry,
                     { marginTop: 10 },
                   ]}
                   labelStyle={[styles(lang).label_style]}
                 />
-
-                <Picker
+                <InputView
+                  style={styles(lang).input}
                   {...props}
-                  borderColor={'#F2F2F2'}
-                  type={'primary'}
-                  data={countries}
-                  placeholder={'Country'}
-                  name={'country'}
-                  values={props.values}
-                />
-                <Picker
-                  {...props}
-                  borderColor={'#F2F2F2'}
-                  type={'primary'}
-                  data={
-                    props.values.country ? getCities(props.values.country) : []
-                  }
-                  placeholder={'City'}
-                  name={'city'}
-                  values={props.values}
-                />
-
-                <Button
-                  type="primary"
-                  label={languages[lang].saveEditing}
-                  onPress={() => props.handleSubmit()}
-                  style={styles(lang).button}
-                  isLoading={isLoading}
+                  name="phoneNumber"
+                  onChangeText={props.handleChange('phoneNumber')}
+                  value={props.values.phoneNumber}
+                  label={languages[lang].phoneNumber}
+                  inputContainerStyling={{
+                    direction: lang === 'ar' ? 'rtl' : 'ltr',
+                    borderBottomWidth: 0,
+                  }}
+                  containerStyle={[
+                    styles(lang, isDarkMode).containerStylePhone,
+                    { marginTop: 10 },
+                  ]}
+                  labelStyle={[styles(lang).label_style]}
                 />
               </View>
-            )}
-          </Formik>
-        </ScrollView>
-      )}
+
+              <InputView
+                style={styles(lang).input}
+                {...props}
+                name="email"
+                onChangeText={props.handleChange('email')}
+                value={props.values.email}
+                label={languages[lang].email}
+                inputContainerStyling={{
+                  direction: lang === 'ar' ? 'rtl' : 'ltr',
+                  borderBottomWidth: 0,
+                }}
+                containerStyle={[
+                  styles(lang, isDarkMode).containerStyle,
+                  { marginTop: 10 },
+                ]}
+                labelStyle={[styles(lang).label_style]}
+              />
+
+              <Picker
+                {...props}
+                borderColor={'#F2F2F2'}
+                type={'primary'}
+                data={countries}
+                placeholder={'Country'}
+                name={'country'}
+                values={props.values}
+              />
+              <Picker
+                {...props}
+                borderColor={'#F2F2F2'}
+                type={'primary'}
+                data={
+                  props.values.country ? getCities(props.values.country) : []
+                }
+                placeholder={'City'}
+                name={'city'}
+                values={props.values}
+              />
+
+              <Button
+                type="primary"
+                label={languages[lang].saveEditing}
+                onPress={() => props.handleSubmit()}
+                style={styles(lang).button}
+                isLoading={isLoading}
+              />
+            </View>
+          )}
+        </Formik>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -26,12 +26,12 @@ const Card = ({
       <View style={styles(lang).first}>
         <Svg
           name={
-            iconName === 'rejected'
+            iconName === 'rejected' || iconName === 'canceled'
               ? 'rejected'
               : iconName === 'confirmed'
               ? 'accepted'
               : iconName === 'pending'
-              ? 'confirmed'
+              ? 'newActivity'
               : 'newActivity'
           }
           size={80}
