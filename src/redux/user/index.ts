@@ -88,7 +88,13 @@ const slice = createSlice({
     builder.addCase(
       thunks.doGetUserNotefications.fulfilled,
       (state, action) => {
-        state.notefications = action.payload.reversedNotifications;
+        console.log(action.meta.arg.page);
+        if (action.meta.arg.page === 1) {
+          state.notefications = action.payload;
+        } else {
+          state.notefications = [...state.notefications, ...action.payload];
+        }
+
         console.log(action);
       },
     );

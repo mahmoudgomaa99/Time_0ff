@@ -31,8 +31,8 @@ const AddAgency = (data: {
   arabic_description: string;
 }) => api.post('agencies', data);
 const UpdateMyImage = (data: any) => api.put('users/me/image', data);
-const GetUserNotefications = (id: number) =>
-  api.get(`users/notifications/${id}`);
+const GetUserNotefications = (data: { id: number; page: number }) =>
+  api.get(`users/notifications/${data.id}?page=${data.page}`);
 const UserAPI = {
   LogIn,
   SignUp,
