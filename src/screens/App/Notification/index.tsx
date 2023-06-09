@@ -34,7 +34,7 @@ const Notification = () => {
 
   useEffect(() => {
     dispatch(User.thunks.doGetUserNotefications({ id: 15, page: page }));
-  }, []);
+  }, [page]);
   console.log(notefications);
   console.log(page);
 

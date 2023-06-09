@@ -94,7 +94,6 @@ const slice = createSlice({
         } else {
           state.notefications = [...state.notefications, ...action.payload];
         }
-
         console.log(action);
       },
     );
