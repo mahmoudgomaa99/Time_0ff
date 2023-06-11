@@ -25,8 +25,11 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
       flex: 1,
     },
     image: {
-      width: '100%',
-      height: h * 0.14,
+      // width: '100%',
+      // height: h * 0.15,
+      flex:1,
+      width:undefined,
+      height:undefined,
       borderRadius: 15,
     },
     contentContainer: {
@@ -43,14 +46,14 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
       maxWidth: w * 0.5,
-      maxHeight: h * 0.06,
+      maxHeight: h * 0.07,
       fontFamily: Fonts.Cairo_SemiBold,
     },
     decription: {
       fontSize: 10,
       color: '#B8B8B8',
       marginVertical: 5,
-      maxHeight: lang === 'en' ? h * 0.04 : h * 0.05,
+      maxHeight: lang === 'en' ? h * 0.05 : h * 0.06,
       fontFamily: Fonts.Cairo_Regular,
     },
     location: {
