@@ -36,11 +36,6 @@ const EditProfile = () => {
     });
     getCountries();
   }, []);
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(User.thunks.doGetUser({}));
-  //   }, []),
-  // );
 
   const countries = allData.map((i: any) => ({
     label: i?.country,
@@ -56,6 +51,7 @@ const EditProfile = () => {
     }));
     return allCieties;
   };
+  console.log(currrentUser);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>

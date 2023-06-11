@@ -23,6 +23,7 @@ import COLORS from 'values/colors';
 import Svg from 'atoms/Svg';
 import SortModel from './Components/SortModel';
 import { SortJourneys } from './Components/utils/SortJourneys';
+import { selectToken } from 'redux/tokens/reducer';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -67,7 +68,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const offsetValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
-
+  const token = useSelector(selectToken);
   return (
     <View
       style={{

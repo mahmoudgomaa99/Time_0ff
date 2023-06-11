@@ -5,7 +5,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from 'redux/DarkMode';
@@ -21,6 +21,9 @@ import { useAppDispatch } from 'redux/store';
 import Button from 'components/molecules/Button';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Skeleton from './Components/Skeleton';
+import Journeys, { selectCurrentAgency } from 'redux/journey';
+import axios from 'axios';
+import Picker from 'components/molecules/Picker';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -31,20 +34,35 @@ const Profile = () => {
   const isLoading = useLoadingSelector(User.thunks.doGetUser);
   const isLoading2 = useLoadingSelector(User.thunks.doUpdateUser);
   const [Update, setUpdate] = useState(true);
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(User.thunks.doGetUser({}));
-  //   }, []),
-  // );
+  const [allData, setallData] = useState([]);
 
+  useEffect(() => {
+    const getCountries = () =>
+      axios.get('https://countriesnow.space/api/v0.1/countries');
+    getCountries().then(values => {
+      setallData(values.data.data);
+    });
+    getCountries();
+  }, []);
+
+  const countries = allData.map((i: any) => ({
+    label: i?.country,
+    value: i?.country,
+  }));
+  const getCities = (country: string) => {
+    const cieties: any = allData.filter(
+      (i: any) => i.country === country && country.length > 0,
+    );
+    const allCieties = cieties[0]?.cities.map((value: any) => ({
+      label: value,
+      value: value,
+    }));
+    return allCieties;
+  };
+  console.log(currentUser);
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       {isLoading ? (
-        // <ActivityIndicator
-        //   style={{ marginTop: h * 0.15 }}
-        //   color={COLORS.primary}
-        //   size="large"
-        // />
         <Skeleton />
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -57,7 +75,8 @@ const Profile = () => {
                 phoneNumber: currentUser?.phone.slice(3),
                 email: currentUser?.email,
                 city: currentUser?.city,
-                desc: currentUser?.country,
+                description: currentUser?.description,
+                country: currentUser?.country,
               }}
               onSubmit={values => {
                 dispatch(
@@ -66,6 +85,8 @@ const Profile = () => {
                     email: values?.email,
                     phone: values?.countryCode + values?.phoneNumber,
                     city: values?.city,
+                    description: values?.description,
+                    country: values?.country,
                   }),
                 )
                   .then(unwrapResult)
@@ -152,13 +173,37 @@ const Profile = () => {
                     labelStyle={[styles(lang).label_style]}
                     disabled={Update}
                   />
+                  <Picker
+                    {...props}
+                    borderColor={'#F2F2F2'}
+                    type={'primary'}
+                    data={countries}
+                    placeholder={currentUser?.country || 'Country'}
+                    name={'country'}
+                    values={props.values}
+                    disabled={Update}
+                  />
+                  <Picker
+                    {...props}
+                    borderColor={'#F2F2F2'}
+                    type={'primary'}
+                    data={
+                      props.values.country
+                        ? getCities(props.values.country)
+                        : []
+                    }
+                    placeholder={currentUser?.city || 'City'}
+                    name={'city'}
+                    values={props.values}
+                    disabled={Update}
+                  />
                   <InputView
                     style={styles(lang).input}
                     {...props}
-                    name="city"
-                    onChangeText={props.handleChange('city')}
-                    value={props.values.email}
-                    label={languages[lang].city}
+                    name="description"
+                    onChangeText={props.handleChange('description')}
+                    value={props.values.description}
+                    label={languages[lang].description}
                     inputContainerStyling={{
                       direction: lang === 'ar' ? 'rtl' : 'ltr',
                       borderBottomWidth: 0,
@@ -170,24 +215,6 @@ const Profile = () => {
                     labelStyle={[styles(lang).label_style]}
                     disabled={Update}
                   />
-                  {/* <InputView
-                style={styles(lang).input}
-                {...props}
-                name="email"
-                onChangeText={props.handleChange('email')}
-                value={props.values.email}
-                label={languages[lang].email}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 10 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                disabled
-              /> */}
                   {Update ? (
                     <Button
                       type="primary"

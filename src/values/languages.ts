@@ -206,8 +206,13 @@ const languages: any = {
     journeyUpdatedSuccefuly: 'Journey Updated Succefuly',
     chooseDate: 'Choose Date',
     nobook: 'There Is No Book',
-    nobooks:'There Is No Books',
-    wellness:'Wellness'
+    nobooks: 'There Is No Books',
+    wellness: 'Wellness',
+    Writeyourreviewhere: 'Write your review here',
+    Review: 'Review',
+    AddReview: 'Add Review',
+    Addrating: 'Add rating',
+    YourRating: 'Your Rating',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -411,7 +416,12 @@ const languages: any = {
     chooseDate: 'اختر التاريخ',
     nobook: 'لا يوجد حجز',
     nobooks: 'لا يوجد حجوزات',
-    wellness:'صحة'
+    wellness: 'صحة',
+    Writeyourreviewhere: 'اكتب مراجعتك هنا',
+    Review: 'مراجعة',
+    AddReview: 'اضافة مراجعة',
+    Addrating: 'اضافة تقييم',
+    YourRating: 'تقييمك',
   },
 };
 export default languages;

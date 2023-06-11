@@ -58,7 +58,6 @@ const Register = () => {
     }));
     return allCieties;
   };
-
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
       <View style={{ alignItems: 'center' }}>

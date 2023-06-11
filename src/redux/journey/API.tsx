@@ -196,6 +196,10 @@ const GetAgencyNotification = (data: { id: number; page: number }) =>
 
 const ConfirmBooking = (id: number) => api.put(`journeys/book/${id}`);
 const CancelBooking = (id: number) => api.post(`journeys/book/${id}`);
+const RateAgency = (data: { id: number; body: any }) =>
+  api.put(`agencies/rate/${data.id}`, data.body);
+const Ratejourney = (data: { id: number; body: any }) =>
+  api.put(`journeys/rating/${data.id}`, data.body);
 
 const JourneysApi = {
   GetJourneys,
@@ -219,7 +223,9 @@ const JourneysApi = {
   UpdateJourneyData,
   GetAgencyNotification,
   ConfirmBooking,
-  CancelBooking
+  CancelBooking,
+  RateAgency,
+  Ratejourney,
 };
 
 export default JourneysApi;

@@ -37,12 +37,14 @@ const SortModel = ({
           lang={lang}
           isSortModel={isSortModel}
           setisSortModel={setisSortModel}
+          isDarkMode={isDarkMode}
         />
         <Formik initialValues={{}} onSubmit={values => console.log(values)}>
           {props =>
             Data(lang).map(value => (
               <View
                 style={{
+                  marginHorizontal: 13,
                   marginVertical: 15,
                   transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
                 }}>

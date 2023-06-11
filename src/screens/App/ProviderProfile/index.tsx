@@ -90,7 +90,8 @@ const ProviderProfile = () => {
           isDarkMode={isDarkMode}
           lang={lang}
           isGetAgencyReviews={isGetAgencyReviews}
-          agencyReviews={agencyReviews}
+          agency={agency}
+          setpageJourneys={setpageJourneys}
         />
       ) : null}
     </SafeAreaView>

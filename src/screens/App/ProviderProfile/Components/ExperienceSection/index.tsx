@@ -12,6 +12,7 @@ import { Data } from './data';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import { useNavigation } from '@react-navigation/native';
 import COLORS from 'values/colors';
+import { h } from 'values/Dimensions';
 
 const ExperienceSection = ({
   lang,
@@ -40,9 +41,12 @@ const ExperienceSection = ({
             </View>
           ))
         ) : (
-          <>
+          <View
+            style={{
+              height: h * 0.48,
+            }}>
             <FlatList
-              contentContainerStyle={{ paddingBottom: 100 }}
+              contentContainerStyle={{ paddingBottom: 20 }}
               onEndReached={() => {
                 setpageJourneys((prev: number) => prev + 1);
               }}
@@ -82,7 +86,7 @@ const ExperienceSection = ({
                 <ActivityIndicator size="large" color={COLORS.primary} />
               </View>
             )}
-          </>
+          </View>
         )
 
         //  journeys?.map((item?: any) => (
