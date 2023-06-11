@@ -8,8 +8,6 @@ import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import COLORS from 'values/colors';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { set } from 'lodash';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const Card = ({
   lang,
@@ -33,7 +31,9 @@ const Card = ({
   setPage: any;
 }) => {
   const dispatch = useAppDispatch();
-
+  const isLoading = useLoadingSelector(Journeys.thunks.doConfirmBooking);
+  const isLoading2 = useLoadingSelector(Journeys.thunks.doCancelBooking);
+  const [bookId, setBookId] = useState<any>(null);
   return (
     <View>
       <View style={styles(lang, isDarkMode).container}>
@@ -53,46 +53,57 @@ const Card = ({
           <TextView title={date} style={styles(lang).date} />
         </View>
         <View style={styles(lang, isDarkMode).buttons}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(Journeys.thunks.doConfirmBooking(id))
-                .then(unwrapResult)
-                .then(res => {
-                  setPage(1);
-                  dispatch(
-                    Journeys.thunks.doGetAgencyNotification({
-                      id: user._id,
-                      page: 1,
-                    }),
-                  );
-                })
-                .catch(() => {});
-            }}>
-            <View style={styles(lang, isDarkMode).rigth}>
-              <View style={styles(lang, isDarkMode).lineOneR}></View>
-              <View style={styles(lang, isDarkMode).lineTwoR}></View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(Journeys.thunks.doCancelBooking(id))
-                .then(unwrapResult)
-                .then(() => {
-                  setPage(1);
-                  dispatch(
-                    Journeys.thunks.doGetAgencyNotification({
-                      id: user._id,
-                      page: 1,
-                    }),
-                  );
-                })
-                .catch(() => {});
-            }}>
-            <View style={styles(lang, isDarkMode).close}>
-              <View style={styles(lang, isDarkMode).lineOneC}></View>
-              <View style={styles(lang, isDarkMode).lineTwoC}></View>
-            </View>
-          </TouchableOpacity>
+          {isLoading && bookId === id ? (
+            <ActivityIndicator size={'small'} color={COLORS.green} />
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                setBookId(id);
+                dispatch(Journeys.thunks.doConfirmBooking(id))
+                  .then(unwrapResult)
+                  .then(res => {
+                    setPage(1);
+                    dispatch(
+                      Journeys.thunks.doGetAgencyNotification({
+                        id: user._id,
+                        page: 1,
+                      }),
+                    );
+                  })
+                  .catch(() => {});
+              }}>
+              <View style={styles(lang, isDarkMode).rigth}>
+                <View style={styles(lang, isDarkMode).lineOneR}></View>
+                <View style={styles(lang, isDarkMode).lineTwoR}></View>
+              </View>
+            </TouchableOpacity>
+          )}
+
+          {isLoading2 && bookId === id ? (
+            <ActivityIndicator size={'small'} color={COLORS.red} />
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                setBookId(id);
+                dispatch(Journeys.thunks.doCancelBooking(id))
+                  .then(unwrapResult)
+                  .then(() => {
+                    setPage(1);
+                    dispatch(
+                      Journeys.thunks.doGetAgencyNotification({
+                        id: user._id,
+                        page: 1,
+                      }),
+                    );
+                  })
+                  .catch(() => {});
+              }}>
+              <View style={styles(lang, isDarkMode).close}>
+                <View style={styles(lang, isDarkMode).lineOneC}></View>
+                <View style={styles(lang, isDarkMode).lineTwoC}></View>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
