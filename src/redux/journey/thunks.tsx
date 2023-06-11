@@ -62,6 +62,7 @@ const doGetAgencyJourneys = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetAgencyJourneys(data);
+      console.log('response', response);
       if (response.status == 404) {
         throw response.data;
       } else {

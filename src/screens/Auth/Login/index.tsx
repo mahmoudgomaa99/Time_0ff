@@ -19,7 +19,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { UserType, selectUserType } from 'redux/UserType';
-import { selectDeviceToken } from 'redux/tokens/reducer';
+import { selectDeviceToken, selectToken } from 'redux/tokens/reducer';
 
 const Login = () => {
   const device_token = useSelector(selectDeviceToken);
@@ -29,6 +29,8 @@ const Login = () => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
+  const token = useSelector(selectToken);
+  console.log('token', token);
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
