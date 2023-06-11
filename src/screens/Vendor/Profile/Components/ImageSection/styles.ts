@@ -8,7 +8,7 @@ export const styles = (lang?: string, isDarkMode?: boolean) =>
     container: {
       backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
       paddingHorizontal: 20,
-      paddingVertical: 20,
+      paddingTop: 20,
     },
     inputContainerStyling: {
       borderBottomWidth: 0,

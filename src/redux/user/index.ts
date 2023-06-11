@@ -89,7 +89,7 @@ const slice = createSlice({
     builder.addCase(
       thunks.doGetUserNotefications.fulfilled,
       (state, action) => {
-        console.log(action.meta.arg.page);
+        console.log(action.payload);
         if (action.meta.arg.page === 1) {
           state.notefications = action.payload;
         } else {

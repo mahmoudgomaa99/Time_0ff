@@ -48,7 +48,9 @@ const Button = ({
     <TouchableOpacity {...props}>
       <View style={styles(isDarkMode)[type] || styles(isDarkMode).primary}>
         {isLoading ? (
-          <ActivityIndicator color={COLORS.white} />
+          <ActivityIndicator
+            color={type === 'secondry' ? COLORS.primary : COLORS.white}
+          />
         ) : (
           <>
             {svg ? (

@@ -42,7 +42,8 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
     title: {
       fontSize: 16,
       color: isDarkMode ? COLORS.white : COLORS.black,
-      maxWidth: w * 0.57,
+      maxWidth: w * 0.5,
+      maxHeight: h * 0.06,
       fontFamily: Fonts.Cairo_SemiBold,
     },
     decription: {

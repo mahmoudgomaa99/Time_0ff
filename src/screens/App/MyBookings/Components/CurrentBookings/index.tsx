@@ -27,7 +27,7 @@ const CurrentBookings = ({
   const book = useSelector(selectCurrentBooking);
   const bookId = useSelector(selectCurrentIdBook);
   const user = useSelector(selectCurrentUser);
-  const bookings = useSelector(selectCurrentAllBookings);
+  const bookings: any = useSelector(selectCurrentAllBookings);
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetBooking(bookId));
@@ -37,14 +37,14 @@ const CurrentBookings = ({
 
   return (
     <View style={{ marginHorizontal: 15 }}>
-      {bookings.length === 0 ? (
+      {bookings?.length === 0 ? (
         <TextView
           title={languages[lang].nobook}
           style={styles(lang).noReviews}
         />
       ) : (
         <>
-          {book?.activity || bookings[0] ? (
+          {book?.activity || (bookings && bookings[0]) ? (
             <>
               <BookingDetails
                 isDarkMode={isDarkMode}

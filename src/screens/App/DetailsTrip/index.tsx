@@ -34,9 +34,9 @@ const DetailsTrip = () => {
   const lang = useSelector(selectLanguage);
   const route = useRoute<any>();
   const [activeIndex, setActiveIndex] = useState(0);
-  // const [isFavourite, setisFavourite] = useState(journey?.is_favorite);
+  const [rating, setRating] = useState(1);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
-
+  const isLoading = useLoadingSelector(Journeys.thunks.doRateJourney);
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
@@ -57,8 +57,7 @@ const DetailsTrip = () => {
         setisRequestReceive(false);
       }, 4000)
     : null;
-
-  console.log('journey', journey);
+  console.log(journey, 'journey');
   return (
     <View style={styles(isDarkMode).container}>
       {isGetJourneyLoading ? (
@@ -92,7 +91,7 @@ const DetailsTrip = () => {
                 <Svg
                   name="heartRed"
                   size={60}
-                  bgColor={journey.is_favorite ? '#FF4646' : '#dddddd'}
+                  bgColor={journey?.is_favorite ? '#FF4646' : '#dddddd'}
                 />
               </TouchableOpacity>
             </View>
@@ -215,6 +214,57 @@ const DetailsTrip = () => {
                       title={languages[lang].lorem}
                     />
                   </Text>
+                </View>
+                <TextView
+                  title={languages[lang].YourRating}
+                  style={[
+                    styles(isDarkMode).descriptionTitle,
+                    {
+                      textAlign: lang === 'ar' ? 'right' : 'left',
+                      marginTop: 15,
+                    },
+                  ]}
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginHorizontal: 10,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    {[1, 2, 3, 4, 5].map(i => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          setRating(i);
+                        }}>
+                        <Svg
+                          name="star"
+                          bgColor={rating >= i ? '#ffc757' : '#8e8e8e'}
+                          size={25}
+                        />
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                  <Button
+                    label={languages[lang].Addrating}
+                    onPress={() => {
+                      dispatch(
+                        Journeys.thunks.doRateJourney({
+                          id: journey?._id,
+                          body: { rating: rating },
+                        }),
+                      );
+                    }}
+                    type="secondry"
+                    txtStyle={{ color: COLORS.black }}
+                    style={{ width: 150, paddingHorizontal: 0 }}
+                    isLoading={isLoading}
+                  />
                 </View>
               </View>
             </ScrollView>

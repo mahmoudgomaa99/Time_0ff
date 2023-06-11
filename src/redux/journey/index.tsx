@@ -107,12 +107,13 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetAgencyReviews.fulfilled, (state, action) => {
+      console.log(action, 'llll');
       if (action.meta.arg.page === 1) {
-        state.agencyReviews = action.payload.data.data;
+        state.agencyReviews = action.payload.data.reviews;
       } else {
         state.agencyReviews = [
           ...state.agencyReviews,
-          ...action.payload.data.data,
+          ...action.payload.data.reviews,
         ];
       }
     });
@@ -292,6 +293,25 @@ const slice = createSlice({
       });
     });
     builder.addCase(thunks.doCancelBooking.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doRateAgency.fulfilled, (state, action) => {
+      console.log(action);
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.message,
+      });
+    });
+    builder.addCase(thunks.doRateAgency.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doRateJourney.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text2: action.payload.data.message,
+      });
+    });
+    builder.addCase(thunks.doRateJourney.rejected, (state, action) => {
       console.log(action);
     });
   },

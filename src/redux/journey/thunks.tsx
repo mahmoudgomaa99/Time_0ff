@@ -21,7 +21,6 @@ const doGetHotJourneys = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetHotJourneys(data);
-
       if (response.status == 401) {
         throw response.data;
       }
@@ -79,7 +78,7 @@ const doGetAgencyReviews = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetAgencyReviews(data);
-      return { data: response };
+      return { data: response.data };
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -299,6 +298,40 @@ const doCancelBooking = createAsyncThunk<any, any, any>(
     }
   },
 );
+const doRateAgency = createAsyncThunk<any, any, any>(
+  'agency/rateAgency',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.RateAgency(data);
+      if (response.status === 401 || response.status === 400) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+const doRateJourney = createAsyncThunk<any, any, any>(
+  'agency/rateJourney',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.Ratejourney(data);
+      if (
+        response.status === 401 ||
+        response.status === 400 ||
+        response.status === 404
+      ) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const thunks = {
   doGetJourneys,
@@ -323,6 +356,8 @@ const thunks = {
   doGetAgencyNotification,
   doConfirmBooking,
   doCancelBooking,
+  doRateAgency,
+  doRateJourney,
 };
 
 export default thunks;
