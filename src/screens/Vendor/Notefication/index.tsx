@@ -25,7 +25,7 @@ const Notefication = () => {
     Journeys.thunks.doGetAgencyNotification,
   );
   const user = useSelector(selectCurrentUser);
-  const token = useSelector(selectToken);
+  // const token = useSelector(selectToken);
   const [page, setpage] = useState(1);
 
   useFocusEffect(
@@ -35,7 +35,7 @@ const Notefication = () => {
       );
     }, [user?._id, page]),
   );
-  console.log(token);
+  // console.log(token, 'kkk');
 
   return (
     <View style={styles(lang, isDarkMode).container}>

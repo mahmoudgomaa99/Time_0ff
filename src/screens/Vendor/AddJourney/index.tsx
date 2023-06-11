@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import Top from './Components/Top';
 import { useSelector } from 'react-redux';
@@ -30,11 +24,13 @@ import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { selectCurrentUser } from 'redux/user';
 
 const AddJourney = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
+  const userData = useSelector(selectCurrentUser);
   const isDarkMode = useSelector(selectIsDarkMode);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [isTimeModalVisable, setisTimeModalVisable] = useState(false);
@@ -87,6 +83,12 @@ const AddJourney = () => {
             )
               .then(unwrapResult)
               .then(() => {
+                dispatch(
+                  Journeys.thunks.doGetAgencyJourneys({
+                    id: userData?._id,
+                    page: 1,
+                  }),
+                );
                 navigation.goBack();
               })
               .catch(err => {

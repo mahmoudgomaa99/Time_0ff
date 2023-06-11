@@ -19,6 +19,8 @@ export enum TokenKeys {
 const initAxios = (store: TStore) => {
   api.axiosInstance.interceptors.request.use(config => {
     const tokens = store.getState().tokens;
+    console.log(tokens.token, 'tokens');
+
     const authorization = `Bearer ${tokens.token}`;
     const authHeaders = { authorization };
     if (tokens.token) {
@@ -28,6 +30,7 @@ const initAxios = (store: TStore) => {
   });
   const injectAuthHeaders: any = (config: AxiosRequestConfig) => {
     const tokens = store.getState().tokens;
+    console.log(tokens.token, 'tokens');
     const authorization = `Bearer ${tokens.token}`;
     const authHeaders = { authorization };
     assign(config.headers, authHeaders);
