@@ -21,7 +21,7 @@ const AdSec = ({
   useEffect(() => {
     const interval = setInterval(() => {
       carouselRef?.current?.snapToNext();
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 

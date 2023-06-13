@@ -1,10 +1,8 @@
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import Top from './Components/Top';
 import Card from './Components/Card';
-import { Data } from './data';
-import { ScrollView } from 'react-native-gesture-handler';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
@@ -18,6 +16,8 @@ import User, { selectCurrentUser, selectUserNotefications } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import COLORS from 'values/colors';
+import useModalHandler from 'hooks/Modal';
+import AuthModal from 'components/organisms/AuthModal';
 
 const Notification = () => {
   const dispatch = useAppDispatch();
@@ -25,16 +25,22 @@ const Notification = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const user = useSelector(selectCurrentUser);
   const notefications = useSelector(selectUserNotefications);
+  const { closeCustomModal, CustomModal, openCustomModal } = useModalHandler();
   const isGetNotificationLoading = useLoadingSelector(
     User.thunks.doGetUserNotefications,
   );
   const [page, setpage] = useState(1);
   const [isPayment, setisPayment] = useState(false);
-
   useEffect(() => {
-    dispatch(User.thunks.doGetUserNotefications({ id: user._id, page: page }));
-  }, [page]);
-  // console.log(notefications);
+    if (!user) return openCustomModal();
+  }, [user]);
+  useEffect(() => {
+    if (user) {
+      dispatch(
+        User.thunks.doGetUserNotefications({ id: user?._id, page: page }),
+      );
+    }
+  }, [user, page]);
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
@@ -103,7 +109,11 @@ const Notification = () => {
           )}
         </>
       )}
-
+      <AuthModal
+        closeCustomModal={closeCustomModal}
+        CustomModal={CustomModal}
+        type="profile"
+      />
       <PaymentModal
         lang={lang}
         isPayment={isPayment}

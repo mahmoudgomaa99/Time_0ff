@@ -71,7 +71,7 @@ const AuthModal = ({
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('auth', { screen: 'register' });
+            navigation.navigate('auth', { screen: 'chooseType' });
             closeCustomModal();
           }}
           style={{ marginTop: 10 }}>
