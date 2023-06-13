@@ -96,19 +96,19 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
             onPress={() => {
               Animated.timing(scaleValue, {
                 toValue: showMenu ? 1 : 0.88,
-                duration: 300,
+                duration: 400,
                 useNativeDriver: true,
               }).start();
 
               Animated.timing(offsetValue, {
                 toValue: showMenu ? 0 : lang === 'en' ? 230 : -230,
-                duration: 300,
+                duration: 400,
                 useNativeDriver: true,
               }).start();
 
               Animated.timing(closeButtonOffset, {
                 toValue: !showMenu ? -30 : 0,
-                duration: 300,
+                duration: 400,
                 useNativeDriver: true,
               }).start();
 
@@ -139,6 +139,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           lang={lang}
           setcategory={setcategory}
           setfilterData={setfilterData}
+          setpage={setpage}
         />
         <BottomList
           lang={lang}

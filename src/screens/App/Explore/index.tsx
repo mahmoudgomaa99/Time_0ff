@@ -108,6 +108,7 @@ const Explore = () => {
         isDarkMode={isDarkMode}
         setcategory={setcategory}
         setfilterData={setfilterData}
+        setpage={setpage}
       />
       <TextView
         title={languages[lang].whathot}

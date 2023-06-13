@@ -24,9 +24,14 @@ import RequestReceive from './Components/RequestReceive';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { unwrapResult } from '@reduxjs/toolkit';
 import SkeletonBody from './Components/SkeletonItem';
+import useModalHandler from 'hooks/Modal';
+import AuthModal from 'components/organisms/AuthModal';
+import { selectCurrentUser } from 'redux/user';
 
 const DetailsTrip = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
+  const user = useSelector(selectCurrentUser);
+  const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const [isRequestReceive, setisRequestReceive] = useState(false);
   const navigation = useNavigation<any>();
@@ -80,13 +85,19 @@ const DetailsTrip = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  dispatch(Journeys.thunks.doAddFavourite(journey?._id))
-                    .then(unwrapResult)
-                    .then(() => {
-                      // setisFavourite(!isFavourite);
-                      dispatch(Journeys.thunks.doGetJourney(route.params?.id));
-                    })
-                    .catch(() => {});
+                  if (!user) {
+                    openCustomModal();
+                  } else {
+                    dispatch(Journeys.thunks.doAddFavourite(journey?._id))
+                      .then(unwrapResult)
+                      .then(() => {
+                        // setisFavourite(!isFavourite);
+                        dispatch(
+                          Journeys.thunks.doGetJourney(route.params?.id),
+                        );
+                      })
+                      .catch(() => {});
+                  }
                 }}>
                 <Svg
                   name="heartRed"
@@ -313,8 +324,12 @@ const DetailsTrip = () => {
         isRequestReceive={isRequestReceive}
         setisRequestReceive={setisRequestReceive}
       />
+      <AuthModal
+        closeCustomModal={closeCustomModal}
+        CustomModal={CustomModal}
+        type="profile"
+      />
     </View>
   );
 };
-
 export default DetailsTrip;

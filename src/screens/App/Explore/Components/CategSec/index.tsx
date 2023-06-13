@@ -11,11 +11,13 @@ const CategSec = ({
   isDarkMode,
   setcategory,
   setfilterData,
+  setpage,
 }: {
   lang: string;
   isDarkMode?: boolean;
   setcategory: any;
   setfilterData: any;
+  setpage: any;
 }) => {
   return (
     <View style={{}}>
@@ -39,6 +41,7 @@ const CategSec = ({
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
+                setpage(1);
                 setfilterData((prev: any) => {
                   return {
                     category: item.value,
