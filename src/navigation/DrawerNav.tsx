@@ -5,59 +5,81 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
 import { useAppDispatch } from '../redux/store';
-import User from 'redux/user';
+import User, { selectCurrentUser } from 'redux/user';
 import COLORS from 'values/colors';
 import { UserType } from 'redux/UserType';
 import Fonts from 'values/fonts';
 const Data = (
   lang: string,
+  user: any,
 ): {
   name?: string;
   main?: string;
   sub?: string;
   icon: TName;
   value?: number;
-}[] => [
-  {
-    name: languages[lang].main,
-    main: 'home',
-    sub: languages[lang].main,
-    icon: 'main',
-  },
-  {
-    name: languages[lang].whathot,
-    main: 'home',
-    icon: 'explore',
-    sub: languages[lang].whathot,
-  },
-  {
-    name: languages[lang].notification,
-    main: 'home',
-    icon: 'notification',
-    sub: languages[lang].notification,
-  },
-  {
-    name: languages[lang].wishlist,
-    icon: 'wishlist',
-    main: 'wishlist',
-  },
-  {
-    name: languages[lang].profile,
-    main: 'home',
-    icon: 'profile2',
-    sub: languages[lang].profile,
-  },
-  {
-    name: languages[lang].settings,
-    icon: 'setting',
-    main: 'settings',
-  },
-  {
-    name: languages[lang].logout,
-    icon: 'logout2',
-    value: 1,
-  },
-];
+}[] =>
+  user
+    ? [
+        {
+          name: languages[lang].main,
+          main: 'home',
+          sub: languages[lang].main,
+          icon: 'main',
+        },
+        {
+          name: languages[lang].whathot,
+          main: 'home',
+          icon: 'explore',
+          sub: languages[lang].whathot,
+        },
+        {
+          name: languages[lang].notification,
+          main: 'home',
+          icon: 'notification',
+          sub: languages[lang].notification,
+        },
+        {
+          name: languages[lang].wishlist,
+          icon: 'wishlist',
+          main: 'wishlist',
+        },
+        {
+          name: languages[lang].profile,
+          main: 'home',
+          icon: 'profile2',
+          sub: languages[lang].profile,
+        },
+        {
+          name: languages[lang].settings,
+          icon: 'setting',
+          main: 'settings',
+        },
+        {
+          name: languages[lang].logout,
+          icon: 'logout2',
+          value: 1,
+        },
+      ]
+    : [
+        {
+          name: languages[lang].main,
+          main: 'home',
+          sub: languages[lang].main,
+          icon: 'main',
+        },
+        {
+          name: languages[lang].whathot,
+          main: 'home',
+          icon: 'explore',
+          sub: languages[lang].whathot,
+        },
+        {
+          name: languages[lang].settings,
+          icon: 'setting',
+          main: 'settings',
+        },
+      ];
 const DrawerNav = ({
   setCurrentTab,
   currrentTab,
@@ -68,11 +90,12 @@ const DrawerNav = ({
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
+  const user = useSelector(selectCurrentUser);
   return (
     <View style={{ justifyContent: 'flex-start', padding: 15 }}>
       <Svg name="default" size={100} style={{ marginTop: 30 }} />
       <View style={{ marginTop: 40 }}>
-        {Data(lang).map((item, index) => (
+        {Data(lang, user).map((item, index) => (
           <TouchableOpacity
             style={styles(currrentTab === item.name, lang).item}
             key={index}
@@ -84,7 +107,6 @@ const DrawerNav = ({
                 dispatch(User.actions.logoutAction());
                 dispatch(UserType.setUserData(undefined));
                 navigation.navigate('auth', { screen: 'login' });
-                // User.actions.logout()
               } else {
                 navigation.navigate(item.main);
               }
