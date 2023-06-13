@@ -24,6 +24,7 @@ import Svg from 'atoms/Svg';
 import SortModel from './Components/SortModel';
 import { SortJourneys } from './Components/utils/SortJourneys';
 import { selectToken } from 'redux/tokens/reducer';
+import { w } from 'values/Dimensions';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -94,23 +95,25 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              Animated.timing(scaleValue, {
-                toValue: showMenu ? 1 : 0.88,
-                duration: 400,
-                useNativeDriver: true,
-              }).start();
+              setTimeout(() => {
+                Animated.timing(scaleValue, {
+                  toValue: showMenu ? 1 : 0.88,
+                  duration: 400,
+                  useNativeDriver: true,
+                }).start();
 
-              Animated.timing(offsetValue, {
-                toValue: showMenu ? 0 : lang === 'en' ? 230 : -230,
-                duration: 400,
-                useNativeDriver: true,
-              }).start();
+                Animated.timing(offsetValue, {
+                  toValue: showMenu ? 0 : lang === 'en' ? w * 0.5 : -w * 0.5,
+                  duration: 400,
+                  useNativeDriver: true,
+                }).start();
 
-              Animated.timing(closeButtonOffset, {
-                toValue: !showMenu ? -30 : 0,
-                duration: 400,
-                useNativeDriver: true,
-              }).start();
+                Animated.timing(closeButtonOffset, {
+                  toValue: !showMenu ? -30 : 0,
+                  duration: 400,
+                  useNativeDriver: true,
+                }).start();
+              }, 500);
 
               setShowMenu(!showMenu);
             }}>
