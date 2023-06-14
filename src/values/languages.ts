@@ -213,6 +213,12 @@ const languages: any = {
     AddReview: 'Add Review',
     Addrating: 'Add rating',
     YourRating: 'Your Rating',
+    highRating: 'High Rating',
+    lowRating: 'Low Rating',
+    sports: 'Sports',
+    kiteSurfing: 'Kite Surfing',
+    Hiking: 'Hiking',
+    Others: 'Others',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -422,6 +428,12 @@ const languages: any = {
     AddReview: 'اضافة مراجعة',
     Addrating: 'اضافة تقييم',
     YourRating: 'تقييمك',
+    highRating: 'التقييم الاعلى',
+    lowRating: 'التقييم الاقل',
+    sports: 'رياضة',
+    kiteSurfing: 'ركوب الامواج',
+    Hiking: 'المشي',
+    Others: 'اخرى',
   },
 };
 export default languages;

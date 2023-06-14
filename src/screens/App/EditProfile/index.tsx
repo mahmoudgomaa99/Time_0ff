@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
@@ -15,19 +15,22 @@ import { useAppDispatch } from 'redux/store';
 import User, { selectCurrentUser } from 'redux/user';
 import { useLoadingSelector } from 'redux/selectors';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import ImageSection from './Components/ImageSection';
-import Skeleton from './Components/Skeleton';
+import useLibraryPermission from 'hooks/useLibraryPermission';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const isLoading = useLoadingSelector(User.thunks.doUpdateUser);
+  const isLoadingImage = useLoadingSelector(User.thunks.doUpdateImage);
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
   const currrentUser = useSelector(selectCurrentUser);
   const [allData, setallData] = useState([]);
+  const { source, pick } = useLibraryPermission(1);
+
   useEffect(() => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
@@ -51,33 +54,51 @@ const EditProfile = () => {
     }));
     return allCieties;
   };
-  console.log(currrentUser);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageSection isDarkMode={isDarkMode} lang={lang} />
+        <ImageSection
+          source={source}
+          pick={pick}
+          isDarkMode={isDarkMode}
+          lang={lang}
+        />
         <Formik
           initialValues={{
             fullName: currrentUser?.name,
             countryCode: '+20',
-            phoneNumber: currrentUser?.phone.slice(1),
+            phoneNumber: currrentUser?.phone,
             email: currrentUser?.email,
             city: currrentUser?.city,
             country: currrentUser?.country,
           }}
           onSubmit={values => {
-            dispatch(
-              User.thunks.doUpdateUser({
-                name: values?.fullName,
-                email: values?.email,
-                phone: values?.countryCode + values?.phoneNumber,
-                city: values?.city,
-                country: values?.country,
-              }),
-            )
-              .then(unwrapResult)
+            const body = new FormData();
+            if (source?.assets.length > 0) {
+              body.append('image', {
+                uri:
+                  Platform.OS === 'android'
+                    ? source?.assets[0]?.uri
+                    : source?.assets[0]?.uri.replace('file://', ''),
+                name: source?.assets[0]?.fileName,
+                type: source?.assets[0]?.type,
+              });
+            }
+            Promise.all([
+              dispatch(
+                User.thunks.doUpdateUser({
+                  name: values?.fullName,
+                  email: values?.email,
+                  phone: values?.phoneNumber,
+                  city: values?.city,
+                  country: values?.country,
+                }),
+              ),
+              source?.assets.length > 0 &&
+                dispatch(User.thunks.doUpdateImage(body)),
+            ])
               .then(() => {
                 dispatch(User.thunks.doGetUser({}));
                 navigation.goBack();
@@ -184,7 +205,7 @@ const EditProfile = () => {
                 label={languages[lang].saveEditing}
                 onPress={() => props.handleSubmit()}
                 style={styles(lang).button}
-                isLoading={isLoading}
+                isLoading={isLoading || isLoadingImage}
               />
             </View>
           )}

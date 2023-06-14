@@ -24,6 +24,7 @@ const BottomList = ({
   setisSortModel,
   page,
   setpage,
+  category,
 }: {
   isDarkMode?: boolean;
   lang: string;
@@ -32,8 +33,10 @@ const BottomList = ({
   setisSortModel?: any;
   page: number;
   setpage: any;
+  category: string;
 }) => {
   const navigation = useNavigation<any>();
+  // console.log(journeys, 'journeys');
 
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
@@ -59,7 +62,7 @@ const BottomList = ({
             title={languages[lang].seeMore}
             style={styles(lang, isDarkMode).seeMore}
             onPress={() => {
-              navigation.navigate('seeMore');
+              navigation.navigate('seeMore', { data: category });
             }}
           />
         </View>

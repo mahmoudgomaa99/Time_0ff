@@ -44,15 +44,18 @@ export const categData = (lang: string) => {
   const data: { title: string; svgName: any; value: string }[] = [
     { title: languages[lang].diving, svgName: 'diving', value: 'diving' },
     { title: languages[lang].wellness, svgName: 'wellness', value: 'wellness' },
-    { title: languages[lang].trips, svgName: 'trips', value: 'trips' },
-    { title: languages[lang].aquaPark, svgName: 'garden', value: 'aquaPark' },
+    { title: languages[lang].sports, svgName: 'bbuggy', value: 'sports' },
     {
-      title: languages[lang].nileTrip,
-      svgName: 'nileTrips',
-      value: 'nileTrip',
+      title: languages[lang].kiteSurfing,
+      svgName: 'surfing',
+      value: 'kiteSurfing',
     },
-    { title: languages[lang].surfing, svgName: 'surfing', value: 'surfing' },
-    { title: languages[lang].bBuggy, svgName: 'bbuggy', value: 'bBuggy' },
+    {
+      title: languages[lang].Hiking,
+      svgName: 'trips',
+      value: 'hiking',
+    },
+    { title: languages[lang].Others, svgName: 'garden', value: 'others' },
   ];
   return data;
 };

@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import TextView from 'atoms/TextView';
 import { Formik } from 'formik';
@@ -17,13 +17,13 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
 import { useAppDispatch } from 'redux/store';
 import { getTimes } from './utils/GetTimes';
-import { getSlotsIdArray } from './utils/GetSlotsIdArray';
 import Journeys from 'redux/journey';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectToken } from 'redux/tokens/reducer';
 import { useLoadingSelector } from 'redux/selectors';
-import { toString } from 'lodash';
+import Checkbox from 'components/molecules/Checkbox';
+import { set } from 'lodash';
 
 const Bottom = ({
   lang,
@@ -52,7 +52,7 @@ const Bottom = ({
 
   return (
     <Formik
-      initialValues={{ date: '', time: '', members: '', terms: '' }}
+      initialValues={{ date: '', time: '', members: '', terms: false }}
       onSubmit={values => {
         if (!currentUser) {
           openCustomModal();
@@ -152,22 +152,20 @@ const Bottom = ({
               marginVertical: 15,
               transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
             }}>
-            <BouncyCheckbox
-              onPress={(isChecked: boolean) => {
-                props.setFieldValue('terms', isChecked);
-              }}
-              size={40}
-              fillColor={COLORS.darkBlue}
-              unfillColor={'#F3F3F3'}
-              iconStyle={{ borderRadius: 5 }}
-              innerIconStyle={{ width: 40, height: 40, borderRadius: 5 }}
-              text={languages[lang].termCondition}
-              textStyle={{
-                fontSize: 18,
-                color: isDarkMode ? COLORS.white : COLORS.black,
-                transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
-              }}
-            />
+            <View style={styles(isDarkMode).container}>
+              <TouchableOpacity
+                style={
+                  props.values.terms ? styles().checked : styles().unchecked
+                }
+                onPress={() => {
+                  props.setFieldValue('terms', !props.values.terms);
+                }}>
+                {props.values.terms && <Svg name="true" size={30} />}
+              </TouchableOpacity>
+              <Text style={styles(isDarkMode).txt}>
+                {languages[lang].termCondition}
+              </Text>
+            </View>
           </View>
 
           <Button

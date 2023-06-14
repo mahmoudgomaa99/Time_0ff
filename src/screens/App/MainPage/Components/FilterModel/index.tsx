@@ -73,12 +73,15 @@ const FilterModel = ({
                   borderColor={'#EEEEEE'}
                   type={'primary'}
                   data={[
-                    { label: 'diving', value: 'diving' },
-                    { label: 'trips', value: 'trips' },
-                    { label: 'aquaPark', value: 'aquaPark' },
-                    { label: 'nileTrip', value: 'nileTrip' },
-                    { label: 'bBuggy', value: 'bBuggy' },
-                    { label: 'surfing', value: 'surfing' },
+                    { label: languages[lang].diving, value: 'diving' },
+                    { label: languages[lang].wellness, value: 'wellness' },
+                    { label: languages[lang].sports, value: 'sports' },
+                    {
+                      label: languages[lang].kiteSurfing,
+                      value: 'kiteSurfing',
+                    },
+                    { label: languages[lang].Hiking, value: 'hiking' },
+                    { label: languages[lang].Others, value: 'others' },
                   ]}
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
@@ -94,14 +97,16 @@ const FilterModel = ({
                 <InputView
                   {...props}
                   name="start_date"
-                  disabled
                   value={props.values.start_date}
                   inputContainerStyling={
                     styles(isDarkMode).inputContainerStyling
                   }
                   containerStyle={styles(isDarkMode).containerStyle}
-                  onPressIn={() => setDateModalVisable(true)}
+                  onPressIn={() => {
+                    setDateModalVisable(true);
+                  }}
                   leftIcon={<Svg name="calendar" />}
+                  placeholder="Select date"
                 />
               </View>
 

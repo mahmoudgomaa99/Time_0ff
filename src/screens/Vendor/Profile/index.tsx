@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ScrollView,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
@@ -24,15 +25,18 @@ import Skeleton from './Components/Skeleton';
 import Journeys, { selectCurrentAgency } from 'redux/journey';
 import axios from 'axios';
 import Picker from 'components/molecules/Picker';
+import useLibraryPermission from 'hooks/useLibraryPermission';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const isDarkMode = useSelector(selectIsDarkMode);
   const lang = useSelector(selectLanguage);
+  const { source, pick } = useLibraryPermission(1);
   const currentUser = useSelector(selectCurrentUser);
   const isLoading = useLoadingSelector(User.thunks.doGetUser);
   const isLoading2 = useLoadingSelector(User.thunks.doUpdateUser);
+  const isLoading3 = useLoadingSelector(User.thunks.doUpdateImage);
   const [Update, setUpdate] = useState(true);
   const [allData, setallData] = useState([]);
 
@@ -59,40 +63,57 @@ const Profile = () => {
     }));
     return allCieties;
   };
-  console.log(currentUser);
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       {isLoading ? (
         <Skeleton />
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
-          <ImageSection isDarkMode={isDarkMode} lang={lang} />
+          <ImageSection
+            pick={pick}
+            source={source}
+            isDarkMode={isDarkMode}
+            lang={lang}
+          />
           <View style={{ marginHorizontal: 18 }}>
             <Formik
               initialValues={{
                 fullName: currentUser?.name,
                 countryCode: '+20',
-                phoneNumber: currentUser?.phone.slice(3),
+                phoneNumber: currentUser?.phone,
                 email: currentUser?.email,
                 city: currentUser?.city,
                 description: currentUser?.description,
                 country: currentUser?.country,
               }}
               onSubmit={values => {
-                dispatch(
-                  User.thunks.doUpdateUser({
-                    name: values?.fullName,
-                    email: values?.email,
-                    phone: values?.countryCode + values?.phoneNumber,
-                    city: values?.city,
-                    description: values?.description,
-                    country: values?.country,
-                  }),
-                )
-                  .then(unwrapResult)
+                const body = new FormData();
+                if (source?.assets.length > 0) {
+                  body.append('image', {
+                    uri:
+                      Platform.OS === 'android'
+                        ? source?.assets[0]?.uri
+                        : source?.assets[0]?.uri.replace('file://', ''),
+                    name: source?.assets[0]?.fileName,
+                    type: source?.assets[0]?.type,
+                  });
+                }
+                Promise.all([
+                  dispatch(
+                    User.thunks.doUpdateUser({
+                      name: values?.fullName,
+                      email: values?.email,
+                      phone: values?.phoneNumber,
+                      city: values?.city,
+                      country: values?.country,
+                    }),
+                  ),
+                  source?.assets.length > 0 &&
+                    dispatch(User.thunks.doUpdateImage(body)),
+                ])
                   .then(() => {
-                    setUpdate(true);
                     dispatch(User.thunks.doGetUser({}));
+                    setUpdate(true);
                     navigation.goBack();
                   })
                   .catch(err => {});
@@ -232,7 +253,7 @@ const Profile = () => {
                       onPress={() => {
                         props.handleSubmit();
                       }}
-                      isLoading={isLoading2}
+                      isLoading={isLoading2 || isLoading3}
                     />
                   )}
                 </View>

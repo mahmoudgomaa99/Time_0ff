@@ -67,7 +67,6 @@ const JourneyDetails = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [name, setName] = useState('');
-  const [edit, setEdit] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -79,7 +78,7 @@ const JourneyDetails = () => {
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(id));
     }, []),
   );
-
+  console.log(journey, 'journey');
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} id={journey?._id} />
@@ -99,34 +98,59 @@ const JourneyDetails = () => {
             availability: avilabilties,
           }}
           onSubmit={values => {
-            dispatch(
-              Journeys.thunks.doUpdateJourneyData({
-                data: {
-                  journey_name: values.journey_name,
-                  description: values.description,
-                  start_date: values.start_date,
-                  end_date: values.start_date,
-                  capacity: values.capacity,
-                  location: values.location,
-                  category: values.category,
-                  price: values.price,
-                  arabic_journey_name: values.journey_name,
-                  arabic_description: values.description,
-                  arabic_location: values.location,
-                  arabic_category: values.category,
-                },
-                id: id,
-              }),
-            )
-              .then(unwrapResult)
+            const body = new FormData();
+            if (source?.assets?.length > 0) {
+              source?.assets?.forEach((item: any, index: any) => {
+                const uri =
+                  Platform.OS === 'android'
+                    ? item.uri
+                    : item.uri.replace('file://', '');
+                body.append('images', {
+                  uri,
+                  name: item.fileName || `image_${index}`,
+                  type: item.type || 'image/jpeg',
+                });
+              });
+            }
+            Promise.all([
+              dispatch(
+                Journeys.thunks.doUpdateJourneyData({
+                  data: {
+                    journey_name: values.journey_name,
+                    description: values.description,
+                    start_date: values.start_date,
+                    end_date: values.start_date,
+                    capacity: values.capacity,
+                    location: values.location,
+                    category: values.category,
+                    price: values.price,
+                    arabic_journey_name: values.journey_name,
+                    arabic_description: values.description,
+                    arabic_location: values.location,
+                    arabic_category: values.category,
+                  },
+                  id: id,
+                }),
+              ),
+              dispatch(
+                Journeys.thunks.doUpdatJourney_Image({
+                  data: body,
+                  id,
+                }),
+              ),
+            ])
               .then(() => {
-                setIsDisabled(true);
                 Toast.show({
                   type: 'success',
                   text2: languages[lang].journeyUpdatedSuccefuly,
                 });
+                Journeys.thunks.doGetAgencyJourneys({
+                  id: user?._id,
+                  page: 1,
+                });
+                navigation.goBack();
               })
-              .catch(() => {});
+              .catch(err => {});
           }}>
           {props => (
             <View>
@@ -134,83 +158,24 @@ const JourneyDetails = () => {
                 <Skeleton />
               ) : (
                 <>
-                  <TouchableOpacity
-                    onPress={async () => {
-                      pick();
-                      setEdit(true);
-                      props.setFieldValue('image', source);
-                    }}
-                    style={styles().img_container}>
+                  <View style={styles().img_container}>
                     <Image
                       source={source?.assets || { uri: journey?.images[0] }}
                       style={styles().img}
                     />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    disabled={!source || source?.didCancel === true}
+                  </View>
+                  <Button
+                    type="secondry"
+                    label={languages[lang].select_image}
                     onPress={() => {
-                      const body = new FormData();
-                      source?.assets?.forEach((item: any, index: any) => {
-                        const uri =
-                          Platform.OS === 'android'
-                            ? item.uri
-                            : item.uri.replace('file://', '');
-                        body.append('images', {
-                          uri,
-                          name: item.fileName || `image_${index}`,
-                          type: item.type || 'image/jpeg',
-                        });
-                      });
-                      dispatch(
-                        Journeys.thunks.doUpdatJourney_Image({
-                          data: body,
-                          id,
-                        }),
-                      ).then(res => {
-                        setEdit(false);
-                        Journeys.thunks.doGetAgencyJourneys({
-                          id: user?._id,
-                          page: 1,
-                        }),
-                          Toast.show({
-                            type: 'success',
-                            text2: languages[lang].imageUpdatedSuccefuly,
-                          });
-                      });
+                      pick();
                     }}
                     style={{
+                      marginTop: 10,
                       alignItems: 'center',
-                      backgroundColor: edit
-                        ? source || source?.didCancel === false
-                          ? COLORS.primary
-                          : COLORS.grey
-                        : COLORS.grey,
-                      width: w * 0.3,
-                      height: w * 0.1,
-                      borderRadius: w * 0.2,
-                      alignSelf: 'center',
-                      marginVertical: 10,
-                    }}>
-                    {isImageLoading ? (
-                      <View style={{ marginTop: 8 }}>
-                        <ActivityIndicator size="small" color={COLORS.white} />
-                      </View>
-                    ) : (
-                      <TextView
-                        style={[
-                          styles(lang, isDarkMode).text,
-                          { color: COLORS.white },
-                        ]}
-                        title={
-                          edit
-                            ? source || source?.didCancel === false
-                              ? languages[lang].edit_image
-                              : languages[lang].select_image
-                            : languages[lang].select_image
-                        }
-                      />
-                    )}
-                  </TouchableOpacity>
+                      justifyContent: 'center',
+                    }}
+                  />
                   <InputView
                     style={styles(lang).input}
                     {...props}
@@ -237,20 +202,19 @@ const JourneyDetails = () => {
                     borderColor={'#000'}
                     type={'primary'}
                     data={[
-                      { label: 'diving', value: 'diving' },
-                      { label: 'trips', value: 'trips' },
-                      { label: 'aquaPark', value: 'aquaPark' },
-                      { label: 'nileTrip', value: 'nileTrip' },
-                      { label: 'bBuggy', value: 'bBuggy' },
-                      { label: 'surfing', value: 'surfing' },
+                      { label: languages[lang].diving, value: 'diving' },
+                      { label: languages[lang].wellness, value: 'wellness' },
+                      { label: languages[lang].sports, value: 'sports' },
+                      {
+                        label: languages[lang].kiteSurfing,
+                        value: 'kiteSurfing',
+                      },
+                      { label: languages[lang].Hiking, value: 'hiking' },
+                      { label: languages[lang].Others, value: 'others' },
                     ]}
                     name={'category'}
                     stylingProp={{ borderColor: 'red', borderWith: 30 }}
-                    placeholder={
-                      journey?.category ||
-                      journey?.arabic_category ||
-                      'Select category'
-                    }
+                    placeholder={'Select category'}
                     disabled={isDisabled}
                   />
                   <InputView
@@ -379,7 +343,7 @@ const JourneyDetails = () => {
                         props.handleSubmit();
                       }
                     }}
-                    isLoading={isUpdateDataLoading}
+                    isLoading={isUpdateDataLoading || isImageLoading}
                   />
                   <View
                     style={{

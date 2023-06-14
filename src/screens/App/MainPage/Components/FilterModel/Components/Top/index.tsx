@@ -39,10 +39,10 @@ const Top = ({
       <TouchableOpacity
         onPress={() => {
           props.setFieldValue('category', '');
-          props.setFieldValue('date', '');
-          props.setFieldValue('city', '');
-          props.setFieldValue('startPrice', 10);
-          props.setFieldValue('endPrice', 1000);
+          props.setFieldValue('start_date', '');
+          props.setFieldValue('location', '');
+          props.setFieldValue('price_start', 10000);
+          props.setFieldValue('price_end', 50000);
           props.setFieldValue('rating', '');
           setfilterData({});
         }}>

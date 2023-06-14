@@ -31,10 +31,16 @@ const CurrencyModel = ({
                 {...props}
                 borderColor={isDarkMode ? '#2b2c3a' : '#F2F2F2'}
                 type={'primary'}
-                data={[{ label: 'EGP', value: 'EGP' }]}
+                data={[
+                  { label: 'EGP', value: 'EGP' },
+                  { label: 'USD', value: 'USD' },
+                  { label: 'EUR', value: 'EUR' },
+                  { label: 'SAR', value: 'SAR' },
+                  { label: 'AED', value: 'AED' },
+                ]}
                 placeholder={'currency'}
                 name={'currency'}
-                disabled={true}
+                disabled={false}
               />
               <View style={styles(lang).buttonsContainer}>
                 <Button

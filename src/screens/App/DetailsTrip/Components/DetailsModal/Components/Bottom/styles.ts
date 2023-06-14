@@ -31,4 +31,32 @@ export const styles = (isDarkMode?: boolean) =>
       marginBottom: -10,
       fontFamily: Fonts.Cairo_SemiBold,
     },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 10,
+    },
+    checked: {
+      width: 35,
+      height: 35,
+      borderRadius: 10,
+      backgroundColor: COLORS.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    unchecked: {
+      width: 35,
+      height: 35,
+      borderRadius: 10,
+      backgroundColor: COLORS.white,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: COLORS.primary,
+    },
+    txt: {
+      fontSize: 18,
+      marginLeft: 10,
+      color: isDarkMode ? COLORS.white : COLORS.black,
+    },
   });

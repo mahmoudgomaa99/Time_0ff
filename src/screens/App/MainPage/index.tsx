@@ -1,5 +1,5 @@
 import { View, Animated, TouchableOpacity } from 'react-native';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { styles } from './styles';
 import Header from './Components/Header';
 import InputSec from './Components/InputSec';
@@ -65,11 +65,32 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   );
 
   const [currentTab, setCurrentTab] = useState(languages[lang].main);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const offsetValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
   const token = useSelector(selectToken);
+
+  useEffect(() => {
+    Animated.timing(scaleValue, {
+      toValue: showMenu ? 1 : 0.88,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(offsetValue, {
+      toValue: showMenu ? 0 : lang === 'en' ? w * 0.5 : 0,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(closeButtonOffset, {
+      toValue: !showMenu ? -30 : 0,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
+  }, [showMenu]);
+  console.log(sort, '0');
   return (
     <View
       style={{
@@ -84,7 +105,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           styles(isDarkMode).container,
           {
             transform: [{ scale: scaleValue }, { translateX: offsetValue }],
-            borderRadius: showMenu ? 35 : 0,
+            borderRadius: !showMenu ? 35 : 0,
           },
         ]}>
         <View
@@ -95,27 +116,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           }}>
           <TouchableOpacity
             onPress={() => {
-              setTimeout(() => {
-                Animated.timing(scaleValue, {
-                  toValue: showMenu ? 1 : 0.88,
-                  duration: 400,
-                  useNativeDriver: true,
-                }).start();
-
-                Animated.timing(offsetValue, {
-                  toValue: showMenu ? 0 : lang === 'en' ? w * 0.5 : -w * 0.5,
-                  duration: 400,
-                  useNativeDriver: true,
-                }).start();
-
-                Animated.timing(closeButtonOffset, {
-                  toValue: !showMenu ? -30 : 0,
-                  duration: 400,
-                  useNativeDriver: true,
-                }).start();
-              }, 500);
-
-              setShowMenu(!showMenu);
+              setShowMenu(prev => !prev);
             }}>
             <View style={styles(isDarkMode, lang).menu_icon}>
               <Svg style={{}} name="menu" size={40} />
@@ -152,6 +153,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           setisSortModel={setisSortModel}
           page={page}
           setpage={setpage}
+          category={category}
         />
         <FilterModel
           isFilterModalVisable={isFilterModalVisable}

@@ -15,7 +15,11 @@ import { useAppDispatch } from 'redux/store';
 import Journeys, { selectCurrentJourneys } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import SkeletonItem from 'components/molecules/SkeletonItem';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import Card from '../MainPage/Components/Card';
 import { styles } from './styles';
 import { h } from 'values/Dimensions';
@@ -26,6 +30,8 @@ import Fonts from 'values/fonts';
 
 const SeeMore = () => {
   const lang = useSelector(selectLanguage);
+  const route: any = useRoute();
+  const { data } = route?.params;
   const isDarkMode = useSelector(selectIsDarkMode);
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
@@ -37,10 +43,9 @@ const SeeMore = () => {
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetJourneys({ page: page }));
+      dispatch(Journeys.thunks.doGetJourneys({ page: page, category: data }));
     }, [page]),
   );
-
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} />
@@ -108,8 +113,7 @@ const SeeMore = () => {
                       />
                     </TouchableOpacity>
                   )}
-                  showsVerticalScrollIndicator={false}
-                  // keyExtractor={(item): any => item?.id}
+                  showsVerticalScrollIndicator={true}
                 />
                 {isGetJourneysLoading && page !== 1 && (
                   <View

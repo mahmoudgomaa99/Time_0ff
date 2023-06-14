@@ -22,87 +22,42 @@ import { useLoadingSelector } from 'redux/selectors';
 import { useFocusEffect } from '@react-navigation/native';
 import { set } from 'lodash';
 import { unwrapResult } from '@reduxjs/toolkit';
+import Button from 'components/molecules/Button';
 
 const ImageSection = ({
   lang,
   isDarkMode,
+  pick,
+  source,
 }: {
   lang: string;
   isDarkMode: boolean;
+  pick: any;
+  source: any;
 }) => {
   const dispatch = useAppDispatch();
-  const { source, pick } = useLibraryPermission(1);
   const isImageLoading = useLoadingSelector(User.thunks.doUpdateImage);
   const user = useSelector(selectCurrentUser);
-  const [edit, setEdit] = useState(false);
-
   return (
     <View style={styles(lang, isDarkMode).container}>
-      <TouchableOpacity
-        onPress={async () => {
-          pick();
-          setEdit(true);
-        }}
-        style={styles().img_container}>
+      <View style={styles().img_container}>
         <Image
           source={source?.assets || { uri: user?.image }}
           style={styles().img}
         />
-      </TouchableOpacity>
-      <TouchableOpacity
-        disabled={!source}
+      </View>
+      <Button
+        type="secondry"
+        label={languages[lang].select_image}
         onPress={() => {
-          const body = new FormData();
-          body.append('image', {
-            uri:
-              Platform.OS === 'android'
-                ? source.assets[0].uri
-                : source.assets[0].uri.replace('file://', ''),
-            name: source?.assets[0].fileName,
-            type: source?.assets[0].type,
-          });
-          dispatch(User.thunks.doUpdateImage(body))
-            .then(unwrapResult)
-            .then(res => {
-              console.log('res', res);
-              dispatch(User.thunks.doGetUser({}));
-              Toast.show({
-                type: 'success',
-                text2: languages[lang].imageUpdatedSuccefuly,
-              });
-              setEdit(false);
-            });
+          pick();
         }}
         style={{
+          marginTop: 10,
           alignItems: 'center',
-          backgroundColor: edit
-            ? source
-              ? COLORS.primary
-              : COLORS.grey
-            : COLORS.grey,
-          width: w * 0.3,
-          height: w * 0.1,
-          borderRadius: w * 0.2,
-          alignSelf: 'center',
-          marginVertical: 10,
-        }}>
-        {isImageLoading ? (
-          <View style={{ marginTop: 8 }}>
-            <ActivityIndicator size="small" color={COLORS.white} />
-          </View>
-        ) : (
-          <TextView
-            style={[styles(lang, isDarkMode).text, { color: COLORS.white }]}
-            title={
-              edit
-                ? source
-                  ? languages[lang].edit_image
-                  : languages[lang].select_image
-                : languages[lang].select_image
-            }
-          />
-        )}
-      </TouchableOpacity>
+          justifyContent: 'center',
+        }}
+      />
     </View>
   );
 };
