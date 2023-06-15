@@ -41,8 +41,8 @@ const Top = ({
           props.setFieldValue('category', '');
           props.setFieldValue('start_date', '');
           props.setFieldValue('location', '');
-          props.setFieldValue('price_start', 10000);
-          props.setFieldValue('price_end', 50000);
+          props.setFieldValue('price_start', 0);
+          props.setFieldValue('price_end', 100000);
           props.setFieldValue('rating', '');
           setfilterData({});
         }}>

@@ -122,7 +122,14 @@ const FilterModel = ({
                   borderColor={'#EEEEEE'}
                   {...props}
                   type={'primary'}
-                  data={[{ label: 'Sharm El-Shaikh', value: 'sharm' }]}
+                  data={[
+                    { label: 'Sharm El-Shaikh', value: 'sharm' },
+                    { label: 'Dahab', value: 'dahab' },
+                    { label: 'Hurghada', value: 'hurghada' },
+                    { label: 'Matrouh', value: 'matrouh' },
+                    { label: 'Alexandria', value: 'alexandria' },
+                    { label: 'Gouna', value: 'gouna' },
+                  ]}
                   name={'location'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
                 />

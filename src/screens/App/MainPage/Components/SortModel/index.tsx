@@ -45,7 +45,7 @@ const SortModel = ({
               <View
                 style={{
                   marginHorizontal: 13,
-                  marginVertical: 15,
+                  marginVertical: 7,
                   transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
                 }}>
                 <Checkbox
@@ -54,6 +54,7 @@ const SortModel = ({
                   value={value}
                   sort={sort}
                   setSort={setSort}
+                  setisSortModel={setisSortModel}
                 />
               </View>
             ))

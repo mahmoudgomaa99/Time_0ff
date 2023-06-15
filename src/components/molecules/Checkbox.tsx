@@ -11,12 +11,14 @@ const Checkbox = ({
   sort,
   checked,
   setChecked,
+  setisSortModel,
 }: {
   value?: any;
   sort?: any;
   setSort?: any;
   checked?: any;
   setChecked?: any;
+  setisSortModel: any;
 }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -30,9 +32,11 @@ const Checkbox = ({
           if (checked === value.checked) {
             setSort({ sort_type: '', sort_by: '' });
             setChecked(0);
+            setisSortModel(false);
           } else {
             setSort(value.value);
             setChecked(value.checked);
+            setisSortModel(false);
           }
         }}>
         {checked === value.checked && <Svg name="true" size={30} />}

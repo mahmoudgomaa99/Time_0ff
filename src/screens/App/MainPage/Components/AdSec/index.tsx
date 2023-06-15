@@ -4,6 +4,7 @@ import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { imageList } from '../data';
 import { styles } from './styles';
 import { h, w } from 'src/values/Dimensions';
+import { images } from 'src/assets/images';
 
 const AdSec = ({
   lang,
@@ -15,7 +16,12 @@ const AdSec = ({
   const carouselRef = useRef<any>();
   const [indexSelected, setIndexSelected] = useState(0);
   const renderItem = () => {
-    return <Image source={imageList[indexSelected]} style={styles.img} />;
+    return (
+      <Image
+        source={[images.slider1, images.slider2, images.slider3][indexSelected]}
+        style={styles.img}
+      />
+    );
   };
 
   useEffect(() => {
@@ -42,12 +48,13 @@ const AdSec = ({
         }}>
         <Carousel
           ref={carouselRef}
-          data={imageList}
+          data={[images.slider1, images.slider2, images.slider3]}
           renderItem={renderItem}
           sliderWidth={w}
           itemWidth={w}
           onSnapToItem={(index: number) => setIndexSelected(index)}
           loop
+          autoplay={false}
         />
       </View>
       <View
@@ -60,7 +67,7 @@ const AdSec = ({
           inactiveDotColor="white"
           dotColor={'#58ffee'}
           activeDotIndex={indexSelected}
-          dotsLength={imageList.length}
+          dotsLength={[images.slider1, images.slider2, images.slider3].length}
           animatedDuration={50}
           inactiveDotScale={1}
           dotStyle={{ width: 25, height: 6 }}
