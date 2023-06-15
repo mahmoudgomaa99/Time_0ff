@@ -219,6 +219,7 @@ const languages: any = {
     kiteSurfing: 'Kite Surfing',
     Hiking: 'Hiking',
     Others: 'Others',
+    termsError: 'You must agree to the terms and conditions',
   },
   ar: {
     login: 'تسجيل الدخول',
@@ -434,6 +435,7 @@ const languages: any = {
     kiteSurfing: 'ركوب الامواج',
     Hiking: 'المشي',
     Others: 'اخرى',
+    termsError: 'يجب ان توافق علي الشروط ',
   },
 };
 export default languages;
