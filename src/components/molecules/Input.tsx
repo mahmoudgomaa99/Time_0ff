@@ -68,7 +68,7 @@ const InputView = ({
           color: COLORS.errorRed,
           // fontFamily: Fonts.RobotoBold,
           textAlign: lang === 'ar' ? 'right' : 'left',
-          marginTop: Platform.OS === 'android' ? (lang === 'ar' ? -7 : 0) : 5,
+          marginTop: Platform.OS === 'android' ? (lang === 'ar' ? -7 : 10) : 5,
         }}
         containerStyle={[
           containerStyle,
@@ -83,6 +83,7 @@ const InputView = ({
           opacity: 0.7,
           textAlign: lang === 'ar' ? 'right' : 'left',
           alignItems: 'center',
+
         }}
         inputContainerStyle={
           inputContainerStyling

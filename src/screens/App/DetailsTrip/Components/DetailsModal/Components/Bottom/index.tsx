@@ -24,6 +24,7 @@ import { selectToken } from 'redux/tokens/reducer';
 import { useLoadingSelector } from 'redux/selectors';
 import Checkbox from 'components/molecules/Checkbox';
 import { set } from 'lodash';
+import { bookSchema } from 'src/formik/schema';
 
 const Bottom = ({
   lang,
@@ -49,6 +50,7 @@ const Bottom = ({
   // state to hold the selected date
   const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
+  const [errorTerms, seterrorTerms] = useState(false)
 
   return (
     <Formik
@@ -80,7 +82,8 @@ const Bottom = ({
               });
             });
         }
-      }}>
+      }}
+      validationSchema={bookSchema(lang)}>
       {props => (
         <View>
           <View>
@@ -154,9 +157,14 @@ const Bottom = ({
             }}>
             <View style={styles(isDarkMode).container}>
               <TouchableOpacity
-                style={
-                  props.values.terms ? styles().checked : styles().unchecked
-                }
+                style={[
+                  props.values.terms ? styles().checked : styles().unchecked,
+                  {
+                    borderColor: props.errors.terms && errorTerms
+                      ? COLORS.red
+                      : COLORS.primary,
+                  },
+                ]}
                 onPress={() => {
                   props.setFieldValue('terms', !props.values.terms);
                 }}>
@@ -166,12 +174,17 @@ const Bottom = ({
                 {languages[lang].termCondition}
               </Text>
             </View>
+            <TextView
+              title={errorTerms && props.errors.terms ? props.errors.terms : null}
+              style={{ color: COLORS.red }}
+            />
           </View>
 
           <Button
             type="primary"
             label={languages[lang].bookNow}
             onPress={() => {
+              seterrorTerms(true)
               props.handleSubmit();
             }}
             style={styles().button}

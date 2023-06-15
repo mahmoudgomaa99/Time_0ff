@@ -181,9 +181,11 @@ const Login = () => {
               <View style={styles(isDarkMode).media}>
                 <Svg name="google" size={30} />
               </View>
-              <View style={styles(isDarkMode).media}>
-                <Svg name="instegram" size={30} />
-              </View>
+              {Platform.OS === 'ios' ? (
+                <View style={styles(isDarkMode).media}>
+                  <Svg name="apple" size={30} />
+                </View>
+              ) : null}
               <View style={styles(isDarkMode).media}>
                 <Svg name="faceBook" size={30} />
               </View>
