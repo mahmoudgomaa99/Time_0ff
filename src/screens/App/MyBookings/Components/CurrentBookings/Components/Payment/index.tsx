@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import React from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
@@ -9,11 +9,18 @@ const Payment = ({
   lang,
   isDarkMode,
   book,
+  EGPRate,
+  currency,
+  isLoading,
 }: {
   isDarkMode?: boolean;
   lang: string;
   book: any;
+  EGPRate: any;
+  currency: any;
+  isLoading: boolean;
 }) => {
+  console.log(book);
   return (
     <View>
       <TextView
@@ -21,18 +28,22 @@ const Payment = ({
         style={styles(lang, isDarkMode).title}
       />
       <View style={styles(lang).outerContainer}>
-        {Data(lang, book).map(value => (
+        {Data(lang, book, currency, EGPRate).map(value => (
           <View style={styles(lang).container}>
             <TextView
               title={value.title}
               style={styles(lang, isDarkMode).firstText}
             />
-            <TextView
-              title={`${value.value}${
-                value.value == languages[lang].fawry ? '' : languages[lang].le
-              }`}
-              style={styles(lang, isDarkMode).secondText}
-            />
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#0000ff" />
+            ) : (
+              <TextView
+                title={`${value.value}${
+                  value.value == languages[lang].fawry ? '' : ''
+                }`}
+                style={styles(lang, isDarkMode).secondText}
+              />
+            )}
           </View>
         ))}
       </View>
@@ -42,12 +53,14 @@ const Payment = ({
           title={languages[lang].total}
           style={styles(lang, isDarkMode).firstText}
         />
-        <TextView
-          title={`${Data(lang,book)[0].value + Data(lang,book)[1].value} ${
-            languages[lang].le
-          }`}
-          style={styles(lang, isDarkMode).secondText}
-        />
+        {isLoading ? (
+          <ActivityIndicator size="small" color="#0000ff" />
+        ) : (
+          <TextView
+            title={`${Data(lang, book, currency, EGPRate)[0].value}`}
+            style={styles(lang, isDarkMode).secondText}
+          />
+        )}
       </View>
     </View>
   );

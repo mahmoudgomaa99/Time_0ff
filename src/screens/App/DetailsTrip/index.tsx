@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, ActivityIndicator } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
@@ -35,6 +35,7 @@ const DetailsTrip = () => {
   const route = useRoute<any>();
   const { id } = route.params;
   const currency = useSelector(selectCurrency);
+  const [EGPRate, setEGPRate] = useState(0);
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const [isRequestReceive, setisRequestReceive] = useState(false);
@@ -42,10 +43,10 @@ const DetailsTrip = () => {
   const journies = useSelector(selectJournies);
   const lang = useSelector(selectLanguage);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [EGPRate, setEGPRate] = useState(0);
   const [rating, setRating] = useState(1);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const isLoading = useLoadingSelector(Journeys.thunks.doRateJourney);
+  const [isCurrncyLoading, setIsCurrncyLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   useFocusEffect(
@@ -70,6 +71,7 @@ const DetailsTrip = () => {
 
   useEffect(() => {
     if (currency !== 'EGP') {
+      setIsCurrncyLoading(true);
       axios
         .get(
           `https://currency-conversion-and-exchange-rates.p.rapidapi.com/latest?base=${currency}`,
@@ -82,9 +84,11 @@ const DetailsTrip = () => {
         )
         .then(res => {
           setEGPRate(res.data.rates.EGP);
+          setIsCurrncyLoading(false);
         })
         .catch(err => {
           console.log('err', err);
+          setIsCurrncyLoading(false);
         });
     }
   }, []);
@@ -317,26 +321,25 @@ const DetailsTrip = () => {
                 styles().bottomSec,
                 { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
               ]}>
-              <TextView
-                // currency !== 'EGP'
-                //         ? `${parseInt(
-                //             //@ts-ignore
-                //             Number(journies[id]?.price) / Number(EGPRate),
-                //           )} ${currency}`
-                //         : journies[id]?.price?.toString() + ' ' + currency
-                title={
-                  currency !== 'EGP'
-                    ? `${parseInt(
-                        //@ts-ignore
-                        Number(journies[id]?.price) / Number(EGPRate),
-                      )} ${currency}`
-                    : journies[id]?.price?.toString() + ' ' + currency
-                }
-                style={[
-                  styles(isDarkMode).price,
-                  { marginBottom: lang === 'en' ? 15 : 0 },
-                ]}
-              />
+              {isCurrncyLoading ? (
+                <ActivityIndicator color={COLORS.primary} size={'large'} />
+              ) : (
+                <TextView
+                  title={
+                    currency !== 'EGP'
+                      ? `${parseInt(
+                          //@ts-ignore
+                          Number(journies[id]?.price) / Number(EGPRate),
+                        )} ${currency}`
+                      : journies[id]?.price?.toString() + ' ' + currency
+                  }
+                  style={[
+                    styles(isDarkMode).price,
+                    { marginBottom: lang === 'en' ? 15 : 0 },
+                  ]}
+                />
+              )}
+
               <Button
                 type="book"
                 label={languages[lang].bookNow}
