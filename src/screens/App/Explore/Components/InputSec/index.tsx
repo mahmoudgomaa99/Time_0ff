@@ -16,6 +16,7 @@ const InputSec = ({
   isDarkMode,
   search,
   setSearch,
+  setpage,
 }: {
   isFilterModalVisable: boolean;
   setFilterModalVisable: any;
@@ -23,6 +24,7 @@ const InputSec = ({
   isDarkMode?: boolean;
   search?: string;
   setSearch?: any;
+  setpage: any;
 }) => {
   return (
     <View
@@ -44,7 +46,10 @@ const InputSec = ({
               <InputView
                 {...props}
                 name="search"
-                onChangeText={props.handleChange('search')}
+                onChangeText={() => {
+                  setpage(1);
+                  props.handleChange('search');
+                }}
                 value={props.values.search}
                 inputContainerStyling={styles(isDarkMode).inputContainerStyling}
                 placeholder={languages[lang].searchInApp}
@@ -55,6 +60,7 @@ const InputSec = ({
                 onChange={e => {
                   setSearch(e.nativeEvent.text);
                   props.handleChange('search');
+                  setpage(1);
                 }}
               />
             </>

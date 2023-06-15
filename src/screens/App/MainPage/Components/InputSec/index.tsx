@@ -1,14 +1,12 @@
-import { View, Text, Platform } from 'react-native';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectLanguage } from 'redux/language/index';
+import { View } from 'react-native';
+import React from 'react';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import FilterModel from '../FilterModel';
+import { set } from 'lodash';
 
 const InputSec = ({
   isFilterModalVisable,
@@ -16,6 +14,7 @@ const InputSec = ({
   lang,
   isDarkMode,
   setSearch,
+  setpage,
   search,
 }: {
   isFilterModalVisable: boolean;
@@ -24,6 +23,7 @@ const InputSec = ({
   isDarkMode?: boolean;
   setSearch?: any;
   search?: string;
+  setpage?: any;
 }) => {
   return (
     <View
@@ -47,11 +47,15 @@ const InputSec = ({
                 name="search"
                 onChangeText={text => {
                   setSearch(text);
+                  props.setFieldValue('search', text);
                   props.handleChange('search');
+                  setpage(1);
                 }}
                 onChange={e => {
                   setSearch(e.nativeEvent.text);
+                  props.setFieldValue('search', e.nativeEvent.text);
                   props.handleChange('search');
+                  setpage(1);
                 }}
                 value={props.values.search}
                 inputContainerStyling={styles(isDarkMode).inputContainerStyling}

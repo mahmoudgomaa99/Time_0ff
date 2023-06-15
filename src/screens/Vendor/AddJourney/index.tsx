@@ -1,9 +1,9 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Top from './Components/Top';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
-import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectCurrency, selectIsDarkMode } from 'redux/DarkMode';
 import { styles } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
@@ -25,6 +25,8 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectCurrentUser } from 'redux/user';
+import axios from 'axios';
+import { set } from 'lodash';
 
 const AddJourney = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +39,29 @@ const AddJourney = () => {
   const [name, setName] = useState('');
   const [name2, setName2] = useState('');
   const isLoading = useLoadingSelector(Journeys.thunks.doAddJourney);
+  const currency = useSelector(selectCurrency);
+  const [EGPRate, setEGPRate] = useState(0);
+
+  useEffect(() => {
+    if (currency !== 'EGP') {
+      axios
+        .get(
+          `https://currency-conversion-and-exchange-rates.p.rapidapi.com/latest?base=${currency}`,
+          {
+            headers: {
+              'x-rapidapi-key':
+                '7a8a5507famshedd4f1a1d5d9b28p1b3cdbjsn99b3a75a67a9',
+            },
+          },
+        )
+        .then(res => {
+          setEGPRate(res.data.rates.EGP);
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -64,6 +89,9 @@ const AddJourney = () => {
             ],
           }}
           onSubmit={values => {
+            if (EGPRate !== 0) {
+              values.price = values.price * EGPRate;
+            }
             dispatch(
               Journeys.thunks.doAddJourney({
                 journey_name: values.journey_name,
@@ -184,9 +212,10 @@ const AddJourney = () => {
                 keyboardType="number-pad"
                 placeholder="Enter capacity"
               />
+              {/* price is here */}
               <InputView
                 style={styles(lang).input}
-                placeholder="Enter price"
+                placeholder={`Enter price in ${currency}`}
                 {...props}
                 name={'price'}
                 label={languages[lang].price}
@@ -200,6 +229,7 @@ const AddJourney = () => {
                 ]}
                 labelStyle={[styles(lang).label_style]}
                 keyboardType="number-pad"
+                // addBlurFunc={() => {}}
               />
               <TouchableOpacity
                 onPress={() => {

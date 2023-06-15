@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
 import Svg from 'atoms/Svg';
@@ -18,35 +18,40 @@ import {
 import COLORS from 'values/colors';
 import DetailsModal from './Components/DetailsModal';
 import { useLoadingSelector } from 'redux/selectors';
-import Journeys, { selectCurrentJourney } from 'redux/journey';
+import Journeys, { selectJournies } from 'redux/journey';
 import { useAppDispatch } from 'redux/store';
 import RequestReceive from './Components/RequestReceive';
-import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectCurrency, selectIsDarkMode } from 'redux/DarkMode';
 import { unwrapResult } from '@reduxjs/toolkit';
 import SkeletonBody from './Components/SkeletonItem';
 import useModalHandler from 'hooks/Modal';
 import AuthModal from 'components/organisms/AuthModal';
 import { selectCurrentUser } from 'redux/user';
+import axios from 'axios';
 
 const DetailsTrip = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const user = useSelector(selectCurrentUser);
+  const route = useRoute<any>();
+  const { id } = route.params;
+  const currency = useSelector(selectCurrency);
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const [isRequestReceive, setisRequestReceive] = useState(false);
   const navigation = useNavigation<any>();
-  const journey = useSelector(selectCurrentJourney);
+  const journies = useSelector(selectJournies);
   const lang = useSelector(selectLanguage);
-  const route = useRoute<any>();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [EGPRate, setEGPRate] = useState(0);
   const [rating, setRating] = useState(1);
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const isLoading = useLoadingSelector(Journeys.thunks.doRateJourney);
+
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetJourney(route.params?.id));
-    }, [route.params?.id]),
+      dispatch(Journeys.thunks.doGetJourney({ id }));
+    }, [id]),
   );
 
   const renderItem = ({ item, index }: any) => {
@@ -62,7 +67,28 @@ const DetailsTrip = () => {
         setisRequestReceive(false);
       }, 4000)
     : null;
-  console.log(journey, 'journey');
+
+  useEffect(() => {
+    if (currency !== 'EGP') {
+      axios
+        .get(
+          `https://currency-conversion-and-exchange-rates.p.rapidapi.com/latest?base=${currency}`,
+          {
+            headers: {
+              'x-rapidapi-key':
+                '7a8a5507famshedd4f1a1d5d9b28p1b3cdbjsn99b3a75a67a9',
+            },
+          },
+        )
+        .then(res => {
+          setEGPRate(res.data.rates.EGP);
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
+  }, []);
+
   return (
     <View style={styles(isDarkMode).container}>
       {isGetJourneyLoading ? (
@@ -88,7 +114,7 @@ const DetailsTrip = () => {
                   if (!user) {
                     openCustomModal();
                   } else {
-                    dispatch(Journeys.thunks.doAddFavourite(journey?._id))
+                    dispatch(Journeys.thunks.doAddFavourite(journies[id]?._id))
                       .then(unwrapResult)
                       .then(() => {
                         // setisFavourite(!isFavourite);
@@ -102,14 +128,14 @@ const DetailsTrip = () => {
                 <Svg
                   name="heartRed"
                   size={60}
-                  bgColor={journey?.is_favorite ? '#FF4646' : '#dddddd'}
+                  bgColor={journies[id]?.is_favorite ? '#FF4646' : '#dddddd'}
                 />
               </TouchableOpacity>
             </View>
             <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
               <Carousel
                 layout={'default'}
-                data={journey?.images}
+                data={journies[id]?.images}
                 sliderWidth={w}
                 itemWidth={w}
                 renderItem={renderItem}
@@ -137,8 +163,8 @@ const DetailsTrip = () => {
                 <TextView
                   title={
                     lang === 'en'
-                      ? journey?.journey_name
-                      : journey?.arabic_category
+                      ? journies[id]?.journey_name
+                      : journies[id]?.arabic_category
                   }
                   style={[
                     styles(isDarkMode).title,
@@ -153,7 +179,7 @@ const DetailsTrip = () => {
                   }}>
                   <Svg name="location" size={19} />
                   <TextView
-                    title={journey?.location}
+                    title={journies[id]?.location}
                     style={[
                       styles(isDarkMode).subTitle,
                       { marginHorizontal: 1 },
@@ -169,16 +195,16 @@ const DetailsTrip = () => {
                   <TextView
                     onPress={() => {
                       navigation.navigate('providerProfile', {
-                        id: journey?.agency_id,
+                        id: journies[id]?.agency_id,
                       });
                     }}
-                    title={journey?.agency_name}
+                    title={journies[id]?.agency_name}
                     style={styles(isDarkMode).subTitle}
                   />
                   <Svg name="star" size={17} />
                   <TextView
                     style={{ color: isDarkMode ? COLORS.white : COLORS.black }}
-                    title={`(${journey?.rating})`}
+                    title={`(${journies[id]?.rating})`}
                   />
                 </View>
 
@@ -195,8 +221,8 @@ const DetailsTrip = () => {
                       style={styles(isDarkMode).descriptionText}
                       title={
                         lang === 'en'
-                          ? journey?.description
-                          : journey?.arabic_description
+                          ? journies[id]?.description
+                          : journies[id]?.arabic_description
                       }
                     />
                   </Text>
@@ -266,7 +292,7 @@ const DetailsTrip = () => {
                     onPress={() => {
                       dispatch(
                         Journeys.thunks.doRateJourney({
-                          id: journey?._id,
+                          id: journies[id]?._id,
                           body: { rating: rating },
                         }),
                       );
@@ -292,7 +318,20 @@ const DetailsTrip = () => {
                 { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
               ]}>
               <TextView
-                title={`${journey?.price} ${languages[lang].le}`}
+                // currency !== 'EGP'
+                //         ? `${parseInt(
+                //             //@ts-ignore
+                //             Number(journies[id]?.price) / Number(EGPRate),
+                //           )} ${currency}`
+                //         : journies[id]?.price?.toString() + ' ' + currency
+                title={
+                  currency !== 'EGP'
+                    ? `${parseInt(
+                        //@ts-ignore
+                        Number(journies[id]?.price) / Number(EGPRate),
+                      )} ${currency}`
+                    : journies[id]?.price?.toString() + ' ' + currency
+                }
                 style={[
                   styles(isDarkMode).price,
                   { marginBottom: lang === 'en' ? 15 : 0 },
@@ -317,7 +356,7 @@ const DetailsTrip = () => {
         isDarkMode={isDarkMode}
         isRequestReceive={isRequestReceive}
         setisRequestReceive={setisRequestReceive}
-        journey={journey}
+        journey={journies[id]}
       />
       <RequestReceive
         lang={lang}

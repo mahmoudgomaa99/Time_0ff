@@ -34,7 +34,10 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     Journeys.thunks.doGetJourneys,
   );
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState<number>();
+  const [sort, setSort] = useState<any>({
+    sort_by: '',
+    sort_type: '',
+  });
   const [isFilterModalVisable, setFilterModalVisable] = useState(false);
   const [isNotificationModel, setisNotificationModel] = useState(false);
   const [isFlightConfirmed, setisFlightConfirmed] = useState(false);
@@ -57,15 +60,29 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       dispatch(
         Journeys.thunks.doGetJourneys(
           filterData
-            ? { ...filterData, page: page }
-            : { category: category, search_key_word_name: search, page: page },
+            ? {
+                ...filterData,
+                page: page,
+                search_key_word_name: search,
+                sort_by: sort?.sort_by,
+                sort_type: sort?.sort_type,
+              }
+            : {
+                category: category,
+                search_key_word_name: search,
+                page: page,
+                sort_type: sort?.sort_type,
+                sort_by: sort?.sort_by,
+              },
         ),
       );
-    }, [category, filterData, search, page]),
+    }, [category, filterData, search, page, sort]),
   );
+  console.log(page, 'page');
 
   const [currentTab, setCurrentTab] = useState(languages[lang].main);
   const [showMenu, setShowMenu] = useState(true);
+  const [checked, setChecked] = React.useState(0);
   const offsetValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
@@ -130,6 +147,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           />
         </View>
         <InputSec
+          setpage={setpage}
           lang={lang}
           isFilterModalVisable={isFilterModalVisable}
           setFilterModalVisable={setFilterModalVisable}
@@ -149,7 +167,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           lang={lang}
           isDarkMode={isDarkMode}
           isGetJourneysLoading={isGetJourneysLoading}
-          journeys={SortJourneys(journeys, sort)}
+          journeys={journeys}
           setisSortModel={setisSortModel}
           page={page}
           setpage={setpage}
@@ -163,6 +181,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           category={category}
           setcategory={setcategory}
           search={search}
+          setpage={setpage}
         />
         <NotificationModel
           lang={lang}
@@ -180,6 +199,8 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
           setisSortModel={setisSortModel}
           setSort={setSort}
           sort={sort}
+          checked={checked}
+          setChecked={setChecked}
         />
       </Animated.View>
     </View>

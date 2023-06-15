@@ -8,6 +8,7 @@ import Top from './Components/Top';
 import { Formik } from 'formik';
 import { Data } from './data';
 import Checkbox from 'components/molecules/Checkbox';
+import { set } from 'lodash';
 
 const SortModel = ({
   isSortModel,
@@ -15,12 +16,16 @@ const SortModel = ({
   isDarkMode,
   setSort,
   sort,
+  checked,
+  setChecked,
 }: {
   isSortModel: boolean;
   setisSortModel: any;
   isDarkMode?: boolean;
   setSort?: any;
-  sort?: number;
+  sort?: any;
+  checked?: any;
+  setChecked?: any;
 }) => {
   const lang = useSelector(selectLanguage);
   return (
@@ -43,7 +48,13 @@ const SortModel = ({
                   marginVertical: 15,
                   transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
                 }}>
-                <Checkbox value={value} sort={sort} setSort={setSort} />
+                <Checkbox
+                  checked={checked}
+                  setChecked={setChecked}
+                  value={value}
+                  sort={sort}
+                  setSort={setSort}
+                />
               </View>
             ))
           }

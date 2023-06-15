@@ -35,7 +35,7 @@ const Wishlist = () => {
       <Top isDarkMode={isDarkMode} lang={lang} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ marginVertical: 20 }}>
+        contentContainerStyle={{ marginVertical: 20, paddingBottom: 80 }}>
         {isLoading ? (
           <>
             {[...Array(5).keys()].map(i => (
