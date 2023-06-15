@@ -49,7 +49,7 @@ const Notefication = () => {
         ) : notification?.length !== 0 ? (
           <>
             <FlatList
-              contentContainerStyle={{ paddingBottom: 20 }}
+              contentContainerStyle={{ paddingBottom: 80 }}
               onEndReached={() => {
                 setpage((prev: number) => prev + 1);
               }}
