@@ -3,17 +3,17 @@ import { EntityKeys } from 'redux/schema';
 import thunks from './thunks';
 import { RootState } from 'redux/store';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { Tagency, Tjourneys } from './model';
+import { Tagency, Tjourney } from './model';
 
 type TInitialValues = {
-  journeys: Tjourneys;
+  journeys: Tjourney[];
   journey?: any;
   agencyJorneys?: any;
   agencyReviews?: any;
   agency?: Tagency;
-  discountJourneys: Tjourneys;
-  hotJourneys: Tjourneys;
-  favJourneys: Tjourneys;
+  discountJourneys: Tjourney[];
+  hotJourneys: Tjourney[];
+  favJourneys: Tjourney[];
   journey_availabilitey: {
     _id: number;
     available_date: string;
@@ -33,6 +33,9 @@ type TInitialValues = {
     }[];
   }[];
   agencyNotification: any;
+  journies: {
+    [id: number]: Tjourney;
+  };
 };
 
 const initialValues: TInitialValues = {
@@ -50,6 +53,7 @@ const initialValues: TInitialValues = {
   currentIdBook: null,
   journey_availabilitey_vendor: [],
   agencyNotification: null,
+  journies: {},
 };
 
 const slice = createSlice({
@@ -58,7 +62,7 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(thunks.doGetJourneys.fulfilled, (state, action) => {
-      console.log(action.meta.arg, 'test test');
+      console.log(action.payload.data, 'test test');
       if (action.meta.arg.page === 1) {
         state.journeys = action.payload.data.data;
       } else {
@@ -88,7 +92,9 @@ const slice = createSlice({
     });
     builder.addCase(thunks.doGetJourney.fulfilled, (state, action) => {
       state.journey = action.payload.data.data;
-      console.log(action);
+      state.journies[action.meta.arg.id || action.meta.arg] =
+        action?.payload?.data?.data;
+      console.log(action.payload.data);
     });
     builder.addCase(thunks.doGetJourney.rejected, (state, action) => {
       console.log(action);
@@ -349,5 +355,6 @@ export const selectCurrentJourneysAvilabilitey_Vendor = (state: RootState) =>
   state.journeys.journey_availabilitey_vendor;
 export const selectCurrentAgencyNotification = (state: RootState) =>
   state.journeys.agencyNotification;
+export const selectJournies = (state: RootState) => state.journeys.journies;
 
 export default Journeys;

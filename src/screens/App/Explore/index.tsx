@@ -42,10 +42,6 @@ const Explore = () => {
   const [search, setSearch] = useState('');
   const journeysOffers = useSelector(selectHotJourneys);
   const isGetJourneysOffers = useLoadingSelector(Journeys.thunks.doGetJourneys);
-  const journeysDiscount = useSelector(selectCurrentDiscountJourneys);
-  const isGetJourneysDiscount = useLoadingSelector(
-    Journeys.thunks.doGetDiscountJourneys,
-  );
   const [page, setpage] = useState(1);
   useFocusEffect(
     useCallback(() => {
@@ -70,25 +66,6 @@ const Explore = () => {
               },
         ),
       );
-      dispatch(
-        Journeys.thunks.doGetDiscountJourneys(
-          filterData
-            ? {
-                category: filterData.category,
-                start_date: filterData.start_date,
-                location: filterData.location,
-                price_start: filterData.price_start,
-                price_end: filterData.price_end,
-                discount: true,
-                search_key_word_name: search,
-              }
-            : {
-                category: category,
-                discount: true,
-                search_key_word_name: search,
-              },
-        ),
-      );
     }, [category, filterData, search, page]),
   );
 
@@ -102,6 +79,7 @@ const Explore = () => {
         isDarkMode={isDarkMode}
         setSearch={setSearch}
         search={search}
+        setpage={setpage}
       />
       <CategSec
         lang={lang}
@@ -208,6 +186,7 @@ const Explore = () => {
         setfilterData={setfilterData}
         setcategory={setcategory}
         category={category}
+        setpage={setpage}
       />
     </SafeAreaView>
   );

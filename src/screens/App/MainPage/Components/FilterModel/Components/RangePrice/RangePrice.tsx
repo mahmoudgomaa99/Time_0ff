@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Slider } from '@miblanchard/react-native-slider';
 import COLORS from 'values/colors';
@@ -7,6 +7,9 @@ import { FormikProps } from 'formik';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { TInitialValues } from '../../data';
+import { useSelector } from 'react-redux';
+import { selectCurrency } from 'redux/DarkMode';
+import axios from 'axios';
 
 const RangePrice = ({
   formikProps,
@@ -17,6 +20,28 @@ const RangePrice = ({
   lang: string;
   isDarkMode?: boolean;
 }) => {
+  const currency = useSelector(selectCurrency);
+  const [EGPRate, setEGPRate] = useState(1);
+  useEffect(() => {
+    if (currency !== 'EGP') {
+      axios
+        .get(
+          `https://currency-conversion-and-exchange-rates.p.rapidapi.com/latest?base=${currency}`,
+          {
+            headers: {
+              'x-rapidapi-key':
+                '7a8a5507famshedd4f1a1d5d9b28p1b3cdbjsn99b3a75a67a9',
+            },
+          },
+        )
+        .then(res => {
+          setEGPRate(res.data.rates.EGP);
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
+  }, []);
   return (
     <View>
       <TextView
@@ -58,11 +83,25 @@ const RangePrice = ({
           { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
         ]}>
         <TextView
-          title={`${formikProps.values.price_start} ${languages[lang].le}`}
+          title={
+            currency !== 'EGP'
+              ? `${parseInt(
+                  //@ts-ignore
+                  Number(formikProps?.values?.price_start) / Number(EGPRate),
+                )} ${currency}`
+              : formikProps?.values?.price_start?.toString() + ' ' + currency
+          }
           style={styles(isDarkMode).priceText}
         />
         <TextView
-          title={`${formikProps.values.price_end} ${languages[lang].le}`}
+          title={
+            currency !== 'EGP'
+              ? `${parseInt(
+                  //@ts-ignore
+                  Number(formikProps?.values?.price_end) / Number(EGPRate),
+                )} ${currency}`
+              : formikProps?.values?.price_end?.toString() + ' ' + currency
+          }
           style={styles(isDarkMode).priceText}
         />
       </View>

@@ -77,7 +77,7 @@ const DetailsTrip = ({
             stars={journey?.rating ? journey?.rating : 0}
             lang={lang}
             isDarkMode={isDarkMode}
-            urlImage={journey?.images[0]}
+            urlImage={journey?.images?.[0]}
           />
           <Bottom
             lang={lang}

@@ -45,11 +45,11 @@ const doGetDiscountJourneys = createAsyncThunk<any, any, any>(
     }
   },
 );
-const doGetJourney = createAsyncThunk<any, any, any>(
+const doGetJourney = createAsyncThunk<any, { id: any }, any>(
   'journeys/GetJourney',
-  async (data, { rejectWithValue }) => {
+  async ({ id }, { rejectWithValue }) => {
     try {
-      const response = await JourneysApi.GetJourney(data);
+      const response = await JourneysApi.GetJourney(id);
       return { data: response };
     } catch (error) {
       return rejectWithValue(error);

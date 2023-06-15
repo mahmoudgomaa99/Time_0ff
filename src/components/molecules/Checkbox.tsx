@@ -9,24 +9,33 @@ const Checkbox = ({
   value,
   setSort,
   sort,
+  checked,
+  setChecked,
 }: {
   value?: any;
   sort?: any;
   setSort?: any;
+  checked?: any;
+  setChecked?: any;
 }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
+
   return (
     <View style={styles(isDarkMode).container}>
       <TouchableOpacity
-        style={sort === value.value ? styles().checked : styles().unchecked}
+        style={
+          checked === value.checked ? styles().checked : styles().unchecked
+        }
         onPress={() => {
-          if (sort === value.value) {
-            setSort(0);
+          if (checked === value.checked) {
+            setSort({ sort_type: '', sort_by: '' });
+            setChecked(0);
           } else {
             setSort(value.value);
+            setChecked(value.checked);
           }
         }}>
-        {sort === value.value && <Svg name="true" size={30} />}
+        {checked === value.checked && <Svg name="true" size={30} />}
       </TouchableOpacity>
       <Text style={styles(isDarkMode).txt}>{value.title}</Text>
     </View>

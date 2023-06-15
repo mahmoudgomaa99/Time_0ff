@@ -1,4 +1,4 @@
-export type Tjourneys = {
+export type Tjourney = {
   id: number | null | undefined;
   _id: number;
   agency_id: number;
@@ -21,7 +21,8 @@ export type Tjourneys = {
   agency_name: string;
   image: string;
   is_favorite: boolean;
-}[];
+  images:any[];
+};
 
 export type Tagency = {
   agencyDataRes: {

@@ -2,8 +2,8 @@ export const initialVslues: TInitialValues = {
   category: '',
   start_date: '',
   location: '',
-  price_start: 10000,
-  price_end: 50000,
+  price_start: 0,
+  price_end: 100000,
   rating: '',
   search_key_word_name: '',
 };

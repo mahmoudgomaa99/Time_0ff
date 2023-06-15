@@ -7,8 +7,9 @@ import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import languages from 'values/languages';
 import { useSelector } from 'react-redux';
-import { selectIsDarkMode } from 'redux/DarkMode';
+import { DarkMode, selectCurrency, selectIsDarkMode } from 'redux/DarkMode';
 import COLORS from 'values/colors';
+import { useAppDispatch } from 'redux/store';
 const CurrencyModel = ({
   lang,
   isCurrencyModel,
@@ -19,11 +20,13 @@ const CurrencyModel = ({
   setisCurrencyModel: any;
 }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
+  const dispatch = useAppDispatch();
+  const currency = useSelector(selectCurrency);
   return (
     <Modal isVisible={isCurrencyModel}>
       <View style={styles(lang, isDarkMode).modalContainer}>
         <Formik
-          initialValues={{ currency: 'EGP' }}
+          initialValues={{ currency: currency }}
           onSubmit={value => console.log(value)}>
           {props => (
             <View style={styles(lang).container}>
@@ -40,7 +43,6 @@ const CurrencyModel = ({
                 ]}
                 placeholder={'currency'}
                 name={'currency'}
-                disabled={false}
               />
               <View style={styles(lang).buttonsContainer}>
                 <Button
@@ -49,6 +51,7 @@ const CurrencyModel = ({
                   onPress={() => {
                     props.handleSubmit();
                     setisCurrencyModel(false);
+                    dispatch(DarkMode.changeCurrency(props.values.currency));
                   }}
                   style={styles(lang).buttons}
                 />

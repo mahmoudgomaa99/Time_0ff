@@ -12,6 +12,8 @@ const GetJourneys = (data: {
   price_end: number;
   discount: boolean;
   page: number;
+  sort_by: string;
+  sort_type: string;
 }) => {
   let params = '';
   if (data.category)
@@ -41,7 +43,11 @@ const GetJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}page=${data.page}`;
   if (data.rating)
     params += `${params.length === 0 ? '?' : '&'}rating=${data.rating}`;
-  // console.log(params, 'from api');
+  if (data.sort_by)
+    params += `${params.length === 0 ? '?' : '&'}sort_by=${data.sort_by}`;
+  if (data.sort_type)
+    params += `${params.length === 0 ? '?' : '&'}sort_type=${data.sort_type}`;
+  console.log(params, 'from api');
   return api.get('journeys' + params);
 };
 const GetHotJourneys = (data: {
