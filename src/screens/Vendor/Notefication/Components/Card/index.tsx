@@ -19,6 +19,7 @@ const Card = ({
   user,
   page,
   setPage,
+  number_of_seats,
 }: {
   lang: string;
   iconName: any;
@@ -29,6 +30,7 @@ const Card = ({
   user: any;
   page: number;
   setPage: any;
+  number_of_seats: number;
 }) => {
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(Journeys.thunks.doConfirmBooking);
@@ -50,7 +52,13 @@ const Card = ({
             //     : null;
             // }}
           />
-          <TextView title={date} style={styles(lang).date} />
+          <View style={styles(lang,isDarkMode).seats_date}>
+            <TextView
+              title={`${number_of_seats} Seats`}
+              style={styles(lang).seats}
+            />
+            <TextView title={date} style={styles(lang).date} />
+          </View>
         </View>
         <View style={styles(lang, isDarkMode).buttons}>
           {isLoading && bookId === id ? (

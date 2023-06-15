@@ -36,6 +36,7 @@ const Notefication = () => {
     }, [user?._id, page]),
   );
   // console.log(token, 'kkk');
+  console.log(notification);
 
   return (
     <View style={styles(lang, isDarkMode).container}>
@@ -59,7 +60,8 @@ const Notefication = () => {
                   lang={lang}
                   iconName={'newActivity'}
                   message={item.message}
-                  date={item.createdAt.slice(0, 10)}
+                  date={item.available_date}
+                  number_of_seats={item.number_of_seats}
                   isDarkMode={isDarkMode}
                   id={item.booking_id}
                   user={user}

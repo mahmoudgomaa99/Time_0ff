@@ -60,7 +60,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
             ? { ...filterData, page: page }
             : { category: category, search_key_word_name: search, page: page },
         ),
-      );
+      ); 
     }, [category, filterData, search, page]),
   );
 

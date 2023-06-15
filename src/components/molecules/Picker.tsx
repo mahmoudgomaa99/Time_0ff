@@ -193,7 +193,7 @@ const Picker = ({
           <Text
             style={[
               styles(isDarkMode).errorText,
-              { textAlign: lang === 'ar' ? 'right' : 'left' },
+              { textAlign: lang === 'ar' ? 'right' : 'left'},
             ]}>
             {props.errors[props.name]}
           </Text>
@@ -338,6 +338,7 @@ const styles: TTstyles = (isDarkMode?: boolean) =>
       fontSize: 11,
       fontWeight: '700',
       marginTop: 5,
+      marginBottom:5,
       marginHorizontal: 10,
     },
   });

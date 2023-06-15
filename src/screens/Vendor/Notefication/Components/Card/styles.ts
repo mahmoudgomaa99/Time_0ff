@@ -30,12 +30,26 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       textAlign: lang === 'ar' ? 'right' : undefined,
       fontFamily: Fonts.Cairo_SemiBold,
     },
+    seats_date: {
+      flexDirection: lang === 'en' ? 'row' : 'row-reverse',
+      alignItems: 'center',
+      marginTop: 3,
+    },
+    seats: {
+      fontSize: 16,
+      color: '#CBCBCB',
+      // marginTop: 3,
+      // marginLeft: lang === 'en' ? 0 : 'auto',
+      fontFamily: Fonts.Cairo_Regular,
+      marginHorizontal: 5,
+    },
     date: {
       fontSize: 14,
       color: '#CBCBCB',
-      marginTop: 3,
-      marginLeft: lang === 'en' ? 0 : 'auto',
+      marginTop: 2.5,
+      // marginRight: lang === 'en' ? 0 : 'auto',
       fontFamily: Fonts.Cairo_Regular,
+      marginHorizontal: 5,
     },
     buttons: {
       flexDirection: lang === 'en' ? 'row' : 'row-reverse',

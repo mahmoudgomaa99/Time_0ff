@@ -59,3 +59,14 @@ export const registerScheme = (lang: string) => {
     city: Yup.string().required(languages[lang].required),
   });
 };
+
+export const bookSchema = (lang: string) => {
+  return Yup.object().shape({
+    date: Yup.string().required(languages[lang].required),
+    time: Yup.string().required(languages[lang].required),
+    members: Yup.string().required(languages[lang].required),
+    terms: Yup.boolean()
+      .required(languages[lang].termsError)
+      .oneOf([true], languages[lang].termsError),
+  });
+};
