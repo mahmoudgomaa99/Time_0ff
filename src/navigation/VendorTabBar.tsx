@@ -13,6 +13,8 @@ import Profile from 'screens/Vendor/Profile';
 import Notefication from 'screens/Vendor/Notefication';
 import Fonts from 'values/fonts';
 import Settings from 'screens/App/Settings';
+import { selectUserNotefications } from 'redux/user';
+import { selectCurrentAgencyNotification } from 'redux/journey';
 
 const Tab = createBottomTabNavigator();
 
@@ -83,6 +85,7 @@ const VendorTabBar = () => {
               />
             );
           },
+          tabBarBadge: useSelector(selectCurrentAgencyNotification).length,
         }}
       />
       <Tab.Screen
