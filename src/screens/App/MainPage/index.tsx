@@ -53,8 +53,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const lang = useSelector(selectLanguage);
   const [page, setpage] = useState(1);
   const [currentTab, setCurrentTab] = useState(languages[lang].main);
-  const [showMenu, setShowMenu] = useState(true);
+
   const [checked, setChecked] = React.useState(0);
+  const [showMenu, setShowMenu] = useState(true);
   const offsetValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
@@ -113,7 +114,11 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const renderComponent = useMemo(
     () => (
       <>
-        <DrawerNav setCurrentTab={setCurrentTab} currrentTab={currentTab} />
+        <DrawerNav
+          setShowMenu={setShowMenu}
+          setCurrentTab={setCurrentTab}
+          currrentTab={currentTab}
+        />
         <Animated.View
           style={[
             styles(isDarkMode).container,
@@ -122,6 +127,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
               borderRadius: !showMenu ? 35 : 0,
             },
           ]}>
+          {/* <View> */}
           <View
             style={{
               flexDirection: lang === 'en' ? 'row' : 'row-reverse',

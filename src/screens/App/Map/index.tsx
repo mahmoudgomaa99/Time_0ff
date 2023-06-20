@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native';
-import React, { Fragment, useRef, useState } from 'react';
+import { View, Text, Platform } from 'react-native';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { styles } from './styles';
 import MapView from 'react-native-maps';
 import { useSelector } from 'react-redux';
-import { selectLocation } from 'redux/Location/index';
+import Location, { selectLocation } from 'redux/Location/index';
 import Button from 'components/molecules/Button';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,26 +19,31 @@ import LocationModel from './Components/LocationModel';
 import { selectCurrentAgencyJourneys } from 'redux/journey';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { selectUserType } from 'redux/UserType';
+import {
+  PERMISSIONS,
+  Permission,
+  RESULTS,
+  check,
+} from 'react-native-permissions';
+import { checkLocationPermission } from './utils/requestLocationPermission';
+import { set } from 'lodash';
+import Geolocation from '@react-native-community/geolocation';
+import { useAppDispatch } from 'redux/store';
 
 const Map = () => {
   const userType = useSelector(selectUserType);
-  const [isLocationModel, setisLocationModel] = useState(true);
+  const [isLocationModel, setisLocationModel] = useState(false);
+  const dispatch = useAppDispatch();
   const isDarkMode = useSelector(selectIsDarkMode);
   const navigation = useNavigation<any>();
   const location = useSelector(selectLocation);
   const lang = useSelector(selectLanguage);
   const mapRef = useRef<any>();
   const [search, setSearch] = useState('');
-  const CustomInput = () => {
-    return (
-      <Input
-        value={search}
-        containerStyle={{}}
-        labelStyle={{}}
-        leftIcon={<Svg name="search" />}
-      />
-    );
-  };
+
+  useEffect(() => {
+    checkLocationPermission(setisLocationModel);
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

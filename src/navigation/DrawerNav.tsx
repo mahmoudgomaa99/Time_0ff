@@ -1,6 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import Svg, { TName } from 'atoms/Svg';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
 import languages from 'values/languages';
@@ -9,6 +15,8 @@ import User, { selectCurrentUser } from 'redux/user';
 import COLORS from 'values/colors';
 import { UserType } from 'redux/UserType';
 import Fonts from 'values/fonts';
+import { w } from 'values/Dimensions';
+import { useRef, useState } from 'react';
 const Data = (
   lang: string,
   user: any,
@@ -83,14 +91,17 @@ const Data = (
 const DrawerNav = ({
   setCurrentTab,
   currrentTab,
+  setShowMenu,
 }: {
   setCurrentTab?: any;
   currrentTab?: string;
+  setShowMenu?: any;
 }) => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
   const user = useSelector(selectCurrentUser);
+
   return (
     <View style={{ justifyContent: 'flex-start', padding: 15 }}>
       <Svg name="default" size={100} style={{ marginTop: 30 }} />
@@ -100,7 +111,7 @@ const DrawerNav = ({
             style={styles(currrentTab === item.name, lang).item}
             key={index}
             onPress={() => {
-              //   setCurrentTab(item.name);
+              setShowMenu((prev: any) => !prev);
               if (item.sub) {
                 navigation.navigate(item.main, { screen: item.sub });
               } else if (item.value) {

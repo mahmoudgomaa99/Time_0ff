@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   img: {
-    height: h * 0.26,
-    width: w * 0.9,
+    height: h * 0.25,
+    width: w * 0.93,
     borderRadius: 20,
   },
 });
