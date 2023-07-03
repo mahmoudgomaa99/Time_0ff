@@ -66,6 +66,7 @@ const DateModal = ({
               },
             }}
             disabledByDefault={true}
+            disableAllTouchEventsForDisabledDays={true}
             style={{
               backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
               borderRadius: 10,
@@ -80,6 +81,7 @@ const DateModal = ({
             theme={{
               calendarBackground: isDarkMode ? COLORS.darkMode : COLORS.white,
               dayTextColor: isDarkMode ? COLORS.white : '#000',
+              // todayTextColor:'red',
               textDisabledColor: '#d6d5d52d',
               'stylesheet.calendar.header': {
                 headerContainer: {

@@ -13,6 +13,7 @@ import { h } from '../values/Dimensions';
 import COLORS from 'values/colors';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import Fonts from 'values/fonts';
+import { selectUserNotefications } from 'redux/user';
 
 const Tab = createBottomTabNavigator();
 
@@ -107,6 +108,7 @@ const TabBar = () => {
               />
             );
           },
+          tabBarBadge: useSelector(selectUserNotefications).length,
         }}
       />
       <Tab.Screen
