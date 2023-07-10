@@ -44,7 +44,7 @@ const SeeMore = () => {
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetJourneys({ page: page, category: data }));
-    }, [page]),
+    }, [page, data]),
   );
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>

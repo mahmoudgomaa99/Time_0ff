@@ -13,13 +13,16 @@ import { h } from '../values/Dimensions';
 import COLORS from 'values/colors';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import Fonts from 'values/fonts';
-import { selectUserNotefications } from 'redux/user';
+import { selectUserNotefications, selectUserNotefnum } from 'redux/user';
 
 const Tab = createBottomTabNavigator();
 
 const TabBar = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const notef = useSelector(selectUserNotefications);
+  const notefNum = useSelector(selectUserNotefnum);
+  console.log('notefNum', notefNum);
   return (
     <Tab.Navigator
       initialRouteName="home"
@@ -108,7 +111,7 @@ const TabBar = () => {
               />
             );
           },
-          tabBarBadge: useSelector(selectUserNotefications).length,
+          tabBarBadge: notef?.length !== 0 ? notef?.length : undefined,
         }}
       />
       <Tab.Screen

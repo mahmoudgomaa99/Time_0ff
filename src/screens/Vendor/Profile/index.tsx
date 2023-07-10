@@ -63,7 +63,6 @@ const Profile = () => {
     }));
     return allCieties;
   };
-  console.log(currentUser, 'currentUser');
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       {isLoading ? (

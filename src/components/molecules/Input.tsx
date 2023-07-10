@@ -50,6 +50,7 @@ const InputView = ({
   titleStyling,
   labelStyle,
   stylee,
+  errorStyle,
   ...props
 }: InputProps & TInput) => {
   const lang = useSelector(selectLanguage);
@@ -64,12 +65,22 @@ const InputView = ({
         disabled={props.disabled ? true : loading ? true : false}
         placeholderTextColor="#C4C3C3"
         value={values[name]}
-        errorStyle={{
-          color: COLORS.errorRed,
-          // fontFamily: Fonts.RobotoBold,
-          textAlign: lang === 'ar' ? 'right' : 'left',
-          marginTop: Platform.OS === 'android' ? (lang === 'ar' ? -7 : 10) : 5,
-        }}
+        errorStyle={[
+          errorStyle,
+          {
+            color: COLORS.errorRed,
+            // fontFamily: Fonts.RobotoBold,
+            textAlign: lang === 'ar' ? 'right' : 'left',
+            marginTop:
+              Platform.OS === 'android'
+                ? lang === 'ar'
+                  ? -7
+                  : name === 'date' || name === 'members'
+                  ? 10
+                  : -10
+                : 5,
+          },
+        ]}
         containerStyle={[
           containerStyle,
           {
@@ -83,7 +94,6 @@ const InputView = ({
           opacity: 0.7,
           textAlign: lang === 'ar' ? 'right' : 'left',
           alignItems: 'center',
-
         }}
         inputContainerStyle={
           inputContainerStyling

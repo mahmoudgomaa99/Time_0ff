@@ -67,7 +67,7 @@ const Picker = ({
       <View
         style={[
           styles(isDarkMode)[`${type}_iosButtonWrapper`],
-          { borderWidth: isDarkMode ? 0 : 1 },
+          { borderWidth: isDarkMode ? 0 : 0 },
         ]}>
         {type !== 'matches' &&
           // <MixedText title={title || ''} required={props.required || false} />
@@ -133,6 +133,7 @@ const Picker = ({
           <View
             style={{
               ...styles(isDarkMode)[`${type}_androidWrapper`],
+              borderWidth: 1,
               borderColor:
                 props.errors[props.name] && props.touched[props.name]
                   ? COLORS.red
@@ -193,7 +194,7 @@ const Picker = ({
           <Text
             style={[
               styles(isDarkMode).errorText,
-              { textAlign: lang === 'ar' ? 'right' : 'left'},
+              { textAlign: lang === 'ar' ? 'right' : 'left' },
             ]}>
             {props.errors[props.name]}
           </Text>
@@ -335,10 +336,10 @@ const styles: TTstyles = (isDarkMode?: boolean) =>
     },
     errorText: {
       color: COLORS.red,
-      fontSize: 11,
-      fontWeight: '700',
-      marginTop: 5,
-      marginBottom:5,
+      fontSize: 12,
+      // fontWeight: '700',
+      marginTop: 3,
+      // marginBottom: 5,
       marginHorizontal: 10,
     },
   });

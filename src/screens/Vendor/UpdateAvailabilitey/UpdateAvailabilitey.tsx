@@ -24,16 +24,11 @@ import COLORS from 'values/colors';
 import TimeModal from './Components/TimeModal';
 import moment from 'moment';
 import { useAppDispatch } from 'redux/store';
-import Journeys, {
-  selectCurrentJourneysAvilabilitey_Vendor,
-} from 'redux/journey';
+import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { unwrapResult } from '@reduxjs/toolkit';
-import {
-  GetAvailabilitey,
-  GetAvailabiliteyForString,
-} from './utils/GetAvilabilitey';
+import { GetAvailabilitey } from './utils/GetAvilabilitey';
 
 const UpdateAvailabilitey = () => {
   const routes: any = useRoute();
@@ -242,43 +237,9 @@ const UpdateAvailabilitey = () => {
                             ]?.capacity.toString()}
                           />
                         </View>
-                        {/* <TextView
-                          onPress={() => {
-                            props.setFieldValue(
-                              `availability[${index}].details`,
-                              props.values.availability[index].details.filter(
-                                (item: any, index2: number) =>
-                                  item._id !==
-                                  props.values.availability[index].details[i]
-                                    ._id,
-                              ),
-                            );
-                          }}
-                          style={[
-                            styles(lang, isDarkMode).text,
-                            { fontSize: 14 },
-                          ]}
-                          title={languages[lang].remove}
-                        /> */}
                       </View>
                     ),
                   )}
-
-                  {/* <TextView
-                    style={[
-                      styles(lang, isDarkMode).text,
-                      { textAlign: 'center' },
-                    ]}
-                    title={languages[lang].remove}
-                    onPress={() => {
-                      props.setFieldValue(
-                        'availability',
-                        props.values.availability.filter(
-                          (item: any, index2: number) => index2 !== index,
-                        ),
-                      );
-                    }}
-                  /> */}
                   <View
                     style={{
                       height: 0.8,
@@ -289,7 +250,6 @@ const UpdateAvailabilitey = () => {
                   />
                 </View>
               ))}
-
               <Button
                 type="primary"
                 label={languages[lang].update}

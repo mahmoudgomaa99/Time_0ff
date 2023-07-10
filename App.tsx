@@ -3,21 +3,24 @@ import React, { useEffect, useRef } from 'react';
 import { Alert } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
-import { store } from 'redux/store';
+import { store, useAppDispatch } from 'redux/store';
 import { toastConfig } from 'src/config/Toast';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import messaging from '@react-native-firebase/messaging';
 import NotificationPopup from 'react-native-push-notification-popup';
 import { images } from 'src/assets/images';
+import User from 'redux/user';
 
 declare const global: { HermesInternal: null | {} };
 
 const App = () => {
   const notefRef: any = useRef<NotificationPopup>(null);
+  // const dispatch = useAppDispatch();
   useEffect(() => {
     messaging().setBackgroundMessageHandler(async remoteMessage => {});
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       // console.log(remoteMessage, 'remoteMessage');
+      // dispatch(User.addNotef({}));
       notefRef.current?.show({
         appIconSource: images.logo,
         appIconColor: '#004dcf',

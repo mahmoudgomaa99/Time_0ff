@@ -62,7 +62,6 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(thunks.doGetJourneys.fulfilled, (state, action) => {
-      console.log(action.payload.data, 'test test');
       if (action.meta.arg.page === 1) {
         state.journeys = action.payload.data.data;
       } else {
@@ -73,7 +72,6 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetHotJourneys.fulfilled, (state, action) => {
-      console.log(action.meta.arg);
       if (action.meta.arg.page === 1) {
         state.hotJourneys = action.payload.data.data;
       } else {
@@ -84,7 +82,6 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetDiscountJourneys.fulfilled, (state, action) => {
-      console.log(action);
       state.discountJourneys = action.payload.data.data;
     });
     builder.addCase(thunks.doGetDiscountJourneys.rejected, (state, action) => {
@@ -94,7 +91,6 @@ const slice = createSlice({
       state.journey = action.payload.data.data;
       state.journies[action.meta.arg.id || action.meta.arg] =
         action?.payload?.data?.data;
-      console.log(action.payload.data);
     });
     builder.addCase(thunks.doGetJourney.rejected, (state, action) => {
       console.log(action);
@@ -113,7 +109,6 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetAgencyReviews.fulfilled, (state, action) => {
-      console.log(action, 'llll');
       if (action.meta.arg.page === 1) {
         state.agencyReviews = action.payload.data.reviews;
       } else {
@@ -127,14 +122,12 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doGetAgency.fulfilled, (state, action) => {
-      console.log(action);
       state.agency = action.payload.data.data;
     });
     builder.addCase(thunks.doGetAgency.rejected, (state, action) => {
       console.log(action);
     });
     builder.addCase(thunks.doAddFavourite.fulfilled, (state, action) => {
-      console.log(action.payload.data.data);
       Toast.show({
         type: 'success',
         text2: action.payload.data.data.message,
@@ -145,21 +138,19 @@ const slice = createSlice({
     });
 
     builder.addCase(thunks.doGetFavJourneys.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.favJourneys = action.payload.data.data;
     });
     builder.addCase(thunks.doGetFavJourneys.rejected, (state, action) => {
       console.log(action);
     });
-    builder.addCase(thunks.doAddJourney.fulfilled, (state, action) => {
-      console.log(action.payload.data.data);
-    });
+    builder.addCase(thunks.doAddJourney.fulfilled, (state, action) => {});
     builder.addCase(thunks.doAddJourney.rejected, (state, action) => {
       console.log(action.payload);
     });
-    builder.addCase(thunks.doUpdatJourney_Image.fulfilled, (state, action) => {
-      // console.log(action.payload.data, 'kkkk');
-    });
+    builder.addCase(
+      thunks.doUpdatJourney_Image.fulfilled,
+      (state, action) => {},
+    );
     builder.addCase(
       thunks.doUpdatJourney_Image.rejected,
       (state, action: any) => {
@@ -169,7 +160,6 @@ const slice = createSlice({
     builder.addCase(
       thunks.doGetJourneysAvilabilitey.fulfilled,
       (state, action) => {
-        // console.log(action.payload.data.data);
         state.journey_availabilitey = action.payload.data.data;
       },
     );
@@ -182,7 +172,6 @@ const slice = createSlice({
     builder.addCase(
       thunks.doGetJourneysAvilabilitey_Vendor.fulfilled,
       (state, action) => {
-        console.log(action.payload.data);
         state.journey_availabilitey_vendor = action.payload.data.data;
       },
     );
@@ -195,7 +184,6 @@ const slice = createSlice({
     builder.addCase(
       thunks.doUpdateJourneyAvailabilitey.fulfilled,
       (state, action) => {
-        console.log(action.payload.data);
         Toast.show({
           type: 'success',
           text2: action.payload.data.data.message,
@@ -210,7 +198,6 @@ const slice = createSlice({
       },
     );
     builder.addCase(thunks.doRemoveJourneys.fulfilled, (state, action) => {
-      console.log(action.payload.data);
       Toast.show({
         type: 'success',
         text2: action.payload.data.data.message,
@@ -232,14 +219,12 @@ const slice = createSlice({
     });
 
     builder.addCase(thunks.doGetBooking.fulfilled, (state, action) => {
-      console.log(action.payload, 'kk');
       state.getBooking = action.payload.data;
     });
     builder.addCase(thunks.doGetBooking.rejected, (state, action) => {
       console.log(action.payload, 'll');
     });
     builder.addCase(thunks.doGetAllBookings.fulfilled, (state, action) => {
-      console.log(action.payload.data.data.bookings);
       if (action.meta.arg.page === 1) {
         state.allBookings = action.payload.data.data.bookings;
       } else {
@@ -252,9 +237,10 @@ const slice = createSlice({
     builder.addCase(thunks.doGetAllBookings.rejected, (state, action) => {
       console.log(action.payload);
     });
-    builder.addCase(thunks.doUpdateJourneyData.fulfilled, (state, action) => {
-      console.log(action.payload.data.data);
-    });
+    builder.addCase(
+      thunks.doUpdateJourneyData.fulfilled,
+      (state, action) => {},
+    );
     builder.addCase(thunks.doUpdateJourneyData.rejected, (state, action) => {
       console.log(action);
     });
@@ -262,8 +248,6 @@ const slice = createSlice({
     builder.addCase(
       thunks.doGetAgencyNotification.fulfilled,
       (state, action) => {
-        console.log(action, ' from index');
-
         if (action.meta.arg.page === 1) {
           state.agencyNotification = action.payload.data.data;
         } else {
@@ -282,7 +266,6 @@ const slice = createSlice({
     );
 
     builder.addCase(thunks.doConfirmBooking.fulfilled, (state, action) => {
-      console.log(action);
       Toast.show({
         type: 'success',
         text2: action.payload.data.message,
@@ -292,7 +275,6 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doCancelBooking.fulfilled, (state, action) => {
-      console.log(action);
       Toast.show({
         type: 'success',
         text2: action.payload.data.message,
@@ -302,7 +284,6 @@ const slice = createSlice({
       console.log(action);
     });
     builder.addCase(thunks.doRateAgency.fulfilled, (state, action) => {
-      console.log(action);
       Toast.show({
         type: 'success',
         text2: action.payload.data.message,

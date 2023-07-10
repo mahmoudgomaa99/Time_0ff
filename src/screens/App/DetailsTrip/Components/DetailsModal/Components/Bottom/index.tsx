@@ -25,6 +25,7 @@ import { useLoadingSelector } from 'redux/selectors';
 import Checkbox from 'components/molecules/Checkbox';
 import { set } from 'lodash';
 import { bookSchema } from 'src/formik/schema';
+import { h } from 'values/Dimensions';
 
 const Bottom = ({
   lang,
@@ -50,7 +51,7 @@ const Bottom = ({
   // state to hold the selected date
   const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
-  const [errorTerms, seterrorTerms] = useState(false)
+  const [errorTerms, seterrorTerms] = useState(false);
 
   return (
     <Formik
@@ -103,6 +104,10 @@ const Bottom = ({
               onPressIn={() => setDateModalVisable(true)}
               leftIcon={<Svg name="calendar" />}
               placeholder={languages[lang].chooseDate}
+              errorStyle={{
+                color: COLORS.red,
+                fontSize: 12,
+              }}
             />
           </View>
           {/* <View>
@@ -160,9 +165,10 @@ const Bottom = ({
                 style={[
                   props.values.terms ? styles().checked : styles().unchecked,
                   {
-                    borderColor: props.errors.terms && errorTerms
-                      ? COLORS.red
-                      : COLORS.primary,
+                    borderColor:
+                      props.errors.terms && errorTerms
+                        ? COLORS.red
+                        : COLORS.primary,
                   },
                 ]}
                 onPress={() => {
@@ -170,12 +176,18 @@ const Bottom = ({
                 }}>
                 {props.values.terms && <Svg name="true" size={30} />}
               </TouchableOpacity>
-              <Text style={styles(isDarkMode).txt}>
+              <Text
+                onPress={() => {
+                  setisDetailsModalVisibal(false);
+                }}
+                style={styles(isDarkMode).txt}>
                 {languages[lang].termCondition}
               </Text>
             </View>
             <TextView
-              title={errorTerms && props.errors.terms ? props.errors.terms : null}
+              title={
+                errorTerms && props.errors.terms ? props.errors.terms : null
+              }
               style={{ color: COLORS.red }}
             />
           </View>
@@ -184,7 +196,7 @@ const Bottom = ({
             type="primary"
             label={languages[lang].bookNow}
             onPress={() => {
-              seterrorTerms(true)
+              seterrorTerms(true);
               props.handleSubmit();
             }}
             style={styles().button}

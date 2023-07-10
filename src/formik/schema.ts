@@ -57,6 +57,7 @@ export const registerScheme = (lang: string) => {
       .required(languages[lang].required)
       .min(8, languages[lang].passwordShort),
     city: Yup.string().required(languages[lang].required),
+    country: Yup.string().required(languages[lang].required),
   });
 };
 

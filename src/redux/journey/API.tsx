@@ -47,7 +47,6 @@ const GetJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}sort_by=${data.sort_by}`;
   if (data.sort_type)
     params += `${params.length === 0 ? '?' : '&'}sort_type=${data.sort_type}`;
-  console.log(params, 'from api');
   return api.get('journeys' + params);
 };
 const GetHotJourneys = (data: {
@@ -185,7 +184,10 @@ const UpdateJourneyAvailabilitey = (data: {
     }[];
   }[];
 }) => api.post(`journeys/availability/${data.id}`, data.availability);
-const RemoveJourney = (id: number) => api.delete(`journeys/${id}`);
+const RemoveJourney = (id: number) => {
+  console.log(id, 'from api');
+  return api.delete(`journeys/${id}`);
+};
 
 const AddBooking = (data: { journey_slot_id: any; number_of_seats: any }) =>
   api.post(`journeys/book`, data);

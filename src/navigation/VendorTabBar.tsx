@@ -13,7 +13,6 @@ import Profile from 'screens/Vendor/Profile';
 import Notefication from 'screens/Vendor/Notefication';
 import Fonts from 'values/fonts';
 import Settings from 'screens/App/Settings';
-import { selectUserNotefications } from 'redux/user';
 import { selectCurrentAgencyNotification } from 'redux/journey';
 
 const Tab = createBottomTabNavigator();
@@ -21,6 +20,7 @@ const Tab = createBottomTabNavigator();
 const VendorTabBar = () => {
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
+  const notef = useSelector(selectCurrentAgencyNotification);
   return (
     <Tab.Navigator
       initialRouteName="home"
@@ -85,7 +85,10 @@ const VendorTabBar = () => {
               />
             );
           },
-          tabBarBadge: useSelector(selectCurrentAgencyNotification).length,
+          tabBarBadge:
+            notef?.filter((i: any) => i?.booking_id != null)?.length !== 0
+              ? notef?.filter((i: any) => i?.booking_id != null)?.length
+              : undefined,
         }}
       />
       <Tab.Screen

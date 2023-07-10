@@ -10,13 +10,16 @@ export const styles = (isDarkMode?: boolean) =>
       borderBottomWidth: 0,
       alignItems: 'center',
       paddingTop: Platform.OS === 'ios' ? 5 : 0,
+      justifyContent: 'center',
     },
     containerStyle: {
       backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : COLORS.white,
       borderWidth: isDarkMode ? 0 : 1,
       borderColor: COLORS.grey,
-      borderRadius: BorderRadius.m,
-      height: h * 0.07,
+      borderRadius: 10,
+      height: h * 0.075,
+      // alignItems: 'center',
+      // justifyContent: 'center',
     },
     button: {
       width: w * 0.8,
