@@ -11,6 +11,8 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useLoadingSelector } from 'redux/selectors';
 import COLORS from 'values/colors';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from 'redux/user';
 
 const Top = ({
   lang,
@@ -24,6 +26,7 @@ const Top = ({
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(Journeys.thunks.doRemoveJourneys);
+  const userData = useSelector(selectCurrentUser);
   return (
     <View style={styles(lang, isDarkMode).container}>
       <Svg
@@ -43,6 +46,14 @@ const Top = ({
             .then(() => {
               navigation.goBack();
             })
+            .then(() =>
+              dispatch(
+                Journeys.thunks.doGetAgencyJourneys({
+                  id: userData?._id,
+                  page: 1,
+                }),
+              ),
+            )
             .catch(err => {})
         }>
         {isLoading ? (

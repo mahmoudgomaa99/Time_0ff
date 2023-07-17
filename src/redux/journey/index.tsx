@@ -198,9 +198,10 @@ const slice = createSlice({
       },
     );
     builder.addCase(thunks.doRemoveJourneys.fulfilled, (state, action) => {
+      console.log(action,'asdsadas');
       Toast.show({
         type: 'success',
-        text2: action.payload.data.data.message,
+        text2: action.payload.data.message,
       });
     });
     builder.addCase(thunks.doRemoveJourneys.rejected, (state, action: any) => {
