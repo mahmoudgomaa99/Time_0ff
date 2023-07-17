@@ -34,11 +34,6 @@ const Home = () => {
       );
     }, [userData?._id, page]),
   );
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(User.thunks.doGetUser({}));
-  //   }, []),
-  // );
 
   return (
     <View style={styles(lang, isDarkMode).container}>

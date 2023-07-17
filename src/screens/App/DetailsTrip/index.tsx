@@ -122,9 +122,7 @@ const DetailsTrip = () => {
                       .then(unwrapResult)
                       .then(() => {
                         // setisFavourite(!isFavourite);
-                        dispatch(
-                          Journeys.thunks.doGetJourney(route.params?.id),
-                        );
+                        dispatch(Journeys.thunks.doGetJourney({ id }));
                       })
                       .catch(() => {});
                   }
@@ -146,18 +144,20 @@ const DetailsTrip = () => {
                 onSnapToItem={(index: number) => setActiveIndex(index)}
               />
             </View>
-            <Pagination
-              dotsLength={3}
-              activeDotIndex={activeIndex}
-              containerStyle={[
-                styles().paginationContainer,
-                { direction: lang === 'ar' ? 'rtl' : 'ltr' },
-              ]}
-              dotStyle={styles().paginationDot}
-              inactiveDotStyle={styles().paginationInactiveDot}
-              inactiveDotOpacity={0.4}
-              inactiveDotScale={0.6}
-            />
+            {journies[id]?.images?.length < 6 && (
+              <Pagination
+                dotsLength={journies[id]?.images?.length}
+                activeDotIndex={activeIndex}
+                containerStyle={[
+                  styles().paginationContainer,
+                  { direction: lang === 'ar' ? 'rtl' : 'ltr' },
+                ]}
+                dotStyle={styles().paginationDot}
+                inactiveDotStyle={styles().paginationInactiveDot}
+                inactiveDotOpacity={0.4}
+                inactiveDotScale={0.6}
+              />
+            )}
           </View>
           <View style={{ height: h * 0.42 }}>
             <ScrollView
@@ -245,12 +245,12 @@ const DetailsTrip = () => {
                   <Text
                     style={{
                       textAlign: lang === 'ar' ? 'right' : 'left',
-                      maxHeight: 70,
+                      // maxHeight: 70,
                     }}>
                     <TextView
                       style={[
                         styles(isDarkMode).descriptionText,
-                        { maxHeight: 20 },
+                        // { maxHeight: 20 },
                       ]}
                       title={languages[lang].lorem}
                     />

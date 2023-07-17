@@ -79,18 +79,18 @@ const Notification = () => {
                 data={notefications}
                 renderItem={({ item }) => (
                   <Card
-                    key={item.id}
+                    key={item?.id}
                     lang={lang}
-                    iconName={item.status}
-                    message={item.message}
-                    date={item.createdAt}
+                    iconName={item?.status}
+                    message={item?.message}
+                    date={item?.createdAt}
                     isPayment={isPayment}
                     setisPayment={setisPayment}
                     isDarkMode={isDarkMode}
                   />
                 )}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item?.id}
               />
               {isGetNotificationLoading && page !== 1 && (
                 // <View style={{ marginBottom: h * 0.1 }}>

@@ -69,47 +69,49 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       });
     }, 100);
   }
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        Journeys.thunks.doGetJourneys(
+          filterData
+            ? {
+                ...filterData,
+                page: page,
+                search_key_word_name: search,
+                sort_by: sort?.sort_by,
+                sort_type: sort?.sort_type,
+              }
+            : {
+                category: category,
+                search_key_word_name: search,
+                page: page,
+                sort_type: sort?.sort_type,
+                sort_by: sort?.sort_by,
+              },
+        ),
+      );
+    }, [category, filterData, search, page, sort]),
+  );
 
   useEffect(() => {
-    dispatch(
-      Journeys.thunks.doGetJourneys(
-        filterData
-          ? {
-              ...filterData,
-              page: page,
-              search_key_word_name: search,
-              sort_by: sort?.sort_by,
-              sort_type: sort?.sort_type,
-            }
-          : {
-              category: category,
-              search_key_word_name: search,
-              page: page,
-              sort_type: sort?.sort_type,
-              sort_by: sort?.sort_by,
-            },
-      ),
-    );
-  }, [category, filterData, search, page, sort]),
-    useEffect(() => {
-      Animated.timing(scaleValue, {
-        toValue: showMenu ? 1 : 0.88,
-        duration: 350,
-        useNativeDriver: true,
-      }).start();
+    Animated.timing(scaleValue, {
+      toValue: showMenu ? 1 : 0.88,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
 
-      Animated.timing(offsetValue, {
-        toValue: showMenu ? 0 : lang === 'en' ? w * 0.5 : 0,
-        duration: 350,
-        useNativeDriver: true,
-      }).start();
+    Animated.timing(offsetValue, {
+      toValue: showMenu ? 0 : lang === 'en' ? w * 0.5 : -w * 0.6,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
 
-      Animated.timing(closeButtonOffset, {
-        toValue: !showMenu ? -30 : 0,
-        duration: 350,
-        useNativeDriver: true,
-      }).start();
-    }, [showMenu, setShowMenu, scaleValue, closeButtonOffset, offsetValue]);
+    Animated.timing(closeButtonOffset, {
+      toValue: !showMenu ? -30 : 0,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
+  }, [showMenu, setShowMenu, scaleValue, closeButtonOffset, offsetValue]);
 
   const renderComponent = useMemo(
     () => (

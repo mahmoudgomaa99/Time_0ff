@@ -8,6 +8,7 @@ import Top from './Components/Top';
 import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
 import languages from 'values/languages';
+import moment from 'moment';
 
 const DateModal = ({
   isDateModalVisable,
@@ -64,6 +65,9 @@ const DateModal = ({
                 selected: true,
                 selectedColor: '#B5E633',
               },
+              [moment().format('YYYY-MM-DD')]: {
+                disabled: true,
+              },
             }}
             disabledByDefault={true}
             disableAllTouchEventsForDisabledDays={true}
@@ -82,7 +86,7 @@ const DateModal = ({
               calendarBackground: isDarkMode ? COLORS.darkMode : COLORS.white,
               dayTextColor: isDarkMode ? COLORS.white : '#000',
               // todayTextColor:'red',
-              textDisabledColor: '#d6d5d52d',
+              textDisabledColor: '#6d6c6c2c',
               'stylesheet.calendar.header': {
                 headerContainer: {
                   color: isDarkMode ? COLORS.white : COLORS.black,

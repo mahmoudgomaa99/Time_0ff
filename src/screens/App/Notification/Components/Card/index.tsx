@@ -42,12 +42,12 @@ const Card = ({
           title={message}
           style={styles(lang, isDarkMode).message}
           onPress={() => {
-            message.includes('accepted') || message.includes('قبول')
+            message?.includes('accepted') || message?.includes('قبول')
               ? setisPayment(true)
               : null;
           }}
         />
-        <TextView title={date.slice(0, 10)} style={styles(lang).date} />
+        <TextView title={date?.slice(0, 10)} style={styles(lang).date} />
       </View>
     </View>
   );

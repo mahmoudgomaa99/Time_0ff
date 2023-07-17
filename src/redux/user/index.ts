@@ -8,11 +8,13 @@ import * as actions from './actions';
 type TInitialValues = {
   currentUser?: any;
   notefications: any[];
+  notefnum: number;
 };
 
 const initialValues: TInitialValues = {
   currentUser: null,
   notefications: [],
+  notefnum: 0,
 };
 
 const slice = createSlice({
@@ -21,6 +23,12 @@ const slice = createSlice({
   reducers: {
     LOG_OUT: state => {
       state.currentUser = null;
+    },
+    AddNotef: (state, action) => {
+      state.notefnum++;
+    },
+    ResetNotef: (state, action) => {
+      state.notefnum = 0;
     },
   },
   extraReducers: builder => {
@@ -109,9 +117,12 @@ const User = {
   slice,
   logout: slice.actions.LOG_OUT,
   actions,
+  addNotef: slice.actions.AddNotef,
+  resetNotef: slice.actions.ResetNotef,
 };
 
 export const selectCurrentUser = (state: RootState) => state.users.currentUser;
 export const selectUserNotefications = (state: RootState) =>
   state.users.notefications;
+export const selectUserNotefnum = (state: RootState) => state.users.notefnum;
 export default User;

@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Cairo_SemiBold,
   },
   desc: {
-    maxHeight: h * 0.05,
+    // maxHeight: h * 0.06,
     fontSize: 14,
     fontWeight: '500',
     color: COLORS.white,

@@ -64,7 +64,7 @@ const JourneyDetails = () => {
   const avilabilties = useSelector(selectCurrentJourneysAvilabilitey_Vendor);
   const lang = useSelector(selectLanguage);
   const isDarkMode = useSelector(selectIsDarkMode);
-  const { source, pick } = useLibraryPermission(3);
+  const { source, pick } = useLibraryPermission(30);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [name, setName] = useState('');

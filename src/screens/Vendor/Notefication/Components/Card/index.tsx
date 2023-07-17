@@ -43,16 +43,8 @@ const Card = ({
           <Svg name={iconName} size={80} />
         </View>
         <View style={styles(lang).second}>
-          <TextView
-            title={message}
-            style={styles(lang, isDarkMode).message}
-            // onPress={() => {
-            //   message.includes('accepted') || message.includes('قبول')
-            //     ? setisPayment(true)
-            //     : null;
-            // }}
-          />
-          <View style={styles(lang,isDarkMode).seats_date}>
+          <TextView title={message} style={styles(lang, isDarkMode).message} />
+          <View style={styles(lang, isDarkMode).seats_date}>
             <TextView
               title={`${number_of_seats} Seats`}
               style={styles(lang).seats}
