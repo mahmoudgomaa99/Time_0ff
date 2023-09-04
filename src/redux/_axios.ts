@@ -19,7 +19,6 @@ export enum TokenKeys {
 const initAxios = (store: TStore) => {
   api.axiosInstance.interceptors.request.use(config => {
     const tokens = store.getState().tokens;
-
     const authorization = `Bearer ${tokens.token}`;
     const authHeaders = { authorization };
     if (tokens.token) {
