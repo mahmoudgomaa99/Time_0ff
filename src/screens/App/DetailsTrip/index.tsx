@@ -99,41 +99,41 @@ const DetailsTrip = () => {
         <SkeletonBody />
       ) : (
         <>
+          <View
+            style={[styles().SVG, , lang === 'ar' ? styles().arabic : null]}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+              style={[
+                {
+                  transform: [{ rotateY: lang === 'en' ? '180deg' : '0deg' }],
+                },
+              ]}>
+              <Svg name="arrow" isTripDetails={true} size={60} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                if (!user) {
+                  openCustomModal();
+                } else {
+                  dispatch(Journeys.thunks.doAddFavourite(journies[id]?._id))
+                    .then(unwrapResult)
+                    .then(() => {
+                      // setisFavourite(!isFavourite);
+                      dispatch(Journeys.thunks.doGetJourney({ id }));
+                    })
+                    .catch(() => {});
+                }
+              }}>
+              <Svg
+                name="heartRed"
+                size={60}
+                bgColor={journies[id]?.is_favorite ? '#FF4646' : '#dddddd'}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles().image}>
-            <View
-              style={[styles().SVG, , lang === 'ar' ? styles().arabic : null]}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.goBack();
-                }}
-                style={[
-                  {
-                    transform: [{ rotateY: lang === 'en' ? '180deg' : '0deg' }],
-                  },
-                ]}>
-                <Svg name="arrow" isTripDetails={true} size={60} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  if (!user) {
-                    openCustomModal();
-                  } else {
-                    dispatch(Journeys.thunks.doAddFavourite(journies[id]?._id))
-                      .then(unwrapResult)
-                      .then(() => {
-                        // setisFavourite(!isFavourite);
-                        dispatch(Journeys.thunks.doGetJourney({ id }));
-                      })
-                      .catch(() => {});
-                  }
-                }}>
-                <Svg
-                  name="heartRed"
-                  size={60}
-                  bgColor={journies[id]?.is_favorite ? '#FF4646' : '#dddddd'}
-                />
-              </TouchableOpacity>
-            </View>
             <View style={{ direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
               <Carousel
                 layout={'default'}
@@ -310,7 +310,6 @@ const DetailsTrip = () => {
               </View>
             </ScrollView>
           </View>
-
           <View
             style={[
               styles().bottom,

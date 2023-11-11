@@ -19,5 +19,6 @@ export const styles = StyleSheet.create({
     height: h * 0.25,
     width: w * 0.93,
     borderRadius: 20,
+    resizeMode: 'stretch',
   },
 });

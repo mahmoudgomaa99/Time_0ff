@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
@@ -24,6 +24,8 @@ import axios from 'axios';
 import { selectUserType } from 'redux/UserType';
 import Fonts from 'values/fonts';
 import { selectDeviceToken } from 'redux/tokens/reducer';
+import Cities from 'screens/Vendor/Profile/mocks/Cities';
+
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -48,15 +50,21 @@ const Register = () => {
     label: i.country,
     value: i.country,
   }));
+
   const getCities = (country: string) => {
-    const cieties: any = allData.filter(
-      (i: any) => i.country === country && country.length > 0,
-    );
-    const allCieties = cieties[0].cities.map((value: any) => ({
-      label: value,
-      value: value,
-    }));
-    return allCieties;
+    if (country === 'Egypt') {
+      const allCieties = Cities;
+      return allCieties;
+    } else {
+      const cieties: any = allData.filter(
+        (i: any) => i.country === country && country.length > 0,
+      );
+      const allCieties = cieties[0]?.cities.map((value: any) => ({
+        label: value,
+        value: value,
+      }));
+      return allCieties;
+    }
   };
   return (
     <SafeAreaView style={styles(isDarkMode).container}>

@@ -14,6 +14,7 @@ export const styles = (isDarkMode?: boolean) =>
       height: h * 0.45,
       width: w,
       marginBottom: MarginsAndPaddings.ml,
+      overflow: 'visible',
     },
     SVG: {
       flexDirection: 'row',
@@ -21,9 +22,9 @@ export const styles = (isDarkMode?: boolean) =>
       alignItems: 'center',
       paddingHorizontal: 0,
       position: 'absolute',
-      zIndex: 10,
+      zIndex: 100,
       width: '100%',
-      top: '10%',
+      top: '5%',
     },
     text: {
       marginHorizontal: 10,

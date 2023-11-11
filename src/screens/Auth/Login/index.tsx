@@ -1,5 +1,5 @@
-import { View, TouchableOpacity, Platform } from 'react-native';
-import React, { useState } from 'react';
+import { View, TouchableOpacity, Platform, Alert } from 'react-native';
+import React, { useCallback, useState } from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import styles from './styles';
@@ -20,6 +20,15 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { UserType, selectUserType } from 'redux/UserType';
 import { selectDeviceToken, selectToken } from 'redux/tokens/reducer';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import { LoginManager, AccessToken, Settings } from 'react-native-fbsdk-next';
+
+GoogleSignin.configure({
+  webClientId:
+    '223064211464-p59b9b4h5emgj1k1rkurq1umji96canv.apps.googleusercontent.com',
+});
+Settings.initializeSDK();
+// Settings.setAppID('205011505822150');
 
 const Login = () => {
   const device_token = useSelector(selectDeviceToken);
@@ -31,6 +40,44 @@ const Login = () => {
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
   const token = useSelector(selectToken);
   console.log('token', token);
+  // Google
+  const signInViaGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices({
+        // Check if device has Google Play Services installed
+        // Always resolves to true on iOS
+        showPlayServicesUpdateDialog: true,
+      });
+      const userinfo = await GoogleSignin.signIn();
+      console.log(userinfo, 'lllll');
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert('User Cancelled the Login Flow');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert('Signing In');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert('Play Services Not Available or Outdated');
+      } else {
+        Alert.alert(error.message);
+        console.log(error);
+      }
+    }
+  };
+
+  //Facebook
+  const initUser = useCallback((token: string) => {
+    fetch(
+      'https://graph.facebook.com/v2.5/me?fields=name,picture,email,friends&access_token=' +
+        token,
+    )
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
@@ -178,17 +225,38 @@ const Login = () => {
             />
             <TextView title={languages[lang].or} style={styles().or} />
             <View style={styles().containerMedia}>
-              <View style={styles(isDarkMode).media}>
+              <TouchableOpacity
+                onPress={() => {
+                  signInViaGoogle();
+                }}
+                style={styles(isDarkMode).media}>
                 <Svg name="google" size={30} />
-              </View>
+              </TouchableOpacity>
               {Platform.OS === 'ios' ? (
                 <View style={styles(isDarkMode).media}>
                   <Svg name="apple" size={30} />
                 </View>
               ) : null}
-              <View style={styles(isDarkMode).media}>
+              <TouchableOpacity
+                onPress={() => {
+                  LoginManager.logInWithPermissions([
+                    'public_profile',
+                    'email',
+                  ]).then(res => {
+                    console.log(res);
+                    if (res.isCancelled) {
+                      console.log('Login cancelled');
+                    } else {
+                      AccessToken.getCurrentAccessToken().then((data: any) => {
+                        console.log(data);
+                        initUser(data.accessToken);
+                      });
+                    }
+                  });
+                }}
+                style={styles(isDarkMode).media}>
                 <Svg name="faceBook" size={30} />
-              </View>
+              </TouchableOpacity>
             </View>
 
             <View

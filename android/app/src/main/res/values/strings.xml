@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Time off</string>
+    <string name="facebook_app_id">205011505822150</string>
+    <string name="facebook_client_token">425fb5ef51451abb286e9a4e6ff25fc53d357065ec41ce888444b7f0f7d5636f</string> 
+
+    
 </resources>

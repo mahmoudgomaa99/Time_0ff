@@ -26,6 +26,7 @@ import Journeys, { selectCurrentAgency } from 'redux/journey';
 import axios from 'axios';
 import Picker from 'components/molecules/Picker';
 import useLibraryPermission from 'hooks/useLibraryPermission';
+import Cities from './mocks/Cities';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -54,14 +55,19 @@ const Profile = () => {
     value: i?.country,
   }));
   const getCities = (country: string) => {
-    const cieties: any = allData.filter(
-      (i: any) => i.country === country && country.length > 0,
-    );
-    const allCieties = cieties[0]?.cities.map((value: any) => ({
-      label: value,
-      value: value,
-    }));
-    return allCieties;
+    if (country === 'Egypt') {
+      const allCieties = Cities;
+      return allCieties;
+    } else {
+      const cieties: any = allData.filter(
+        (i: any) => i.country === country && country.length > 0,
+      );
+      const allCieties = cieties[0]?.cities.map((value: any) => ({
+        label: value,
+        value: value,
+      }));
+      return allCieties;
+    }
   };
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -210,7 +216,7 @@ const Profile = () => {
                     type={'primary'}
                     data={
                       props.values.country
-                        ? getCities(props.values.country)
+                        ? getCities(props?.values?.country)
                         : []
                     }
                     placeholder={currentUser?.city || 'City'}

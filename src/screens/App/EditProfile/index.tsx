@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import ImageSection from './Components/ImageSection';
 import useLibraryPermission from 'hooks/useLibraryPermission';
+import Cities from 'screens/Vendor/Profile/mocks/Cities';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -45,14 +46,19 @@ const EditProfile = () => {
     value: i?.country,
   }));
   const getCities = (country: string) => {
-    const cieties: any = allData.filter(
-      (i: any) => i.country === country && country.length > 0,
-    );
-    const allCieties = cieties[0]?.cities.map((value: any) => ({
-      label: value,
-      value: value,
-    }));
-    return allCieties;
+    if (country === 'Egypt') {
+      const allCieties = Cities;
+      return allCieties;
+    } else {
+      const cieties: any = allData.filter(
+        (i: any) => i.country === country && country.length > 0,
+      );
+      const allCieties = cieties[0]?.cities.map((value: any) => ({
+        label: value,
+        value: value,
+      }));
+      return allCieties;
+    }
   };
 
   return (
