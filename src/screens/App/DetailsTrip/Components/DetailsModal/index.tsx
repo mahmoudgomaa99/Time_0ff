@@ -87,6 +87,7 @@ const DetailsTrip = ({
             availabilityJourneys={availabilityJourneys}
             isRequestReceive={isRequestReceive}
             setisRequestReceive={setisRequestReceive}
+            journey={journey}
           />
         </ScrollView>
       </View>

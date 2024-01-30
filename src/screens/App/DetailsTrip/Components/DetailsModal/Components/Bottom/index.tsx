@@ -26,6 +26,8 @@ import Checkbox from 'components/molecules/Checkbox';
 import { set } from 'lodash';
 import { bookSchema } from 'src/formik/schema';
 import { h } from 'values/Dimensions';
+import navigation from 'navigation/index';
+import { useNavigation } from '@react-navigation/native';
 
 const Bottom = ({
   lang,
@@ -35,6 +37,7 @@ const Bottom = ({
   availabilityJourneys,
   isRequestReceive,
   setisRequestReceive,
+  journey,
 }: {
   lang: string;
   setisDetailsModalVisibal: any;
@@ -43,8 +46,10 @@ const Bottom = ({
   availabilityJourneys?: any;
   isRequestReceive: boolean;
   setisRequestReceive: any;
+  journey?: any;
 }) => {
   const dispatch = useAppDispatch();
+  const navigation =useNavigation<any>()
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const currentUser = useSelector(selectCurrentUser);
   const token = useSelector(selectToken);
@@ -60,28 +65,33 @@ const Bottom = ({
         if (!currentUser) {
           openCustomModal();
         } else {
-          dispatch(
-            Journeys.thunks.doAddBooking({
-              journey_slot_id: values.time,
-              number_of_seats: Number(values.members),
-            }),
-          )
-            .then(unwrapResult)
-            .then(() => {
-              setisDetailsModalVisibal(false);
-              setisRequestReceive(true);
-              Toast.show({
-                type: 'success',
-                text2: languages[lang].bookingAdd,
-              });
-            })
-            .catch(err => {
-              console.log(err);
-              Toast.show({
-                type: 'error',
-                text2: err.message,
-              });
-            });
+          navigation.navigate('paymentScreen', {
+            journey_slot_id: values.time,
+            number_of_seats: Number(values.members),
+            journey: journey,
+          });
+          // dispatch(
+          //   Journeys.thunks.doAddBooking({
+          //     journey_slot_id: values.time,
+          //     number_of_seats: Number(values.members),
+          //   }),
+          // )
+          //   .then(unwrapResult)
+          //   .then(() => {
+          //     setisDetailsModalVisibal(false);
+          //     setisRequestReceive(true);
+          //     Toast.show({
+          //       type: 'success',
+          //       text2: languages[lang].bookingAdd,
+          //     });
+          //   })
+          //   .catch(err => {
+          //     console.log(err);
+          //     Toast.show({
+          //       type: 'error',
+          //       text2: err.message,
+          //     });
+          //   });
         }
       }}
       validationSchema={bookSchema(lang)}>
