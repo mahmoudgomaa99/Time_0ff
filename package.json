@@ -3,11 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "npm i react-native-picker-select --legacy-peer-deps && react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "build:android": "cd android && ./gradlew build && cd ..",
+    "clean:android": "cd android && ./gradlew clean && cd ..",
+    "build:apk": "cd android && ./gradlew clean && ./gradlew build && ./gradlew assembleRelease && cd .."
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.3.1",

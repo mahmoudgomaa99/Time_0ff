@@ -44,7 +44,7 @@ const Wishlist = () => {
           </>
         ) : (
           <>
-            {favourites?.length === 0 ? (
+            {favourites?.length === 0 || !Array.isArray(favourites) ? (
               <TextView
                 title={languages[lang].noData}
                 style={{
@@ -58,7 +58,7 @@ const Wishlist = () => {
               />
             ) : (
               <>
-                {favourites?.map(item => (
+                {(favourites || [])?.map(item => (
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('detailsTrip', { id: item._id });

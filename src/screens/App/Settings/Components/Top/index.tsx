@@ -9,16 +9,16 @@ import languages from 'values/languages';
 const Top = ({ lang, isDarkMode }: { lang: string; isDarkMode: boolean }) => {
   const navigation = useNavigation<any>();
   return (
-    <View style={styles(lang,isDarkMode).container}>
-      <Svg
+    <View style={styles(lang, isDarkMode).container}>
+      {/* <Svg
         name="arrow"
         size={60}
-        style={styles(lang,isDarkMode).arrow}
-        onPress={() => navigation.goBack()}
-      />
+        style={styles(lang, isDarkMode).arrow}
+        onPress={() => navigation.navigate('home', { screen: 'main' })}
+      /> */}
       <TextView
         title={languages[lang].settings}
-        style={styles(lang,isDarkMode).screenText}
+        style={styles(lang, isDarkMode).screenText}
       />
     </View>
   );
