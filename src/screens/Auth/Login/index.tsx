@@ -81,14 +81,6 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('chooseType');
-        }}
-        style={{ position: 'absolute', left: 20, top: 20 }}>
-        <Svg name="leftArrow" size={25} />
-      </TouchableOpacity>
-
       <TextView
         title={languages[lang].skip}
         style={[styles(isDarkMode).skip]}
@@ -97,7 +89,6 @@ const Login = () => {
           navigation.navigate('app', { screen: 'map' });
         }}
       />
-
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />
         <TextView

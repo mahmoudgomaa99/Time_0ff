@@ -12,4 +12,5 @@ export const images = {
   slider1: require('./Slider-1.png'),
   slider2: require('./Slider-2.png'),
   slider3: require('./Slider-3.png'),
+  onboardingbg: require('./onboardingbg.png'),
 };
