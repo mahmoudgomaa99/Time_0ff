@@ -1,4 +1,13 @@
-import { View, Animated, TouchableOpacity, Pressable } from 'react-native';
+import {
+  View,
+  Animated,
+  TouchableOpacity,
+  Pressable,
+  ScrollView,
+  ImageBackground,
+  StatusBar,
+  Image,
+} from 'react-native';
 import React, {
   useCallback,
   useEffect,
@@ -30,7 +39,8 @@ import Svg from 'atoms/Svg';
 import SortModel from './Components/SortModel';
 import { SortJourneys } from './Components/utils/SortJourneys';
 import { selectToken } from 'redux/tokens/reducer';
-import { w } from 'values/Dimensions';
+import { h, w } from 'values/Dimensions';
+import { images } from 'src/assets/images';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -129,86 +139,113 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
               borderRadius: !showMenu ? 35 : 0,
             },
           ]}>
-          {/* <View> */}
-          <View
-            style={{
-              flexDirection: lang === 'en' ? 'row' : 'row-reverse',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <TouchableOpacity
-              style={styles(isDarkMode, lang).menu_icon}
-              onPress={() => {
-                setShowMenu(prev => !prev);
+          <ScrollView>
+            <ImageBackground
+              resizeMode="cover"
+              style={{
+                width: '100%',
+                height: h * 0.24,
+                justifyContent: 'center',
               }}
-              onLongPress={() => {
-                setShowMenu(prev => !prev);
-              }}>
-              <Svg style={{}} name="menu" size={40} />
-            </TouchableOpacity>
-            <Header
+              source={images.headerMainPageBG}>
+              <View
+                style={{
+                  flexDirection: lang === 'en' ? 'row' : 'row-reverse',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: 10,
+                }}>
+                <TouchableOpacity
+                  style={styles(isDarkMode, lang).menu_icon}
+                  onPress={() => {
+                    setShowMenu(prev => !prev);
+                  }}
+                  onLongPress={() => {
+                    setShowMenu(prev => !prev);
+                  }}>
+                  <Svg
+                    style={{
+                      transform: [
+                        { rotate: lang === 'en' ? '180deg' : '0deg' },
+                      ],
+                    }}
+                    name="menu"
+                    size={25}
+                  />
+                </TouchableOpacity>
+                <Image
+                  source={images.Frame}
+                  style={{
+                    width: w * 0.3,
+                    height: h * 0.1,
+                    marginHorizontal: 5,
+                  }}
+                />
+                <Header
+                  isDarkMode={isDarkMode}
+                  lang={lang}
+                  isSortModel={isSortModel}
+                  setisSortModel={setisSortModel}
+                />
+              </View>
+            </ImageBackground>
+            <InputSec
+              setpage={setpage}
+              lang={lang}
+              isFilterModalVisable={isFilterModalVisable}
+              setFilterModalVisable={setFilterModalVisable}
+              isDarkMode={isDarkMode}
+              setSearch={setSearch}
+              search={search}
+            />
+            <AdSec isDarkMode={isDarkMode} lang={lang} />
+            <CategSec
               isDarkMode={isDarkMode}
               lang={lang}
+              setcategory={setcategory}
+              setfilterData={setfilterData}
+              setpage={setpage}
+            />
+            <BottomList
+              lang={lang}
+              isDarkMode={isDarkMode}
+              isGetJourneysLoading={isGetJourneysLoading}
+              journeys={journeys}
+              setisSortModel={setisSortModel}
+              page={page}
+              setpage={setpage}
+              category={category}
+            />
+            <FilterModel
+              isFilterModalVisable={isFilterModalVisable}
+              setFilterModalVisable={setFilterModalVisable}
+              isDarkMode={isDarkMode}
+              setfilterData={setfilterData}
+              category={category}
+              setcategory={setcategory}
+              search={search}
+              setpage={setpage}
+            />
+            <NotificationModel
+              lang={lang}
+              isNotificationModel={isNotificationModel}
+              setisNotificationModel={setisNotificationModel}
+            />
+            <FlightConfirmedModel
+              lang={lang}
+              isFlightConfirmed={isFlightConfirmed}
+              setisFlightConfirmed={setisFlightConfirmed}
+            />
+            <SortModel
+              isDarkMode={isDarkMode}
               isSortModel={isSortModel}
               setisSortModel={setisSortModel}
+              setSort={setSort}
+              sort={sort}
+              checked={checked}
+              setChecked={setChecked}
             />
-          </View>
-          <InputSec
-            setpage={setpage}
-            lang={lang}
-            isFilterModalVisable={isFilterModalVisable}
-            setFilterModalVisable={setFilterModalVisable}
-            isDarkMode={isDarkMode}
-            setSearch={setSearch}
-            search={search}
-          />
-          <AdSec isDarkMode={isDarkMode} lang={lang} />
-          <CategSec
-            isDarkMode={isDarkMode}
-            lang={lang}
-            setcategory={setcategory}
-            setfilterData={setfilterData}
-            setpage={setpage}
-          />
-          <BottomList
-            lang={lang}
-            isDarkMode={isDarkMode}
-            isGetJourneysLoading={isGetJourneysLoading}
-            journeys={journeys}
-            setisSortModel={setisSortModel}
-            page={page}
-            setpage={setpage}
-            category={category}
-          />
-          <FilterModel
-            isFilterModalVisable={isFilterModalVisable}
-            setFilterModalVisable={setFilterModalVisable}
-            isDarkMode={isDarkMode}
-            setfilterData={setfilterData}
-            category={category}
-            setcategory={setcategory}
-            search={search}
-            setpage={setpage}
-          />
-          <NotificationModel
-            lang={lang}
-            isNotificationModel={isNotificationModel}
-            setisNotificationModel={setisNotificationModel}
-          />
-          <FlightConfirmedModel
-            lang={lang}
-            isFlightConfirmed={isFlightConfirmed}
-            setisFlightConfirmed={setisFlightConfirmed}
-          />
-          <SortModel
-            isDarkMode={isDarkMode}
-            isSortModel={isSortModel}
-            setisSortModel={setisSortModel}
-            setSort={setSort}
-            sort={sort}
-            checked={checked}
-            setChecked={setChecked}
-          />
+          </ScrollView>
         </Animated.View>
       </>
     ),
@@ -243,6 +280,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         alignItems: lang === 'en' ? 'flex-start' : 'flex-end',
         justifyContent: lang === 'en' ? 'flex-start' : 'flex-start',
       }}>
+      <StatusBar translucent={true} backgroundColor="transparent" />
       {renderComponent}
     </View>
   );

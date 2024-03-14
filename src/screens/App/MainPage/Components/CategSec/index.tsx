@@ -28,7 +28,6 @@ const CategSec = ({
       <View
         style={{
           direction: lang === 'ar' ? 'rtl' : 'ltr',
-          paddingHorizontal: 15,
           transform:
             Platform.OS === 'android' && lang === 'ar'
               ? [{ rotateY: '180deg' }]
@@ -64,7 +63,9 @@ const CategSec = ({
                         : undefined,
                   },
                 ]}>
-                <Svg name={item.svgName} size={80} />
+                <View style={styles(lang).icon_container}>
+                  <Svg name={item.svgName} size={50} />
+                </View>
                 <TextView
                   title={[item.title]}
                   style={styles(lang, isDarkMode).tripText}

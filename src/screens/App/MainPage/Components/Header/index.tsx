@@ -1,18 +1,13 @@
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import React from 'react';
-import TextView from 'atoms/TextView';
-import languages from 'values/languages';
 import Svg from 'atoms/Svg';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from 'redux/user';
-import { h, w } from 'values/Dimensions';
 
 const Header = ({
   lang,
   isDarkMode,
-  isSortModel,
-  setisSortModel,
 }: {
   lang: string;
   isDarkMode?: boolean;
@@ -42,26 +37,16 @@ const Header = ({
                     }
               }
               style={{
-                width: w * 0.1,
-                height: h * 0.04,
+                width: 38,
+                height: 38,
                 marginHorizontal: 5,
-                borderRadius: 10,
+                borderRadius: 20,
               }}
             />
           ) : (
-            <Svg name="profile" size={50} />
+            <Svg name="profile" size={40} />
           )}
-
-          <TextView
-            title={languages[lang].welcomeBackHome}
-            style={styles(isDarkMode).welcomeText}
-          />
-          <Svg name="smile" size={42} />
         </View>
-        <TextView
-          title={user ? user.name : 'User'}
-          style={styles(isDarkMode).nameText}
-        />
       </View>
     </View>
   );

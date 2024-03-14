@@ -60,20 +60,24 @@ const AdSec = ({
       <View
         style={{
           marginTop: -h * 0.05,
-          marginLeft:
-            Platform.OS === 'ios' ? (lang === 'ar' ? h * 0.07 : 0) : 0,
+          marginLeft: -20,
         }}>
         <Pagination
-          inactiveDotColor="white"
-          dotColor={'#58ffee'}
+          inactiveDotColor="#D9D9D9"
+          dotColor={'#0370D6'}
           activeDotIndex={indexSelected}
           dotsLength={[images.slider1, images.slider2, images.slider3].length}
           animatedDuration={50}
           inactiveDotScale={1}
-          dotStyle={{ width: 25, height: 6 }}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            marginHorizontal: -2,
+          }}
           containerStyle={{
             height: h * 0.08,
-            marginTop: -10,
+            marginTop: h * 0.04,
             transform: [{ rotateY: lang === 'ar' ? '180deg' : '0deg' }],
           }}
         />
