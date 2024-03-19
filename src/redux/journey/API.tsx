@@ -47,6 +47,7 @@ const GetJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}sort_by=${data.sort_by}`;
   if (data.sort_type)
     params += `${params.length === 0 ? '?' : '&'}sort_type=${data.sort_type}`;
+  console.log(params, 'from api');
   return api.get('journeys' + params);
 };
 const GetHotJourneys = (data: {

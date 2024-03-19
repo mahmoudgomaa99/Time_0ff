@@ -42,29 +42,20 @@ const BottomList = ({
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
       <View style={{ marginHorizontal: 15 }}>
         <View style={[styles(lang).experiences]}>
-          <View style={{ flexDirection: 'row' }}>
-            <TextView
-              title={languages[lang].activity}
-              style={styles(lang, isDarkMode).experiencesText}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                setisSortModel(true);
-              }}>
-              <Svg
-                name="sort"
-                bgColor={isDarkMode ? COLORS.white : COLORS.black}
-                size={40}
-              />
-            </TouchableOpacity>
-          </View>
           <TextView
-            title={languages[lang].seeMore}
-            style={styles(lang, isDarkMode).seeMore}
-            onPress={() => {
-              navigation.navigate('seeMore', { data: category });
-            }}
+            title={languages[lang].activity}
+            style={styles(lang, isDarkMode).experiencesText}
           />
+          <TouchableOpacity
+            onPress={() => {
+              setisSortModel(true);
+            }}>
+            <Svg
+              name="sort"
+              bgColor={isDarkMode ? COLORS.white : COLORS.black}
+              size={40}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={{ paddingTop: 0 }}>
@@ -77,18 +68,31 @@ const BottomList = ({
         ) : (
           <>
             {journeys?.length !== 0 ? (
-              <>
-                <FlatList
-                  onEndReached={() => {
-                    setpage((prev: number) => prev + 1);
-                  }}
-                  data={journeys}
-                  renderItem={({ item }) => (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 10,
+                }}>
+                {journeys?.map((item: any, index: number) => (
+                  <View
+                    key={item?._id}
+                    style={{
+                      width: '48%',
+                      borderRadius: 15,
+                      overflow: 'hidden',
+                    }}>
                     <TouchableOpacity
                       onPress={() => {
-                        navigation.navigate('detailsTrip', { id: item._id });
+                        setpage(1);
+                        navigation.navigate('detailsTrip', { id: item?._id });
                       }}
-                      style={{ marginTop: 2 }}>
+                      style={{
+                        marginTop: 2,
+                        borderRadius: 15,
+                        overflow: 'hidden',
+                      }}>
                       <Card
                         title={
                           lang === 'ar'
@@ -111,16 +115,14 @@ const BottomList = ({
                         urlImage={item.images[0]}
                       />
                     </TouchableOpacity>
-                  )}
-                  showsVerticalScrollIndicator={false}
-                  keyExtractor={item => item.id}
-                />
+                  </View>
+                ))}
                 {isGetJourneysLoading && page !== 1 && (
                   <View style={{ marginBottom: h * 0.1 }}>
                     <ActivityIndicator size="large" color={COLORS.primary} />
                   </View>
                 )}
-              </>
+              </View>
             ) : (
               <TextView
                 title={languages[lang].noData}

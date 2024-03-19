@@ -14,7 +14,6 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontFamily: Fonts.Cairo_SemiBold,
     },
     trips: {
-      marginLeft: -12,
       marginRight: 20,
       justifyContent: 'center',
       alignItems: 'center',

@@ -1,5 +1,5 @@
-import { View, Text, ScrollViewComponent } from 'react-native';
-import React, { useRef, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
@@ -13,12 +13,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Top from './Components/Top';
 import DateModal from './Components/DateModal';
 import languages from 'values/languages';
-import { TInitialValues, initialVslues } from './data';
+import { initialVslues } from './data';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
-import COLORS from 'values/colors';
 import { useAppDispatch } from 'redux/store';
-import Journeys from 'redux/journey';
+import RatingModal from './Components/RatingModal';
+import RenderRating from './Components/RenderRating';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -41,7 +41,10 @@ const FilterModel = ({
 }) => {
   const dispatch = useAppDispatch();
   const [isDateModalVisable, setDateModalVisable] = useState(false);
+  const [isRatingModalVisable, setRatingModalVisable] = useState(false);
+
   const lang = useSelector(selectLanguage);
+
   return (
     <Formik
       initialValues={initialVslues}
@@ -146,25 +149,21 @@ const FilterModel = ({
                   title={languages[lang].rating}
                   style={styles(isDarkMode).text}
                 />
-                <Picker
-                  {...props}
-                  borderColor={'#EEEEEE'}
-                  type={'primary'}
-                  data={[
-                    { label: '(1 Star)', value: 1 },
-                    { label: '(2 Star)', value: 2 },
-                    { label: '(3 Star)', value: 3 },
-                    { label: '(4 Star)', value: 4 },
-                    { label: '(5 Star)', value: 5 },
-                  ]}
-                  name={'rating'}
-                  stylingProp={{
-                    borderColor: 'red',
-                    borderWith: 30,
-                    color: COLORS.white,
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setRatingModalVisable(true);
                   }}
-                  placeholder={'Select rating'}
-                />
+                  style={[
+                    styles(isDarkMode).pickerContainer,
+                    { borderWidth: isDarkMode ? 0 : 1 },
+                  ]}>
+                  {props?.values?.rating?.length == 0 ? (
+                    <Text>Select Rating</Text>
+                  ) : (
+                    <RenderRating rating={Number(props?.values?.rating)} />
+                  )}
+                </TouchableOpacity>
               </View>
 
               <Button
@@ -185,6 +184,13 @@ const FilterModel = ({
           <DateModal
             isDateModalVisable={isDateModalVisable}
             setDateModalVisable={setDateModalVisable}
+            formikProps={props}
+            lang={lang}
+            isDarkMode={isDarkMode}
+          />
+          <RatingModal
+            isRatingModalVisable={isRatingModalVisable}
+            setRatingModalVisable={setRatingModalVisable}
             formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}

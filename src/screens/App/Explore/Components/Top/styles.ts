@@ -10,7 +10,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       position: 'relative',
-      marginTop: 15,
+      marginTop: 30,
       marginBottom: 20,
     },
     arrow: {
@@ -23,7 +23,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginLeft: 'auto',
       marginRight: 'auto',
-      fontFamily:Fonts.Cairo_SemiBold
+      fontFamily: Fonts.Cairo_SemiBold,
     },
   });
 };

@@ -122,6 +122,7 @@ const DetailsTrip = () => {
                     .then(() => {
                       // setisFavourite(!isFavourite);
                       dispatch(Journeys.thunks.doGetJourney({ id }));
+                      dispatch(Journeys.thunks.doGetJourneys({}));
                     })
                     .catch(() => {});
                 }

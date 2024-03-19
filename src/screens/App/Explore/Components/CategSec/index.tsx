@@ -64,7 +64,7 @@ const CategSec = ({
                         : undefined,
                   },
                 ]}>
-                <Svg name={item.svgName} size={80} />
+                <Svg name={item.svgName} size={70} />
                 <TextView
                   title={[item.title]}
                   style={styles(lang, isDarkMode).tripText}

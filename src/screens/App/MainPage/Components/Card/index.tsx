@@ -1,5 +1,5 @@
-import { View, Image } from 'react-native';
-import React from 'react';
+import { View, Image, ImageBackground } from 'react-native';
+import React, { useCallback } from 'react';
 import { images } from 'src/assets/images';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
@@ -8,6 +8,10 @@ import COLORS from 'values/colors';
 import Fonts from 'values/fonts';
 import { selectUserType } from 'redux/UserType/index';
 import { useSelector } from 'react-redux';
+import Journeys, { selectCurrentJourneys } from 'redux/journey';
+import { useLoadingSelector } from 'redux/selectors';
+import { ActivityIndicator } from 'react-native-paper';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Card = ({
   title,
@@ -31,42 +35,59 @@ const Card = ({
   urlImage: string;
 }) => {
   const userType = useSelector(selectUserType);
-  return (
-    <View
-      style={[
-        styles(isDarkMode).container,
-        { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
-      ]}>
-      <View style={styles().imageContainer}>
-        <Image
-          source={urlImage ? { uri: urlImage } : images.branding2}
-          style={styles().image}
-        />
-      </View>
+  const [isLoading, setIsLoading] = React.useState(false);
+  const journeys: any = useSelector(selectCurrentJourneys);
+  const isGetJourneysLoading = useLoadingSelector(
+    Journeys.thunks.doGetJourneys,
+  );
+  useFocusEffect(useCallback(() => setIsLoading(true), []));
 
-      <View style={styles().contentContainer}>
+  return (
+    <ImageBackground
+      source={urlImage ? { uri: urlImage } : images.branding2}
+      style={[styles(isDarkMode).container]}>
+      <View style={styles().top}>
         <View
           style={[
-            styles().top,
+            styles().end,
+            {
+              flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
+            },
+          ]}>
+          <Svg
+            name="star"
+            size={15}
+            style={{
+              marginTop: -2,
+            }}
+          />
+          <TextView
+            style={{
+              color: COLORS.white,
+              fontFamily: Fonts.Cairo_Bold,
+              fontSize: 10,
+            }}
+            title={`(${stars})`}
+          />
+        </View>
+        <View
+          style={[
+            styles().heartContainer,
             { flexDirection: lang === 'ar' ? 'row-reverse' : 'row' },
           ]}>
-          <TextView title={title} style={styles(isDarkMode).title} />
           {userType === 'user' && (
             <View style={styles(isDarkMode).heart}>
-              <Svg name="heart" size={20} bgColor={isFav ? 'red' : 'white'} />
+              <Svg
+                name="heart"
+                size={20}
+                bgColor={isFav ? '#0370D6' : 'white'}
+              />
             </View>
           )}
         </View>
-        <View>
-          <TextView
-            title={description}
-            style={[
-              styles(isDarkMode, lang).decription,
-              { textAlign: lang === 'ar' ? 'right' : 'left' },
-            ]}
-          />
-        </View>
-
+      </View>
+      <View>
+        <TextView title={title} style={styles(isDarkMode).title} />
         <View
           style={[
             styles(isDarkMode).location,
@@ -75,34 +96,12 @@ const Card = ({
           <Svg name="location" size={20} />
           <TextView title={location} style={styles(isDarkMode).locationText} />
         </View>
-
-        <View
-          style={[
-            styles().end,
-            {
-              flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
-            },
-          ]}>
-          <Svg name="smile" size={20} />
-          <TextView
-            style={{
-              color: isDarkMode ? COLORS.white : COLORS.black,
-              fontFamily: Fonts.Cairo_Regular,
-            }}
-            title={name}
-          />
-          <Svg name="star" size={20} />
-          <TextView
-            style={{
-              color: isDarkMode ? COLORS.white : COLORS.black,
-              fontFamily: Fonts.Cairo_Regular,
-            }}
-            title={`(${stars})`}
-          />
-        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 export default Card;
+function selectJourneys(state: unknown): unknown {
+  throw new Error('Function not implemented.');
+}

@@ -194,17 +194,6 @@ const EditProfile = () => {
                 name={'country'}
                 values={props.values}
               />
-              <Picker
-                {...props}
-                borderColor={'#F2F2F2'}
-                type={'primary'}
-                data={
-                  props.values.country ? getCities(props.values.country) : []
-                }
-                placeholder={'City'}
-                name={'city'}
-                values={props.values}
-              />
 
               <Button
                 type="primary"

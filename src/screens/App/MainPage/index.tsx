@@ -41,6 +41,7 @@ import { SortJourneys } from './Components/utils/SortJourneys';
 import { selectToken } from 'redux/tokens/reducer';
 import { h, w } from 'values/Dimensions';
 import { images } from 'src/assets/images';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -99,7 +100,9 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
                 sort_by: sort?.sort_by,
               },
         ),
-      );
+      )
+        .then(unwrapResult)
+        .then(res => {});
     }, [category, filterData, search, page, sort]),
   );
 
@@ -123,6 +126,22 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
     }).start();
   }, [showMenu, setShowMenu, scaleValue, closeButtonOffset, offsetValue]);
 
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: {
+    layoutMeasurement: { height: number; width: number };
+    contentOffset: { y: number; x: number };
+    contentSize: { height: number; width: number };
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
   const renderComponent = useMemo(
     () => (
       <>
@@ -139,7 +158,13 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
               borderRadius: !showMenu ? 35 : 0,
             },
           ]}>
-          <ScrollView>
+          <ScrollView
+            onScroll={({ nativeEvent }) => {
+              if (isCloseToBottom(nativeEvent)) {
+                setpage(prev => prev + 1);
+              }
+            }}
+            scrollEventThrottle={400}>
             <ImageBackground
               resizeMode="cover"
               style={{
