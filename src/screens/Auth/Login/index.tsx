@@ -86,7 +86,7 @@ const Login = () => {
         style={[styles(isDarkMode).skip]}
         onPress={() => {
           dispatch(UserType.setUserData('user'));
-          navigation.navigate('app', { screen: 'map' });
+          navigation.navigate('app', { screen: 'home' });
         }}
       />
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -114,7 +114,7 @@ const Login = () => {
             .then(unwrapResult) // filter result
             .then(res => {
               dispatch(UserType.setUserData(res.data.userData.type));
-              navigation.navigate('app', { screen: 'map' });
+              navigation.navigate('app', { screen: 'home' });
               values.email = '';
               values.password = '';
             })

@@ -26,7 +26,6 @@ import Fonts from 'values/fonts';
 import { selectDeviceToken } from 'redux/tokens/reducer';
 import Cities from 'screens/Vendor/Profile/mocks/Cities';
 
-
 const Register = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
@@ -82,7 +81,7 @@ const Register = () => {
           phoneNumber: '',
           email: '',
           password: '',
-          city: '',
+          nationality: '',
           country: '',
         }}
         onSubmit={values => {
@@ -93,14 +92,14 @@ const Register = () => {
               email: values.email,
               password: values.password,
               type: userType,
-              city: values.city,
+              nationality: values.nationality,
               country: values.country,
               device_token: device_token ? device_token : '',
             }),
           )
             .then(unwrapResult)
-            .then(() => {
-              navigation.navigate('app', { screen: 'map' });
+            .then(res => {
+              navigation.navigate('app', { screen: 'home' });
             })
             .catch(err => {
               console.log(err);
@@ -213,9 +212,9 @@ const Register = () => {
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
-              data={props.values.country ? getCities(props.values.country) : []}
-              placeholder={'City'}
-              name={'city'}
+              data={countries}
+              placeholder={'Nationality'}
+              name={'nationality'}
               values={props.values}
             />
 

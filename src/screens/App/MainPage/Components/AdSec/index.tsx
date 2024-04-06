@@ -16,12 +16,7 @@ const AdSec = ({
   const carouselRef = useRef<any>();
   const [indexSelected, setIndexSelected] = useState(0);
   const renderItem = () => {
-    return (
-      <Image
-        source={[images.slider1, images.slider2, images.slider3][indexSelected]}
-        style={styles.img}
-      />
-    );
+    return <Image source={imageList[indexSelected]} style={styles.img} />;
   };
 
   useEffect(() => {
@@ -30,6 +25,14 @@ const AdSec = ({
     }, 10000);
     return () => clearInterval(interval);
   }, []);
+
+  const imageList = [
+    images.slider1,
+    images.slider2,
+    images.slider3,
+    images.slider2,
+    images.slider1,
+  ];
 
   return (
     <View
@@ -48,7 +51,7 @@ const AdSec = ({
         }}>
         <Carousel
           ref={carouselRef}
-          data={[images.slider1, images.slider2, images.slider3]}
+          data={imageList}
           renderItem={renderItem}
           sliderWidth={w}
           itemWidth={w}
@@ -66,7 +69,7 @@ const AdSec = ({
           inactiveDotColor="#D9D9D9"
           dotColor={'#0370D6'}
           activeDotIndex={indexSelected}
-          dotsLength={[images.slider1, images.slider2, images.slider3].length}
+          dotsLength={imageList.length}
           animatedDuration={50}
           inactiveDotScale={1}
           dotStyle={{

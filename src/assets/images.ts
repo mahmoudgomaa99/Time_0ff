@@ -15,4 +15,6 @@ export const images = {
   onboardingbg: require('./onboardingbg.png'),
   headerMainPageBG: require('./headerMainPageBG.png'),
   Frame: require('./Frame.png'),
+  maleAvatar: require('./Ellipse4.png'),
+  femaleAvatar: require('./Ellipse5.png'),
 };

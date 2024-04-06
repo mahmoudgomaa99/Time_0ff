@@ -167,14 +167,14 @@ const styles = (isDarkMode: boolean) =>
     txt_primary: {
       color: COLORS.white,
       // fontFamily: Fonts.RobotoBold,
-      fontFamily: Fonts.RobotoBold,
+      fontFamily: Fonts.Cairo_Bold,
       fontSize: 16,
       lineHeight: 21,
     },
     txt_primaryModel: {
       color: COLORS.white,
       // fontFamily: Fonts.RobotoBold,
-      fontFamily: Fonts.RobotoBold,
+      fontFamily: Fonts.Cairo_Bold,
       fontSize: 16,
       lineHeight: 21,
     },
@@ -191,7 +191,7 @@ const styles = (isDarkMode: boolean) =>
     txt_book: {},
     txt_cancel: {
       color: isDarkMode ? COLORS.white : COLORS.black,
-      fontFamily: Fonts.RobotoBold,
+      fontFamily: Fonts.Cairo_Bold,
       fontSize: 16,
       lineHeight: 21,
     },

@@ -48,6 +48,7 @@ const Profile = () => {
       setallData(values.data.data);
     });
     getCountries();
+    dispatch(User.thunks.doGetUser({}));
   }, []);
 
   const countries = allData.map((i: any) => ({
@@ -80,6 +81,7 @@ const Profile = () => {
             source={source}
             isDarkMode={isDarkMode}
             lang={lang}
+            isUpdate={!Update}
           />
           <View style={{ marginHorizontal: 18 }}>
             <Formik
@@ -114,7 +116,7 @@ const Profile = () => {
                       country: values?.country,
                     }),
                   ),
-                  source?.assets.length > 0 &&
+                  source?.assets?.length > 0 &&
                     dispatch(User.thunks.doUpdateImage(body)),
                 ])
                   .then(() => {
@@ -122,7 +124,9 @@ const Profile = () => {
                     setUpdate(true);
                     navigation.goBack();
                   })
-                  .catch(err => {});
+                  .catch(err => {
+                    console.log('err', err);
+                  });
               }}>
               {props => (
                 <View>

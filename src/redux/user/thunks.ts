@@ -108,6 +108,7 @@ const doUpdateImage = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.UpdateMyImage(data);
+      console.log('response', response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);

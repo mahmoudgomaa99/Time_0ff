@@ -33,8 +33,6 @@ const styles = (isDarkMode?: boolean) =>
       marginTop: Platform.OS === 'android' ? h * 0.004 : 0,
       borderRadius: 100,
       backgroundColor: isDarkMode ? COLORS.white : COLORS.black,
-      marginLeft: 'auto',
-      marginRight: 'auto',
     },
     subTitle: {
       color: isDarkMode ? '#C4C3C3' : '#444444',
@@ -51,7 +49,6 @@ const styles = (isDarkMode?: boolean) =>
     containerStyle: {
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
       borderWidth: isDarkMode ? 0 : 1,
-      // borderColor: isDarkMode ? COLORS.darkMode : COLORS.lightGrey,
       borderRadius: BorderRadius.m,
       height: h * 0.08,
       paddingVertical: 5,
@@ -77,7 +74,7 @@ const styles = (isDarkMode?: boolean) =>
     containerMedia: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: h * 0.02,
+      marginTop: h * 0.01,
     },
     media: {
       borderColor: '#EEEEEE',

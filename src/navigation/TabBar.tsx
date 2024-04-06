@@ -25,7 +25,7 @@ const TabBar = () => {
   console.log('notefNum', notefNum);
   return (
     <Tab.Navigator
-      initialRouteName="home"
+      initialRouteName={languages[lang].main}
       screenOptions={{
         tabBarActiveTintColor: isDarkMode ? COLORS.white : '#0370D6',
         tabBarInactiveTintColor: isDarkMode ? COLORS.alfaBlack : '#000000',

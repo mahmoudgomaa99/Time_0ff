@@ -5,7 +5,7 @@ import env from '../../.env.json';
 import { create } from 'apisauce';
 
 export const api = create({
-  baseURL: env.BASE_URL,
+  baseURL:__DEV__?env.Dev_URL: env.BASE_URL,
   // headers: { 'Content-Type': 'application/json' },
 });
 export type TTokenKeys = {

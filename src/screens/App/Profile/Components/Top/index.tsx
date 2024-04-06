@@ -16,10 +16,6 @@ const Top = ({ lang, isDarkMode }: { lang: string; isDarkMode?: boolean }) => {
         style={styles(lang).arrow}
         onPress={() => navigation.goBack()}
       />
-      <TextView
-        title={languages[lang].profile}
-        style={styles(lang,isDarkMode).screenText}
-      />
     </View>
   );
 };
