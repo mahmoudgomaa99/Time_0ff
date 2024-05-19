@@ -13,6 +13,7 @@ import Content from './Components/Content';
 import languages from 'values/languages';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { selectToken } from 'redux/tokens/reducer';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const Home = () => {
   const navigation = useNavigation<any>();
@@ -29,9 +30,16 @@ const Home = () => {
   const [page, setpage] = useState(1);
   useFocusEffect(
     useCallback(() => {
-      dispatch(
-        Journeys.thunks.doGetAgencyJourneys({ id: userData?._id, page: page }),
-      );
+      dispatch(Journeys.thunks.doGetAgency(userData?._id))
+        .then(unwrapResult)
+        .then(res => {
+          dispatch(
+            Journeys.thunks.doGetAgencyJourneys({
+              id: res.data.data.agencyData._id,
+              page: page,
+            }),
+          );
+        });
     }, [userData?._id, page]),
   );
 
@@ -47,10 +55,11 @@ const Home = () => {
           marginHorizontal: 10,
         }}>
         <Text style={styles(lang, isDarkMode).title}>
-          {languages[lang].journeys}
+          {languages[lang].activity}
         </Text>
         <TouchableOpacity
           onPress={() => {
+            setpage(1);
             navigation.navigate('addJourney');
           }}
           style={styles().add}>

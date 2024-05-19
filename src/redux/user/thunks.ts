@@ -7,6 +7,7 @@ const doLogIn = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.LogIn(data);
+      console.log(response, 'ooooo');
       if (response.status === 401) {
         throw response.data;
       } else {
@@ -22,6 +23,7 @@ const doSignUp = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.SignUp(data);
+      console.log('response', response);
       if (response.status === 400) {
         throw response.data;
       } else {
@@ -127,6 +129,30 @@ const doGetUserNotefications = createAsyncThunk<any, any, any>(
   },
 );
 
+const doGetCategories = createAsyncThunk<any, any, any>(
+  'user/categories',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getCategories();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doGetAds = createAsyncThunk<any, any, any>(
+  'user/ads',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getAds();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doForgetPassword,
   doGetUser,
@@ -137,6 +163,8 @@ const thunks = {
   doAddAgency,
   doUpdateImage,
   doGetUserNotefications,
+  doGetCategories,
+  doGetAds,
 };
 
 export default thunks;

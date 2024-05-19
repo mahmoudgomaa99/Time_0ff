@@ -7,7 +7,7 @@ export const styles = (isDarkMode?: boolean) =>
     modalContainer: {
       position: 'relative',
       backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
-      height: h * 0.7,
+      height: h * 0.5,
       marginTop: 'auto',
       borderTopRightRadius: 30,
       borderTopLeftRadius: 30,
@@ -17,6 +17,6 @@ export const styles = (isDarkMode?: boolean) =>
       paddingBottom: h * 0.06,
     },
     button: {
-      marginVertical: 20,
+      marginTop: 60,
     },
   });

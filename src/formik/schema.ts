@@ -71,3 +71,19 @@ export const bookSchema = (lang: string) => {
       .oneOf([true], languages[lang].termsError),
   });
 };
+
+export const AddActivityScheme = (lang: string) => {
+  return Yup.object().shape({
+    journey_name: Yup.string().required(languages[lang].required),
+    description: Yup.string().required(languages[lang].required),
+    price: Yup.string().required(languages[lang].required),
+    // duration: Yup.string().required(languages[lang].required),
+    category: Yup.string().required(languages[lang].required),
+    // city: Yup.string().required(languages[lang].required),
+    location: Yup.string().required(languages[lang].required),
+    terms: Yup.string().required(languages[lang].required),
+    capacity: Yup.string().required(languages[lang].required),
+    start_date: Yup.string().required(languages[lang].required),
+    mode: Yup.string().required(languages[lang].required),
+  });
+};

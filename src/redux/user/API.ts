@@ -8,7 +8,7 @@ const SignUp = (data: {
   email: string;
   password: string;
   type: string;
-  city: string;
+  nationality: string;
   country: string;
 }) => api.post('signup', data);
 const ForgetPassword = (email: string) => api.post('forgot', email);
@@ -17,7 +17,7 @@ const GetUser = () => api.get(`users/me`);
 const UpdateUser = (data: {
   name?: string;
   email?: string;
-  city?: string;
+  nationality?: string;
   phone?: string;
   country?: string;
 }) => api.put('users/me', data);
@@ -33,6 +33,9 @@ const AddAgency = (data: {
 const UpdateMyImage = (data: any) => api.put('users/me/image', data);
 const GetUserNotefications = (data: { id: number; page: number }) =>
   api.get(`users/notifications/${data.id}?page=${data.page}`);
+
+const getCategories = () => api.get('categories');
+const getAds = () => api.get('ads');
 const UserAPI = {
   LogIn,
   SignUp,
@@ -43,6 +46,8 @@ const UserAPI = {
   AddAgency,
   UpdateMyImage,
   GetUserNotefications,
+  getCategories,
+  getAds,
 };
 
 export default UserAPI;

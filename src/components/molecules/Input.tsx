@@ -77,7 +77,7 @@ const InputView = ({
                   ? -7
                   : name === 'date' || name === 'members'
                   ? 10
-                  : -10
+                  : -5
                 : 5,
           },
         ]}

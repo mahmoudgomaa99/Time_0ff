@@ -1,15 +1,13 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, TouchableOpacity, FlatList } from 'react-native';
 import React, { useEffect } from 'react';
 import Card from '../Card';
 import { cardData } from '../data';
-import { useSelector } from 'react-redux';
-import { selectLanguage } from 'redux/language/index';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
 import { styles } from './styles';
 import { h } from 'values/Dimensions';
 import { useNavigation } from '@react-navigation/native';
-import Journeys, { selectCurrentJourneys } from 'redux/journey';
+import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import SkeletonItem from '../../../../../components/molecules/SkeletonItem';
 import { useAppDispatch } from 'redux/store';
@@ -22,7 +20,6 @@ const BottomList = ({
   lang: string;
 }) => {
   const navigation = useNavigation<any>();
-  const journeys = useSelector(selectCurrentJourneys);
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneys,
   );

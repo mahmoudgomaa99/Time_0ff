@@ -15,6 +15,7 @@ import ActionSheet from 'components/molecules/ActionSheet';
 import languages from 'values/languages';
 import { images } from 'src/assets/images';
 import { useLoadingSelector } from 'redux/selectors';
+import useModalHandler from 'hooks/Modal';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ const Profile = () => {
   const lang = useSelector(selectLanguage);
   const [actionSheet, setActionSheet] = useState(false);
   const closeActionSheet = () => setActionSheet(false);
+  const { openCustomModal, closeCustomModal, CustomModal } = useModalHandler();
 
   const actionItems = [
     {
@@ -93,7 +95,13 @@ const Profile = () => {
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
       <ImageSection
-        openActionSheet={() => setActionSheet(true)}
+        openActionSheet={() => {
+          if (!currnetUser) {
+            openCustomModal();
+          } else {
+            pick();
+          }
+        }}
         user={currnetUser}
         isDarkMode={isDarkMode}
         lang={lang}
@@ -104,12 +112,15 @@ const Profile = () => {
           currentUser={currnetUser}
           isDarkMode={isDarkMode}
           lang={lang}
+          openCustomModal={openCustomModal}
+          closeCustomModal={closeCustomModal}
+          CustomModal={CustomModal}
         />
       </ScrollView>
 
-      {actionSheet && (
+      {/* {actionSheet && (
         <ActionSheet actionItems={actionItems} onCancel={closeActionSheet} />
-      )}
+      )} */}
     </SafeAreaView>
   );
 };

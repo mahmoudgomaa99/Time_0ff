@@ -15,6 +15,7 @@ import { selectLanguage } from 'redux/language/index';
 import Journeys, {
   selectCurrentJourney,
   selectCurrentJourneysAvilabilitey,
+  selectCurrentJourneysAvilabilitey_Vendor,
 } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import { useAppDispatch } from 'redux/store';
@@ -38,7 +39,10 @@ const DetailsTrip = ({
   journey: any;
 }) => {
   const lang = useSelector(selectLanguage);
-  const availabilityJourneys = useSelector(selectCurrentJourneysAvilabilitey);
+  const availabilityJourneys = useSelector(
+    selectCurrentJourneysAvilabilitey_Vendor,
+  );
+  console.log('availabilityJourneys', availabilityJourneys);
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneysAvilabilitey,
   );

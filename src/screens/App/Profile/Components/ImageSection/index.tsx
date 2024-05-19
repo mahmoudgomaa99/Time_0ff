@@ -35,8 +35,6 @@ const ImageSection = ({
       </View>
     );
 
-  console.log('user', user);
-
   return (
     <View style={styles(lang).container}>
       <TouchableOpacity onPress={openActionSheet}>

@@ -45,7 +45,8 @@ const Profile = () => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
     getCountries().then(values => {
-      setallData(values.data.data);
+      let data: any = [{ country: 'Other' }, ...values.data.data];
+      setallData(data);
     });
     getCountries();
     dispatch(User.thunks.doGetUser({}));
@@ -93,6 +94,7 @@ const Profile = () => {
                 city: currentUser?.city,
                 description: currentUser?.description,
                 country: currentUser?.country,
+                gender: currentUser?.gender,
               }}
               onSubmit={values => {
                 const body = new FormData();
@@ -114,6 +116,8 @@ const Profile = () => {
                       phone: values?.phoneNumber,
                       city: values?.city,
                       country: values?.country,
+                      gender: values?.gender,
+                      description: values?.description,
                     }),
                   ),
                   source?.assets?.length > 0 &&
@@ -225,6 +229,25 @@ const Profile = () => {
                     }
                     placeholder={currentUser?.city || 'City'}
                     name={'city'}
+                    values={props.values}
+                    disabled={Update}
+                  />
+                  <Picker
+                    {...props}
+                    borderColor={'#F2F2F2'}
+                    type={'primary'}
+                    data={[
+                      {
+                        label: languages[lang].male,
+                        value: 'male',
+                      },
+                      {
+                        label: languages[lang].female,
+                        value: 'female',
+                      },
+                    ]}
+                    placeholder={languages[lang].gender}
+                    name={'gender'}
                     values={props.values}
                     disabled={Update}
                   />

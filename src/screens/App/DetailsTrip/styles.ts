@@ -100,5 +100,5 @@ export const styles = (isDarkMode?: boolean) =>
     paginationInactiveDot: {
       backgroundColor: '#BFBFBF',
     },
-    btn_text: { color: COLORS.white, fontSize: 16, lineHeight: 21 },
+    btn_text: { color: COLORS.white, fontSize: 20, lineHeight: 21 },
   });

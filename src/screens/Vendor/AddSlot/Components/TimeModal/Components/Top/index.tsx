@@ -6,13 +6,13 @@ import { styles } from './styles';
 import languages from 'values/languages';
 
 const Top = ({
-  isDateModalVisable,
-  setDateModalVisable,
+  isTimeModalVisable,
+  setTimeModalVisable,
   lang,
   isDarkMode,
 }: {
-  isDateModalVisable: boolean;
-  setDateModalVisable: any;
+  isTimeModalVisable: boolean;
+  setTimeModalVisable: any;
   lang: string;
   isDarkMode?: boolean;
 }) => {
@@ -20,12 +20,14 @@ const Top = ({
     <View style={styles().top}>
       <TouchableOpacity
         onPress={() => {
-        
-          setDateModalVisable(false);
+          setTimeModalVisable(false);
         }}>
         <Svg name="close" size={50} />
       </TouchableOpacity>
-      <TextView title={languages[lang].calendar} style={styles(isDarkMode).BookText} />
+      <TextView
+        title={languages[lang].time}
+        style={styles(isDarkMode).BookText}
+      />
     </View>
   );
 };

@@ -44,7 +44,8 @@ const Card = ({
 
   return (
     <ImageBackground
-      source={urlImage ? { uri: urlImage } : images.branding2}
+      source={images.branding2}
+      defaultSource={images.branding2}
       style={[styles(isDarkMode).container]}>
       <View style={styles().top}>
         <View

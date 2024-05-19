@@ -201,6 +201,7 @@ const DetailsTrip = () => {
                     onPress={() => {
                       navigation.navigate('providerProfile', {
                         id: journies[id]?.agency_id,
+                        name: journies[id]?.agency_name,
                       });
                     }}
                     title={journies[id]?.agency_name}
@@ -253,7 +254,7 @@ const DetailsTrip = () => {
                         styles(isDarkMode).descriptionText,
                         // { maxHeight: 20 },
                       ]}
-                      title={languages[lang].lorem}
+                      title={journies[id]?.terms}
                     />
                   </Text>
                 </View>

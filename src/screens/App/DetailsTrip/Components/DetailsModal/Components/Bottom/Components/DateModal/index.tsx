@@ -9,6 +9,9 @@ import Button from 'components/molecules/Button';
 import COLORS from 'values/colors';
 import languages from 'values/languages';
 import moment from 'moment';
+import { useAppDispatch } from 'redux/store';
+import Journeys from 'redux/journey';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const DateModal = ({
   isDateModalVisable,
@@ -17,6 +20,7 @@ const DateModal = ({
   lang,
   isDarkMode,
   availableDates,
+  id,
 }: {
   isDateModalVisable: any;
   setDateModalVisable: any;
@@ -24,24 +28,25 @@ const DateModal = ({
   lang: string;
   isDarkMode?: boolean;
   availableDates?: any;
-
   availabilityJourneys?: any;
+  id?: any;
 }) => {
+  const dispatch = useAppDispatch();
   const handleSelectDate = (date: any) => {
     formikProps.setFieldValue('date', date.dateString);
-    // const Date = moment(date.dateString).format('YYYY/MM/DD');
-    // console.log(Date);
-    // const times = availabilityJourneys
-    //   .map((i: any) => {
-    //     if (Date == i.available_date) {
-    //       return { label: i.hour, value: i._id };
-    //     } else {
-    //       return undefined;
-    //     }
-    //   })
-    //   // .filter((i: any) => i !== undefined);
-    // setTimes(times);
-    // formikProps.setFieldValue('date', date.dateString);
+    dispatch(
+      Journeys.thunks.doGetJourneyAvailabilitey_Vendor_Houres({
+        id: id,
+        date: date.dateString,
+      }),
+    )
+      .then(unwrapResult)
+      .then(res => {
+        formikProps.setFieldValue('times', res.data.data);
+      })
+      .catch(err => {
+        console.log(err, 'err');
+      });
   };
   return (
     <Modal

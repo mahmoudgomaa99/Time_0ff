@@ -26,7 +26,7 @@ export type TAuthStack = {
   notification: undefined;
   settings: undefined;
   seeMore: undefined;
-  paymentScreen:undefined
+  paymentScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
@@ -93,7 +93,7 @@ const AppStack = () => {
         options={{ headerShown: false }}
         name="paymentScreen"
         component={PaymentScreen}
-        />
+      />
     </Stack.Navigator>
   );
 };

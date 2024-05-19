@@ -98,8 +98,6 @@ const styles = (isDarkMode: boolean) =>
       borderRadius: BorderRadius.s,
       marginBottom:
         Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
-      height: h * 0.08,
-      fontSize: 16,
     },
     primaryModel: {
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.primary,
@@ -168,14 +166,14 @@ const styles = (isDarkMode: boolean) =>
       color: COLORS.white,
       // fontFamily: Fonts.RobotoBold,
       fontFamily: Fonts.Cairo_Bold,
-      fontSize: 16,
-      lineHeight: 21,
+      fontSize: 20,
+      lineHeight: 30,
     },
     txt_primaryModel: {
       color: COLORS.white,
       // fontFamily: Fonts.RobotoBold,
       fontFamily: Fonts.Cairo_Bold,
-      fontSize: 16,
+      fontSize: 20,
       lineHeight: 21,
     },
     txt_map: {
@@ -186,9 +184,14 @@ const styles = (isDarkMode: boolean) =>
     txt_secondry: {
       color: COLORS.primary,
       fontWeight: '700',
+      // fontSize: 16,
+      // lineHeight: 21,
     },
     txt_ticket_type: { color: COLORS.primary, fontWeight: '700', fontSize: 17 },
-    txt_book: {},
+    txt_book: {
+      fontSize: 20,
+      lineHeight: 30,
+    },
     txt_cancel: {
       color: isDarkMode ? COLORS.white : COLORS.black,
       fontFamily: Fonts.Cairo_Bold,

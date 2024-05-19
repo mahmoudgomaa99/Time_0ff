@@ -39,7 +39,6 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(User.thunks.doLogIn);
   const token = useSelector(selectToken);
-  console.log('token', token);
   // Google
   const signInViaGoogle = async () => {
     try {
@@ -85,6 +84,7 @@ const Login = () => {
         title={languages[lang].skip}
         style={[styles(isDarkMode).skip]}
         onPress={() => {
+          dispatch(User.setIsGuest(true));
           dispatch(UserType.setUserData('user'));
           navigation.navigate('app', { screen: 'home' });
         }}
@@ -113,8 +113,13 @@ const Login = () => {
           )
             .then(unwrapResult) // filter result
             .then(res => {
+              dispatch(User.setIsGuest(false));
               dispatch(UserType.setUserData(res.data.userData.type));
-              navigation.navigate('app', { screen: 'home' });
+              if (res.data.userData.type === 'agency') {
+                navigation.navigate('vendor');
+              } else {
+                navigation.navigate('app', { screen: 'home' });
+              }
               values.email = '';
               values.password = '';
             })

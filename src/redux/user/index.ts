@@ -9,12 +9,18 @@ type TInitialValues = {
   currentUser?: any;
   notefications: any[];
   notefnum: number;
+  isGuest: boolean;
+  categories?: any[];
+  ads: any[];
 };
 
 const initialValues: TInitialValues = {
   currentUser: null,
   notefications: [],
   notefnum: 0,
+  isGuest: false,
+  categories: [],
+  ads: [],
 };
 
 const slice = createSlice({
@@ -29,6 +35,9 @@ const slice = createSlice({
     },
     ResetNotef: (state, action) => {
       state.notefnum = 0;
+    },
+    setIsGuest: (state, action) => {
+      state.isGuest = action.payload;
     },
   },
   extraReducers: builder => {
@@ -109,6 +118,18 @@ const slice = createSlice({
     builder.addCase(thunks.doGetUserNotefications.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(thunks.doGetCategories.fulfilled, (state, action) => {
+      state.categories = action.payload;
+    });
+    builder.addCase(thunks.doGetCategories.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doGetAds.fulfilled, (state, action) => {
+      state.ads = action.payload;
+    });
+    builder.addCase(thunks.doGetAds.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -119,10 +140,15 @@ const User = {
   actions,
   addNotef: slice.actions.AddNotef,
   resetNotef: slice.actions.ResetNotef,
+  setIsGuest: slice.actions.setIsGuest,
 };
 
 export const selectCurrentUser = (state: RootState) => state.users.currentUser;
 export const selectUserNotefications = (state: RootState) =>
   state.users.notefications;
 export const selectUserNotefnum = (state: RootState) => state.users.notefnum;
+export const selectIsGuest = (state: RootState) => state.users.isGuest;
+export const selectCategories = (state: RootState) => state.users.categories;
+export const selectAds = (state: RootState) => state.users.ads;
+
 export default User;

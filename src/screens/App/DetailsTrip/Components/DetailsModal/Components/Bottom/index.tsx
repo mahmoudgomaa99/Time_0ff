@@ -49,10 +49,9 @@ const Bottom = ({
   journey?: any;
 }) => {
   const dispatch = useAppDispatch();
-  const navigation =useNavigation<any>()
+  const navigation = useNavigation<any>();
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
   const currentUser = useSelector(selectCurrentUser);
-  const token = useSelector(selectToken);
   // state to hold the selected date
   const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
@@ -60,39 +59,47 @@ const Bottom = ({
 
   return (
     <Formik
-      initialValues={{ date: '', time: '', members: '', terms: false }}
+      initialValues={{
+        date: '',
+        time: '',
+        members: '',
+        terms: false,
+        times: [],
+      }}
       onSubmit={values => {
-        if (!currentUser) {
-          openCustomModal();
-        } else {
-          navigation.navigate('paymentScreen', {
-            journey_slot_id: values.time,
-            number_of_seats: Number(values.members),
-            journey: journey,
-          });
-          // dispatch(
-          //   Journeys.thunks.doAddBooking({
-          //     journey_slot_id: values.time,
-          //     number_of_seats: Number(values.members),
-          //   }),
-          // )
-          //   .then(unwrapResult)
-          //   .then(() => {
-          //     setisDetailsModalVisibal(false);
-          //     setisRequestReceive(true);
-          //     Toast.show({
-          //       type: 'success',
-          //       text2: languages[lang].bookingAdd,
-          //     });
-          //   })
-          //   .catch(err => {
-          //     console.log(err);
-          //     Toast.show({
-          //       type: 'error',
-          //       text2: err.message,
-          //     });
-          //   });
-        }
+        console.log('values', values);
+        // if (!currentUser) {
+        //   openCustomModal();
+        // } else {
+        //   // navigation.navigate('paymentScreen', {
+        //   //   journey_slot_id: values.time,
+        //   //   number_of_seats: Number(values.members),
+        //   //   journey: journey,
+        //   // });
+        //   dispatch(
+        //     Journeys.thunks.doAddBooking({
+        //       journey_slot_id: values.time,
+        //       number_of_seats: Number(values.members),
+        //       agency_id: journey.agency_id,
+        //     }),
+        //   )
+        //     .then(unwrapResult)
+        //     .then(() => {
+        //       setisDetailsModalVisibal(false);
+        //       setisRequestReceive(true);
+        //       Toast.show({
+        //         type: 'success',
+        //         text2: languages[lang].bookingAdd,
+        //       });
+        //     })
+        //     .catch(err => {
+        //       console.log(err);
+        //       Toast.show({
+        //         type: 'error',
+        //         text2: err.message,
+        //       });
+        //     });
+        // }
       }}
       validationSchema={bookSchema(lang)}>
       {props => (
@@ -141,7 +148,7 @@ const Bottom = ({
             {...props}
             borderColor={'#F2F2F2'}
             type={'primary'}
-            data={getTimes(availabilityJourneys, props.values.date)}
+            data={getTimes(props.values.times)}
             placeholder={'Time'}
             name={'time'}
             values={props.values}
@@ -223,6 +230,7 @@ const Bottom = ({
             availableDates={availableDates}
             availabilityJourneys={availabilityJourneys}
             formikProps={props}
+            id={journey._id}
           />
           <AuthModal
             CustomModal={CustomModal}

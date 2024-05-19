@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
-import { MarginsAndPaddings } from 'values/Dimensions';
+import { h } from 'values/Dimensions';
 import Fonts from 'values/fonts';
 
 export const styles = (lang?: string, isDarkMode?: boolean) => {
@@ -8,6 +8,7 @@ export const styles = (lang?: string, isDarkMode?: boolean) => {
     container: {
       flex: 1,
       backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
+      paddingTop: h * 0.06,
     },
     add: {
       width: 40,

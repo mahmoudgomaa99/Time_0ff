@@ -36,7 +36,6 @@ const BottomList = ({
   category: string;
 }) => {
   const navigation = useNavigation<any>();
-  // console.log(journeys, 'journeys');
 
   return (
     <View style={{ flex: 1, paddingBottom: h * 0.07 }}>
@@ -75,7 +74,7 @@ const BottomList = ({
                   justifyContent: 'space-between',
                   marginHorizontal: 10,
                 }}>
-                {journeys?.map((item: any, index: number) => (
+                {(journeys || [])?.map((item: any, index: number) => (
                   <View
                     key={item?._id}
                     style={{

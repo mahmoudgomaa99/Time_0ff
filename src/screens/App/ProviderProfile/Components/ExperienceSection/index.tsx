@@ -7,12 +7,12 @@ import {
 } from 'react-native';
 import React from 'react';
 import languages from 'values/languages';
-import Card from '../../../MainPage/Components/Card';
 import { Data } from './data';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import { useNavigation } from '@react-navigation/native';
 import COLORS from 'values/colors';
 import { h } from 'values/Dimensions';
+import Card from 'screens/Vendor/Home/Components/Card';
 
 const ExperienceSection = ({
   lang,

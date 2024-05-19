@@ -13,12 +13,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Top from './Components/Top';
 import DateModal from './Components/DateModal';
 import languages from 'values/languages';
-import { initialVslues } from './data';
+import { categData, initialVslues } from './data';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
-import { useAppDispatch } from 'redux/store';
 import RatingModal from './Components/RatingModal';
 import RenderRating from './Components/RenderRating';
+import { selectCategories } from 'redux/user';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -39,9 +39,10 @@ const FilterModel = ({
   search?: string;
   setpage?: any;
 }) => {
-  const dispatch = useAppDispatch();
+  const categories = useSelector(selectCategories);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [isRatingModalVisable, setRatingModalVisable] = useState(false);
+  const [type, setType] = useState<'start_date' | 'end_date'>('start_date');
 
   const lang = useSelector(selectLanguage);
 
@@ -78,17 +79,7 @@ const FilterModel = ({
                   {...props}
                   borderColor={'#EEEEEE'}
                   type={'primary'}
-                  data={[
-                    { label: languages[lang].diving, value: 'diving' },
-                    { label: languages[lang].wellness, value: 'wellness' },
-                    { label: languages[lang].sports, value: 'sports' },
-                    {
-                      label: languages[lang].kiteSurfing,
-                      value: 'kiteSurfing',
-                    },
-                    { label: languages[lang].Hiking, value: 'hiking' },
-                    { label: languages[lang].Others, value: 'others' },
-                  ]}
+                  data={categData(categories, lang)}
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
                   placeholder={'Select category'}
@@ -100,20 +91,43 @@ const FilterModel = ({
                   title={languages[lang].date}
                   style={styles(isDarkMode).text}
                 />
-                <InputView
-                  {...props}
-                  name="start_date"
-                  value={props.values.start_date}
-                  inputContainerStyling={
-                    styles(isDarkMode).inputContainerStyling
-                  }
-                  containerStyle={styles(isDarkMode).containerStyle}
-                  onPressIn={() => {
-                    setDateModalVisable(true);
-                  }}
-                  leftIcon={<Svg name="calendar" />}
-                  placeholder="Select date"
-                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <InputView
+                    {...props}
+                    name="start_date"
+                    value={props.values.start_date}
+                    inputContainerStyling={
+                      styles(isDarkMode).inputContainerStyling
+                    }
+                    containerStyle={styles(isDarkMode).containerStyle}
+                    onPressIn={() => {
+                      setDateModalVisable(true);
+                      setType('start_date');
+                    }}
+                    leftIcon={<Svg name="calendar" />}
+                    placeholder="Start date"
+                  />
+                  <InputView
+                    {...props}
+                    name="end_date"
+                    value={props.values.start_date}
+                    inputContainerStyling={
+                      styles(isDarkMode).inputContainerStyling
+                    }
+                    containerStyle={styles(isDarkMode).containerStyle}
+                    onPressIn={() => {
+                      setDateModalVisable(true);
+                      setType('end_date');
+                    }}
+                    leftIcon={<Svg name="calendar" />}
+                    placeholder="End date"
+                  />
+                </View>
               </View>
 
               <View>
@@ -187,6 +201,7 @@ const FilterModel = ({
             formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}
+            type={type}
           />
           <RatingModal
             isRatingModalVisable={isRatingModalVisable}

@@ -12,6 +12,7 @@ const Checkbox = ({
   checked,
   setChecked,
   setisSortModel,
+  setPage,
 }: {
   value?: any;
   sort?: any;
@@ -19,6 +20,7 @@ const Checkbox = ({
   checked?: any;
   setChecked?: any;
   setisSortModel: any;
+  setPage?: any;
 }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
 
@@ -32,12 +34,12 @@ const Checkbox = ({
           if (checked === value.checked) {
             setSort({ sort_type: '', sort_by: '' });
             setChecked(0);
-            setisSortModel(false);
           } else {
             setSort(value.value);
             setChecked(value.checked);
-            setisSortModel(false);
           }
+          setisSortModel(false);
+          setPage(1);
         }}>
         {checked === value.checked && <Svg name="true" size={30} />}
       </TouchableOpacity>

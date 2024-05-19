@@ -24,5 +24,10 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       marginTop: 4,
       fontFamily: Fonts.Cairo_Regular,
     },
+    icon: {
+      width: 50,
+      height: 50,
+      resizeMode: 'contain',
+    },
   });
 };

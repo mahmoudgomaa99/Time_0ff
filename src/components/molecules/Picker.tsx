@@ -18,7 +18,6 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from '../../redux/language/index';
 import { images } from '../../assets/images';
 import languages from 'values/languages';
-import { boolean } from 'yup';
 import { selectIsDarkMode } from 'redux/DarkMode';
 
 type TType = 'primary' | 'secondry' | 'matches';

@@ -36,6 +36,7 @@ type TInitialValues = {
   journies: {
     [id: number]: Tjourney;
   };
+  availabiltey_date_houres: any;
 };
 
 const initialValues: TInitialValues = {
@@ -54,6 +55,7 @@ const initialValues: TInitialValues = {
   journey_availabilitey_vendor: [],
   agencyNotification: null,
   journies: {},
+  availabiltey_date_houres: [],
 };
 
 const slice = createSlice({
@@ -301,6 +303,46 @@ const slice = createSlice({
     builder.addCase(thunks.doRateJourney.rejected, (state, action) => {
       console.log(action);
     });
+
+    builder.addCase(
+      thunks.doGetJourneyAvailabilitey_Vendor_Houres.fulfilled,
+      (state, action) => {
+        state.availabiltey_date_houres = action.payload.data.data;
+      },
+    );
+    builder.addCase(
+      thunks.doGetJourneyAvailabilitey_Vendor_Houres.rejected,
+      (state, action) => {
+        console.log(action);
+      },
+    );
+    builder.addCase(thunks.doDeleteSlot.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text2: 'Slot Deleted Successfully',
+      });
+    });
+    builder.addCase(thunks.doDeleteSlot.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doUpdteSlot.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text2: 'Slot Updated Successfully',
+      });
+    });
+    builder.addCase(thunks.doUpdteSlot.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doAddSlot.fulfilled, (state, action) => {
+      Toast.show({
+        type: 'success',
+        text2: 'Slot Added Successfully',
+      });
+    });
+    builder.addCase(thunks.doAddSlot.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -337,5 +379,7 @@ export const selectCurrentJourneysAvilabilitey_Vendor = (state: RootState) =>
 export const selectCurrentAgencyNotification = (state: RootState) =>
   state.journeys.agencyNotification;
 export const selectJournies = (state: RootState) => state.journeys.journies;
+export const selectAvailabiltey_date_houres = (state: RootState) =>
+  state.journeys.availabiltey_date_houres;
 
 export default Journeys;

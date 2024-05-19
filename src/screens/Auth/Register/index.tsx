@@ -40,7 +40,8 @@ const Register = () => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
     getCountries().then(values => {
-      setallData(values.data.data);
+      let data: any = [{ country: 'Other' }, ...values.data.data];
+      setallData(data);
     });
     getCountries();
   }, []);
@@ -50,21 +51,21 @@ const Register = () => {
     value: i.country,
   }));
 
-  const getCities = (country: string) => {
-    if (country === 'Egypt') {
-      const allCieties = Cities;
-      return allCieties;
-    } else {
-      const cieties: any = allData.filter(
-        (i: any) => i.country === country && country.length > 0,
-      );
-      const allCieties = cieties[0]?.cities.map((value: any) => ({
-        label: value,
-        value: value,
-      }));
-      return allCieties;
-    }
-  };
+  // const getCities = (country: string) => {
+  //   if (country === 'Egypt') {
+  //     const allCieties = Cities;
+  //     return allCieties;
+  //   } else {
+  //     const cieties: any = allData.filter(
+  //       (i: any) => i.country === country && country.length > 0,
+  //     );
+  //     const allCieties = cieties[0]?.cities.map((value: any) => ({
+  //       label: value,
+  //       value: value,
+  //     }));
+  //     return allCieties;
+  //   }
+  // };
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
       <View style={{ alignItems: 'center' }}>
@@ -83,6 +84,7 @@ const Register = () => {
           password: '',
           nationality: '',
           country: '',
+          gender: '',
         }}
         onSubmit={values => {
           dispatch(
@@ -95,11 +97,17 @@ const Register = () => {
               nationality: values.nationality,
               country: values.country,
               device_token: device_token ? device_token : '',
+              gender: values.gender,
             }),
           )
             .then(unwrapResult)
             .then(res => {
-              navigation.navigate('app', { screen: 'home' });
+              dispatch(User.setIsGuest(false));
+              if (userType === 'agency') {
+                navigation.navigate('vendor');
+              } else {
+                navigation.navigate('app', { screen: 'home' });
+              }
             })
             .catch(err => {
               console.log(err);
@@ -158,6 +166,7 @@ const Register = () => {
               ]}
               labelStyle={[styles(isDarkMode).label_style]}
             />
+
             <InputView
               {...props}
               name="password"
@@ -215,6 +224,18 @@ const Register = () => {
               data={countries}
               placeholder={'Nationality'}
               name={'nationality'}
+              values={props.values}
+            />
+            <Picker
+              {...props}
+              borderColor={'#F2F2F2'}
+              type={'primary'}
+              data={[
+                { label: languages[lang].male, value: 'male' },
+                { label: languages[lang].female, value: 'female' },
+              ]}
+              placeholder={languages[lang].gender}
+              name={'gender'}
               values={props.values}
             />
 

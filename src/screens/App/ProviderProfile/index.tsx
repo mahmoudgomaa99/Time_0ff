@@ -57,10 +57,9 @@ const ProviderProfile = () => {
     );
     dispatch(Journeys.thunks.doGetAgency(route.params?.id));
   }, [route.params?.id, pageJourneys, pageReviews]);
-
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
-      <Top isDarkMode={isDarkMode} lang={lang} />
+      <Top name={route?.params?.name} isDarkMode={isDarkMode} lang={lang} />
       <ImageSection isDarkMode={isDarkMode} lang={lang} items={agency} />
       <Tab
         isDarkMode={isDarkMode}
@@ -69,12 +68,17 @@ const ProviderProfile = () => {
         setselect={setselect}
       />
 
-      {select === 1 ? (
+      {select === 1 && (
         <AboutSection
           lang={lang}
-          description={agency?.agencyDataRes?.description}
+          description={
+            lang === 'ar'
+              ? agency?.agencyData?.arabic_description
+              : agency?.agencyData?.description
+          }
         />
-      ) : select === 2 ? (
+      )}
+      {select === 2 && (
         <ExperienceSection
           pageJourneys={pageJourneys}
           setpageJourneys={setpageJourneys}
@@ -83,17 +87,7 @@ const ProviderProfile = () => {
           journeys={journeys}
           isGetJourneysLoading={isGetJourneysLoading}
         />
-      ) : select === 3 ? (
-        <ReviewSection
-          pageReviews={pageReviews}
-          setpageReviews={setpageReviews}
-          isDarkMode={isDarkMode}
-          lang={lang}
-          isGetAgencyReviews={isGetAgencyReviews}
-          agency={agency}
-          setpageJourneys={setpageJourneys}
-        />
-      ) : null}
+      )}
     </SafeAreaView>
   );
 };

@@ -42,6 +42,8 @@ import { selectToken } from 'redux/tokens/reducer';
 import { h, w } from 'values/Dimensions';
 import { images } from 'src/assets/images';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { api } from 'redux/_axios';
+import User from 'redux/user';
 
 const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -102,9 +104,19 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         ),
       )
         .then(unwrapResult)
-        .then(res => {});
+        .then(res => {
+          console.log(res.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }, [category, filterData, search, page, sort]),
   );
+
+  useEffect(() => {
+    dispatch(User.thunks.doGetCategories({}));
+    dispatch(User.thunks.doGetAds({}));
+  });
 
   useEffect(() => {
     Animated.timing(scaleValue, {
@@ -269,6 +281,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
               sort={sort}
               checked={checked}
               setChecked={setChecked}
+              setPage={setpage}
             />
           </ScrollView>
         </Animated.View>
@@ -296,7 +309,6 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
       setCurrentTab,
     ],
   );
-
   return (
     <View
       style={{

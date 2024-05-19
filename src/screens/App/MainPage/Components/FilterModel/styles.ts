@@ -19,6 +19,7 @@ export const styles = (isDarkMode?: boolean) =>
 
     inputContainerStyling: {
       borderBottomWidth: 0,
+      width: w * 0.36,
     },
     containerStyle: {
       backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : COLORS.white,
@@ -26,6 +27,7 @@ export const styles = (isDarkMode?: boolean) =>
       borderColor: COLORS.grey,
       borderRadius: BorderRadius.m,
       height: h * 0.07,
+      marginHorizontal: 2,
     },
 
     button: {

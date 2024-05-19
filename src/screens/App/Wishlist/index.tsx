@@ -7,7 +7,7 @@ import { selectLanguage } from 'redux/language';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Journeys, { selectFavJourneys } from 'redux/journey';
-import Card from '../MainPage/Components/Card';
+import Card from 'src/screens/Vendor/Home/Components/Card';
 import { useNavigation } from '@react-navigation/native';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';

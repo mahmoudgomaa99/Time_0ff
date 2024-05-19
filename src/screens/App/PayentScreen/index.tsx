@@ -32,62 +32,53 @@ const PaymnetScreen = () => {
   const [cvv, setCvv] = useState('');
   const [sha, setsha] = useState('');
   const FawryPay3DSCard = async (transaction_data: any) => {
-    sha256(
-      `referenceNumber (if exist) + merchantRefNum + ${
-        Number(data?.journey?.price).toFixed(2) + 1.0 + 'pending' + 'PayUsingCC'
-      } + fawryFees (if exist) (in two decimal places format 10.00))+ ${
-        user?.email + user?.phone + env.SECURITY_KEY
-      }`,
-    ).then(hash => {
-      setsha(hash);
-    });
+    // sha256(
+    //   `referenceNumber (if exist) + merchantRefNum + ${
+    //     Number(data?.journey?.price).toFixed(2) + 1.0 + 'pending' + 'PayUsingCC'
+    //   } + fawryFees (if exist) (in two decimal places format 10.00))+ ${
+    //     user?.email + user?.phone + env.SECURITY_KEY
+    //   }`,
+    // ).then(async hash => {
+    //   console.log(hash, 'hash');
+    //   if (sha?.length > 0) {
+    //     const response = await fetch(
+    //       __DEV__ ? env.FAWREY_DEV_URL : env.FAWREY_PROD_URL,
+    //       {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //           merchantCode: __DEV__ ? env.FAWREY_DEV_URL : env.FAWREY_PROD_URL,
+    //           customerName: user?.name,
+    //           customerMobile: user?.phone,
+    //           customerEmail: user?.email,
+    //           customerProfileId: user?.id,
+    //           cardNumber: cardNumber,
+    //           cardExpiryYear: ExpireyDate?.slice(3, 5),
+    //           cardExpiryMonth: ExpireyDate?.slice(0, 2),
+    //           cvv: cvv,
+    //           // wating for login fawrey account
+    //           merchantRefNum: transaction_data.merchantRefNum,
+    //           amount: Number(data?.journey?.price).toFixed(2),
+    //           currencyCode: 'EGP',
+    //           language: 'en-gb', // "en-gb" or "ar-eg"
+    //           chargeItems: [],
+    //           enable3DS: true,
+    //           authCaptureModePayment: false,
+    //           returnUrl: 'https://developer.fawrystaging.com',
+    //           signature: sha,
+    //           paymentMethod: 'PayUsingCC',
+    //           description: `Booking ${data?.journey?.journey_name} from ${data?.journey?.agency_name} agency from ${data?.journey?.start_date} to ${data?.journey?.end_date}`,
+    //         }),
+    //       },
+    //     );
+    //     console.log(JSON.parse(response), 'lllll');
+    //   }
+    // });
 
-    if (sha?.length > 0) {
-      const response = await fetch(
-        __DEV__ ? env.FAWREY_DEV_URL : env.FAWREY_PROD_URL,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            merchantCode: env.FAWREY_PROD_URL,
-            customerName: user?.name,
-            customerMobile: user?.phone,
-            customerEmail: user?.email,
-            customerProfileId: user?.id,
-            cardNumber: cardNumber,
-            cardExpiryYear: ExpireyDate?.slice(3, 5),
-            cardExpiryMonth: ExpireyDate?.slice(0, 2),
-            cvv: cvv,
-            // wating for login fawrey account
-            merchantRefNum: transaction_data.merchantRefNum,
-            amount:  Number(data?.journey?.price).toFixed(2),
-            currencyCode: 'EGP',
-            language: 'en-gb', // "en-gb" or "ar-eg"
-            chargeItems: [],
-            enable3DS: true,
-            authCaptureModePayment: false,
-            returnUrl: 'https://developer.fawrystaging.com',
-            signature: sha,
-            paymentMethod: 'PayUsingCC',
-            description: `Booking ${data?.journey?.journey_name} from ${data?.journey?.agency_name} agency from ${data?.journey?.start_date} to ${data?.journey?.end_date}`,
-          }),
-        },
-      );
-
-      console.log(response.json());
-    }
-    // return response.json();
+    
   };
-
-  console.log(
-    Number(data?.journey?.price).toFixed(2),
-    ExpireyDate.slice(0, 2),
-    ExpireyDate.slice(3, 5),
-    'user',
-    data,
-  );
 
   return (
     <View style={styles.container}>
@@ -155,7 +146,9 @@ const PaymnetScreen = () => {
           title="Pay Now"
           style={styles.button}
           textStyle={styles.buttonText}
-          onPress={() => {}}
+          onPress={() => {
+            FawryPay3DSCard(data);
+          }}
         />
       </Frames>
     </View>

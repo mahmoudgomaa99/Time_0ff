@@ -40,10 +40,13 @@ const Top = ({
         onPress={() =>
           dispatch(Journeys.thunks.doRemoveJourneys(id))
             .then(unwrapResult)
-            .then(() => {
+            .then(res => {
+              console.log(res);
               navigation.goBack();
             })
-            .catch(err => {})
+            .catch(err => {
+              console.log(err);
+            })
         }>
         {isLoading ? (
           <SkeletonPlaceholder borderRadius={15} backgroundColor="#c8c8c8">

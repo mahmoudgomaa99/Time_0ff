@@ -33,5 +33,10 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    icon: {
+      width: 50,
+      height: 50,
+      resizeMode: 'contain',
+    },
   });
 };

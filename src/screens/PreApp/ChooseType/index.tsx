@@ -29,7 +29,7 @@ const ChooseType = () => {
         Welcome to Time Off
       </Text>
       <Text style={styles(undefined, undefined, isDarkMode).sub_title}>
-        Who are you?
+        Are you....?
       </Text>
       <View style={styles().btns}>
         <TouchableOpacity
@@ -37,7 +37,9 @@ const ChooseType = () => {
           onPress={() => {
             setType('agency');
           }}>
-          <Text style={styles('agency', type, isDarkMode).btn_txt}>Agency</Text>
+          <Text style={styles('agency', type, isDarkMode).btn_txt}>
+            Service provider
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles('user', type, isDarkMode).btn}
@@ -55,6 +57,7 @@ const ChooseType = () => {
           dispatch(UserType.setUserData(type));
           navigation.navigate('register');
         }}
+        txtStyle={{ fontSize: 20 }}
       />
     </SafeAreaView>
   );

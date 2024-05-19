@@ -1,10 +1,10 @@
 import { View, Image, Platform } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
-import { imageList } from '../data';
 import { styles } from './styles';
 import { h, w } from 'src/values/Dimensions';
-import { images } from 'src/assets/images';
+import { useSelector } from 'react-redux';
+import { selectAds } from 'redux/user';
 
 const AdSec = ({
   lang,
@@ -15,8 +15,12 @@ const AdSec = ({
 }) => {
   const carouselRef = useRef<any>();
   const [indexSelected, setIndexSelected] = useState(0);
+  const ads = useSelector(selectAds);
+
   const renderItem = () => {
-    return <Image source={imageList[indexSelected]} style={styles.img} />;
+    return (
+      <Image source={{ uri: ads?.[indexSelected]?.img }} style={styles.img} />
+    );
   };
 
   useEffect(() => {
@@ -25,14 +29,6 @@ const AdSec = ({
     }, 10000);
     return () => clearInterval(interval);
   }, []);
-
-  const imageList = [
-    images.slider1,
-    images.slider2,
-    images.slider3,
-    images.slider2,
-    images.slider1,
-  ];
 
   return (
     <View
@@ -51,7 +47,7 @@ const AdSec = ({
         }}>
         <Carousel
           ref={carouselRef}
-          data={imageList}
+          data={ads}
           renderItem={renderItem}
           sliderWidth={w}
           itemWidth={w}
@@ -69,7 +65,7 @@ const AdSec = ({
           inactiveDotColor="#D9D9D9"
           dotColor={'#0370D6'}
           activeDotIndex={indexSelected}
-          dotsLength={imageList.length}
+          dotsLength={ads.length}
           animatedDuration={50}
           inactiveDotScale={1}
           dotStyle={{

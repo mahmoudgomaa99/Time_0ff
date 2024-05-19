@@ -36,7 +36,8 @@ const EditProfile = () => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
     getCountries().then(values => {
-      setallData(values.data.data);
+      let data: any = [{ country: 'Other' }, ...values.data.data];
+      setallData(data);
     });
     getCountries();
   }, []);
@@ -77,8 +78,9 @@ const EditProfile = () => {
             countryCode: '+20',
             phoneNumber: currrentUser?.phone,
             email: currrentUser?.email,
-            city: currrentUser?.city,
+            nationality: currrentUser?.nationality,
             country: currrentUser?.country,
+            gender: currrentUser?.gender,
           }}
           onSubmit={values => {
             const body = new FormData();
@@ -98,11 +100,12 @@ const EditProfile = () => {
                   name: values?.fullName,
                   email: values?.email,
                   phone: values?.phoneNumber,
-                  city: values?.city,
                   country: values?.country,
+                  nationality: values?.nationality,
+                  gender: values?.gender,
                 }),
               ),
-              source?.assets.length > 0 &&
+              source?.assets?.length > 0 &&
                 dispatch(User.thunks.doUpdateImage(body)),
             ])
               .then(() => {
@@ -192,6 +195,33 @@ const EditProfile = () => {
                 data={countries}
                 placeholder={'Country'}
                 name={'country'}
+                values={props.values}
+              />
+              <Picker
+                {...props}
+                borderColor={'#F2F2F2'}
+                type={'primary'}
+                data={countries}
+                placeholder={'Nationality'}
+                name={'nationality'}
+                values={props.values}
+              />
+              <Picker
+                {...props}
+                borderColor={'#F2F2F2'}
+                type={'primary'}
+                data={[
+                  {
+                    label: languages[lang].male,
+                    value: 'male',
+                  },
+                  {
+                    label: languages[lang].female,
+                    value: 'female',
+                  },
+                ]}
+                placeholder={languages[lang].gender}
+                name={'gender'}
                 values={props.values}
               />
 

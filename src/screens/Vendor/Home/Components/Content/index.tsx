@@ -9,11 +9,11 @@ import {
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import SkeletonItem from 'components/molecules/SkeletonItem';
-import Card from 'screens/App/MainPage/Components/Card';
 import { Tjourney } from 'redux/journey/model';
 import languages from 'values/languages';
 import COLORS from 'values/colors';
 import { h } from 'values/Dimensions';
+import Card from '../Card';
 
 const Content = ({
   lang,

@@ -62,6 +62,7 @@ const doGetAgencyJourneys = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.GetAgencyJourneys(data);
+      // console.log(response, 'from thunk');
       if (response.status == 404) {
         throw response.data;
       } else {
@@ -127,6 +128,7 @@ const doAddJourney = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.AddJourney(data);
+      console.log('response', response);
       if (response.status === 400 || response.status === 401) {
         throw response.data;
       } else {
@@ -331,6 +333,67 @@ const doRateJourney = createAsyncThunk<any, any, any>(
   },
 );
 
+const doGetJourneyAvailabilitey_Vendor_Houres = createAsyncThunk<any, any, any>(
+  'journeys/GetJourneyAvailabiliteyVendorHoures',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.GetJourneyAvailabilitey_Vendor_Houres(
+        data,
+      );
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doDeleteSlot = createAsyncThunk<any, any, any>(
+  'journeys/deleteSlot',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.DeleteSlot(data);
+      if (response.status === 401 || response.status === 400) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doUpdteSlot = createAsyncThunk<any, any, any>(
+  'journeys/updateSlot',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.UpdateSlot(data);
+      if (response.status === 401 || response.status === 400) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doAddSlot = createAsyncThunk<any, any, any>(
+  'journeys/addSlot',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.AddSlot(data);
+      if (response.status === 401 || response.status === 400) {
+        throw response.data;
+      } else {
+        return { data: response.data };
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 const thunks = {
   doGetJourneys,
   doGetJourney,
@@ -356,6 +419,10 @@ const thunks = {
   doCancelBooking,
   doRateAgency,
   doRateJourney,
+  doGetJourneyAvailabilitey_Vendor_Houres,
+  doDeleteSlot,
+  doUpdteSlot,
+  doAddSlot,
 };
 
 export default thunks;
