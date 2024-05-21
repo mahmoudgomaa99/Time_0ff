@@ -153,6 +153,30 @@ const doGetAds = createAsyncThunk<any, any, any>(
   },
 );
 
+const doGetCards = createAsyncThunk<any, any, any>(
+  'user/cards',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getCards(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doDeleteCard = createAsyncThunk<any, any, any>(
+  'user/deleteCard',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.deleteCard(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doForgetPassword,
   doGetUser,
@@ -165,6 +189,8 @@ const thunks = {
   doGetUserNotefications,
   doGetCategories,
   doGetAds,
+  doGetCards,
+  doDeleteCard,
 };
 
 export default thunks;

@@ -36,6 +36,14 @@ const GetUserNotefications = (data: { id: number; page: number }) =>
 
 const getCategories = () => api.get('categories');
 const getAds = () => api.get('ads');
+
+const getCards = (data: any) => api.get(`payment/getCards/${data}`);
+
+const deleteCard = (data: any) =>
+  api.delete(
+    `payment/deleteCard?cardToken=${data.cardToken}&userId=${data.userId}`,
+  );
+
 const UserAPI = {
   LogIn,
   SignUp,
@@ -48,6 +56,8 @@ const UserAPI = {
   GetUserNotefications,
   getCategories,
   getAds,
+  getCards,
+  deleteCard,
 };
 
 export default UserAPI;

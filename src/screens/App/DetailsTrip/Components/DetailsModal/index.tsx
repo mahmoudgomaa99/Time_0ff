@@ -22,6 +22,7 @@ import { useAppDispatch } from 'redux/store';
 import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import { getDates } from './utils/GetDates';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const DetailsTrip = ({
   isDetailsModalVisibal,
@@ -49,7 +50,11 @@ const DetailsTrip = ({
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey?._id));
+      dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(journey?._id))
+        .then(unwrapResult)
+        .then(res => {
+          console.log('res', res);
+        });
     }, [journey?._id]),
   );
 

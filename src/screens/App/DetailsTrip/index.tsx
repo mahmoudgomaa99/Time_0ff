@@ -36,7 +36,9 @@ const DetailsTrip = () => {
   const { id } = route.params;
   const currency = useSelector(selectCurrency);
   const [EGPRate, setEGPRate] = useState(0);
-  const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
+  const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler({
+    isCenter: false,
+  });
   const [isDetailsModalVisibal, setisDetailsModalVisibal] = useState(false);
   const [isRequestReceive, setisRequestReceive] = useState(false);
   const navigation = useNavigation<any>();

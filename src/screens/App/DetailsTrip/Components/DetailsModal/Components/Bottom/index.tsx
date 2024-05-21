@@ -50,7 +50,9 @@ const Bottom = ({
 }) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
-  const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler();
+  const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler({
+    isCenter: false,
+  });
   const currentUser = useSelector(selectCurrentUser);
   // state to hold the selected date
   const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
@@ -68,38 +70,34 @@ const Bottom = ({
       }}
       onSubmit={values => {
         console.log('values', values);
-        // if (!currentUser) {
-        //   openCustomModal();
-        // } else {
-        //   // navigation.navigate('paymentScreen', {
-        //   //   journey_slot_id: values.time,
-        //   //   number_of_seats: Number(values.members),
-        //   //   journey: journey,
-        //   // });
-        //   dispatch(
-        //     Journeys.thunks.doAddBooking({
-        //       journey_slot_id: values.time,
-        //       number_of_seats: Number(values.members),
-        //       agency_id: journey.agency_id,
-        //     }),
-        //   )
-        //     .then(unwrapResult)
-        //     .then(() => {
-        //       setisDetailsModalVisibal(false);
-        //       setisRequestReceive(true);
-        //       Toast.show({
-        //         type: 'success',
-        //         text2: languages[lang].bookingAdd,
-        //       });
-        //     })
-        //     .catch(err => {
-        //       console.log(err);
-        //       Toast.show({
-        //         type: 'error',
-        //         text2: err.message,
-        //       });
-        //     });
-        // }
+        if (!currentUser) {
+          openCustomModal();
+        } else {
+          navigation.navigate('chooseCard', values);
+          // dispatch(
+          //   Journeys.thunks.doAddBooking({
+          //     journey_slot_id: values.time,
+          //     number_of_seats: Number(values.members),
+          //     agency_id: journey.agency_id,
+          //   }),
+          // )
+          //   .then(unwrapResult)
+          //   .then(() => {
+          //     setisDetailsModalVisibal(false);
+          //     setisRequestReceive(true);
+          //     Toast.show({
+          //       type: 'success',
+          //       text2: languages[lang].bookingAdd,
+          //     });
+          //   })
+          //   .catch(err => {
+          //     console.log(err);
+          //     Toast.show({
+          //       type: 'error',
+          //       text2: err.message,
+          //     });
+          //   });
+        }
       }}
       validationSchema={bookSchema(lang)}>
       {props => (

@@ -87,3 +87,27 @@ export const AddActivityScheme = (lang: string) => {
     mode: Yup.string().required(languages[lang].required),
   });
 };
+
+export const addCardSheme = (lang: string) => {
+  return Yup.object().shape({
+    cardNumber: Yup.string()
+      .required(languages[lang].required)
+      .min(12, ' Card number must be at least 12 characters')
+      .max(12, ' Card number must be at least 12 characters'),
+    cardAlias: Yup.string()
+      .required(languages[lang].required)
+      .min(6, 'Name must be at least 6 characters'),
+    expiryYear: Yup.string()
+      .required(languages[lang].required)
+      .min(2, 'Year must be at least 2 characters')
+      .max(2, 'Year must be at least 2 characters'),
+    expiryMonth: Yup.string()
+      .required(languages[lang].required)
+      .min(2, 'Month must be at least 2 characters')
+      .max(2, 'Month must be at least 2 characters'),
+    cvv: Yup.string()
+      .required(languages[lang].required)
+      .min(3, 'CVV must be at least 3 characters')
+      .max(3, 'CVV must be at least 3 characters'),
+  });
+};

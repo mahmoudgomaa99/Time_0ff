@@ -26,7 +26,9 @@ const Profile = () => {
   const lang = useSelector(selectLanguage);
   const [actionSheet, setActionSheet] = useState(false);
   const closeActionSheet = () => setActionSheet(false);
-  const { openCustomModal, closeCustomModal, CustomModal } = useModalHandler();
+  const { openCustomModal, closeCustomModal, CustomModal } = useModalHandler({
+    isCenter: false,
+  });
 
   const actionItems = [
     {

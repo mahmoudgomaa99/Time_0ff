@@ -26,7 +26,9 @@ const Settings = () => {
   const userType = useSelector(selectUserType);
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
-  const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler();
+  const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler({
+    isCenter: false,
+  });
   const [isLanguageModel, setisLanguageModel] = useState(false);
   const [isCurrencyModel, setisCurrencyModel] = useState(false);
   const [isPasswordModel, setisPasswordModel] = useState(false);

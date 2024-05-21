@@ -59,6 +59,7 @@ const InputView = ({
     <View style={[styles.container, containerStyling]}>
       <Text style={titleStyling}>{title}</Text>
       <Input
+        ref={props?.ref}
         {...props}
         placeholder={placeholder}
         autoComplete={'off'}

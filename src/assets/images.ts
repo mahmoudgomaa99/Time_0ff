@@ -17,4 +17,5 @@ export const images = {
   Frame: require('./Frame.png'),
   maleAvatar: require('./Ellipse4.png'),
   femaleAvatar: require('./Ellipse5.png'),
+  card: require('./card.png'),
 };

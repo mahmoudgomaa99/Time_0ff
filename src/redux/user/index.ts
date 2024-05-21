@@ -12,6 +12,7 @@ type TInitialValues = {
   isGuest: boolean;
   categories?: any[];
   ads: any[];
+  cards: any[];
 };
 
 const initialValues: TInitialValues = {
@@ -21,6 +22,7 @@ const initialValues: TInitialValues = {
   isGuest: false,
   categories: [],
   ads: [],
+  cards: [],
 };
 
 const slice = createSlice({
@@ -130,6 +132,20 @@ const slice = createSlice({
     builder.addCase(thunks.doGetAds.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(thunks.doGetCards.fulfilled, (state, action) => {
+      if (Array.isArray(action.payload)) {
+        state.cards = action.payload;
+      }
+    });
+    builder.addCase(thunks.doGetCards.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doDeleteCard.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doDeleteCard.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -150,5 +166,6 @@ export const selectUserNotefnum = (state: RootState) => state.users.notefnum;
 export const selectIsGuest = (state: RootState) => state.users.isGuest;
 export const selectCategories = (state: RootState) => state.users.categories;
 export const selectAds = (state: RootState) => state.users.ads;
+export const selectCards = (state: RootState) => state.users.cards;
 
 export default User;
