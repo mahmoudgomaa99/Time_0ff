@@ -22,7 +22,11 @@ import { useAppDispatch } from 'redux/store';
 import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import { useNavigation } from '@react-navigation/native';
-import User, { selectCategories, selectCurrentUser } from 'redux/user';
+import User, {
+  selectCategories,
+  selectCurrentUser,
+  selectLocations,
+} from 'redux/user';
 import axios from 'axios';
 import { AddActivityScheme } from 'src/formik/schema';
 import { categData } from 'screens/App/MainPage/Components/FilterModel/data';
@@ -31,11 +35,13 @@ import { GetWeekDays } from './utils/GetWeekDays';
 import { MultiSelect } from 'react-native-element-dropdown';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Toast from 'react-native-toast-message';
+import { FormateLocationChoices } from './utils/FormateLocationChoices';
 
 const AddJourney = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const categories = useSelector(selectCategories);
+  const locations = useSelector(selectLocations);
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -70,7 +76,10 @@ const AddJourney = () => {
 
   useEffect(() => {
     dispatch(User.thunks.doGetCategories({}));
+    dispatch(User.thunks.doGetLocations({}));
   }, []);
+
+  console.log(locations);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -104,44 +113,54 @@ const AddJourney = () => {
             if (EGPRate !== 0) {
               values.price = values?.price * EGPRate;
             }
-            dispatch(
-              Journeys.thunks.doAddJourney({
-                journey_name: values.journey_name,
-                category: values.category,
-                description: values.description,
-                start_date: values.start_date,
-                capacity: values.capacity,
-                price: values.price,
-                location: values.location,
-                arabic_journey_name: values.journey_name,
-                arabic_description: values.description,
-                arabic_location: values.location,
-                arabic_category: values.category,
-                availability: values.availability,
-                end_date: values?.end_date || values.start_date,
-                terms: values.terms,
-                mode: values.mode,
-                frequency: values.frequency,
-                days_of_month: values?.days_of_month,
-                days_of_week: values?.days_of_week,
-              }),
-            )
-              .then(unwrapResult)
-              .then(() => {
-                dispatch(
-                  Journeys.thunks.doGetAgencyJourneys({
-                    id: userData?._id,
-                    page: 1,
-                  }),
-                );
-                navigation.goBack();
-              })
-              .catch(err => {
-                Toast.show({
-                  type: 'error',
-                  text2: err.message,
-                });
+            if (
+              values?.availability?.[0]?.start_hour?.length == 0 ||
+              values?.availability?.[0]?.end_hour?.length == 0
+            ) {
+              Toast.show({
+                type: 'error',
+                text2: 'Please add availability',
               });
+            } else {
+              dispatch(
+                Journeys.thunks.doAddJourney({
+                  journey_name: values.journey_name,
+                  category: values.category,
+                  description: values.description,
+                  start_date: values.start_date,
+                  capacity: values.capacity,
+                  price: values.price,
+                  location: values.location,
+                  arabic_journey_name: values.journey_name,
+                  arabic_description: values.description,
+                  arabic_location: values.location,
+                  arabic_category: values.category,
+                  availability: values.availability,
+                  end_date: values?.end_date || values.start_date,
+                  terms: values.terms,
+                  mode: values.mode,
+                  frequency: values.frequency,
+                  days_of_month: values?.days_of_month,
+                  days_of_week: values?.days_of_week,
+                }),
+              )
+                .then(unwrapResult)
+                .then(() => {
+                  dispatch(
+                    Journeys.thunks.doGetAgencyJourneys({
+                      id: userData?._id,
+                      page: 1,
+                    }),
+                  );
+                  navigation.goBack();
+                })
+                .catch(err => {
+                  Toast.show({
+                    type: 'error',
+                    text2: err.message,
+                  });
+                });
+            }
           }}>
           {props => (
             <View>
@@ -163,7 +182,7 @@ const AddJourney = () => {
               />
               <Picker
                 {...props}
-                borderColor={'#6a6969'}
+                borderColor={COLORS.lightGrey}
                 type={'primary'}
                 data={categData(categories, lang)}
                 name={'category'}
@@ -203,21 +222,15 @@ const AddJourney = () => {
                 labelStyle={[styles(lang).label_style]}
                 placeholder="Enter Terms and Conditions"
               />
-              <InputView
-                style={styles(lang).input}
+
+              <Picker
                 {...props}
+                borderColor={COLORS.lightGrey}
+                type={'primary'}
+                data={FormateLocationChoices(locations)}
                 name={'location'}
-                label={languages[lang].location}
-                inputContainerStyling={{
-                  direction: lang === 'ar' ? 'rtl' : 'ltr',
-                  borderBottomWidth: 0,
-                }}
-                containerStyle={[
-                  styles(lang, isDarkMode).containerStyle,
-                  { marginTop: 4 },
-                ]}
-                labelStyle={[styles(lang).label_style]}
-                placeholder="Enter location"
+                stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                placeholder={'Select location'}
               />
               <InputView
                 style={styles(lang).input}

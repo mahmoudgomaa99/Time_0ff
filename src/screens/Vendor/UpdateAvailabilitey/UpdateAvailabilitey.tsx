@@ -123,6 +123,7 @@ const UpdateAvailabilitey = () => {
           /> */}
           <Calendar
             current={date}
+            hideExtraDays={true}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
             markedDates={{

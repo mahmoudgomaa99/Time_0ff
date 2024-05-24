@@ -18,7 +18,8 @@ import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
 import RatingModal from './Components/RatingModal';
 import RenderRating from './Components/RenderRating';
-import { selectCategories } from 'redux/user';
+import { selectCategories, selectLocations } from 'redux/user';
+import { FormateLocationChoices } from 'screens/Vendor/AddJourney/utils/FormateLocationChoices';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -40,6 +41,7 @@ const FilterModel = ({
   setpage?: any;
 }) => {
   const categories = useSelector(selectCategories);
+  const locations = useSelector(selectLocations);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
   const [isRatingModalVisable, setRatingModalVisable] = useState(false);
   const [type, setType] = useState<'start_date' | 'end_date'>('start_date');
@@ -139,14 +141,7 @@ const FilterModel = ({
                   borderColor={'#EEEEEE'}
                   {...props}
                   type={'primary'}
-                  data={[
-                    { label: 'Sharm El-Shaikh', value: 'sharm' },
-                    { label: 'Dahab', value: 'dahab' },
-                    { label: 'Hurghada', value: 'hurghada' },
-                    { label: 'Matrouh', value: 'matrouh' },
-                    { label: 'Alexandria', value: 'alexandria' },
-                    { label: 'Gouna', value: 'gouna' },
-                  ]}
+                  data={FormateLocationChoices(locations)}
                   name={'location'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
                 />

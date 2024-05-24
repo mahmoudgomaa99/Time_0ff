@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from 'values/colors';
+import { h } from 'values/Dimensions';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -7,6 +8,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingLeft: 10,
     paddingRight: 10,
+    paddingTop: h * 0.06,
   },
   dateAndCode: {
     marginTop: 15,

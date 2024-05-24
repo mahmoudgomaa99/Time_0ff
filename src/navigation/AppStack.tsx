@@ -36,7 +36,7 @@ const Stack = createNativeStackNavigator<TAuthStack>();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName="chooseCard">
+    <Stack.Navigator initialRouteName="home">
       <Stack.Screen
         name="home"
         component={TabBar}

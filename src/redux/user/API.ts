@@ -44,6 +44,8 @@ const deleteCard = (data: any) =>
     `payment/deleteCard?cardToken=${data.cardToken}&userId=${data.userId}`,
   );
 
+const getLocations = () => api.get('locations');
+
 const UserAPI = {
   LogIn,
   SignUp,
@@ -58,6 +60,7 @@ const UserAPI = {
   getAds,
   getCards,
   deleteCard,
+  getLocations,
 };
 
 export default UserAPI;

@@ -177,6 +177,18 @@ const doDeleteCard = createAsyncThunk<any, any, any>(
   },
 );
 
+const doGetLocations = createAsyncThunk<any, any, any>(
+  'user/locations',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getLocations();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doForgetPassword,
   doGetUser,
@@ -191,6 +203,7 @@ const thunks = {
   doGetAds,
   doGetCards,
   doDeleteCard,
+  doGetLocations,
 };
 
 export default thunks;

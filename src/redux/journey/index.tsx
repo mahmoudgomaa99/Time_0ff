@@ -202,14 +202,17 @@ const slice = createSlice({
     builder.addCase(thunks.doRemoveJourneys.fulfilled, (state, action) => {
       Toast.show({
         type: 'success',
-        text2: action.payload.data.data.message,
+        text2:
+          action.payload.data?.data?.message || action.payload.data?.message,
       });
     });
     builder.addCase(thunks.doRemoveJourneys.rejected, (state, action: any) => {
-      console.log(action);
       Toast.show({
         type: 'error',
-        text2: action.payload.message,
+        text2:
+          action?.payload?.message ||
+          action?.payload?.data?.message ||
+          action?.payload,
       });
     });
     builder.addCase(thunks.doAddBooking.fulfilled, (state, action) => {

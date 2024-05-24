@@ -192,7 +192,11 @@ const doRemoveJourneys = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await JourneysApi.RemoveJourney(data);
-      if (response.status === 500) {
+      if (
+        response.status === 500 ||
+        response.status === 401 ||
+        response.status === 400
+      ) {
         throw response.data;
       }
       return { data: response.data };

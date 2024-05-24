@@ -46,7 +46,7 @@ const JourneyDetails = () => {
   const routes: any = useRoute();
   const categories = useSelector(selectCategories);
   const navigation = useNavigation<any>();
-  const { id } = routes.params;
+  const { id, agencyId } = routes.params;
   const isLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const isCategoriesLoading = useLoadingSelector(User.thunks.doGetCategories);
   const isImageLoading = useLoadingSelector(
@@ -100,7 +100,12 @@ const JourneyDetails = () => {
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
-      <Top lang={lang} isDarkMode={isDarkMode} id={journies[id]?._id} />
+      <Top
+        lang={lang}
+        isDarkMode={isDarkMode}
+        id={journies[id]?._id}
+        agencyId={agencyId}
+      />
       {isLoading || isCategoriesLoading ? (
         <Skeleton />
       ) : (

@@ -22,6 +22,7 @@ const Content = ({
   isGetJourneysLoading,
   page,
   setpage,
+  agecyId,
 }: {
   isDarkMode?: boolean;
   lang: string;
@@ -29,6 +30,7 @@ const Content = ({
   isGetJourneysLoading: any;
   page: number;
   setpage: any;
+  agecyId: number | null;
 }) => {
   const navigation = useNavigation<any>();
 
@@ -52,7 +54,10 @@ const Content = ({
               <View key={item._id}>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('journeyDetails', { id: item._id });
+                    navigation.navigate('journeyDetails', {
+                      id: item._id,
+                      agencyId: agecyId,
+                    });
                   }}>
                   <Card
                     title={

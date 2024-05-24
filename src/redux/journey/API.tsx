@@ -191,7 +191,6 @@ const UpdateJourneyAvailabilitey = (data: {
   }[];
 }) => api.post(`journeys/availability/${data.id}`, data.availability);
 const RemoveJourney = (id: number) => {
-  console.log(id, 'from api');
   return api.delete(`journeys/${id}`);
 };
 

@@ -172,9 +172,9 @@ const Picker = ({
                 },
                 modalViewMiddle: styles(isDarkMode)[`${type}_modalHeader`],
                 modalViewBottom: styles(isDarkMode)[`${type}_modalBody`],
+
                 // iconContainer: { top: '42%', right: 10 },
               }}
-
               // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
               // Icon={() => (
               //   <Image

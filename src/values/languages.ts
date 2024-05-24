@@ -184,7 +184,7 @@ const languages: any = {
     hours: 'Hours',
     add: 'Add',
     remove: 'Remove',
-    availabilities: 'Availabilities',
+    availabilities: 'Daily slots',
     hour: 'Hour',
     journeysDetails: 'Activities Details',
     edit_image: 'Edit Image',

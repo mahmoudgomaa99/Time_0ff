@@ -16,14 +16,17 @@ const Top = ({
   lang,
   isDarkMode,
   id,
+  agencyId,
 }: {
   lang: string;
   isDarkMode: boolean;
   id?: number;
+  agencyId?: number;
 }) => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(Journeys.thunks.doRemoveJourneys);
+
   return (
     <View style={styles(lang, isDarkMode).container}>
       <Svg
@@ -41,8 +44,16 @@ const Top = ({
           dispatch(Journeys.thunks.doRemoveJourneys(id))
             .then(unwrapResult)
             .then(res => {
-              console.log(res);
-              navigation.goBack();
+              dispatch(
+                Journeys.thunks.doGetAgencyJourneys({
+                  id: agencyId,
+                  page: 1,
+                }),
+              )
+                .then(unwrapResult)
+                .then(() => {
+                  navigation.goBack();
+                });
             })
             .catch(err => {
               console.log(err);

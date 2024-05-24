@@ -116,6 +116,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
   useEffect(() => {
     dispatch(User.thunks.doGetCategories({}));
     dispatch(User.thunks.doGetAds({}));
+    dispatch(User.thunks.doGetLocations({}));
   });
 
   useEffect(() => {
