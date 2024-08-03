@@ -33,7 +33,7 @@ const InputSec = ({
           flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
           paddingHorizontal: lang === 'ar' ? 5 : 15,
           paddingLeft: lang === 'ar' ? 10 : 5,
-          paddingRight: lang === 'ar' ? 0 : 25,
+          paddingRight: lang === 'ar' ? 0 : 5,
         },
       ]}>
       <View style={styles().input}>
@@ -64,18 +64,24 @@ const InputSec = ({
                 containerStyle={{ borderWidth: 0 }}
                 style={{ borderWidth: 0 }}
                 inputStyle={{}}
+                rightIcon={
+                  <View
+                    style={[
+                      styles().filter,
+                      { marginRight: lang === 'en' ? -15 : 0 },
+                    ]}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setFilterModalVisable(true);
+                      }}>
+                      <Svg name="rightMenu" size={85} />
+                    </TouchableOpacity>
+                  </View>
+                }
               />
             </>
           )}
         </Formik>
-      </View>
-      <View style={[styles().filter, { marginLeft: lang === 'en' ? -11 : 0 }]}>
-        <TouchableOpacity
-          onPress={() => {
-            setFilterModalVisable(true);
-          }}>
-          <Svg name="rightMenu" size={65} />
-        </TouchableOpacity>
       </View>
     </View>
   );

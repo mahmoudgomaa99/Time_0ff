@@ -31,7 +31,6 @@ const tokenReducer = createReducer(initialState, builder => {
       if (action.payload.data) {
         const token = action.payload.data.token;
         state.token = token;
-        console.log(state.token, state.device_token, 'token');
       }
     })
     .addCase(doSetDeviceToken, (state, action) => {

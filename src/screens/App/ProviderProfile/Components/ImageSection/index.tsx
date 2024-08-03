@@ -16,13 +16,14 @@ const ImageSection = ({
   lang: string;
   items: any;
 }) => {
+  console.log('items', items);
   return (
     <View style={styles(lang).container}>
       <View style={styles(lang).imageContainer}>
         <Image
           source={
-            items?.agencyDataRes?.image
-              ? { uri: items?.agencyDataRes?.image }
+            items?.agencyData?.image
+              ? { uri: items?.agencyData?.image }
               : images.present
           }
           style={styles(lang).image}
@@ -37,7 +38,7 @@ const ImageSection = ({
         <View style={styles(lang, isDarkMode).first}>
           <Svg name="starWithB" />
           <TextView
-            title={`(${items?.agencyDataRes?.rating})`}
+            title={`(${items?.agencyData?.rating})`}
             style={styles(lang, isDarkMode).text}
           />
           <TextView
@@ -48,7 +49,7 @@ const ImageSection = ({
         <View style={styles(lang, isDarkMode).second}>
           <Svg name="locationWithB" />
           <TextView
-            title={languages[lang].sharm}
+            title={items?.agencyData?.city || items?.agencyData?.country}
             style={styles(lang, isDarkMode).text}
           />
         </View>

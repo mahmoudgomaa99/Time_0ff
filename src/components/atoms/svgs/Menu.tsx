@@ -1,8 +1,8 @@
+import { TSvgProps } from 'atoms/Svg';
+import useSvgSize from 'hooks/useSvgSize';
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
-
-import { TSvgProps } from '../Svg';
-import useSvgSize from 'hooks/useSvgSize';
+import { SvgProps } from 'react-native-svg';
 
 const WIDTH = 113.715;
 const HEIGHT = 77.212;
@@ -11,11 +11,12 @@ const RATIO_TO_WIDTH = HEIGHT / WIDTH;
 
 function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
+
   return (
-    <Svg {...computedSize} viewBox="0 0 512.000000 512.000000" {...props}>
+    <Svg {...computedSize} viewBox="0 0 18 13" fill="none" {...props}>
       <Path
-        d="M142 4469c-46-14-118-88-131-135-34-123 32-240 154-273 28-8 744-11 2396-11 2596 0 2420-4 2488 62 92 89 93 216 5 305-24 24-58 46-80 52-51 14-4783 14-4832 0zM125 2753c-141-74-167-249-52-350 20-18 54-37 74-43 27-8 610-10 2010-8l1971 3 44 30c123 87 123 263 0 350l-44 30-1986 2c-1796 2-1990 1-2017-14zM162 1060c-59-14-108-55-137-115C1 898-2 881 3 834c7-68 41-123 99-161l42-28 2394-3c1678-1 2406 1 2434 9 56 14 121 82 137 142 27 95-13 195-97 244l-47 28-2385 2c-1312 0-2400-2-2418-7z"
-        transform="matrix(.1 0 0 -.1 0 512)"
+        d="M5.175 1.656c0-.229.09-.449.25-.611A.85.85 0 016.03.792h11.115a.846.846 0 01.605.253.866.866 0 01.185.942.866.866 0 01-.463.468.846.846 0 01-.327.066H6.03a.85.85 0 01-.605-.253.87.87 0 01-.25-.612zm11.97 4.324H1.755a.847.847 0 00-.605.254.865.865 0 00-.25.611.873.873 0 00.25.612.854.854 0 00.605.253h15.39a.846.846 0 00.605-.253.866.866 0 00.185-.943.866.866 0 00-.463-.468.846.846 0 00-.327-.066zm0 5.19H9.45a.85.85 0 00-.605.253.87.87 0 000 1.223.85.85 0 00.605.253h7.695a.85.85 0 00.605-.253.87.87 0 000-1.223.85.85 0 00-.605-.254z"
+        fill="#0370D6"
       />
     </Svg>
   );

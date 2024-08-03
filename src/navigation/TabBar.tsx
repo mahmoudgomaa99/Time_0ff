@@ -22,10 +22,10 @@ const TabBar = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const notef = useSelector(selectUserNotefications);
   const notefNum = useSelector(selectUserNotefnum);
-  console.log('notefNum', notefNum);
+
   return (
     <Tab.Navigator
-      initialRouteName="home"
+      initialRouteName={languages[lang].main}
       screenOptions={{
         tabBarActiveTintColor: isDarkMode ? COLORS.white : '#0370D6',
         tabBarInactiveTintColor: isDarkMode ? COLORS.alfaBlack : '#000000',

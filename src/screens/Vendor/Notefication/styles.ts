@@ -8,7 +8,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     container: {
       flex: 1,
       backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
-      // paddingVertical: 20,
+      paddingTop: 40,
     },
     noInbox: {
       flex: 1,

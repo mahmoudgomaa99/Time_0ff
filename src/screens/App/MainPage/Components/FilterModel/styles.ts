@@ -8,7 +8,7 @@ export const styles = (isDarkMode?: boolean) =>
     modalContainer: {
       position: 'relative',
       backgroundColor: isDarkMode ? COLORS.darkMode : 'white',
-      height: h * 0.6,
+      height: h * 0.8,
       marginTop: 'auto',
       borderTopRightRadius: 30,
       borderTopLeftRadius: 30,
@@ -19,6 +19,7 @@ export const styles = (isDarkMode?: boolean) =>
 
     inputContainerStyling: {
       borderBottomWidth: 0,
+      width: w * 0.36,
     },
     containerStyle: {
       backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : COLORS.white,
@@ -26,6 +27,7 @@ export const styles = (isDarkMode?: boolean) =>
       borderColor: COLORS.grey,
       borderRadius: BorderRadius.m,
       height: h * 0.07,
+      marginHorizontal: 2,
     },
 
     button: {
@@ -40,5 +42,17 @@ export const styles = (isDarkMode?: boolean) =>
       marginTop: h * 0.009,
       marginBottom: -10,
       fontFamily: Fonts.Cairo_SemiBold,
+    },
+    pickerContainer: {
+      marginHorizontal: 0,
+      marginTop: 20,
+      borderWidth: 2,
+      borderColor: '#EEEEEE',
+      borderRadius: 10,
+      backgroundColor: isDarkMode ? COLORS.iconBackDarkMode : COLORS.white,
+      height: h * 0.07,
+      width: w * 0.9,
+      paddingHorizontal: 7,
+      justifyContent: 'center',
     },
   });

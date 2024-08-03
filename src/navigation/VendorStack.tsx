@@ -4,11 +4,16 @@ import VendorTabBar from './VendorTabBar';
 import AddJourney from 'screens/Vendor/AddJourney';
 import JourneyDetails from 'screens/Vendor/JourneyDetails';
 import UpdateAvailabilitey from 'screens/Vendor/UpdateAvailabilitey/UpdateAvailabilitey';
+import UpdateSingleAvailbilitey from '../screens/Vendor/UpdateSingleAvalibiltey';
+import AddSlot from 'screens/Vendor/AddSlot';
+
 export type TAuthStack = {
   home: undefined;
   addJourney: undefined;
   journeyDetails: undefined;
   updateAvailabilitey: undefined;
+  updateSingleAvailabilitey: undefined;
+  addSlot: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
@@ -34,6 +39,20 @@ const VendorStack = () => {
       <Stack.Screen
         component={UpdateAvailabilitey}
         name="updateAvailabilitey"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        component={UpdateSingleAvailbilitey}
+        name="updateSingleAvailabilitey"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        component={AddSlot}
+        name="addSlot"
         options={{
           headerShown: false,
         }}

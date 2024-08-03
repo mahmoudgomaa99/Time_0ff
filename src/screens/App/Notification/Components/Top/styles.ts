@@ -11,8 +11,8 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       alignItems: 'center',
       position: 'relative',
       marginBottom: MarginsAndPaddings.ml,
-      marginHorizontal: 5,
-      marginTop: 15,
+      marginHorizontal: 0,
+      marginTop: 30,
     },
     arrow: {
       transform: [{ rotate: lang === 'en' ? '180deg' : '0deg' }],

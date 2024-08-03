@@ -15,6 +15,7 @@ import Fonts from 'values/fonts';
 import Svg, { TName } from '../atoms/Svg';
 import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectLanguage } from 'redux/language';
 
 type TType =
   | 'primary'
@@ -44,6 +45,7 @@ const Button = ({
   ...props
 }: TouchableOpacityProps & TButton) => {
   const isDarkMode = useSelector(selectIsDarkMode);
+  const lang = useSelector(selectLanguage);
   return (
     <TouchableOpacity {...props}>
       <View style={styles(isDarkMode)[type] || styles(isDarkMode).primary}>
@@ -61,6 +63,12 @@ const Button = ({
                     [styles(isDarkMode)[`txt_${type}`], txtStyle] || [
                       styles(isDarkMode).txt_primary,
                       txtStyle,
+                      {
+                        fontFamily:
+                          lang === 'ar'
+                            ? Fonts.NeoSansArabicBold
+                            : Fonts.Cairo_Bold,
+                      },
                     ]
                   }>
                   {label}
@@ -72,6 +80,12 @@ const Button = ({
                   [styles(isDarkMode)[`txt_${type}`], txtStyle] || [
                     styles(isDarkMode).txt_primary,
                     txtStyle,
+                    {
+                      fontFamily:
+                        lang === 'ar'
+                          ? Fonts.NeoSansArabicBold
+                          : Fonts.Cairo_Bold,
+                    },
                   ]
                 }>
                 {label}
@@ -98,8 +112,6 @@ const styles = (isDarkMode: boolean) =>
       borderRadius: BorderRadius.s,
       marginBottom:
         Platform.OS === 'ios' ? MarginsAndPaddings.ml : MarginsAndPaddings.m,
-      height: h * 0.08,
-      fontSize: 16,
     },
     primaryModel: {
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.primary,
@@ -167,15 +179,15 @@ const styles = (isDarkMode: boolean) =>
     txt_primary: {
       color: COLORS.white,
       // fontFamily: Fonts.RobotoBold,
-      fontFamily: Fonts.RobotoBold,
-      fontSize: 16,
-      lineHeight: 21,
+      fontFamily: Fonts.Cairo_Bold,
+      fontSize: 20,
+      lineHeight: 30,
     },
     txt_primaryModel: {
       color: COLORS.white,
       // fontFamily: Fonts.RobotoBold,
-      fontFamily: Fonts.RobotoBold,
-      fontSize: 16,
+      fontFamily: Fonts.Cairo_Bold,
+      fontSize: 20,
       lineHeight: 21,
     },
     txt_map: {
@@ -186,12 +198,17 @@ const styles = (isDarkMode: boolean) =>
     txt_secondry: {
       color: COLORS.primary,
       fontWeight: '700',
+      // fontSize: 16,
+      // lineHeight: 21,
     },
     txt_ticket_type: { color: COLORS.primary, fontWeight: '700', fontSize: 17 },
-    txt_book: {},
+    txt_book: {
+      fontSize: 20,
+      lineHeight: 30,
+    },
     txt_cancel: {
       color: isDarkMode ? COLORS.white : COLORS.black,
-      fontFamily: Fonts.RobotoBold,
+      fontFamily: Fonts.Cairo_Bold,
       fontSize: 16,
       lineHeight: 21,
     },

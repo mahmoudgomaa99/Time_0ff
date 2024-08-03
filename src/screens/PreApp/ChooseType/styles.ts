@@ -55,8 +55,9 @@ export const styles = (type?: string, choosen?: string, isDarkMode?: boolean) =>
           : isDarkMode
           ? COLORS.white
           : COLORS.primary,
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: 'bold',
       fontFamily: Fonts.Cairo_Bold,
+      textAlign: 'center',
     },
   });

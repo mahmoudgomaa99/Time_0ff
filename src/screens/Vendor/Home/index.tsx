@@ -11,14 +11,21 @@ import { selectLanguage } from 'redux/language';
 import Header from './Components/Header';
 import Content from './Components/Content';
 import languages from 'values/languages';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import { selectToken } from 'redux/tokens/reducer';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const Home = () => {
   const navigation = useNavigation<any>();
   const isDarkMode = useSelector(selectIsDarkMode);
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
+  const isFocused = useIsFocused();
+  const [agencyId, setAgencyId] = useState<number | null>(null);
   const token = useSelector(selectToken);
 
   const dispatch = useAppDispatch();
@@ -27,13 +34,23 @@ const Home = () => {
   );
   const journeys = useSelector(selectCurrentAgencyJourneys);
   const [page, setpage] = useState(1);
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(
-        Journeys.thunks.doGetAgencyJourneys({ id: userData?._id, page: page }),
-      );
-    }, [userData?._id, page]),
-  );
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(User.thunks.doGetUser({}));
+      dispatch(Journeys.thunks.doGetAgency(userData?._id))
+        .then(unwrapResult)
+        .then(res => {
+          setAgencyId(res.data.data.agencyData._id);
+          dispatch(
+            Journeys.thunks.doGetAgencyJourneys({
+              id: res.data.data.agencyData._id,
+              page: page,
+            }),
+          );
+        });
+    }
+  }, [userData?._id, page, isFocused]);
 
   return (
     <View style={styles(lang, isDarkMode).container}>
@@ -47,10 +64,11 @@ const Home = () => {
           marginHorizontal: 10,
         }}>
         <Text style={styles(lang, isDarkMode).title}>
-          {languages[lang].journeys}
+          {languages[lang].activity}
         </Text>
         <TouchableOpacity
           onPress={() => {
+            setpage(1);
             navigation.navigate('addJourney');
           }}
           style={styles().add}>
@@ -64,6 +82,7 @@ const Home = () => {
         lang={lang}
         journeys={journeys}
         isGetJourneysLoading={isGetJourneysLoading}
+        agecyId={agencyId}
       />
     </View>
   );

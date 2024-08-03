@@ -9,12 +9,25 @@ type TInitialValues = {
   currentUser?: any;
   notefications: any[];
   notefnum: number;
+  isGuest: boolean;
+  categories?: any[];
+  ads: any[];
+  cards: any[];
+  locations: {
+    id?: number;
+    value?: string;
+  }[];
 };
 
 const initialValues: TInitialValues = {
   currentUser: null,
   notefications: [],
   notefnum: 0,
+  isGuest: false,
+  categories: [],
+  ads: [],
+  cards: [],
+  locations: [],
 };
 
 const slice = createSlice({
@@ -29,6 +42,9 @@ const slice = createSlice({
     },
     ResetNotef: (state, action) => {
       state.notefnum = 0;
+    },
+    setIsGuest: (state, action) => {
+      state.isGuest = action.payload;
     },
   },
   extraReducers: builder => {
@@ -109,6 +125,46 @@ const slice = createSlice({
     builder.addCase(thunks.doGetUserNotefications.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(thunks.doGetCategories.fulfilled, (state, action) => {
+      state.categories = action.payload;
+    });
+    builder.addCase(thunks.doGetCategories.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doGetAds.fulfilled, (state, action) => {
+      state.ads = action.payload;
+    });
+    builder.addCase(thunks.doGetAds.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doGetCards.fulfilled, (state, action) => {
+      if (Array.isArray(action.payload)) {
+        state.cards = action.payload;
+      }
+    });
+    builder.addCase(thunks.doGetCards.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doDeleteCard.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doDeleteCard.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doGetLocations.fulfilled, (state, action) => {
+      if (Array.isArray(action.payload)) {
+        state.locations = action.payload;
+      }
+    });
+    builder.addCase(thunks.doGetLocations.rejected, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doPaymentWithCard.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doPaymentWithCard.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 
@@ -119,10 +175,17 @@ const User = {
   actions,
   addNotef: slice.actions.AddNotef,
   resetNotef: slice.actions.ResetNotef,
+  setIsGuest: slice.actions.setIsGuest,
 };
 
 export const selectCurrentUser = (state: RootState) => state.users.currentUser;
 export const selectUserNotefications = (state: RootState) =>
   state.users.notefications;
 export const selectUserNotefnum = (state: RootState) => state.users.notefnum;
+export const selectIsGuest = (state: RootState) => state.users.isGuest;
+export const selectCategories = (state: RootState) => state.users.categories;
+export const selectAds = (state: RootState) => state.users.ads;
+export const selectCards = (state: RootState) => state.users.cards;
+export const selectLocations = (state: RootState) => state.users.locations;
+
 export default User;

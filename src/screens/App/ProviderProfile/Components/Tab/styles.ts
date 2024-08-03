@@ -30,7 +30,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       backgroundColor: '#0370D6',
       borderRadius: 5,
       marginTop: 3,
-      marginLeft: lang === 'ar' ? 'auto' : 0,
+      marginLeft: lang === 'ar' ? 'auto' : 16,
     },
     lineCenter: {
       width: 20,

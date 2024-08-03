@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from '../../../redux/language/index';
 import languages from '../../../values/languages';
+import { selectIsGuest } from 'redux/user';
 
 const AuthModal = ({
   CustomModal,
@@ -19,13 +20,18 @@ const AuthModal = ({
 }) => {
   const navigation: any = useNavigation();
   const language = useSelector(selectLanguage);
+  const isGuest = useSelector(selectIsGuest);
+
+  if (!isGuest) {
+    return null;
+  }
   return (
     <CustomModal>
       <View
         style={{
           height: 400,
           backgroundColor: COLORS.primary,
-          margin: -10,
+          marginRight: -10,
           borderTopLeftRadius: 50,
           borderTopRightRadius: 50,
           padding: h * 0.02,
@@ -35,6 +41,9 @@ const AuthModal = ({
           shadowOpacity: 0.1,
           shadowOffset: { width: 0, height: -10 },
           paddingTop: 20,
+          width: w * 1.03,
+          alignSelf: 'center',
+          marginBottom: -10,
         }}>
         <Text style={{ color: COLORS.white, fontSize: 25, fontWeight: '700' }}>
           {languages[language].sorry}...

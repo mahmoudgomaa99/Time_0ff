@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import TextView from 'atoms/TextView';
@@ -9,7 +9,6 @@ import Button from 'components/molecules/Button';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import { useNavigation } from '@react-navigation/native';
-import Picker from 'components/molecules/Picker';
 import { registerScheme } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg from 'atoms/Svg';
@@ -24,6 +23,8 @@ import axios from 'axios';
 import { selectUserType } from 'redux/UserType';
 import Fonts from 'values/fonts';
 import { selectDeviceToken } from 'redux/tokens/reducer';
+import Cities from 'screens/Vendor/Profile/mocks/Cities';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +40,8 @@ const Register = () => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
     getCountries().then(values => {
-      setallData(values.data.data);
+      let data: any = [{ country: 'Other' }, ...values.data.data];
+      setallData(data);
     });
     getCountries();
   }, []);
@@ -48,16 +50,22 @@ const Register = () => {
     label: i.country,
     value: i.country,
   }));
-  const getCities = (country: string) => {
-    const cieties: any = allData.filter(
-      (i: any) => i.country === country && country.length > 0,
-    );
-    const allCieties = cieties[0].cities.map((value: any) => ({
-      label: value,
-      value: value,
-    }));
-    return allCieties;
-  };
+
+  // const getCities = (country: string) => {
+  //   if (country === 'Egypt') {
+  //     const allCieties = Cities;
+  //     return allCieties;
+  //   } else {
+  //     const cieties: any = allData.filter(
+  //       (i: any) => i.country === country && country.length > 0,
+  //     );
+  //     const allCieties = cieties[0]?.cities.map((value: any) => ({
+  //       label: value,
+  //       value: value,
+  //     }));
+  //     return allCieties;
+  //   }
+  // };
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
       <View style={{ alignItems: 'center' }}>
@@ -74,8 +82,18 @@ const Register = () => {
           phoneNumber: '',
           email: '',
           password: '',
-          city: '',
-          country: '',
+          nationality: {
+            label: '',
+            value: '',
+          },
+          country: {
+            label: '',
+            value: '',
+          },
+          gender: {
+            label: '',
+            value: '',
+          },
         }}
         onSubmit={values => {
           dispatch(
@@ -85,14 +103,20 @@ const Register = () => {
               email: values.email,
               password: values.password,
               type: userType,
-              city: values.city,
-              country: values.country,
+              nationality: values.nationality?.value,
+              country: values.country?.value,
               device_token: device_token ? device_token : '',
+              gender: values.gender?.value,
             }),
           )
             .then(unwrapResult)
-            .then(() => {
-              navigation.navigate('app', { screen: 'map' });
+            .then(res => {
+              dispatch(User.setIsGuest(false));
+              if (userType === 'agency') {
+                navigation.navigate('vendor');
+              } else {
+                navigation.navigate('app', { screen: 'home' });
+              }
             })
             .catch(err => {
               console.log(err);
@@ -151,6 +175,7 @@ const Register = () => {
               ]}
               labelStyle={[styles(isDarkMode).label_style]}
             />
+
             <InputView
               {...props}
               name="password"
@@ -192,7 +217,7 @@ const Register = () => {
               />
             )} */}
 
-            <Picker
+            <AppPicker
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
@@ -201,13 +226,25 @@ const Register = () => {
               name={'country'}
               values={props.values}
             />
-            <Picker
+            <AppPicker
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
-              data={props.values.country ? getCities(props.values.country) : []}
-              placeholder={'City'}
-              name={'city'}
+              data={countries}
+              placeholder={'Nationality'}
+              name={'nationality'}
+              values={props.values}
+            />
+            <AppPicker
+              {...props}
+              borderColor={'#F2F2F2'}
+              type={'primary'}
+              data={[
+                { label: languages[lang].male, value: 'male' },
+                { label: languages[lang].female, value: 'female' },
+              ]}
+              placeholder={languages[lang].gender}
+              name={'gender'}
               values={props.values}
             />
 

@@ -1,4 +1,3 @@
-import useSvgSize from 'hooks/useSvgSize';
 import * as React from 'react';
 import Svg, {
   Defs,
@@ -9,8 +8,9 @@ import Svg, {
   Rect,
   Image,
 } from 'react-native-svg';
-import { TSvgProps } from '../Svg';
 
+import { TSvgProps } from '../Svg';
+import useSvgSize from 'hooks/useSvgSize';
 const WIDTH = 113.715;
 const HEIGHT = 77.212;
 

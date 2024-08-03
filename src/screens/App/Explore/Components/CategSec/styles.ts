@@ -14,7 +14,6 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       fontFamily: Fonts.Cairo_SemiBold,
     },
     trips: {
-      marginLeft: -12,
       marginRight: 20,
       justifyContent: 'center',
       alignItems: 'center',
@@ -24,6 +23,11 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
       color: isDarkMode ? COLORS.white : COLORS.black,
       marginTop: 4,
       fontFamily: Fonts.Cairo_Regular,
+    },
+    icon: {
+      width: 50,
+      height: 50,
+      resizeMode: 'contain',
     },
   });
 };

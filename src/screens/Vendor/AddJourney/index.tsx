@@ -9,28 +9,39 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
-import Picker from 'components/molecules/Picker';
 import Svg from 'atoms/Svg';
 import DateModal from './Components/DateModal';
 import Button from 'components/molecules/Button';
 import TextView from 'atoms/TextView';
-import { h, w } from '../../../values/Dimensions';
+import { w } from '../../../values/Dimensions';
 import COLORS from 'values/colors';
 import TimeModal from './Components/TimeModal';
 import moment from 'moment';
 import { useAppDispatch } from 'redux/store';
 import Journeys from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { selectCurrentUser } from 'redux/user';
+import User, {
+  selectCategories,
+  selectCurrentUser,
+  selectLocations,
+} from 'redux/user';
 import axios from 'axios';
-import { set } from 'lodash';
+import { AddActivityScheme } from 'src/formik/schema';
+import { categData } from 'screens/App/MainPage/Components/FilterModel/data';
+import { GetMonthDays } from './utils/GetMonthDays';
+import { GetWeekDays } from './utils/GetWeekDays';
+import { MultiSelect } from 'react-native-element-dropdown';
+import { unwrapResult } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
+import { FormateLocationChoices } from './utils/FormateLocationChoices';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const AddJourney = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
+  const categories = useSelector(selectCategories);
+  const locations = useSelector(selectLocations);
   const lang = useSelector(selectLanguage);
   const userData = useSelector(selectCurrentUser);
   const isDarkMode = useSelector(selectIsDarkMode);
@@ -63,68 +74,107 @@ const AddJourney = () => {
     }
   }, []);
 
+  useEffect(() => {
+    dispatch(User.thunks.doGetCategories({}));
+    dispatch(User.thunks.doGetLocations({}));
+  }, []);
+
+  console.log(locations);
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top lang={lang} isDarkMode={isDarkMode} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Formik
+          validationSchema={AddActivityScheme(lang)}
           initialValues={{
             journey_name: '',
-            category: '',
-            capacity: 0,
-            price: 0,
-            location: '',
+            category: {
+              label: '',
+              value: '',
+            },
+            capacity: null,
+            price: null,
+            location: {
+              label: '',
+              value: '',
+            },
             description: '',
             start_date: '',
+            end_date: '',
+            mode: {
+              label: '',
+              value: '',
+            },
+            frequency: {
+              label: '',
+              value: '',
+            },
+            days_of_month: [],
+            days_of_week: [],
+            terms: '',
             availability: [
               {
-                date: '',
-                details: [
-                  {
-                    hour: '',
-                    capacity: 0,
-                  },
-                ],
+                start_hour: '',
+                end_hour: '',
               },
             ],
           }}
-          onSubmit={values => {
+          onSubmit={(values: any) => {
+            console.log('values', values);
             if (EGPRate !== 0) {
-              values.price = values.price * EGPRate;
+              values.price = values?.price * EGPRate;
             }
-            dispatch(
-              Journeys.thunks.doAddJourney({
-                journey_name: values.journey_name,
-                category: values.category,
-                description: values.description,
-                start_date: values.start_date,
-                capacity: values.capacity,
-                price: values.price,
-                location: values.location,
-                arabic_journey_name: values.journey_name,
-                arabic_description: values.description,
-                arabic_location: values.location,
-                arabic_category: values.category,
-                availability: values.availability,
-                end_date: values.start_date,
-              }),
-            )
-              .then(unwrapResult)
-              .then(() => {
-                dispatch(
-                  Journeys.thunks.doGetAgencyJourneys({
-                    id: userData?._id,
-                    page: 1,
-                  }),
-                );
-                navigation.goBack();
-              })
-              .catch(err => {
-                Toast.show({
-                  type: 'error',
-                  text2: err.message,
-                });
+            if (
+              values?.availability?.[0]?.start_hour?.length == 0 ||
+              values?.availability?.[0]?.end_hour?.length == 0
+            ) {
+              Toast.show({
+                type: 'error',
+                text2: 'Please add availability',
               });
+            } else {
+              dispatch(
+                Journeys.thunks.doAddJourney({
+                  journey_name: values.journey_name,
+                  category: values.category?.value,
+                  description: values.description,
+                  start_date: values.start_date,
+                  capacity: values.capacity,
+                  price: values.price,
+                  location: values.location?.value,
+                  arabic_journey_name: values.journey_name,
+                  arabic_description: values.description,
+                  arabic_location: values.location?.value,
+                  arabic_category: values.category?.value,
+                  availability: values.availability,
+                  end_date: values?.end_date || values.start_date,
+                  terms: values.terms,
+                  mode: values.mode.value,
+                  frequency: values.frequency.value,
+                  days_of_month: values?.days_of_month,
+                  days_of_week: values?.days_of_week,
+                }),
+              )
+                .then(unwrapResult)
+                .then(res => {
+                  console.log(res, 'oooooo');
+                  dispatch(
+                    Journeys.thunks.doGetAgencyJourneys({
+                      id: userData?._id,
+                      page: 1,
+                    }),
+                  );
+                  navigation.goBack();
+                })
+                .catch(err => {
+                  console.log(err, 'err');
+                  Toast.show({
+                    type: 'error',
+                    text2: err.message,
+                  });
+                });
+            }
           }}>
           {props => (
             <View>
@@ -144,25 +194,16 @@ const AddJourney = () => {
                 labelStyle={[styles(lang).label_style]}
                 placeholder={'Enter journey name'}
               />
-              <Picker
+              <AppPicker
                 {...props}
-                borderColor={'#6a6969'}
+                borderColor={COLORS.lightGrey}
                 type={'primary'}
-                data={[
-                  { label: languages[lang].diving, value: 'diving' },
-                  { label: languages[lang].wellness, value: 'wellness' },
-                  { label: languages[lang].sports, value: 'sports' },
-                  {
-                    label: languages[lang].kiteSurfing,
-                    value: 'kiteSurfing',
-                  },
-                  { label: languages[lang].Hiking, value: 'hiking' },
-                  { label: languages[lang].Others, value: 'others' },
-                ]}
+                data={categData(categories, lang)}
                 name={'category'}
                 stylingProp={{ borderColor: 'red', borderWith: 30 }}
                 placeholder={'Select category'}
               />
+
               <InputView
                 style={styles(lang).input}
                 {...props}
@@ -182,8 +223,8 @@ const AddJourney = () => {
               <InputView
                 style={styles(lang).input}
                 {...props}
-                name={'location'}
-                label={languages[lang].location}
+                name={'terms'}
+                label={'Terms and Conditions'}
                 inputContainerStyling={{
                   direction: lang === 'ar' ? 'rtl' : 'ltr',
                   borderBottomWidth: 0,
@@ -193,7 +234,17 @@ const AddJourney = () => {
                   { marginTop: 4 },
                 ]}
                 labelStyle={[styles(lang).label_style]}
-                placeholder="Enter location"
+                placeholder="Enter Terms and Conditions"
+              />
+
+              <AppPicker
+                {...props}
+                borderColor={COLORS.lightGrey}
+                type={'primary'}
+                data={FormateLocationChoices(locations)}
+                name={'location'}
+                stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                placeholder={'Select location'}
               />
               <InputView
                 style={styles(lang).input}
@@ -266,52 +317,44 @@ const AddJourney = () => {
                     : languages[lang].start_date}
                 </Text>
               </TouchableOpacity>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <TextView
-                  style={styles(lang, isDarkMode).text}
-                  title={languages[lang].availabilities}
-                />
-                <TextView
-                  onPress={() => {
-                    props.setFieldValue('availability', [
-                      ...props.values.availability,
-                      {
-                        date: '',
-                        details: [
-                          {
-                            hour: '',
-                            capacity: 0,
-                          },
-                        ],
-                      },
-                    ]);
-                  }}
-                  style={styles(lang, isDarkMode).text}
-                  title={languages[lang].add}
-                />
-              </View>
-              <View
-                style={{
-                  height: 0.8,
-                  width: w * 0.98,
-                  backgroundColor: COLORS.black,
-                  marginTop: 23,
-                }}
+
+              <AppPicker
+                {...props}
+                borderColor={'#6a6969'}
+                type={'primary'}
+                data={
+                  lang === 'en'
+                    ? [
+                        {
+                          label: 'One-time',
+                          value: 'oneTime',
+                        },
+                        {
+                          label: 'Repetitive',
+                          value: 'repetitive',
+                        },
+                      ]
+                    : [
+                        {
+                          label: 'مرة واحدة',
+                          value: 'oneTime',
+                        },
+                        {
+                          label: 'متكرر',
+                          value: 'repetitive',
+                        },
+                      ]
+                }
+                name={'mode'}
+                stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                placeholder={'Select Mode'}
               />
-              {props.values.availability.map((item, index) => (
-                <View style={{ marginTop: 10 }} key={index}>
-                  <TextView
-                    style={styles(lang, isDarkMode).text}
-                    title={languages[lang].day}
-                  />
+
+              {props.values?.mode?.value === 'repetitive' ? (
+                <>
                   <TouchableOpacity
                     onPress={() => {
-                      setName(`availability[${index}].date`);
+                      setName('end_date');
                       setDateModalVisable(true);
                     }}
                     style={[
@@ -332,144 +375,245 @@ const AddJourney = () => {
                           marginTop: -8,
                           marginLeft: 6,
                           color:
-                            props.values.availability[index]?.date?.length > 1
+                            props.values.end_date.length > 1
                               ? isDarkMode
                                 ? COLORS.white
                                 : '#000'
                               : '#cdc9c9',
                         },
                       ]}>
-                      {props.values.availability[index].date?.length > 1
-                        ? props.values.availability[index].date
-                        : languages[lang].start_date}
+                      {props.values.end_date?.length > 1
+                        ? props.values.end_date
+                        : languages[lang].end_date}
                     </Text>
                   </TouchableOpacity>
+                  <AppPicker
+                    {...props}
+                    borderColor={'#6a6969'}
+                    type={'primary'}
+                    data={
+                      lang === 'en'
+                        ? [
+                            {
+                              label: 'Daily',
+                              value: 'daily',
+                            },
+                            {
+                              label: 'Weekly',
+                              value: 'weekly',
+                            },
+                            {
+                              label: 'Monthly',
+                              value: 'monthly',
+                            },
+                          ]
+                        : [
+                            {
+                              label: 'يومي',
+                              value: 'daily',
+                            },
+                            {
+                              label: 'أسبوعي',
+                              value: 'weekly',
+                            },
+                            {
+                              label: 'شهري',
+                              value: 'monthly',
+                            },
+                          ]
+                    }
+                    name={'frequency'}
+                    stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                    placeholder={'Select Frequency'}
+                  />
+                  {props.values?.frequency?.value === 'monthly' ? (
+                    <MultiSelect
+                      style={{
+                        marginTop: 20,
+                        width: w * 0.9,
+                        backgroundColor: COLORS.white,
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: COLORS.black,
+                        justifyContent: 'center',
+                        paddingVertical: 8,
+                        paddingHorizontal: 10,
+                        marginBottom: 20,
+                      }}
+                      data={GetMonthDays()}
+                      placeholder="Select days of month"
+                      value={props.values.days_of_month}
+                      onChange={item => {
+                        props.setFieldValue('days_of_month', item);
+                      }}
+                      labelField={'label'}
+                      valueField={'value'}
+                    />
+                  ) : (
+                    <></>
+                  )}
+
+                  {props.values?.frequency?.value === 'weekly' ? (
+                    <MultiSelect
+                      style={{
+                        marginTop: 20,
+                        width: w * 0.9,
+                        backgroundColor: COLORS.white,
+                        borderRadius: 10,
+                        borderWidth: 1,
+                        borderColor: COLORS.black,
+                        justifyContent: 'center',
+                        paddingVertical: 8,
+                        paddingHorizontal: 10,
+                        marginBottom: 20,
+                      }}
+                      data={GetWeekDays()}
+                      placeholder="Select days of week"
+                      value={props.values.days_of_week}
+                      onChange={item => {
+                        props.setFieldValue('days_of_week', item);
+                        console.log('item', item);
+                      }}
+                      labelField={'label'}
+                      valueField={'value'}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </>
+              ) : (
+                <></>
+              )}
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <TextView
+                  style={styles(lang, isDarkMode).text}
+                  title={languages[lang].availabilities}
+                />
+                <TextView
+                  onPress={() => {
+                    props.setFieldValue('availability', [
+                      ...props.values.availability,
+                      {
+                        start_hour: '',
+                        end_hour: '',
+                      },
+                    ]);
+                  }}
+                  style={styles(lang, isDarkMode).text}
+                  title={languages[lang].add}
+                />
+              </View>
+              <View
+                style={{
+                  height: 0.8,
+                  width: w * 0.98,
+                  backgroundColor: COLORS.black,
+                  marginTop: 23,
+                }}
+              />
+              {props.values.availability.map((item: any, index: any) => (
+                <View style={{ marginTop: 10 }} key={index}>
                   <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
                     }}>
-                    <TextView
-                      style={styles(lang, isDarkMode).text}
-                      title={languages[lang].hours}
-                    />
-                    <TextView
-                      onPress={() => {
-                        props.setFieldValue(`availability[${index}].details`, [
-                          ...props.values.availability[index].details,
-                          {
-                            hour: '',
-                            capacity: 0,
-                          },
-                        ]);
-                      }}
-                      style={styles(lang, isDarkMode).text}
-                      title={languages[lang].add}
-                    />
-                  </View>
-                  {props.values.availability[index].details.map((item, i) => (
                     <View
-                      key={i}
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
                         alignItems: 'center',
                       }}>
-                      <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity
-                          onPress={() => {
-                            setName2(
-                              `availability[${index}].details[${i}].hour`,
-                            );
-                            setisTimeModalVisable(true);
-                          }}
-                          style={[
-                            styles(lang, isDarkMode).containerStyle,
-                            {
-                              marginTop: 20,
-                              alignItems: 'center',
-                              flexDirection: 'row',
-                              paddingHorizontal: 10,
-                              width: w * 0.26,
-                            },
-                          ]}>
-                          <Text
-                            style={[
-                              styles(lang, isDarkMode).text,
-                              {
-                                fontSize: 14,
-                                marginTop: -8,
-                                marginLeft: 6,
-                                color: props.values.availability[index]
-                                  ?.details[i].hour
-                                  ? '#000'
-                                  : '#cdc9c9',
-                              },
-                            ]}>
-                            {props.values.availability[index].details[i].hour
-                              ? moment(
-                                  props.values.availability[index].details[i]
-                                    .hour,
-                                  'HH:mm:ss',
-                                ).format('h:mm A')
-                              : languages[lang].hour}
-                          </Text>
-                        </TouchableOpacity>
-                        <InputView
-                          style={styles(lang).input}
-                          {...props}
-                          name={`availability[${index}].details[${i}].capacity`}
-                          label={languages[lang].capacity}
-                          inputContainerStyling={{
-                            direction: lang === 'ar' ? 'rtl' : 'ltr',
-                            borderBottomWidth: 0,
-                            // marginLeft: 10,
-                          }}
-                          containerStyle={[
-                            styles(lang, isDarkMode).containerStyle,
-                            { marginTop: 4, marginLeft: 15, width: w * 0.4 },
-                          ]}
-                          labelStyle={[styles(lang).label_style]}
-                          keyboardType="number-pad"
-                          placeholder="0"
-                        />
-                      </View>
-
-                      <TextView
+                      <TouchableOpacity
                         onPress={() => {
-                          props.setFieldValue(
-                            `availability[${index}].details`,
-                            props.values.availability[index].details.filter(
-                              (item, index2) => index2 !== i,
-                            ),
-                          );
+                          setName2(`availability[${index}].start_hour`);
+                          setisTimeModalVisable(true);
                         }}
                         style={[
-                          styles(lang, isDarkMode).text,
-                          { fontSize: 14 },
-                        ]}
-                        title={languages[lang].remove}
-                      />
+                          styles(lang, isDarkMode).containerStyle,
+                          {
+                            marginTop: 20,
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            width: w * 0.26,
+                          },
+                        ]}>
+                        <Text
+                          style={[
+                            styles(lang, isDarkMode).text,
+                            {
+                              fontSize: 14,
+                              marginTop: -8,
+                              marginLeft: 6,
+                              color: props.values.availability[index].start_hour
+                                ? '#000'
+                                : '#cdc9c9',
+                            },
+                          ]}>
+                          {props.values.availability[index].start_hour
+                            ? moment(
+                                props.values.availability[index].start_hour,
+                                'HH:mm:ss',
+                              ).format('h:mm A')
+                            : languages[lang].start_hour}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setName2(`availability[${index}].end_hour`);
+                          setisTimeModalVisable(true);
+                        }}
+                        style={[
+                          styles(lang, isDarkMode).containerStyle,
+                          {
+                            marginTop: 20,
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            width: w * 0.26,
+                          },
+                        ]}>
+                        <Text
+                          style={[
+                            styles(lang, isDarkMode).text,
+                            {
+                              fontSize: 14,
+                              marginTop: -8,
+                              marginLeft: 6,
+                              color: props.values.availability[index].end_hour
+                                ? '#000'
+                                : '#cdc9c9',
+                            },
+                          ]}>
+                          {props.values.availability[index].end_hour
+                            ? moment(
+                                props.values.availability[index].end_hour,
+                                'HH:mm:ss',
+                              ).format('h:mm A')
+                            : languages[lang].end_hour}
+                        </Text>
+                      </TouchableOpacity>
                     </View>
-                  ))}
 
-                  <TextView
-                    style={[
-                      styles(lang, isDarkMode).text,
-                      { textAlign: 'center' },
-                    ]}
-                    title={languages[lang].remove}
-                    onPress={() => {
-                      props.setFieldValue(
-                        'availability',
-                        props.values.availability.filter(
-                          (item, index2) => index2 !== index,
-                        ),
-                      );
-                    }}
-                  />
+                    <TextView
+                      onPress={() => {
+                        props.setFieldValue('availability', [
+                          ...props.values.availability.slice(0, index),
+                          ...props.values.availability.slice(index + 1),
+                        ]);
+                      }}
+                      style={[styles(lang, isDarkMode).text, { fontSize: 14 }]}
+                      title={languages[lang].remove}
+                    />
+                  </View>
+
                   <View
                     style={{
                       height: 0.8,

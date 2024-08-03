@@ -15,12 +15,14 @@ import { selectLanguage } from 'redux/language/index';
 import Journeys, {
   selectCurrentJourney,
   selectCurrentJourneysAvilabilitey,
+  selectCurrentJourneysAvilabilitey_Vendor,
 } from 'redux/journey';
 import { useLoadingSelector } from 'redux/selectors';
 import { useAppDispatch } from 'redux/store';
 import { useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import { getDates } from './utils/GetDates';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const DetailsTrip = ({
   isDetailsModalVisibal,
@@ -38,14 +40,18 @@ const DetailsTrip = ({
   journey: any;
 }) => {
   const lang = useSelector(selectLanguage);
-  const availabilityJourneys = useSelector(selectCurrentJourneysAvilabilitey);
+  const availabilityJourneys = useSelector(
+    selectCurrentJourneysAvilabilitey_Vendor,
+  );
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneysAvilabilitey,
   );
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
-      dispatch(Journeys.thunks.doGetJourneysAvilabilitey(journey?._id));
+      dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(journey?._id))
+        .then(unwrapResult)
+        .then(res => {});
     }, [journey?._id]),
   );
 
@@ -87,6 +93,7 @@ const DetailsTrip = ({
             availabilityJourneys={availabilityJourneys}
             isRequestReceive={isRequestReceive}
             setisRequestReceive={setisRequestReceive}
+            journey={journey}
           />
         </ScrollView>
       </View>

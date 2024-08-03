@@ -34,28 +34,28 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           cy="18.5"
           r="18.5"
           transform="translate(323 89)"
-          fill={isDarkMode ? COLORS.iconBackDarkMode : '#0370d6'}
+          fill={isDarkMode ? COLORS.iconBackDarkMode : 'transparent'}
         />
         <G id="settings-sliders" transform="translate(333 99)">
           <Path
             id="Path_17072"
             data-name="Path 17072"
             d="M.75,3.562H2.8a2.8,2.8,0,0,0,5.4,0H17.25a.75.75,0,1,0,0-1.5H8.2a2.8,2.8,0,0,0-5.4,0H.75a.75.75,0,0,0,0,1.5ZM5.5,1.5A1.312,1.312,0,1,1,4.187,2.812,1.312,1.312,0,0,1,5.5,1.5Z"
-            fill="#fff"
+            fill="#0370D6"
           />
           <Path
             id="Path_17073"
             data-name="Path 17073"
             d="M17.25,10.312H15.2a2.8,2.8,0,0,0-5.4,0H.75a.75.75,0,1,0,0,1.5H9.8a2.8,2.8,0,0,0,5.4,0H17.25a.75.75,0,1,0,0-1.5ZM12.5,12.375a1.312,1.312,0,1,1,1.312-1.312A1.312,1.312,0,0,1,12.5,12.375Z"
             transform="translate(0 -2.062)"
-            fill="#fff"
+            fill="#0370D6"
           />
           <Path
             id="Path_17074"
             data-name="Path 17074"
             d="M17.25,18.562H8.2a2.8,2.8,0,0,0-5.4,0H.75a.75.75,0,1,0,0,1.5H2.8a2.8,2.8,0,0,0,5.4,0H17.25a.75.75,0,1,0,0-1.5ZM5.5,20.625a1.312,1.312,0,1,1,1.312-1.312A1.312,1.312,0,0,1,5.5,20.625Z"
             transform="translate(0 -4.125)"
-            fill="#fff"
+            fill="#0370D6"
           />
         </G>
       </G>

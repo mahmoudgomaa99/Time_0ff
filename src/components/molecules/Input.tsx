@@ -59,6 +59,7 @@ const InputView = ({
     <View style={[styles.container, containerStyling]}>
       <Text style={titleStyling}>{title}</Text>
       <Input
+        ref={props?.ref}
         {...props}
         placeholder={placeholder}
         autoComplete={'off'}
@@ -77,7 +78,7 @@ const InputView = ({
                   ? -7
                   : name === 'date' || name === 'members'
                   ? 10
-                  : -10
+                  : -5
                 : 5,
           },
         ]}

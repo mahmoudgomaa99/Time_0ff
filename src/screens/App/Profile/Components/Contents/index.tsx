@@ -17,14 +17,19 @@ const Contents = ({
   lang,
   isDarkMode,
   currentUser,
+  openCustomModal,
+  closeCustomModal,
+  CustomModal,
 }: {
   lang: string;
   isDarkMode: boolean;
   currentUser: any;
+  openCustomModal: any;
+  closeCustomModal: any;
+  CustomModal: any;
 }) => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const { openCustomModal, closeCustomModal, CustomModal } = useModalHandler();
 
   return (
     <View style={styles(lang).parentContainer}>

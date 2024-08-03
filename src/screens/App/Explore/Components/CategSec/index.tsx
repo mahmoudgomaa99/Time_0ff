@@ -1,10 +1,18 @@
-import { View, FlatList, TouchableOpacity, Platform } from 'react-native';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Platform,
+  Image,
+} from 'react-native';
 import React from 'react';
 import TextView from 'atoms/TextView';
 import { categData } from '../data';
 import Svg from 'atoms/Svg';
 import languages from 'values/languages';
 import { styles } from './styles';
+import { useSelector } from 'react-redux';
+import { selectCategories } from 'redux/user';
 
 const CategSec = ({
   lang,
@@ -19,6 +27,7 @@ const CategSec = ({
   setfilterData: any;
   setpage: any;
 }) => {
+  const categories = useSelector(selectCategories);
   return (
     <View style={{}}>
       <TextView
@@ -37,14 +46,14 @@ const CategSec = ({
         <FlatList
           contentContainerStyle={{}}
           style={{ direction: lang === 'ar' ? 'rtl' : undefined }}
-          data={categData(lang)}
+          data={categories}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
                 setpage(1);
                 setfilterData((prev: any) => {
                   return {
-                    category: item.value,
+                    category: item?.value,
                     start_date: prev?.start_date,
                     location: prev?.location,
                     price_start: prev?.price_start,
@@ -52,7 +61,7 @@ const CategSec = ({
                     rating: prev?.rating,
                   };
                 });
-                setcategory(item.value);
+                setcategory(item?.value);
               }}>
               <View
                 style={[
@@ -64,9 +73,12 @@ const CategSec = ({
                         : undefined,
                   },
                 ]}>
-                <Svg name={item.svgName} size={80} />
+                <Image
+                  source={{ uri: item?.image }}
+                  style={styles(lang).icon}
+                />
                 <TextView
-                  title={[item.title]}
+                  title={item?.[`name_${lang}`]}
                   style={styles(lang, isDarkMode).tripText}
                 />
               </View>
