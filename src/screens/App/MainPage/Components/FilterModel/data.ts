@@ -21,7 +21,7 @@ export interface TInitialValues {
 }
 
 export const categData = (categories: any, lang: any) => {
-  return categories?.map((item: any) => ({
+  return (categories || [])?.map((item: any) => ({
     label: item?.[`name_${lang}`],
     value: item?.value,
   }));

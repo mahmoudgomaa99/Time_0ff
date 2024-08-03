@@ -15,6 +15,7 @@ import Settings from 'screens/App/Settings';
 import SeeMore from 'screens/App/SeeMore';
 import ChooseCard from 'screens/App/ChooseCard';
 import AddCard from 'screens/App/AddCard';
+import PaymentResults from 'screens/App/PaymentResult';
 
 export type TAuthStack = {
   home: undefined;
@@ -30,6 +31,7 @@ export type TAuthStack = {
   seeMore: undefined;
   chooseCard: undefined;
   addCard: undefined;
+  paymentResult: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
@@ -101,6 +103,11 @@ const AppStack = () => {
         options={{ headerShown: false }}
         name="addCard"
         component={AddCard}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="paymentResult"
+        component={PaymentResults}
       />
     </Stack.Navigator>
   );

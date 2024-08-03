@@ -18,4 +18,6 @@ export const images = {
   maleAvatar: require('./Ellipse4.png'),
   femaleAvatar: require('./Ellipse5.png'),
   card: require('./card.png'),
+  check: require('./check.png'),
+  failed: require('./failed.png'),
 };

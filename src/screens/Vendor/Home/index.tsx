@@ -37,6 +37,7 @@ const Home = () => {
 
   useEffect(() => {
     if (isFocused) {
+      dispatch(User.thunks.doGetUser({}));
       dispatch(Journeys.thunks.doGetAgency(userData?._id))
         .then(unwrapResult)
         .then(res => {

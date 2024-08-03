@@ -221,6 +221,8 @@ const UpdateSlot = (data: any) =>
   api.put(`journeys/vendor/availability/${data.id}`, data.data);
 
 const AddSlot = (data: any) => api.post(`journeys/vendor/availability/`, data);
+const UpdateBooking = (data: any) =>
+  api.put(`journeys/booking/${data.id}`, data.statues);
 
 const JourneysApi = {
   GetJourneys,
@@ -251,6 +253,7 @@ const JourneysApi = {
   DeleteSlot,
   UpdateSlot,
   AddSlot,
+  UpdateBooking,
 };
 
 export default JourneysApi;

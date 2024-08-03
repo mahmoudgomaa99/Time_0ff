@@ -105,7 +105,7 @@ const Notification = () => {
               <Svg name="bill" size={200} />
               <TextView
                 title={languages[lang].notHaveInbox}
-                style={styles(lang).text}
+                style={styles(lang, isDarkMode).text}
               />
             </View>
           )}

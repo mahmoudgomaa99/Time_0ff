@@ -9,7 +9,7 @@ export const styles = (isDarkMode?: boolean) =>
     inputContainerStyling: {
       borderBottomWidth: 0,
       alignItems: 'center',
-      paddingTop: Platform.OS === 'ios' ? 5 : 0,
+      paddingTop: Platform.OS === 'ios' ? 5 : 5,
       justifyContent: 'center',
     },
     containerStyle: {

@@ -64,6 +64,8 @@ const UpdateAvailabilitey = () => {
       });
   };
 
+  console.log(dateHoures2, 'ppppp');
+
   if (isLoading) {
     return (
       <View

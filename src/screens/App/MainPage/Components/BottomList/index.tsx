@@ -111,7 +111,7 @@ const BottomList = ({
                         lang={lang}
                         isDarkMode={isDarkMode}
                         isFav={item?.is_favorite || false}
-                        urlImage={item.images[0]}
+                        urlImage={item.images?.[0]}
                       />
                     </TouchableOpacity>
                   </View>

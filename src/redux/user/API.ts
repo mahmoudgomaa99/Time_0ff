@@ -45,6 +45,7 @@ const deleteCard = (data: any) =>
   );
 
 const getLocations = () => api.get('locations');
+const payWithCard = (data: any) => api.post('payment/card_pay', data);
 
 const UserAPI = {
   LogIn,
@@ -61,6 +62,7 @@ const UserAPI = {
   getCards,
   deleteCard,
   getLocations,
+  payWithCard,
 };
 
 export default UserAPI;

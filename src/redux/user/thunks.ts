@@ -189,6 +189,26 @@ const doGetLocations = createAsyncThunk<any, any, any>(
   },
 );
 
+const doPaymentWithCard = createAsyncThunk<any, any, any>(
+  'user/paymentWithCard',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.payWithCard(data);
+      if (
+        response.status === 400 ||
+        response.status === 401 ||
+        response.status === 403 ||
+        response.status === 404 ||
+        response.status === 500
+      )
+        throw response.data;
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doForgetPassword,
   doGetUser,
@@ -204,6 +224,7 @@ const thunks = {
   doGetCards,
   doDeleteCard,
   doGetLocations,
+  doPaymentWithCard,
 };
 
 export default thunks;

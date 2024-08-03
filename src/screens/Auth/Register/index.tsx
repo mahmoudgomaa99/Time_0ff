@@ -9,7 +9,6 @@ import Button from 'components/molecules/Button';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import { useNavigation } from '@react-navigation/native';
-import Picker from 'components/molecules/Picker';
 import { registerScheme } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg from 'atoms/Svg';
@@ -25,6 +24,7 @@ import { selectUserType } from 'redux/UserType';
 import Fonts from 'values/fonts';
 import { selectDeviceToken } from 'redux/tokens/reducer';
 import Cities from 'screens/Vendor/Profile/mocks/Cities';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -82,9 +82,18 @@ const Register = () => {
           phoneNumber: '',
           email: '',
           password: '',
-          nationality: '',
-          country: '',
-          gender: '',
+          nationality: {
+            label: '',
+            value: '',
+          },
+          country: {
+            label: '',
+            value: '',
+          },
+          gender: {
+            label: '',
+            value: '',
+          },
         }}
         onSubmit={values => {
           dispatch(
@@ -94,10 +103,10 @@ const Register = () => {
               email: values.email,
               password: values.password,
               type: userType,
-              nationality: values.nationality,
-              country: values.country,
+              nationality: values.nationality?.value,
+              country: values.country?.value,
               device_token: device_token ? device_token : '',
-              gender: values.gender,
+              gender: values.gender?.value,
             }),
           )
             .then(unwrapResult)
@@ -208,7 +217,7 @@ const Register = () => {
               />
             )} */}
 
-            <Picker
+            <AppPicker
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
@@ -217,7 +226,7 @@ const Register = () => {
               name={'country'}
               values={props.values}
             />
-            <Picker
+            <AppPicker
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}
@@ -226,7 +235,7 @@ const Register = () => {
               name={'nationality'}
               values={props.values}
             />
-            <Picker
+            <AppPicker
               {...props}
               borderColor={'#F2F2F2'}
               type={'primary'}

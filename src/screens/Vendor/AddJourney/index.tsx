@@ -9,7 +9,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
-import Picker from 'components/molecules/Picker';
 import Svg from 'atoms/Svg';
 import DateModal from './Components/DateModal';
 import Button from 'components/molecules/Button';
@@ -36,6 +35,7 @@ import { MultiSelect } from 'react-native-element-dropdown';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Toast from 'react-native-toast-message';
 import { FormateLocationChoices } from './utils/FormateLocationChoices';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const AddJourney = () => {
   const dispatch = useAppDispatch();
@@ -89,15 +89,27 @@ const AddJourney = () => {
           validationSchema={AddActivityScheme(lang)}
           initialValues={{
             journey_name: '',
-            category: '',
+            category: {
+              label: '',
+              value: '',
+            },
             capacity: null,
             price: null,
-            location: '',
+            location: {
+              label: '',
+              value: '',
+            },
             description: '',
             start_date: '',
             end_date: '',
-            mode: '',
-            frequency: '',
+            mode: {
+              label: '',
+              value: '',
+            },
+            frequency: {
+              label: '',
+              value: '',
+            },
             days_of_month: [],
             days_of_week: [],
             terms: '',
@@ -125,27 +137,28 @@ const AddJourney = () => {
               dispatch(
                 Journeys.thunks.doAddJourney({
                   journey_name: values.journey_name,
-                  category: values.category,
+                  category: values.category?.value,
                   description: values.description,
                   start_date: values.start_date,
                   capacity: values.capacity,
                   price: values.price,
-                  location: values.location,
+                  location: values.location?.value,
                   arabic_journey_name: values.journey_name,
                   arabic_description: values.description,
-                  arabic_location: values.location,
-                  arabic_category: values.category,
+                  arabic_location: values.location?.value,
+                  arabic_category: values.category?.value,
                   availability: values.availability,
                   end_date: values?.end_date || values.start_date,
                   terms: values.terms,
-                  mode: values.mode,
-                  frequency: values.frequency,
+                  mode: values.mode.value,
+                  frequency: values.frequency.value,
                   days_of_month: values?.days_of_month,
                   days_of_week: values?.days_of_week,
                 }),
               )
                 .then(unwrapResult)
-                .then(() => {
+                .then(res => {
+                  console.log(res, 'oooooo');
                   dispatch(
                     Journeys.thunks.doGetAgencyJourneys({
                       id: userData?._id,
@@ -155,6 +168,7 @@ const AddJourney = () => {
                   navigation.goBack();
                 })
                 .catch(err => {
+                  console.log(err, 'err');
                   Toast.show({
                     type: 'error',
                     text2: err.message,
@@ -180,7 +194,7 @@ const AddJourney = () => {
                 labelStyle={[styles(lang).label_style]}
                 placeholder={'Enter journey name'}
               />
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={COLORS.lightGrey}
                 type={'primary'}
@@ -223,7 +237,7 @@ const AddJourney = () => {
                 placeholder="Enter Terms and Conditions"
               />
 
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={COLORS.lightGrey}
                 type={'primary'}
@@ -304,7 +318,7 @@ const AddJourney = () => {
                 </Text>
               </TouchableOpacity>
 
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={'#6a6969'}
                 type={'primary'}
@@ -336,7 +350,7 @@ const AddJourney = () => {
                 placeholder={'Select Mode'}
               />
 
-              {props.values?.mode === 'repetitive' ? (
+              {props.values?.mode?.value === 'repetitive' ? (
                 <>
                   <TouchableOpacity
                     onPress={() => {
@@ -373,7 +387,7 @@ const AddJourney = () => {
                         : languages[lang].end_date}
                     </Text>
                   </TouchableOpacity>
-                  <Picker
+                  <AppPicker
                     {...props}
                     borderColor={'#6a6969'}
                     type={'primary'}
@@ -412,7 +426,7 @@ const AddJourney = () => {
                     stylingProp={{ borderColor: 'red', borderWith: 30 }}
                     placeholder={'Select Frequency'}
                   />
-                  {props.values?.frequency === 'monthly' ? (
+                  {props.values?.frequency?.value === 'monthly' ? (
                     <MultiSelect
                       style={{
                         marginTop: 20,
@@ -439,7 +453,7 @@ const AddJourney = () => {
                     <></>
                   )}
 
-                  {props.values?.frequency === 'weekly' ? (
+                  {props.values?.frequency?.value === 'weekly' ? (
                     <MultiSelect
                       style={{
                         marginTop: 20,

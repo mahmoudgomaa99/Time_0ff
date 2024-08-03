@@ -6,7 +6,6 @@ import InputView from 'components/molecules/Input';
 import DateModal from './Components/DateModal';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
-import Picker from 'components/molecules/Picker';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import COLORS from 'values/colors';
 import Button from 'components/molecules/Button';
@@ -28,6 +27,7 @@ import { bookSchema } from 'src/formik/schema';
 import { h } from 'values/Dimensions';
 import navigation from 'navigation/index';
 import { useNavigation } from '@react-navigation/native';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const Bottom = ({
   lang,
@@ -63,40 +63,26 @@ const Bottom = ({
     <Formik
       initialValues={{
         date: '',
-        time: '',
+        time: {
+          label: '',
+          value: '',
+        },
         members: '',
         terms: false,
         times: [],
       }}
       onSubmit={values => {
-        console.log('values', values);
+        console.log('values', values, journey);
         if (!currentUser) {
           openCustomModal();
         } else {
-          navigation.navigate('chooseCard', values);
-          // dispatch(
-          //   Journeys.thunks.doAddBooking({
-          //     journey_slot_id: values.time,
-          //     number_of_seats: Number(values.members),
-          //     agency_id: journey.agency_id,
-          //   }),
-          // )
-          //   .then(unwrapResult)
-          //   .then(() => {
-          //     setisDetailsModalVisibal(false);
-          //     setisRequestReceive(true);
-          //     Toast.show({
-          //       type: 'success',
-          //       text2: languages[lang].bookingAdd,
-          //     });
-          //   })
-          //   .catch(err => {
-          //     console.log(err);
-          //     Toast.show({
-          //       type: 'error',
-          //       text2: err.message,
-          //     });
-          //   });
+          setisDetailsModalVisibal(false);
+          navigation.navigate('chooseCard', {
+            journey: journey,
+            capacity: values.members,
+            description: `Booking for ${values.members} seats on ${journey.name} on ${values.date} at ${values.time.value}`,
+            slot_id: values.time.value,
+          });
         }
       }}
       validationSchema={bookSchema(lang)}>
@@ -142,14 +128,15 @@ const Bottom = ({
               onPressIn={() => setisTimeModalVisable(true)}
             />
           </View> */}
-          <Picker
+          <AppPicker
             {...props}
             borderColor={'#F2F2F2'}
             type={'primary'}
             data={getTimes(props.values.times)}
-            placeholder={'Time'}
+            placeholder={languages[lang].Time}
             name={'time'}
             values={props.values}
+            disabled={props.values.date === ''}
           />
           <View>
             <TextView
@@ -173,7 +160,8 @@ const Bottom = ({
           <View
             style={{
               marginVertical: 15,
-              transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
+              // transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
+              flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
             }}>
             <View style={styles(isDarkMode).container}>
               <TouchableOpacity
@@ -213,6 +201,7 @@ const Bottom = ({
             onPress={() => {
               seterrorTerms(true);
               props.handleSubmit();
+              console.log('props', props);
             }}
             style={styles().button}
             isLoading={isLoading}

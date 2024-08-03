@@ -30,9 +30,13 @@ import Toast from 'react-native-toast-message';
 import { set } from 'lodash';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { images } from 'src/assets/images';
+import PayModal from './Components/PaymentModal';
+import Journeys from 'redux/journey';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const ChooseCard = () => {
   const navigation = useNavigation<any>();
+  const isDarkMode = useSelector(selectIsDarkMode);
   const isFocused = useIsFocused();
   const dispatch = useAppDispatch();
   const { openCustomModal, closeCustomModal, CustomModal } = useModalHandler({
@@ -43,13 +47,108 @@ const ChooseCard = () => {
   const user = useSelector(selectCurrentUser);
   const isLoading = useLoadingSelector(User.thunks.doGetCards);
   const isDeleteLoading = useLoadingSelector(User.thunks.doDeleteCard);
+  const [isPayLoading, setIsPayLoading] = useState(false);
   const [cardToken, setCardToken] = useState<any>();
+  const [cvv, setCvv] = useState<any>();
+  const [url, setUrl] = useState<any>();
+  const [refNum, setRefNum] = useState<any>();
+  const {
+    openCustomModal: openPayModal,
+    closeCustomModal: closePayModal,
+    CustomModal: CustomPayModal,
+  } = useModalHandler({
+    isCenter: false,
+  });
 
   useEffect(() => {
     if (isFocused) {
       dispatch(User.thunks.doGetCards(user._id));
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    if (cvv?.length === 3) {
+      setIsPayLoading(true);
+      dispatch(
+        Journeys.thunks.doAddBooking({
+          journey_slot_id: data?.slot_id,
+          number_of_seats: Number(data?.capacity),
+          agency_id: data?.journey?.agency_id,
+        }),
+      )
+        .then(unwrapResult)
+        .then(res => {
+          console.log(res, 'res');
+          setRefNum(res?.data?._id);
+          dispatch(
+            User.thunks.doPaymentWithCard({
+              userName: user.name,
+              userMobile: user.phone,
+              userEmail: user.email,
+              userId: user._id,
+              cardToken: cardToken,
+              cvv: cvv,
+              merchantRefNum: res?.data?._id,
+              amount: data?.journey?.price * data?.capacity,
+              language: 'en-gb', // "en-gb" or "ar-eg"
+              chargeItems: [
+                {
+                  itemId: 1,
+                  description: data?.description,
+                  price: data?.journey?.price,
+                  quantity: data?.capacity,
+                },
+              ],
+              description: data?.description,
+            }),
+          )
+            .then(unwrapResult)
+            .then(response => {
+              setUrl(response?.nextAction?.redirectUrl);
+              openPayModal();
+              setIsPayLoading(false);
+              setCvv('');
+            })
+            .catch(err => {
+              setCvv('');
+              Toast.show({
+                type: 'error',
+                text2: err.statusDescription,
+              });
+              dispatch(
+                Journeys.thunks.doUpdateBooking({
+                  id: res?.data?._id,
+                  status: 'failed',
+                }),
+              )
+                .then(unwrapResult)
+                .then(() => {
+                  console.log('booking updated');
+                  setIsPayLoading(false);
+                })
+                .catch(err => {
+                  console.log(err);
+                  setIsPayLoading(false);
+                });
+            });
+        })
+        .catch(err => {
+          setIsPayLoading(false);
+          console.log(err);
+          Toast.show({
+            type: 'error',
+            text2: err.message,
+          });
+          setCvv('');
+        });
+    }
+  }, [cvv]);
+
+  useEffect(() => {
+    if (url?.length > 0) {
+      openPayModal();
+    }
+  }, [url]);
 
   const renderDots = () => {
     return (
@@ -60,19 +159,20 @@ const ChooseCard = () => {
           alignItems: 'center',
         }}>
         {[...Array(4)].map(i => (
-          <View key={i} style={styles.dot} />
+          <View key={i} style={styles(isDarkMode).dot} />
         ))}
       </View>
     );
   };
 
-  if (isLoading) {
+  if (isLoading || isPayLoading) {
     return (
       <View
         style={{
-          flex: 0.8,
+          flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
         }}>
         <ActivityIndicator size="large" color={COLORS.primary} />
       </View>
@@ -80,7 +180,7 @@ const ChooseCard = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles(isDarkMode).container}>
       <View
         style={{
           flexDirection: 'row',
@@ -92,14 +192,18 @@ const ChooseCard = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Svg name="leftArrow" bgColor="#000" size={20} />
+          <Svg
+            name="leftArrow"
+            bgColor={isDarkMode ? '#fff' : '#000'}
+            size={20}
+          />
         </TouchableOpacity>
         <TextView
           title={'Choose a card'}
           style={{
             fontSize: 20,
             fontWeight: 'bold',
-            color: '#000',
+            color: isDarkMode ? '#ffff' : '#000',
             textAlign: 'center',
             fontFamily: Fonts.RobotoMedium,
           }}
@@ -108,8 +212,8 @@ const ChooseCard = () => {
           onPress={() => {
             navigation.navigate('addCard');
           }}
-          style={styles.add}>
-          <Text style={styles.plus}>+</Text>
+          style={styles().add}>
+          <Text style={styles().plus}>+</Text>
         </TouchableOpacity>
       </View>
 
@@ -118,9 +222,8 @@ const ChooseCard = () => {
           <TouchableOpacity
             onPress={() => {
               setCardToken(card?.token);
-              console.log('dd');
             }}
-            style={styles.card}>
+            style={styles().card}>
             <View
               style={{
                 flexDirection: 'row',
@@ -129,7 +232,7 @@ const ChooseCard = () => {
               }}>
               <View
                 style={[
-                  styles.radioButton,
+                  styles().radioButton,
                   {
                     backgroundColor:
                       card?.token === cardToken ? COLORS.primary : COLORS.white,
@@ -150,6 +253,7 @@ const ChooseCard = () => {
                 title={'  ' + card?.lastFourDigits}
                 style={{
                   fontFamily: Fonts.RobotoMedium,
+                  color: isDarkMode ? '#ffffff99' : '#0000008c',
                 }}
               />
             </View>
@@ -207,7 +311,17 @@ const ChooseCard = () => {
           marginTop: h * 0.05,
         }}
       />
-      <CvvModal CustomModal={CustomModal} closeModal={closeCustomModal} />
+      <CvvModal
+        setCvv={setCvv}
+        CustomModal={CustomModal}
+        closeModal={closeCustomModal}
+      />
+      <PayModal
+        closeModal={closePayModal}
+        CustomModal={CustomPayModal}
+        url={url}
+        refNum={refNum}
+      />
     </View>
   );
 };

@@ -7,7 +7,6 @@ import TextView from 'atoms/TextView';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import RangePriceSlider from './Components/RangePrice/RangePrice';
-import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from './Components/Top';
@@ -20,6 +19,7 @@ import RatingModal from './Components/RatingModal';
 import RenderRating from './Components/RenderRating';
 import { selectCategories, selectLocations } from 'redux/user';
 import { FormateLocationChoices } from 'screens/Vendor/AddJourney/utils/FormateLocationChoices';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -51,8 +51,12 @@ const FilterModel = ({
   return (
     <Formik
       initialValues={initialVslues}
-      onSubmit={values => {
-        setfilterData(values);
+      onSubmit={(values: any) => {
+        setfilterData({
+          ...values,
+          category: values.category.value,
+          location: values.location.value,
+        });
         if (values.category) setcategory('');
         setDateModalVisable(false);
         setFilterModalVisable(false);
@@ -77,14 +81,14 @@ const FilterModel = ({
                   title={languages[lang].category}
                   style={styles(isDarkMode).text}
                 />
-                <Picker
+                <AppPicker
                   {...props}
                   borderColor={'#EEEEEE'}
                   type={'primary'}
                   data={categData(categories, lang)}
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
-                  placeholder={'Select category'}
+                  placeholder={languages[lang]?.SelectCategory}
                 />
               </View>
 
@@ -137,13 +141,14 @@ const FilterModel = ({
                   title={languages[lang].city}
                   style={styles(isDarkMode).text}
                 />
-                <Picker
+                <AppPicker
                   borderColor={'#EEEEEE'}
                   {...props}
                   type={'primary'}
                   data={FormateLocationChoices(locations)}
                   name={'location'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                  placeholder={languages[lang].selectCity}
                 />
               </View>
 
@@ -168,7 +173,12 @@ const FilterModel = ({
                     { borderWidth: isDarkMode ? 0 : 1 },
                   ]}>
                   {props?.values?.rating?.length == 0 ? (
-                    <Text>Select Rating</Text>
+                    <Text
+                      style={{
+                        color: isDarkMode ? 'white' : 'black',
+                      }}>
+                      Select Rating
+                    </Text>
                   ) : (
                     <RenderRating rating={Number(props?.values?.rating)} />
                   )}

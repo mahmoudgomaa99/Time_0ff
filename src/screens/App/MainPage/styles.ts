@@ -140,5 +140,6 @@ export const styles = (isDarkMode?: boolean, lang?: string) =>
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 25,
+      zIndex: 100,
     },
   });

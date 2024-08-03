@@ -43,7 +43,6 @@ const DetailsTrip = ({
   const availabilityJourneys = useSelector(
     selectCurrentJourneysAvilabilitey_Vendor,
   );
-  console.log('availabilityJourneys', availabilityJourneys);
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneysAvilabilitey,
   );
@@ -52,9 +51,7 @@ const DetailsTrip = ({
     useCallback(() => {
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(journey?._id))
         .then(unwrapResult)
-        .then(res => {
-          console.log('res', res);
-        });
+        .then(res => {});
     }, [journey?._id]),
   );
 

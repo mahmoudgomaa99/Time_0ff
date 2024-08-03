@@ -28,7 +28,6 @@ const CategSec = ({
   setpage: any;
 }) => {
   const categories = useSelector(selectCategories);
-  console.log(categories, 'categories');
   return (
     <View style={{}}>
       <TextView

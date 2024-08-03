@@ -3,13 +3,13 @@ import React from 'react';
 import Modal from 'react-native-modal';
 import { styles } from './styles';
 import { Formik } from 'formik';
-import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import languages from 'values/languages';
 import { useSelector } from 'react-redux';
 import { DarkMode, selectCurrency, selectIsDarkMode } from 'redux/DarkMode';
 import COLORS from 'values/colors';
 import { useAppDispatch } from 'redux/store';
+import AppPicker from 'components/molecules/AppPIcker';
 const CurrencyModel = ({
   lang,
   isCurrencyModel,
@@ -28,9 +28,9 @@ const CurrencyModel = ({
         <Formik
           initialValues={{ currency: currency }}
           onSubmit={value => console.log(value)}>
-          {props => (
+          {(props: any) => (
             <View style={styles(lang).container}>
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={isDarkMode ? '#2b2c3a' : '#F2F2F2'}
                 type={'primary'}
@@ -51,7 +51,9 @@ const CurrencyModel = ({
                   onPress={() => {
                     props.handleSubmit();
                     setisCurrencyModel(false);
-                    dispatch(DarkMode.changeCurrency(props.values.currency));
+                    dispatch(
+                      DarkMode.changeCurrency(props.values.currency?.value),
+                    );
                   }}
                   style={styles(lang).buttons}
                 />

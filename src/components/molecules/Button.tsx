@@ -15,6 +15,7 @@ import Fonts from 'values/fonts';
 import Svg, { TName } from '../atoms/Svg';
 import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectLanguage } from 'redux/language';
 
 type TType =
   | 'primary'
@@ -44,6 +45,7 @@ const Button = ({
   ...props
 }: TouchableOpacityProps & TButton) => {
   const isDarkMode = useSelector(selectIsDarkMode);
+  const lang = useSelector(selectLanguage);
   return (
     <TouchableOpacity {...props}>
       <View style={styles(isDarkMode)[type] || styles(isDarkMode).primary}>
@@ -61,6 +63,12 @@ const Button = ({
                     [styles(isDarkMode)[`txt_${type}`], txtStyle] || [
                       styles(isDarkMode).txt_primary,
                       txtStyle,
+                      {
+                        fontFamily:
+                          lang === 'ar'
+                            ? Fonts.NeoSansArabicBold
+                            : Fonts.Cairo_Bold,
+                      },
                     ]
                   }>
                   {label}
@@ -72,6 +80,12 @@ const Button = ({
                   [styles(isDarkMode)[`txt_${type}`], txtStyle] || [
                     styles(isDarkMode).txt_primary,
                     txtStyle,
+                    {
+                      fontFamily:
+                        lang === 'ar'
+                          ? Fonts.NeoSansArabicBold
+                          : Fonts.Cairo_Bold,
+                    },
                   ]
                 }>
                 {label}

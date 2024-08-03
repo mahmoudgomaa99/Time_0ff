@@ -93,6 +93,10 @@ const Profile = () => {
     }
   }, [source]);
 
+  useEffect(() => {
+    dispatch(User.thunks.doGetUser({}));
+  }, []);
+
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />

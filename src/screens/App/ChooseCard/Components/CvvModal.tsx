@@ -7,13 +7,16 @@ import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import TextView from 'atoms/TextView';
 import Fonts from 'values/fonts';
+import Button from 'components/molecules/Button';
 
 const CvvModal = ({
   CustomModal,
   closeModal,
+  setCvv,
 }: {
   CustomModal: any;
   closeModal: any;
+  setCvv: any;
 }) => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const cvvInputRef = useRef<TextInput>(null);
@@ -28,11 +31,11 @@ const CvvModal = ({
           console.log(values);
         }}>
         {props => (
-          <View style={styles().container}>
+          <View style={styles(isDarkMode).container}>
             <TextView
               style={{
                 fontSize: 14,
-                color: COLORS.black,
+                color: isDarkMode ? COLORS.white : COLORS.black,
                 fontFamily: Fonts.RobotoMedium,
               }}
               title={' Enter CVV'}
@@ -45,10 +48,13 @@ const CvvModal = ({
               onChangeText={props.handleChange('cvv')}
               onChange={(e: any) => {
                 if (e.nativeEvent.text.length === 3) {
+                  setCvv(e.nativeEvent.text);
                   cvvInputRef.current?.blur();
+                  closeModal();
                 }
               }}
               value={props.values.cvv}
+              secureTextEntry={true}
             />
           </View>
         )}
@@ -63,7 +69,7 @@ const styles = (isDarkMode?: boolean) =>
   StyleSheet.create({
     container: {
       flex: 0.1,
-      backgroundColor: '#ffff',
+      backgroundColor: isDarkMode ? COLORS.darkMode : '#ffff',
       width: w * 0.8,
       shadowColor: COLORS.black,
       shadowOffset: { width: 0, height: 2 },

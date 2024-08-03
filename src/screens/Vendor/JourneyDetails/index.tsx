@@ -15,7 +15,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
-import Picker from 'components/molecules/Picker';
 import Svg from 'atoms/Svg';
 import TextView from 'atoms/TextView';
 import { h } from 'values/Dimensions';
@@ -40,6 +39,7 @@ import DateModal from '../AddJourney/Components/DateModal';
 import User, { selectCategories, selectCurrentUser } from 'redux/user';
 import axios from 'axios';
 import { categData } from 'screens/App/MainPage/Components/FilterModel/data';
+import Fonts from 'values/fonts';
 
 const JourneyDetails = () => {
   const dispatch = useAppDispatch();
@@ -211,7 +211,7 @@ const JourneyDetails = () => {
                     style={{
                       color: COLORS.white,
                       fontSize: 12,
-                      fontWeight: 'bold',
+                      fontFamily: Fonts.RobotoBold,
                     }}
                   />
                 </TouchableOpacity>
@@ -252,23 +252,9 @@ const JourneyDetails = () => {
                     { marginTop: 4 },
                   ]}
                   labelStyle={[styles(lang).label_style]}
-                  // placeholder={
-                  //   journies[id]?.journey_name ||
-                  //   journies[id]?.arabic_journey_name ||
-                  //   'Enter journey name'
-                  // }
                   disabled={isDisabled}
                 />
-                {/* <Picker
-                  {...props}
-                  borderColor={'#000'}
-                  type={'primary'}
-                  data={categData(categories, lang)}
-                  name={'category'}
-                  stylingProp={{ borderColor: 'red', borderWith: 30 }}
-                  placeholder={'Select category'}
-                  disabled={isDisabled}
-                /> */}
+
                 <InputView
                   style={styles(lang).input}
                   {...props}

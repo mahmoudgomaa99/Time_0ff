@@ -346,6 +346,12 @@ const slice = createSlice({
     builder.addCase(thunks.doAddSlot.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(thunks.doUpdateBooking.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doUpdateBooking.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 

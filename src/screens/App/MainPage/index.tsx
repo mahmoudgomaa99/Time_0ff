@@ -104,9 +104,7 @@ const MainPage = ({ route, navigation }: { route: any; navigation: any }) => {
         ),
       )
         .then(unwrapResult)
-        .then(res => {
-          console.log(res.data.data);
-        })
+        .then(res => {})
         .catch(err => {
           console.log(err);
         });

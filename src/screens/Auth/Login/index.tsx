@@ -77,6 +77,7 @@ const Login = () => {
         console.log(err);
       });
   }, []);
+  console.log(isDarkMode);
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>

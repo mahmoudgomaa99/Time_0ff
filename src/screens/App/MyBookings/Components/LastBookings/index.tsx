@@ -35,7 +35,6 @@ const LastBookings = ({
       );
     }, [page, currentUser._id]),
   );
-  console.log(currentUser);
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <TextView

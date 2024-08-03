@@ -22,7 +22,7 @@ const TabBar = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const notef = useSelector(selectUserNotefications);
   const notefNum = useSelector(selectUserNotefnum);
-  console.log('notefNum', notefNum);
+
   return (
     <Tab.Navigator
       initialRouteName={languages[lang].main}

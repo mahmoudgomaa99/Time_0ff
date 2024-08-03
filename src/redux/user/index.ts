@@ -159,6 +159,12 @@ const slice = createSlice({
     builder.addCase(thunks.doGetLocations.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(thunks.doPaymentWithCard.fulfilled, (state, action) => {
+      console.log(action);
+    });
+    builder.addCase(thunks.doPaymentWithCard.rejected, (state, action) => {
+      console.log(action);
+    });
   },
 });
 

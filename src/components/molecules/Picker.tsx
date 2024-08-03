@@ -139,6 +139,7 @@ const Picker = ({
                   : borderColor,
             }}>
             <RNPickerSelect
+              textInputProps={{}}
               disabled={disabled}
               {...props}
               placeholder={{
@@ -161,6 +162,7 @@ const Picker = ({
               style={{
                 placeholder: {
                   color: type === 'matches' ? COLORS.red : COLORS.grey,
+                  textAlign: 'right',
                 },
                 inputAndroid: {
                   ...styles(isDarkMode)[`${type}_iosButton`],
@@ -169,24 +171,21 @@ const Picker = ({
                     props.errors[props.name] && props.touched[props.name]
                       ? COLORS.red
                       : COLORS.black,
+                  // display: 'flex',
+                  // flexDirection: 'row-reverse',
+                  // direction: 'rtl',
                 },
+                inputAndroidContainer: {
+                  flexDirection: 'row-reverse',
+                  direction: 'rtl',
+                },
+
                 modalViewMiddle: styles(isDarkMode)[`${type}_modalHeader`],
                 modalViewBottom: styles(isDarkMode)[`${type}_modalBody`],
-
-                // iconContainer: { top: '42%', right: 10 },
+                iconContainer: {
+                  opacity: 0,
+                },
               }}
-              // Icon={() => (svgName ? <Svg name={svgName} size={12} /> : <></>)}
-              // Icon={() => (
-              //   <Image
-              //     source={images.downArrow}
-              //     style={{
-              //       width: 20,
-              //       height: 20,
-              //       marginTop: h * 0.024,
-              //       marginRight: h * 0.02,
-              //     }}
-              //   />
-              // )}
             />
           </View>
         )}
@@ -242,7 +241,6 @@ const styles: TTstyles = (isDarkMode?: boolean) =>
       borderRadius: 10,
       overflow: 'hidden',
       borderColor: COLORS.black,
-      // borderWidth: 1,
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
     },
     primary_iosButton: {

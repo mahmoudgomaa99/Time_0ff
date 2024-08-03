@@ -181,7 +181,7 @@ const DetailsTrip = () => {
                 <View
                   style={{
                     marginBottom: 10,
-                    flexDirection: 'row',
+                    flexDirection: lang === 'ar' ? 'row-reverse' : 'row',
                     alignItems: 'center',
                   }}>
                   <Svg name="location" size={19} />

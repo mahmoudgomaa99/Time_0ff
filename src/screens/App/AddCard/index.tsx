@@ -15,27 +15,34 @@ import { addCardSheme } from 'src/formik/schema';
 import { selectLanguage } from 'redux/language';
 import env from '../../../../.env.json';
 import Toast from 'react-native-toast-message';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import COLORS from 'values/colors';
 
 const AddCard = () => {
   const navigation = useNavigation();
+  const isDarkMode = useSelector(selectIsDarkMode);
   const user = useSelector(selectCurrentUser);
   const lang = useSelector(selectLanguage);
   const [isLoading, setIsLoading] = React.useState(false);
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={styles(isDarkMode).container}>
+      <View style={styles().header}>
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
           }}>
-          <Svg name="leftArrow" bgColor="#000" size={20} />
+          <Svg
+            name="leftArrow"
+            bgColor={isDarkMode ? COLORS.white : '#000'}
+            size={20}
+          />
         </TouchableOpacity>
         <TextView
           title={'Add a card'}
           style={{
             fontSize: 20,
             fontWeight: 'bold',
-            color: '#000',
+            color: isDarkMode ? COLORS.white : '#000',
             textAlign: 'center',
             fontFamily: Fonts.RobotoMedium,
           }}
@@ -118,10 +125,10 @@ const AddCard = () => {
             style={{
               paddingTop: 20,
             }}>
-            <TextView title={'Card Number'} style={styles.label} />
+            <TextView title={'Card Number'} style={styles(isDarkMode).label} />
             <TextInput
               style={[
-                styles.containerStyle,
+                styles(isDarkMode).containerStyle,
                 {
                   width: w * 0.9,
                 },
@@ -147,10 +154,13 @@ const AddCard = () => {
                 {props.errors.cardNumber}
               </Text>
             )}
-            <TextView title={'Your name on the card'} style={styles.label} />
+            <TextView
+              title={'Your name on the card'}
+              style={styles(isDarkMode).label}
+            />
             <TextInput
               style={[
-                styles.containerStyle,
+                styles(isDarkMode).containerStyle,
                 {
                   width: w * 0.9,
                 },
@@ -181,10 +191,13 @@ const AddCard = () => {
                 flexDirection: 'row',
               }}>
               <View>
-                <TextView title={'Expiry month'} style={styles.label} />
+                <TextView
+                  title={'Expiry month'}
+                  style={styles(isDarkMode).label}
+                />
                 <TextInput
                   style={[
-                    styles.containerStyle,
+                    styles(isDarkMode).containerStyle,
                     {
                       width: w * 0.25,
                     },
@@ -212,10 +225,13 @@ const AddCard = () => {
                 )}
               </View>
               <View>
-                <TextView title={'Expiry year'} style={styles.label} />
+                <TextView
+                  title={'Expiry year'}
+                  style={styles(isDarkMode).label}
+                />
                 <TextInput
                   style={[
-                    styles.containerStyle,
+                    styles(isDarkMode).containerStyle,
                     {
                       width: w * 0.25,
                     },
@@ -243,10 +259,10 @@ const AddCard = () => {
                 )}
               </View>
               <View>
-                <TextView title={'CVV'} style={styles.label} />
+                <TextView title={'CVV'} style={styles(isDarkMode).label} />
                 <TextInput
                   style={[
-                    styles.containerStyle,
+                    styles(isDarkMode).containerStyle,
                     {
                       width: w * 0.25,
                     },

@@ -7,7 +7,6 @@ import Top from './Components/Top';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
-import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
@@ -20,6 +19,7 @@ import axios from 'axios';
 import ImageSection from './Components/ImageSection';
 import useLibraryPermission from 'hooks/useLibraryPermission';
 import Cities from 'screens/Vendor/Profile/mocks/Cities';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -78,9 +78,18 @@ const EditProfile = () => {
             countryCode: '+20',
             phoneNumber: currrentUser?.phone,
             email: currrentUser?.email,
-            nationality: currrentUser?.nationality,
-            country: currrentUser?.country,
-            gender: currrentUser?.gender,
+            nationality: {
+              label: currrentUser?.nationality,
+              value: currrentUser?.nationality,
+            },
+            country: {
+              label: currrentUser?.country,
+              value: currrentUser?.country,
+            },
+            gender: {
+              label: currrentUser?.gender,
+              value: currrentUser?.gender,
+            },
           }}
           onSubmit={values => {
             const body = new FormData();
@@ -100,9 +109,9 @@ const EditProfile = () => {
                   name: values?.fullName,
                   email: values?.email,
                   phone: values?.phoneNumber,
-                  country: values?.country,
-                  nationality: values?.nationality,
-                  gender: values?.gender,
+                  country: values?.country?.value,
+                  nationality: values?.nationality?.value,
+                  gender: values?.gender?.value,
                 }),
               ),
               source?.assets?.length > 0 &&
@@ -188,25 +197,25 @@ const EditProfile = () => {
                 labelStyle={[styles(lang).label_style]}
               />
 
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={'#F2F2F2'}
                 type={'primary'}
                 data={countries}
-                placeholder={'Country'}
+                placeholder={languages[lang].country}
                 name={'country'}
                 values={props.values}
               />
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={'#F2F2F2'}
                 type={'primary'}
                 data={countries}
-                placeholder={'Nationality'}
+                placeholder={languages[lang].nationality}
                 name={'nationality'}
                 values={props.values}
               />
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={'#F2F2F2'}
                 type={'primary'}

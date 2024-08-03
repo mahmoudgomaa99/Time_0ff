@@ -31,7 +31,7 @@ const AuthModal = ({
         style={{
           height: 400,
           backgroundColor: COLORS.primary,
-          margin: -10,
+          marginRight: -10,
           borderTopLeftRadius: 50,
           borderTopRightRadius: 50,
           padding: h * 0.02,
@@ -41,6 +41,9 @@ const AuthModal = ({
           shadowOpacity: 0.1,
           shadowOffset: { width: 0, height: -10 },
           paddingTop: 20,
+          width: w * 1.03,
+          alignSelf: 'center',
+          marginBottom: -10,
         }}>
         <Text style={{ color: COLORS.white, fontSize: 25, fontWeight: '700' }}>
           {languages[language].sorry}...
