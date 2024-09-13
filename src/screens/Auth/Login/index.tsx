@@ -1,8 +1,7 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import { View, TouchableOpacity, Platform, Alert } from 'react-native';
+import React, { useCallback, useState } from 'react';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
-import { images } from 'src/assets/images';
 import styles from './styles';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language';
@@ -13,33 +12,128 @@ import Svg from 'atoms/Svg';
 import { useNavigation } from '@react-navigation/native';
 import { loginSchema } from 'src/formik/schema';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { h } from '../../../values/Dimensions';
+import { useAppDispatch } from 'redux/store';
+import User from 'redux/user';
+import { useLoadingSelector } from 'redux/selectors';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import { UserType, selectUserType } from 'redux/UserType';
+import { selectDeviceToken, selectToken } from 'redux/tokens/reducer';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken, Settings } from 'react-native-fbsdk-next';
+
+GoogleSignin.configure({
+  webClientId:
+    '223064211464-p59b9b4h5emgj1k1rkurq1umji96canv.apps.googleusercontent.com',
+});
+Settings.initializeSDK();
+// Settings.setAppID('205011505822150');
 
 const Login = () => {
+  const device_token = useSelector(selectDeviceToken);
+  const isDarkMode = useSelector(selectIsDarkMode);
   const [secure, setsecure] = useState(true);
   const lang = useSelector(selectLanguage);
   const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
+  const isLoading = useLoadingSelector(User.thunks.doLogIn);
+  const token = useSelector(selectToken);
+  // Google
+  const signInViaGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices({
+        // Check if device has Google Play Services installed
+        // Always resolves to true on iOS
+        showPlayServicesUpdateDialog: true,
+      });
+      const userinfo = await GoogleSignin.signIn();
+      console.log(userinfo, 'lllll');
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert('User Cancelled the Login Flow');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert('Signing In');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert('Play Services Not Available or Outdated');
+      } else {
+        Alert.alert(error.message);
+        console.log(error);
+      }
+    }
+  };
+
+  //Facebook
+  const initUser = useCallback((token: string) => {
+    fetch(
+      'https://graph.facebook.com/v2.5/me?fields=name,picture,email,friends&access_token=' +
+        token,
+    )
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+  console.log(isDarkMode);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles(isDarkMode).container}>
       <TextView
         title={languages[lang].skip}
-        style={[styles.skip]}
-        onPress={() => navigation.navigate('app', { screen: 'map' })}
+        style={[styles(isDarkMode).skip]}
+        onPress={() => {
+          dispatch(User.setIsGuest(true));
+          dispatch(UserType.setUserData('user'));
+          navigation.navigate('app', { screen: 'home' });
+        }}
       />
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Svg name="blueLogo" size={150} />
-        <TextView title={languages[lang].helloAgain} style={styles.title} />
-        <TextView title={languages[lang].welcomeBack} style={styles.subTitle} />
-        <View style={styles.line} />
+        <TextView
+          title={languages[lang].helloAgain}
+          style={styles(isDarkMode).title}
+        />
+        <TextView
+          title={languages[lang].welcomeBack}
+          style={styles(isDarkMode).subTitle}
+        />
+        <View style={styles(isDarkMode).line} />
       </View>
-
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={values => console.log(values)}
-        validationSchema={() => loginSchema(languages, lang)}>
+        onSubmit={values =>
+          dispatch(
+            User.thunks.doLogIn({
+              email: values.email,
+              password: values.password,
+              device_token: device_token ? device_token : '',
+            }),
+          )
+            .then(unwrapResult) // filter result
+            .then(res => {
+              dispatch(User.setIsGuest(false));
+              dispatch(UserType.setUserData(res.data.userData.type));
+              if (res.data.userData.type === 'agency') {
+                navigation.navigate('vendor');
+              } else {
+                navigation.navigate('app', { screen: 'home' });
+              }
+              values.email = '';
+              values.password = '';
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+        validationSchema={loginSchema(lang)}>
         {props => (
-          <View style={{ marginTop: h * 0.03 }}>
+          <View>
             <InputView
               {...props}
               name="email"
@@ -50,8 +144,8 @@ const Login = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={styles.containerStyle}
-              labelStyle={[styles.label_style]}
+              containerStyle={styles(isDarkMode).containerStyle}
+              labelStyle={[styles(isDarkMode).label_style]}
             />
             <InputView
               {...props}
@@ -63,12 +157,43 @@ const Login = () => {
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
                 borderBottomWidth: 0,
               }}
-              containerStyle={[styles.containerStyle, { marginTop: 10 }]}
-              labelStyle={[styles.label_style]}
+              containerStyle={[
+                styles(isDarkMode).containerStyle,
+                { marginTop: 10 },
+              ]}
+              labelStyle={[styles(isDarkMode).label_style]}
               rightIcon={
-                <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
-                  <Svg name="eyeClosed" style={{ marginTop: -10 }} size={20} />
-                </TouchableOpacity>
+                Platform.OS === 'ios' ? (
+                  <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
+                    <Svg
+                      name="eyeClosed"
+                      style={{ marginTop: -10 }}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  lang === 'en' && (
+                    <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
+                      <Svg
+                        name="eyeClosed"
+                        style={{ marginTop: -10 }}
+                        size={20}
+                      />
+                    </TouchableOpacity>
+                  )
+                )
+              }
+              leftIcon={
+                Platform.OS === 'android' &&
+                lang === 'ar' && (
+                  <TouchableOpacity onPress={() => setsecure(prev => !prev)}>
+                    <Svg
+                      name="eyeClosed"
+                      style={{ marginTop: -10 }}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                )
               }
               secureTextEntry={secure}
             />
@@ -76,43 +201,78 @@ const Login = () => {
             <TextView
               title={languages[lang].forgetPassword}
               style={[
-                styles.forget,
+                styles(isDarkMode).forget,
                 { textAlign: lang === 'en' ? 'right' : 'left' },
               ]}
-              onPress={() => console.log('clicked')}
+              onPress={() => {
+                if (!props.values.email) {
+                  Toast.show({
+                    type: 'error',
+                    text2: languages[lang].pleaseEnterYourEmail,
+                  });
+                } else {
+                  dispatch(
+                    User.thunks.doForgetPassword({ email: props.values.email }),
+                  );
+                }
+              }}
             />
             <Button
               onPress={() => props.handleSubmit()}
               type="primary"
               label={languages[lang].login}
+              isLoading={isLoading}
             />
-            <TextView title={languages[lang].or} style={styles.or} />
-            <View style={styles.containerMedia}>
-              <View style={styles.media}>
+            <TextView title={languages[lang].or} style={styles().or} />
+            <View style={styles().containerMedia}>
+              <TouchableOpacity
+                onPress={() => {
+                  signInViaGoogle();
+                }}
+                style={styles(isDarkMode).media}>
                 <Svg name="google" size={30} />
-              </View>
-              <View style={styles.media}>
-                <Svg name="instegram" size={30} />
-              </View>
-              <View style={styles.media}>
+              </TouchableOpacity>
+              {Platform.OS === 'ios' ? (
+                <View style={styles(isDarkMode).media}>
+                  <Svg name="apple" size={30} />
+                </View>
+              ) : null}
+              <TouchableOpacity
+                onPress={() => {
+                  LoginManager.logInWithPermissions([
+                    'public_profile',
+                    'email',
+                  ]).then(res => {
+                    console.log(res);
+                    if (res.isCancelled) {
+                      console.log('Login cancelled');
+                    } else {
+                      AccessToken.getCurrentAccessToken().then((data: any) => {
+                        console.log(data);
+                        initUser(data.accessToken);
+                      });
+                    }
+                  });
+                }}
+                style={styles(isDarkMode).media}>
                 <Svg name="faceBook" size={30} />
-              </View>
+              </TouchableOpacity>
             </View>
 
             <View
               style={[
-                styles.lastText,
+                styles().lastText,
                 { flexDirection: lang === 'en' ? 'row' : 'row-reverse' },
               ]}>
               <TextView
                 title={languages[lang].notMember}
-                style={styles.notMember}
+                style={styles(isDarkMode).notMember}
               />
               <TextView
                 title={languages[lang].createAccount}
-                style={styles.create}
+                style={styles(isDarkMode).create}
                 onPress={() => {
-                  navigation.navigate('register');
+                  navigation.navigate('chooseType');
                   props.setErrors({});
                 }}
               />

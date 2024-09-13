@@ -5,6 +5,7 @@ const initial_values = {
     lat: 0,
     lang: 0,
   },
+  
 };
 const slice = createSlice({
   name: 'location',

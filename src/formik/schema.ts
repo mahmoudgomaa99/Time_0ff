@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import languages from 'values/languages';
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
@@ -6,37 +7,6 @@ const includeDigRegExp = /([0-9]+)/;
 const includeCharRegExp = /([A-z]+)/;
 const EmailReg =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-export const loginSchema = (
-  languages: { [key: string]: any },
-  lang: 'en' | 'ar',
-) =>
-  Yup.object().shape({
-    email: Yup.string()
-      .email(languages[lang].invalideEmail)
-      .required(languages[lang].required),
-    password: Yup.string()
-      .required(languages[lang].required)
-      .min(8, languages[lang].passwordShort),
-  });
-
-export const RegisterSchema = (
-  languages: { [key: string]: any },
-  lang: 'en' | 'ar',
-) =>
-  Yup.object().shape({
-    phoneNumber: Yup.string()
-      .required(languages[lang].required)
-      .matches(phoneRegExp, languages[lang].phoneError),
-    fullName: Yup.string().required(languages[lang].required),
-    email: Yup.string()
-      .email(languages[lang].invalideEmail)
-      .required(languages[lang].required),
-    password: Yup.string()
-      .required(languages[lang].required)
-      .min(8, languages[lang].passwordShort),
-    city: Yup.string().required(languages[lang].required),
-  });
 
 export const ForgetSchema = Yup.object().shape({
   phone_number: Yup.string()
@@ -55,14 +25,89 @@ export const NewPasswordSchema = Yup.object().shape({
     .matches(includeCharRegExp, 'password must include at least one character'),
 });
 
-export const ChangePasswordSchema = Yup.object().shape({
-  new_confirm_password: Yup.string()
-    .required('Confirm password is Required')
-    .oneOf([Yup.ref('new_password')], 'The passwords do not match.'),
-  new_password: Yup.string()
-    .required('a New Password is Required')
-    .min(8, 'password must be at least 8 characters')
-    .matches(includeDigRegExp, 'password must include at least one number')
-    .matches(includeCharRegExp, 'password must include at least one character'),
-  old_password: Yup.string().required('Old password is Required'),
-});
+export const ChangePasswordSchema = (lang: string) =>
+  Yup.object().shape({
+    newPassword: Yup.string()
+      .required(languages[lang].newPassRequired)
+      .min(8, languages[lang].passwordShort),
+    confirmNewPassword: Yup.string()
+      .required(languages[lang].confirmPassRequired)
+      .oneOf([Yup.ref('newPassword')], languages[lang].passwordNotMatch),
+  });
+
+export const loginSchema = (lang: string) => {
+  return Yup.object().shape({
+    email: Yup.string().required(languages[lang].required),
+    password: Yup.string()
+      .required(languages[lang].required)
+      .min(8, languages[lang].passwordShort),
+  });
+};
+
+export const registerScheme = (lang: string) => {
+  return Yup.object().shape({
+    phoneNumber: Yup.string()
+      .required(languages[lang].required)
+      .matches(phoneRegExp, languages[lang].phoneError),
+    fullName: Yup.string().required(languages[lang].required),
+    email: Yup.string()
+      .email(languages[lang].invalideEmail)
+      .required(languages[lang].required),
+    password: Yup.string()
+      .required(languages[lang].required)
+      .min(8, languages[lang].passwordShort),
+    nationality: Yup.string().required(languages[lang].required),
+    country: Yup.string().required(languages[lang].required),
+  });
+};
+
+export const bookSchema = (lang: string) => {
+  return Yup.object().shape({
+    date: Yup.string().required(languages[lang].required),
+    time: Yup.object().required(languages[lang].required),
+    members: Yup.string().required(languages[lang].required),
+    terms: Yup.boolean()
+      .required(languages[lang].termsError)
+      .oneOf([true], languages[lang].termsError),
+  });
+};
+
+export const AddActivityScheme = (lang: string) => {
+  return Yup.object().shape({
+    journey_name: Yup.string().required(languages[lang].required),
+    description: Yup.string().required(languages[lang].required),
+    price: Yup.string().required(languages[lang].required),
+    // duration: Yup.string().required(languages[lang].required),
+    // category: Yup.string().required(languages[lang].required),
+    // city: Yup.string().required(languages[lang].required),
+    // location: Yup.string().required(languages[lang].required),
+    terms: Yup.string().required(languages[lang].required),
+    capacity: Yup.string().required(languages[lang].required),
+    start_date: Yup.string().required(languages[lang].required),
+    // mode: Yup.string().required(languages[lang].required),
+  });
+};
+
+export const addCardSheme = (lang: string) => {
+  return Yup.object().shape({
+    cardNumber: Yup.string()
+      .required(languages[lang].required)
+      .min(12, ' Card number must be at least 12 characters')
+      .max(12, ' Card number must be at least 12 characters'),
+    cardAlias: Yup.string()
+      .required(languages[lang].required)
+      .min(6, 'Name must be at least 6 characters'),
+    expiryYear: Yup.string()
+      .required(languages[lang].required)
+      .min(2, 'Year must be at least 2 characters')
+      .max(2, 'Year must be at least 2 characters'),
+    expiryMonth: Yup.string()
+      .required(languages[lang].required)
+      .min(2, 'Month must be at least 2 characters')
+      .max(2, 'Month must be at least 2 characters'),
+    cvv: Yup.string()
+      .required(languages[lang].required)
+      .min(3, 'CVV must be at least 3 characters')
+      .max(3, 'CVV must be at least 3 characters'),
+  });
+};

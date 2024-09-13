@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Platform,
   StyleSheet,
   Text,
   TextStyle,
@@ -9,9 +10,9 @@ import {
 import React from 'react';
 import { Input, InputProps } from 'react-native-elements';
 import COLORS from 'values/colors';
-import Fonts from 'values/fonts';
 import { useSelector } from 'react-redux';
-import { selectLanguage } from '../../redux/language/index';
+import { selectLanguage } from 'redux/language/index';
+import { selectIsDarkMode } from 'redux/DarkMode';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
@@ -49,24 +50,38 @@ const InputView = ({
   titleStyling,
   labelStyle,
   stylee,
+  errorStyle,
   ...props
 }: InputProps & TInput) => {
   const lang = useSelector(selectLanguage);
+  const isDarkMode = useSelector(selectIsDarkMode);
   return (
     <View style={[styles.container, containerStyling]}>
       <Text style={titleStyling}>{title}</Text>
       <Input
+        ref={props?.ref}
         {...props}
         placeholder={placeholder}
         autoComplete={'off'}
-        disabled={loading ? true : false}
+        disabled={props.disabled ? true : loading ? true : false}
         placeholderTextColor="#C4C3C3"
         value={values[name]}
-        errorStyle={{
-          color: COLORS.errorRed,
-          fontFamily: Fonts.RobotoBold,
-          textAlign: lang === 'ar' ? 'right' : 'left',
-        }}
+        errorStyle={[
+          errorStyle,
+          {
+            color: COLORS.errorRed,
+            // fontFamily: Fonts.RobotoBold,
+            textAlign: lang === 'ar' ? 'right' : 'left',
+            marginTop:
+              Platform.OS === 'android'
+                ? lang === 'ar'
+                  ? -7
+                  : name === 'date' || name === 'members'
+                  ? 10
+                  : -5
+                : 5,
+          },
+        ]}
         containerStyle={[
           containerStyle,
           {
@@ -74,15 +89,13 @@ const InputView = ({
           },
         ]}
         errorMessage={touched[name] ? errors[name] : ''}
-        inputStyle={[
-          {
-            color: '#000',
-            fontSize: 14,
-            opacity: 1,
-            fontFamily: Fonts.RobotoRegular,
-            textAlign: lang === 'ar' ? 'right' : 'left',
-          },
-        ]}
+        inputStyle={{
+          color: isDarkMode ? COLORS.white : '#000',
+          fontSize: 14,
+          opacity: 0.7,
+          textAlign: lang === 'ar' ? 'right' : 'left',
+          alignItems: 'center',
+        }}
         inputContainerStyle={
           inputContainerStyling
             ? {
@@ -114,10 +127,8 @@ const styles = StyleSheet.create({
   textInputStyle: {
     borderWidth: 1,
     borderRadius: 12,
-    height: 45,
     marginTop: h * 0.01,
     paddingLeft: w * 0.03,
-    fontFamily: Fonts.RobotoRegular,
     lineHeight: 24,
     backgroundColor: '#fff',
     borderColor: '#525252',

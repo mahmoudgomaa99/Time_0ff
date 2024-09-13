@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native';
-import React, { Fragment, useRef, useState } from 'react';
+import { View, Text, Platform } from 'react-native';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { styles } from './styles';
 import MapView from 'react-native-maps';
 import { useSelector } from 'react-redux';
-import { selectLocation } from 'redux/Location/index';
+import Location, { selectLocation } from 'redux/Location/index';
 import Button from 'components/molecules/Button';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,27 +12,44 @@ import InputView from 'components/molecules/Input';
 import { Input } from 'react-native-elements';
 import Svg from 'atoms/Svg';
 import languages from 'values/languages';
+import { useNavigation } from '@react-navigation/native';
+import { h } from '../../../values/Dimensions';
+import COLORS from 'values/colors';
+import LocationModel from './Components/LocationModel';
+import { selectCurrentAgencyJourneys } from 'redux/journey';
+import { selectIsDarkMode } from 'redux/DarkMode';
+import { selectUserType } from 'redux/UserType';
+import {
+  PERMISSIONS,
+  Permission,
+  RESULTS,
+  check,
+} from 'react-native-permissions';
+import { checkLocationPermission } from './utils/requestLocationPermission';
+import { set } from 'lodash';
+import Geolocation from '@react-native-community/geolocation';
+import { useAppDispatch } from 'redux/store';
 
 const Map = () => {
+  const userType = useSelector(selectUserType);
+  const [isLocationModel, setisLocationModel] = useState(false);
+  const dispatch = useAppDispatch();
+  const isDarkMode = useSelector(selectIsDarkMode);
+  const navigation = useNavigation<any>();
   const location = useSelector(selectLocation);
   const lang = useSelector(selectLanguage);
   const mapRef = useRef<any>();
   const [search, setSearch] = useState('');
-  const CustomInput = () => {
-    return (
-      <Input
-        value={search}
-        containerStyle={{}}
-        labelStyle={{}}
-        leftIcon={<Svg name="search" />}
-      />
-    );
-  };
+
+  useEffect(() => {
+    checkLocationPermission(setisLocationModel);
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <MapView
         ref={mapRef}
+        showsMyLocationButton={false}
         style={styles.map}
         showsUserLocation
         region={{
@@ -46,7 +63,6 @@ const Map = () => {
           placeholder={languages[lang].enterYourPlace}
           onPress={(data, details) => {
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
           }}
           query={{
             key: 'AIzaSyCi9NgyCxICx83KQSRnGZMbQANkRaRbvpU',
@@ -60,10 +76,14 @@ const Map = () => {
           styles={{
             textInputContainer: {},
             textInput: {
-              height: 38,
+              height: h * 0.06,
               fontSize: 16,
               textAlign: lang === 'ar' ? 'right' : 'left',
+              margin: 20,
+              color: COLORS.secondery,
+              backgroundColor: isDarkMode ? COLORS.darkMode : COLORS.white,
             },
+            placeholder: { color: COLORS.secondery },
           }}
           fetchDetails
         />
@@ -91,9 +111,25 @@ const Map = () => {
             />
           </View>
 
-          <Button type="primary" label={languages[lang].addressConfirmation} />
+          <Button
+            type="primary"
+            onPress={() => {
+              if (userType === 'user') {
+                navigation.navigate('home');
+              } else {
+                navigation.navigate('vendor', { screen: 'home' });
+              }
+            }}
+            label={languages[lang].addressConfirmation}
+          />
         </View>
       </Fragment>
+      <LocationModel
+        lang={lang}
+        isLocationModel={isLocationModel}
+        setisLocationModel={setisLocationModel}
+        isDarkMode={isDarkMode}
+      />
     </SafeAreaView>
   );
 };

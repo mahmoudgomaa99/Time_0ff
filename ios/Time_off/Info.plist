@@ -24,10 +24,35 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+		<array>
+  			<dict>
+    			<key>CFBundleURLSchemes</key>
+    				<array>
+      					<string>fb205011505822150</string>
+    				</array>
+  			</dict>
+		</array>
+	<key>FacebookAppID</key>
+	<string>205011505822150</string>
+	<key>FacebookDisplayName</key>
+	<string>Time Off</string>
+	<key>LSApplicationQueriesSchemes</key>
+		<array>
+  			<string>fbapi</string>
+  			<string>fb-messenger-share-api</string>
+  			<string>fbauth2</string>
+  			<string>fbshareextension</string>
+		</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>159.89.7.75</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -36,9 +61,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>InstaPadel App need the permission to select a photo from your Library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-ThinItalic.ttf</string>
@@ -53,6 +80,23 @@
 		<string>Roboto-Black.ttf</string>
 		<string>Roboto-BlackItalic.ttf</string>
 		<string>Roboto-Bold.ttf</string>
+		<string>MonumentExtended-Regular.otf</string>
+		<string>MonumentExtended-Ultrabold.otf</string>
+		<string>Antonio-VariableFont_wght.ttf</string>
+		<string>NeoSansArabic.ttf</string>
+		<string>NeoSansArabicBlack.ttf</string>
+		<string>NeoSansArabicBold.ttf</string>
+		<string>NeoSansArabicLight.ttf</string>
+		<string>NeoSansArabicMedium.ttf</string>
+		<string>NeoSansArabicUltra.ttf</string>
+		<string>Cairo-Black.ttf</string>
+		<string>Cairo-Bold.ttf</string>
+		<string>Cairo-ExtraBold.ttf</string>
+		<string>Cairo-ExtraLight.ttf</string>
+		<string>Cairo-Light.ttf</string>
+		<string>Cairo-Medium.ttf</string>
+		<string>Cairo-Regular.ttf</string>
+		<string>Cairo-SemiBold.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

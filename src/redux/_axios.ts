@@ -5,8 +5,8 @@ import env from '../../.env.json';
 import { create } from 'apisauce';
 
 export const api = create({
-  baseURL: env.BASE_URL,
-  headers: { 'Content-Type': 'application/json' },
+  baseURL: env.Dev_URL,
+  // headers: { 'Content-Type': 'application/json' },
 });
 export type TTokenKeys = {
   [K in TokenKeys]: any;
@@ -21,7 +21,9 @@ const initAxios = (store: TStore) => {
     const tokens = store.getState().tokens;
     const authorization = `Bearer ${tokens.token}`;
     const authHeaders = { authorization };
-    assign(config.headers, authHeaders);
+    if (tokens.token) {
+      assign(config.headers, authHeaders);
+    }
     return config;
   });
   const injectAuthHeaders: any = (config: AxiosRequestConfig) => {
@@ -42,6 +44,10 @@ const initAxios = (store: TStore) => {
       assign(config.headers, {
         'Content-Type': 'multipart/form-data',
       });
+    } else {
+      assign(config.headers, {
+        'Content-Type': 'application/json',
+      });
     }
     return config;
   };
@@ -53,6 +59,7 @@ const initAxios = (store: TStore) => {
     return Promise.reject(error?.response);
   });
   axios.interceptors.request.use(handleFormData);
+  api.axiosInstance.interceptors.request.use(handleFormData);
 };
 
 export default initAxios;
