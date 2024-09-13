@@ -23,6 +23,31 @@ const TabBar = () => {
   const notef = useSelector(selectUserNotefications);
   const notefNum = useSelector(selectUserNotefnum);
 
+  const Tabs: any = [
+    {
+      name: languages[lang].main,
+      component: MainPage,
+      icon: 'main',
+    },
+    {
+      name: languages[lang].whathot,
+      component: Explore,
+      icon: 'explore',
+    },
+    {
+      name: languages[lang].notification,
+      component: Notification,
+      icon: 'notification',
+    },
+    {
+      name: languages[lang].profile,
+      component: Profile,
+      icon: 'profile2',
+    },
+  ];
+
+  const tabs = lang === 'ar' ? Tabs.reverse() : Tabs;
+
   return (
     <Tab.Navigator
       initialRouteName={languages[lang].main}
@@ -41,7 +66,33 @@ const TabBar = () => {
         },
         // tabBarBackground:[]
       }}>
-      <Tab.Screen
+      {tabs.map((tab: any, index: any) => (
+        <Tab.Screen
+          name={tab.name}
+          component={tab.component}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => {
+              return (
+                <Svg
+                  name={tab.icon}
+                  bgColor={
+                    focused
+                      ? isDarkMode
+                        ? COLORS.white
+                        : '#0370D6'
+                      : isDarkMode
+                      ? COLORS.alfaBlack
+                      : '#000000'
+                  }
+                  style={{ marginBottom: -10 }}
+                />
+              );
+            },
+          }}
+        />
+      ))}
+      {/* <Tab.Screen
         name={languages[lang].main}
         component={MainPage}
         options={{
@@ -137,7 +188,7 @@ const TabBar = () => {
             );
           },
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

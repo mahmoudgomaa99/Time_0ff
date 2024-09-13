@@ -20,7 +20,10 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import { UserType, selectUserType } from 'redux/UserType';
 import { selectDeviceToken, selectToken } from 'redux/tokens/reducer';
-import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import { LoginManager, AccessToken, Settings } from 'react-native-fbsdk-next';
 
 GoogleSignin.configure({
