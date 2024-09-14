@@ -66,6 +66,7 @@ const JourneyDetails = () => {
   const journies = useSelector(selectJournies);
   const currency = useSelector(selectCurrency);
   const [EGPRate, setEGPRate] = useState(0);
+  const [page, setpage] = useState(1);
 
   useEffect(() => {
     if (currency !== 'EGP') {
@@ -95,6 +96,13 @@ const JourneyDetails = () => {
       useCallback(() => {
         dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(id));
         dispatch(User.thunks.doGetCategories({}));
+        dispatch(
+          Journeys.thunks.doGetVendorJourneyBookings({
+            id: user?._id,
+            page: page,
+            journey_id: id,
+          }),
+        );
       }, [id]),
     );
 

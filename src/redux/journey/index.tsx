@@ -37,6 +37,8 @@ type TInitialValues = {
     [id: number]: Tjourney;
   };
   availabiltey_date_houres: any;
+  user_journey_bookings: any;
+  vendor_journey_bookings: any;
 };
 
 const initialValues: TInitialValues = {
@@ -56,6 +58,8 @@ const initialValues: TInitialValues = {
   agencyNotification: null,
   journies: {},
   availabiltey_date_houres: [],
+  user_journey_bookings: [],
+  vendor_journey_bookings: [],
 };
 
 const slice = createSlice({
@@ -352,6 +356,32 @@ const slice = createSlice({
     builder.addCase(thunks.doUpdateBooking.rejected, (state, action) => {
       console.log(action);
     });
+    builder.addCase(
+      thunks.doGetUserJourneyBookings.fulfilled,
+      (state, action) => {
+        console.log(action.payload);
+        state.user_journey_bookings = action.payload.data.data;
+      },
+    );
+    builder.addCase(
+      thunks.doGetUserJourneyBookings.rejected,
+      (state, action) => {
+        console.log(action);
+      },
+    );
+    builder.addCase(
+      thunks.doGetVendorJourneyBookings.fulfilled,
+      (state, action) => {
+        console.log(action.payload);
+        state.vendor_journey_bookings = action.payload.data.data;
+      },
+    );
+    builder.addCase(
+      thunks.doGetVendorJourneyBookings.rejected,
+      (state, action) => {
+        console.log(action);
+      },
+    );
   },
 });
 
@@ -390,5 +420,9 @@ export const selectCurrentAgencyNotification = (state: RootState) =>
 export const selectJournies = (state: RootState) => state.journeys.journies;
 export const selectAvailabiltey_date_houres = (state: RootState) =>
   state.journeys.availabiltey_date_houres;
+export const selectUserJourneyBookings = (state: RootState) =>
+  state.journeys.user_journey_bookings;
+export const selectVendorJourneyBookings = (state: RootState) =>
+  state.journeys.vendor_journey_bookings;
 
 export default Journeys;

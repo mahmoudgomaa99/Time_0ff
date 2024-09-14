@@ -49,11 +49,19 @@ const DetailsTrip = () => {
   const isGetJourneyLoading = useLoadingSelector(Journeys.thunks.doGetJourney);
   const isLoading = useLoadingSelector(Journeys.thunks.doRateJourney);
   const [isCurrncyLoading, setIsCurrncyLoading] = useState(false);
+  const [page, setpage] = useState(1);
 
   const dispatch = useAppDispatch();
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetJourney({ id }));
+      dispatch(
+        Journeys.thunks.doGetUserJourneyBookings({
+          page: page,
+          id: user?._id,
+          journey_id: id,
+        }),
+      );
     }, [id]),
   );
 

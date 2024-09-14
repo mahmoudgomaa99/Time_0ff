@@ -39,14 +39,17 @@ const DetailsTrip = ({
   setisRequestReceive: any;
   journey: any;
 }) => {
+  const dispatch = useAppDispatch();
   const lang = useSelector(selectLanguage);
+
   const availabilityJourneys = useSelector(
     selectCurrentJourneysAvilabilitey_Vendor,
   );
+
   const isGetJourneysLoading = useLoadingSelector(
     Journeys.thunks.doGetJourneysAvilabilitey,
   );
-  const dispatch = useAppDispatch();
+
   useFocusEffect(
     useCallback(() => {
       dispatch(Journeys.thunks.doGetJourneysAvilabilitey_Vendor(journey?._id))

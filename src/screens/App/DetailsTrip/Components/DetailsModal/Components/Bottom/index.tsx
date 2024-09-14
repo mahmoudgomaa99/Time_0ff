@@ -28,6 +28,7 @@ import { h } from 'values/Dimensions';
 import navigation from 'navigation/index';
 import { useNavigation } from '@react-navigation/native';
 import AppPicker from 'components/molecules/AppPIcker';
+import TermsModal from '../../../TermsModal';
 
 const Bottom = ({
   lang,
@@ -53,6 +54,13 @@ const Bottom = ({
   const { closeCustomModal, openCustomModal, CustomModal } = useModalHandler({
     isCenter: false,
   });
+  const {
+    closeCustomModal: closeTermsModal,
+    openCustomModal: openTermsModal,
+    CustomModal: Modal,
+  } = useModalHandler({
+    isCenter: false,
+  });
   const currentUser = useSelector(selectCurrentUser);
   // state to hold the selected date
   const isLoading = useLoadingSelector(Journeys.thunks.doAddBooking);
@@ -76,14 +84,23 @@ const Bottom = ({
         if (!currentUser) {
           openCustomModal();
         } else {
-          setisDetailsModalVisibal(false);
-          navigation.navigate('chooseCard', {
-            journey: journey,
-            capacity: values.members,
-            description: `Booking for ${values.members} seats on ${journey.name} on ${values.date} at ${values.time.value}`,
-            slot_id: values.time.value,
-          });
+          dispatch(
+            Journeys.thunks.doAddBooking({
+              journey_slot_id: values.time.value,
+              number_of_seats: Number(values.members),
+              agency_id: journey?.agency_id,
+              journey_id: journey?._id,
+            }),
+          );
         }
+        //   setisDetailsModalVisibal(false);
+        //   navigation.navigate('chooseCard', {
+        //     journey: journey,
+        //     capacity: values.members,
+        //     description: `Booking for ${values.members} seats on ${journey.name} on ${values.date} at ${values.time.value}`,
+        //     slot_id: values.time.value,
+        //   });
+        // }
       }}
       validationSchema={bookSchema(lang)}>
       {props => (
@@ -181,7 +198,7 @@ const Bottom = ({
               </TouchableOpacity>
               <Text
                 onPress={() => {
-                  setisDetailsModalVisibal(false);
+                  openTermsModal();
                 }}
                 style={styles(isDarkMode).txt}>
                 {languages[lang].termCondition}
@@ -223,6 +240,11 @@ const Bottom = ({
             CustomModal={CustomModal}
             closeCustomModal={closeCustomModal}
             type="book"
+          />
+          <TermsModal
+            terms={journey?.terms}
+            CustomModal={Modal}
+            closeModal={closeTermsModal}
           />
           {/* <TimeModal
             selectedTime={selectTime}

@@ -421,6 +421,30 @@ const doUpdateBooking = createAsyncThunk<any, any, any>(
     }
   },
 );
+
+const doGetUserJourneyBookings = createAsyncThunk<any, any, any>(
+  'journeys/getUserJourneyBookings',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.getUserJourneyBookings(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doGetVendorJourneyBookings = createAsyncThunk<any, any, any>(
+  'journeys/getVendorJourneyBookings',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await JourneysApi.getVendorJourneyBookings(data);
+      return { data: response };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 const thunks = {
   doGetJourneys,
   doGetJourney,
@@ -451,6 +475,8 @@ const thunks = {
   doUpdteSlot,
   doAddSlot,
   doUpdateBooking,
+  doGetUserJourneyBookings,
+  doGetVendorJourneyBookings,
 };
 
 export default thunks;
