@@ -238,6 +238,18 @@ const JourneyDetails = () => {
                     justifyContent: 'center',
                   }}
                 />
+                <View>
+                  <TextView
+                    title={'ID #' + id}
+                    style={{
+                      color: COLORS.primary,
+                      fontSize: 14,
+                      fontFamily: Fonts.RobotoBold,
+                      marginTop: 15,
+                      textAlign: 'center',
+                    }}
+                  />
+                </View>
                 <InputView
                   style={styles(lang).input}
                   {...props}

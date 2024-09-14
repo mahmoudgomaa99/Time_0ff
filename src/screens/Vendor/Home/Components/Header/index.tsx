@@ -73,7 +73,7 @@ const Header = ({
           <Svg name="smile" size={42} />
         </View>
         <TextView
-          title={user ? user.name : 'User'}
+          title={user ? `${user.name} #${user?._id}` : 'User'}
           style={styles(isDarkMode).nameText}
         />
       </View>

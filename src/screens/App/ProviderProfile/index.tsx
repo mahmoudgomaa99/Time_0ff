@@ -55,7 +55,14 @@ const ProviderProfile = () => {
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
-      <Top name={route?.params?.name} isDarkMode={isDarkMode} lang={lang} />
+      <Top
+        name={
+          route?.params?.name ||
+          `${agency?.agencyData?.name} #${route.params?.id}`
+        }
+        isDarkMode={isDarkMode}
+        lang={lang}
+      />
       <ImageSection isDarkMode={isDarkMode} lang={lang} items={agency} />
       <Tab
         isDarkMode={isDarkMode}
