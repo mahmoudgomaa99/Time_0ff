@@ -23,6 +23,7 @@ export type Tjourney = {
   is_favorite: boolean;
   images: any[];
   terms?: string;
+  agency_user_id: number;
 };
 
 export type Tagency = {

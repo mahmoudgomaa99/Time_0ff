@@ -170,8 +170,8 @@ const DetailsTrip = () => {
                 <TextView
                   title={
                     lang === 'en'
-                      ? journies[id]?.journey_name
-                      : journies[id]?.arabic_category
+                      ? `${journies[id]?.journey_name} #${journies[id]?._id}`
+                      : `${journies[id]?.arabic_journey_name} #${journies[id]?._id}`
                   }
                   style={[
                     styles(isDarkMode).title,
@@ -202,7 +202,7 @@ const DetailsTrip = () => {
                   <TextView
                     onPress={() => {
                       navigation.navigate('providerProfile', {
-                        id: journies[id]?.agency_id,
+                        id: journies[id]?.agency_user_id,
                         name: journies[id]?.agency_name,
                       });
                     }}

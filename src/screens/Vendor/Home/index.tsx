@@ -36,15 +36,18 @@ const Home = () => {
   const [page, setpage] = useState(1);
 
   useEffect(() => {
+    dispatch(User.thunks.doGetUser({}));
+  }, []);
+
+  useEffect(() => {
     if (isFocused) {
-      dispatch(User.thunks.doGetUser({}));
       dispatch(Journeys.thunks.doGetAgency(userData?._id))
         .then(unwrapResult)
         .then(res => {
           setAgencyId(res.data.data.agencyData._id);
           dispatch(
             Journeys.thunks.doGetAgencyJourneys({
-              id: res.data.data.agencyData._id,
+              id: userData?._id,
               page: page,
             }),
           );

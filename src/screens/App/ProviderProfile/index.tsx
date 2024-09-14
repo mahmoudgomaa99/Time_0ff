@@ -16,6 +16,7 @@ import { useRoute } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
+import User from 'redux/user';
 
 const ProviderProfile = () => {
   const lang = useSelector(selectLanguage);
@@ -32,6 +33,9 @@ const ProviderProfile = () => {
 
   const [pageJourneys, setpageJourneys] = useState(1);
   const [pageReviews, setpageReviews] = useState(1);
+  useEffect(() => {
+    dispatch(Journeys.thunks.doGetAgency({ id: route.params?.id }));
+  }, [route.params?.id]);
 
   useEffect(() => {
     dispatch(
@@ -51,7 +55,14 @@ const ProviderProfile = () => {
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
-      <Top name={route?.params?.name} isDarkMode={isDarkMode} lang={lang} />
+      <Top
+        name={
+          route?.params?.name ||
+          `${agency?.agencyData?.name} #${route.params?.id}`
+        }
+        isDarkMode={isDarkMode}
+        lang={lang}
+      />
       <ImageSection isDarkMode={isDarkMode} lang={lang} items={agency} />
       <Tab
         isDarkMode={isDarkMode}

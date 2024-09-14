@@ -1,10 +1,11 @@
-import { View, Image, Platform } from 'react-native';
+import { View, Image, Platform, TouchableOpacity } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import Carousel, { Pagination } from 'react-native-new-snap-carousel';
 import { styles } from './styles';
 import { h, w } from 'src/values/Dimensions';
 import { useSelector } from 'react-redux';
 import { selectAds } from 'redux/user';
+import { useNavigation } from '@react-navigation/native';
 
 const AdSec = ({
   lang,
@@ -14,12 +15,28 @@ const AdSec = ({
   isDarkMode?: boolean;
 }) => {
   const carouselRef = useRef<any>();
+  const navigation = useNavigation<any>();
   const [indexSelected, setIndexSelected] = useState(0);
   const ads = useSelector(selectAds);
 
   const renderItem = () => {
     return (
-      <Image source={{ uri: ads?.[indexSelected]?.img }} style={styles.img} />
+      <TouchableOpacity
+        disabled={!ads?.[indexSelected]?.type}
+        onPress={() => {
+          if (ads?.[indexSelected]?.type === 'agency') {
+            navigation.navigate('providerProfile', {
+              id: ads?.[indexSelected]?.option_id,
+              name: '',
+            });
+          } else {
+            navigation.navigate('detailsTrip', {
+              id: ads?.[indexSelected]?.option_id,
+            });
+          }
+        }}>
+        <Image source={{ uri: ads?.[indexSelected]?.img }} style={styles.img} />
+      </TouchableOpacity>
     );
   };
 
