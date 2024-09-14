@@ -18,7 +18,7 @@ export const styles = (lang: string, isDarkMode?: boolean) => {
     text: {
       marginTop: MarginsAndPaddings.ml,
       fontSize: 22,
-      color: COLORS.black,
+      color: isDarkMode ? COLORS.white : COLORS.black,
       fontFamily: Fonts.Cairo_SemiBold,
     },
   });

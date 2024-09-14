@@ -16,14 +16,17 @@ const Top = ({
   lang,
   isDarkMode,
   id,
+  agencyId,
 }: {
   lang: string;
   isDarkMode: boolean;
   id?: number;
+  agencyId?: number;
 }) => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const isLoading = useLoadingSelector(Journeys.thunks.doRemoveJourneys);
+
   return (
     <View style={styles(lang, isDarkMode).container}>
       <Svg
@@ -40,10 +43,21 @@ const Top = ({
         onPress={() =>
           dispatch(Journeys.thunks.doRemoveJourneys(id))
             .then(unwrapResult)
-            .then(() => {
-              navigation.goBack();
+            .then(res => {
+              dispatch(
+                Journeys.thunks.doGetAgencyJourneys({
+                  id: agencyId,
+                  page: 1,
+                }),
+              )
+                .then(unwrapResult)
+                .then(() => {
+                  navigation.goBack();
+                });
             })
-            .catch(err => {})
+            .catch(err => {
+              console.log(err);
+            })
         }>
         {isLoading ? (
           <SkeletonPlaceholder borderRadius={15} backgroundColor="#c8c8c8">

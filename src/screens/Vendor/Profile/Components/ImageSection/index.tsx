@@ -11,11 +11,13 @@ const ImageSection = ({
   isDarkMode,
   pick,
   source,
+  isUpdate,
 }: {
   lang: string;
   isDarkMode: boolean;
   pick: any;
   source: any;
+  isUpdate?: boolean;
 }) => {
   const user = useSelector(selectCurrentUser);
 
@@ -27,18 +29,20 @@ const ImageSection = ({
           style={styles().img}
         />
       </View>
-      <Button
-        type="secondry"
-        label={languages[lang].select_image}
-        onPress={() => {
-          pick();
-        }}
-        style={{
-          marginTop: 10,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      />
+      {isUpdate && (
+        <Button
+          type="secondry"
+          label={languages[lang].select_image}
+          onPress={() => {
+            pick();
+          }}
+          style={{
+            marginTop: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+      )}
     </View>
   );
 };

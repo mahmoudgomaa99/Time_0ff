@@ -33,8 +33,6 @@ const styles = (isDarkMode?: boolean) =>
       marginTop: Platform.OS === 'android' ? h * 0.004 : 0,
       borderRadius: 100,
       backgroundColor: isDarkMode ? COLORS.white : COLORS.black,
-      marginLeft: 'auto',
-      marginRight: 'auto',
     },
     subTitle: {
       color: isDarkMode ? '#C4C3C3' : '#444444',
@@ -51,16 +49,15 @@ const styles = (isDarkMode?: boolean) =>
     containerStyle: {
       backgroundColor: isDarkMode ? '#2b2c3a' : COLORS.white,
       borderWidth: isDarkMode ? 0 : 1,
-      // borderColor: isDarkMode ? COLORS.darkMode : COLORS.lightGrey,
       borderRadius: BorderRadius.m,
       height: h * 0.08,
       paddingVertical: 5,
     },
     forget: {
-      marginTop: Platform.OS === 'android' ? h * 0.035 : h * 0.025,
+      marginTop: h * 0.025,
       color: isDarkMode ? COLORS.alfaBlack : '#9FCE24',
       fontSize: 16,
-      marginBottom: h * 0.04,
+      marginBottom: h * 0.02,
       fontWeight: '400',
       lineHeight: 21,
       fontFamily: Fonts.Cairo_Regular,
@@ -71,13 +68,13 @@ const styles = (isDarkMode?: boolean) =>
       color: COLORS.grey,
       lineHeight: 21,
       fontWeight: '500',
-      marginTop: 10,
+      marginTop: 7,
       fontFamily: Fonts.Cairo_Regular,
     },
     containerMedia: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: h * 0.02,
+      marginTop: h * 0.01,
     },
     media: {
       borderColor: '#EEEEEE',
@@ -96,7 +93,7 @@ const styles = (isDarkMode?: boolean) =>
     lastText: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: h * 0.04,
+      marginTop: h * 0.035,
     },
     create: {
       color: isDarkMode ? COLORS.white : COLORS.darkBlue,

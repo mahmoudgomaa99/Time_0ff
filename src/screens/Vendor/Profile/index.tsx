@@ -1,12 +1,5 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  ActivityIndicator,
-  Platform,
-} from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import { View, SafeAreaView, ScrollView, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { selectIsDarkMode } from 'redux/DarkMode';
@@ -17,15 +10,14 @@ import User, { selectCurrentUser } from 'redux/user';
 import languages from 'values/languages';
 import { Formik } from 'formik';
 import { useLoadingSelector } from 'redux/selectors';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useAppDispatch } from 'redux/store';
 import Button from 'components/molecules/Button';
-import { unwrapResult } from '@reduxjs/toolkit';
 import Skeleton from './Components/Skeleton';
-import Journeys, { selectCurrentAgency } from 'redux/journey';
 import axios from 'axios';
-import Picker from 'components/molecules/Picker';
 import useLibraryPermission from 'hooks/useLibraryPermission';
+import Cities from './mocks/Cities';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -44,9 +36,11 @@ const Profile = () => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
     getCountries().then(values => {
-      setallData(values.data.data);
+      let data: any = [{ country: 'Other' }, ...values.data.data];
+      setallData(data);
     });
     getCountries();
+    dispatch(User.thunks.doGetUser({}));
   }, []);
 
   const countries = allData.map((i: any) => ({
@@ -54,14 +48,19 @@ const Profile = () => {
     value: i?.country,
   }));
   const getCities = (country: string) => {
-    const cieties: any = allData.filter(
-      (i: any) => i.country === country && country.length > 0,
-    );
-    const allCieties = cieties[0]?.cities.map((value: any) => ({
-      label: value,
-      value: value,
-    }));
-    return allCieties;
+    if (country === 'Egypt') {
+      const allCieties = Cities;
+      return allCieties;
+    } else {
+      const cieties: any = allData.filter(
+        (i: any) => i.country === country && country.length > 0,
+      );
+      const allCieties = cieties[0]?.cities.map((value: any) => ({
+        label: value,
+        value: value,
+      }));
+      return allCieties;
+    }
   };
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
@@ -74,6 +73,7 @@ const Profile = () => {
             source={source}
             isDarkMode={isDarkMode}
             lang={lang}
+            isUpdate={!Update}
           />
           <View style={{ marginHorizontal: 18 }}>
             <Formik
@@ -82,9 +82,19 @@ const Profile = () => {
                 countryCode: '+20',
                 phoneNumber: currentUser?.phone,
                 email: currentUser?.email,
-                city: currentUser?.city,
+                city: {
+                  label: currentUser?.city,
+                  value: currentUser?.city,
+                },
                 description: currentUser?.description,
-                country: currentUser?.country,
+                country: {
+                  value: currentUser?.country,
+                  label: currentUser?.country,
+                },
+                gender: {
+                  label: currentUser?.gender,
+                  value: currentUser?.gender,
+                },
               }}
               onSubmit={values => {
                 const body = new FormData();
@@ -104,11 +114,13 @@ const Profile = () => {
                       name: values?.fullName,
                       email: values?.email,
                       phone: values?.phoneNumber,
-                      city: values?.city,
-                      country: values?.country,
+                      city: values?.city?.value,
+                      country: values?.country?.value,
+                      gender: values?.gender?.value,
+                      description: values?.description,
                     }),
                   ),
-                  source?.assets.length > 0 &&
+                  source?.assets?.length > 0 &&
                     dispatch(User.thunks.doUpdateImage(body)),
                 ])
                   .then(() => {
@@ -116,7 +128,9 @@ const Profile = () => {
                     setUpdate(true);
                     navigation.goBack();
                   })
-                  .catch(err => {});
+                  .catch(err => {
+                    console.log('err', err);
+                  });
               }}>
               {props => (
                 <View>
@@ -194,7 +208,7 @@ const Profile = () => {
                     labelStyle={[styles(lang).label_style]}
                     disabled={Update}
                   />
-                  <Picker
+                  <AppPicker
                     {...props}
                     borderColor={'#F2F2F2'}
                     type={'primary'}
@@ -204,17 +218,36 @@ const Profile = () => {
                     values={props.values}
                     disabled={Update}
                   />
-                  <Picker
+                  <AppPicker
                     {...props}
                     borderColor={'#F2F2F2'}
                     type={'primary'}
                     data={
                       props.values.country
-                        ? getCities(props.values.country)
+                        ? getCities(props?.values?.country?.value)
                         : []
                     }
                     placeholder={currentUser?.city || 'City'}
                     name={'city'}
+                    values={props.values}
+                    disabled={Update}
+                  />
+                  <AppPicker
+                    {...props}
+                    borderColor={'#F2F2F2'}
+                    type={'primary'}
+                    data={[
+                      {
+                        label: languages[lang].male,
+                        value: 'male',
+                      },
+                      {
+                        label: languages[lang].female,
+                        value: 'female',
+                      },
+                    ]}
+                    placeholder={languages[lang].gender}
+                    name={'gender'}
                     values={props.values}
                     disabled={Update}
                   />

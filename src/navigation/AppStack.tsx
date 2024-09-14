@@ -13,6 +13,10 @@ import ContactUs from 'screens/App/ContactUs';
 import Notification from 'screens/App/Notification';
 import Settings from 'screens/App/Settings';
 import SeeMore from 'screens/App/SeeMore';
+import ChooseCard from 'screens/App/ChooseCard';
+import AddCard from 'screens/App/AddCard';
+import PaymentResults from 'screens/App/PaymentResult';
+
 export type TAuthStack = {
   home: undefined;
   map: undefined;
@@ -25,6 +29,9 @@ export type TAuthStack = {
   notification: undefined;
   settings: undefined;
   seeMore: undefined;
+  chooseCard: undefined;
+  addCard: undefined;
+  paymentResult: undefined;
 };
 
 const Stack = createNativeStackNavigator<TAuthStack>();
@@ -86,6 +93,21 @@ const AppStack = () => {
         options={{ headerShown: false }}
         name="seeMore"
         component={SeeMore}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="chooseCard"
+        component={ChooseCard}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="addCard"
+        component={AddCard}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="paymentResult"
+        component={PaymentResults}
       />
     </Stack.Navigator>
   );

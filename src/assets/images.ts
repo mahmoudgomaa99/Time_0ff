@@ -12,4 +12,12 @@ export const images = {
   slider1: require('./Slider-1.png'),
   slider2: require('./Slider-2.png'),
   slider3: require('./Slider-3.png'),
+  onboardingbg: require('./onboardingbg.png'),
+  headerMainPageBG: require('./headerMainPageBG.png'),
+  Frame: require('./Frame.png'),
+  maleAvatar: require('./Ellipse4.png'),
+  femaleAvatar: require('./Ellipse5.png'),
+  card: require('./card.png'),
+  check: require('./check.png'),
+  failed: require('./failed.png'),
 };

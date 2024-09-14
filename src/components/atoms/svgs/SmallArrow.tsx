@@ -15,7 +15,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
   const computedSize = useSvgSize(size, RATIO_TO_WIDTH);
   const isDarkMode = useSelector(selectIsDarkMode);
   return (
-    <Svg {...computedSize} viewBox="0 0 7.301 11.709" {...props}>
+    <Svg {...computedSize} fill={bgColor} viewBox="0 0 7.301 11.709" {...props}>
       <G
         id="Icon_Arrow-Right"
         transform="matrix(0.087, 0.996, -0.996, 0.087, 5.361, 1.149)">
@@ -24,7 +24,7 @@ function SvgComponent({ size, bgColor, txtColor, ...props }: TSvgProps) {
           d="M4.539,9.077,0,4.539,4.539,0"
           transform="translate(0 4.539) rotate(-90)"
           fill="none"
-          stroke={isDarkMode ? COLORS.white : '#000'}
+          stroke={isDarkMode ? COLORS.white : bgColor || '#000'}
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-miterlimit="10"

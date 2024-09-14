@@ -5,7 +5,7 @@ import env from '../../.env.json';
 import { create } from 'apisauce';
 
 export const api = create({
-  baseURL: env.BASE_URL,
+  baseURL: env.Dev_URL,
   // headers: { 'Content-Type': 'application/json' },
 });
 export type TTokenKeys = {
@@ -19,7 +19,6 @@ export enum TokenKeys {
 const initAxios = (store: TStore) => {
   api.axiosInstance.interceptors.request.use(config => {
     const tokens = store.getState().tokens;
-
     const authorization = `Bearer ${tokens.token}`;
     const authHeaders = { authorization };
     if (tokens.token) {

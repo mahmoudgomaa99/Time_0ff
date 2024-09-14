@@ -47,7 +47,7 @@ const BookingDetails = ({
                   index === 0
                     ? book?.activity || book.category
                     : index === 1
-                    ? `${book?.number_of_seats} Members`
+                    ? `${book?.number_of_seats} ${languages[lang].Members}`
                     : index === 2
                     ? book?.createdAt.slice(0, 10)
                     : null

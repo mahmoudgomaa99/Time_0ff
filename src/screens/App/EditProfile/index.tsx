@@ -7,7 +7,6 @@ import Top from './Components/Top';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import languages from 'values/languages';
-import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
@@ -19,6 +18,8 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import ImageSection from './Components/ImageSection';
 import useLibraryPermission from 'hooks/useLibraryPermission';
+import Cities from 'screens/Vendor/Profile/mocks/Cities';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,8 @@ const EditProfile = () => {
     const getCountries = () =>
       axios.get('https://countriesnow.space/api/v0.1/countries');
     getCountries().then(values => {
-      setallData(values.data.data);
+      let data: any = [{ country: 'Other' }, ...values.data.data];
+      setallData(data);
     });
     getCountries();
   }, []);
@@ -45,14 +47,19 @@ const EditProfile = () => {
     value: i?.country,
   }));
   const getCities = (country: string) => {
-    const cieties: any = allData.filter(
-      (i: any) => i.country === country && country.length > 0,
-    );
-    const allCieties = cieties[0]?.cities.map((value: any) => ({
-      label: value,
-      value: value,
-    }));
-    return allCieties;
+    if (country === 'Egypt') {
+      const allCieties = Cities;
+      return allCieties;
+    } else {
+      const cieties: any = allData.filter(
+        (i: any) => i.country === country && country.length > 0,
+      );
+      const allCieties = cieties[0]?.cities.map((value: any) => ({
+        label: value,
+        value: value,
+      }));
+      return allCieties;
+    }
   };
 
   return (
@@ -71,8 +78,18 @@ const EditProfile = () => {
             countryCode: '+20',
             phoneNumber: currrentUser?.phone,
             email: currrentUser?.email,
-            city: currrentUser?.city,
-            country: currrentUser?.country,
+            nationality: {
+              label: currrentUser?.nationality,
+              value: currrentUser?.nationality,
+            },
+            country: {
+              label: currrentUser?.country,
+              value: currrentUser?.country,
+            },
+            gender: {
+              label: currrentUser?.gender,
+              value: currrentUser?.gender,
+            },
           }}
           onSubmit={values => {
             const body = new FormData();
@@ -92,11 +109,12 @@ const EditProfile = () => {
                   name: values?.fullName,
                   email: values?.email,
                   phone: values?.phoneNumber,
-                  city: values?.city,
-                  country: values?.country,
+                  country: values?.country?.value,
+                  nationality: values?.nationality?.value,
+                  gender: values?.gender?.value,
                 }),
               ),
-              source?.assets.length > 0 &&
+              source?.assets?.length > 0 &&
                 dispatch(User.thunks.doUpdateImage(body)),
             ])
               .then(() => {
@@ -179,24 +197,40 @@ const EditProfile = () => {
                 labelStyle={[styles(lang).label_style]}
               />
 
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={'#F2F2F2'}
                 type={'primary'}
                 data={countries}
-                placeholder={'Country'}
+                placeholder={languages[lang].country}
                 name={'country'}
                 values={props.values}
               />
-              <Picker
+              <AppPicker
                 {...props}
                 borderColor={'#F2F2F2'}
                 type={'primary'}
-                data={
-                  props.values.country ? getCities(props.values.country) : []
-                }
-                placeholder={'City'}
-                name={'city'}
+                data={countries}
+                placeholder={languages[lang].nationality}
+                name={'nationality'}
+                values={props.values}
+              />
+              <AppPicker
+                {...props}
+                borderColor={'#F2F2F2'}
+                type={'primary'}
+                data={[
+                  {
+                    label: languages[lang].male,
+                    value: 'male',
+                  },
+                  {
+                    label: languages[lang].female,
+                    value: 'female',
+                  },
+                ]}
+                placeholder={languages[lang].gender}
+                name={'gender'}
                 values={props.values}
               />
 

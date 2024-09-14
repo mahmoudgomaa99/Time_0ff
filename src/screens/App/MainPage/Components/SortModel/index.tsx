@@ -18,6 +18,7 @@ const SortModel = ({
   sort,
   checked,
   setChecked,
+  setPage,
 }: {
   isSortModel: boolean;
   setisSortModel: any;
@@ -26,6 +27,7 @@ const SortModel = ({
   sort?: any;
   checked?: any;
   setChecked?: any;
+  setPage?: any;
 }) => {
   const lang = useSelector(selectLanguage);
   return (
@@ -49,6 +51,7 @@ const SortModel = ({
                   transform: [{ rotate: lang === 'ar' ? '180deg' : '0deg' }],
                 }}>
                 <Checkbox
+                  setPage={setPage}
                   checked={checked}
                   setChecked={setChecked}
                   value={value}

@@ -1,15 +1,11 @@
 import moment from 'moment';
 
-export const getTimes = (availabilityJourneys: any, date: any) => {
-  let dates = availabilityJourneys.filter(
-    (item: any) => item.available_date === date,
-  );
-  const Times: any = [];
-  dates?.forEach((item: any) => {
-    Times.push({
-      label: item.hour.slice(0, 5),
-      value: item._id,
-    });
+export const getTimes = (availabilityJourneys: any) => {
+  return availabilityJourneys?.map((slot: any) => {
+    return {
+      value: slot?._id,
+      label:
+        slot?.start_hour?.slice(0, 5) + ' - ' + slot?.end_hour?.slice(0, 5),
+    };
   });
-  return Times;
 };

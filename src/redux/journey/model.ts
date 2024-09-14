@@ -21,15 +21,18 @@ export type Tjourney = {
   agency_name: string;
   image: string;
   is_favorite: boolean;
-  images:any[];
+  images: any[];
+  terms?: string;
+  agency_user_id: number;
 };
 
 export type Tagency = {
-  agencyDataRes: {
-    _id: 28;
-    name: 'Hastagel Agency';
-    rating: 5;
-    description: 'Sportsman delighted improving dashwoods gay instantly happiness six. Ham now amounted absolute not mistaken way pleasant whatever. At an these still no dried folly stood thing. Rapid it on hours hills it seven years. If polite he active county in spirit an. Mrs ham intention promotion engrossed assurance defective. Confined so graceful building opinions whatever trifling in. Insisted out differed ham man endeavor expenses. At on he total their he songs. Related compact effects is on settled do.';
-    image: 'http://159.89.7.75:80/uploads/users/28/28_1681884595471_default.png';
+  agencyData: {
+    _id: number;
+    name: string;
+    rating: number;
+    description: string;
+    image: string;
+    arabic_description: string;
   };
 };

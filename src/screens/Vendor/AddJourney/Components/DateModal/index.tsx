@@ -67,7 +67,7 @@ const DateModal = ({
             theme={{
               calendarBackground: isDarkMode ? COLORS.darkMode : COLORS.white,
               dayTextColor: isDarkMode ? COLORS.white : '#000',
-              textDisabledColor: '#d6d5d52d',
+              textDisabledColor: '#d6d5d5a7',
               'stylesheet.calendar.header': {
                 headerContainer: {
                   color: isDarkMode ? COLORS.white : COLORS.black,

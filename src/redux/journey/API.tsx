@@ -14,6 +14,7 @@ const GetJourneys = (data: {
   page: number;
   sort_by: string;
   sort_type: string;
+  end_date: string;
 }) => {
   let params = '';
   if (data.category)
@@ -22,6 +23,8 @@ const GetJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}location=${data.location}`;
   if (data.start_date)
     params += `${params.length === 0 ? '?' : '&'}start_date=${data.start_date}`;
+  if (data.end_date)
+    params += `${params.length === 0 ? '?' : '&'}end_date=${data.end_date}`;
   if (data.search_key_word_name)
     params += `${params.length === 0 ? '?' : '&'}search_key_word_name=${
       data.search_key_word_name
@@ -47,6 +50,7 @@ const GetJourneys = (data: {
     params += `${params.length === 0 ? '?' : '&'}sort_by=${data.sort_by}`;
   if (data.sort_type)
     params += `${params.length === 0 ? '?' : '&'}sort_type=${data.sort_type}`;
+
   return api.get('journeys' + params);
 };
 const GetHotJourneys = (data: {
@@ -172,7 +176,9 @@ const UpdateJourney_Image = (data: any, id: any) =>
 const GetJourneyAvailabilitey = (id: number) =>
   api.get(`journeys/availability/${id}`);
 const GetJourneyAvailabilitey_Vendor = (id: number) =>
-  api.get(`journeys/availability/vendor/${id}`);
+  api.get(`journeys/vendor/availability_dates/${id}`);
+const GetJourneyAvailabilitey_Vendor_Houres = (data: any) =>
+  api.get(`journeys/vendor/availability_dates/${data?.id}?date=${data.date}`);
 const UpdateJourneyAvailabilitey = (data: {
   id: number;
   availability: {
@@ -185,7 +191,6 @@ const UpdateJourneyAvailabilitey = (data: {
   }[];
 }) => api.post(`journeys/availability/${data.id}`, data.availability);
 const RemoveJourney = (id: number) => {
-  console.log(id, 'from api');
   return api.delete(`journeys/${id}`);
 };
 
@@ -208,6 +213,16 @@ const RateAgency = (data: { id: number; body: any }) =>
   api.put(`agencies/rate/${data.id}`, data.body);
 const Ratejourney = (data: { id: number; body: any }) =>
   api.put(`journeys/rating/${data.id}`, data.body);
+
+const DeleteSlot = (id: number) =>
+  api.delete(`journeys/vendor/availability/${id}`);
+
+const UpdateSlot = (data: any) =>
+  api.put(`journeys/vendor/availability/${data.id}`, data.data);
+
+const AddSlot = (data: any) => api.post(`journeys/vendor/availability/`, data);
+const UpdateBooking = (data: any) =>
+  api.put(`journeys/booking/${data.id}`, data.statues);
 
 const JourneysApi = {
   GetJourneys,
@@ -234,6 +249,11 @@ const JourneysApi = {
   CancelBooking,
   RateAgency,
   Ratejourney,
+  GetJourneyAvailabilitey_Vendor_Houres,
+  DeleteSlot,
+  UpdateSlot,
+  AddSlot,
+  UpdateBooking,
 };
 
 export default JourneysApi;

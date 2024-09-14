@@ -14,16 +14,18 @@ const DateModal = ({
   formikProps,
   lang,
   isDarkMode,
+  type,
 }: {
   isDateModalVisable: any;
   setDateModalVisable: any;
   formikProps: FormikProps<any>;
   lang: string;
   isDarkMode?: boolean;
+  type: string;
 }) => {
   // function to handle selecting a date
   const handleSelectDate = (date: any) => {
-    formikProps.setFieldValue('start_date', date.dateString);
+    formikProps.setFieldValue(type, date.dateString);
   };
 
   return (
@@ -39,11 +41,11 @@ const DateModal = ({
             isDarkMode={isDarkMode}
           />
           <Calendar
-            current={formikProps.values.start_date}
+            current={formikProps.values[type]}
             onDayPress={handleSelectDate}
             monthFormat={'MMMM yyyy'}
             markedDates={{
-              [formikProps.values.start_date]: {
+              [formikProps.values[type]]: {
                 selected: true,
                 selectedColor: '#B5E633',
               },

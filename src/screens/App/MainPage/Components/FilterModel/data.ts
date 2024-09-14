@@ -6,6 +6,7 @@ export const initialVslues: TInitialValues = {
   price_end: 100000,
   rating: '',
   search_key_word_name: '',
+  end_date: '',
 };
 
 export interface TInitialValues {
@@ -16,4 +17,12 @@ export interface TInitialValues {
   price_end: number;
   rating: string;
   search_key_word_name?: string;
+  end_date: string;
 }
+
+export const categData = (categories: any, lang: any) => {
+  return (categories || [])?.map((item: any) => ({
+    label: item?.[`name_${lang}`],
+    value: item?.value,
+  }));
+};

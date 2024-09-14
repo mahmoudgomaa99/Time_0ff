@@ -42,19 +42,6 @@ const Tab = ({
         />
         <View style={select === 2 ? styles(lang).lineCenter : null}></View>
       </View>
-
-      <View style={styles(lang).view}>
-        <TextView
-          title={languages[lang].review}
-          style={
-            select === 3
-              ? styles(lang, isDarkMode).blackText
-              : styles(lang, isDarkMode).greyText
-          }
-          onPress={() => setselect(3)}
-        />
-        <View style={select === 3 ? styles(lang).line : null}></View>
-      </View>
     </View>
   );
 };

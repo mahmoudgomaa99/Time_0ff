@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import Modal, {ModalProps} from 'react-native-modal';
+import React, { useState } from 'react';
+import Modal, { ModalProps } from 'react-native-modal';
 
-const useModalHandler = () => {
+const useModalHandler = ({ isCenter }: { isCenter?: boolean }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const openCustomModal = () => {
     setModalVisible(true);
@@ -9,13 +9,13 @@ const useModalHandler = () => {
   const closeCustomModal = () => {
     setModalVisible(false);
   };
-  const CustomModal = ({...props}: any) => (
+  const CustomModal = ({ ...props }: any) => (
     <Modal
       {...props}
       avoidKeyboard
       isVisible={isModalVisible}
       onDismiss={closeCustomModal}
-      backdropColor="transparent"
+      backdropColor="black"
       backdropOpacity={0.7}
       swipeDirection="down"
       onBackdropPress={closeCustomModal}
@@ -23,9 +23,13 @@ const useModalHandler = () => {
       animationOut={'fadeInDown'}
       animationInTiming={600}
       animationOutTiming={600}
-      style={{margin: 5, justifyContent: 'flex-end'}}></Modal>
+      style={{
+        margin: 5,
+        justifyContent: isCenter ? 'center' : 'flex-end',
+        alignSelf: isCenter ? 'center' : 'flex-end',
+      }}></Modal>
   );
-  return {openCustomModal, closeCustomModal, CustomModal};
+  return { openCustomModal, closeCustomModal, CustomModal };
 };
 
 export default useModalHandler;

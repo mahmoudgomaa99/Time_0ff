@@ -64,7 +64,6 @@ const NavigationHandler = () => {
     });
     dispatch(User.thunks.doGetUserNotefications({}));
   }, []);
-  console.log('token', token);
   const renderSwitch = useMemo(() => {
     if (!isSplashDone) return <Splash />;
     if (isPresent) return <PresentingScreen />;

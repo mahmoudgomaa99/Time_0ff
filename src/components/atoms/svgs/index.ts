@@ -65,6 +65,7 @@ import Wellness from './Wellness';
 import Sand from './Sand';
 import True from './True';
 import Apple from './Apple';
+import Camera from './Camera';
 const svgs = {
   default: Logo,
   trash: Trash,
@@ -132,6 +133,7 @@ const svgs = {
   sand: Sand,
   true: True,
   apple: Apple,
+  camera: Camera,
 };
 
 export default svgs;

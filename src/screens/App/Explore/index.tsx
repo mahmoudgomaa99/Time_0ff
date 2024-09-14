@@ -17,7 +17,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { selectIsDarkMode } from 'redux/DarkMode';
 import TextView from 'atoms/TextView';
 import languages from 'values/languages';
-import Card from '../MainPage/Components/Card';
+import Card from 'screens/Vendor/Home/Components/Card';
 import { TInitialValues } from '../MainPage/Components/FilterModel/data';
 import Journeys, {
   selectCurrentDiscountJourneys,
@@ -30,6 +30,7 @@ import { h } from 'values/Dimensions';
 import SkeletonItem from 'components/molecules/SkeletonItem';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import COLORS from 'values/colors';
+import User from 'redux/user';
 
 const Explore = () => {
   const dispatch = useAppDispatch();
@@ -68,6 +69,10 @@ const Explore = () => {
       );
     }, [category, filterData, search, page]),
   );
+
+  useEffect(() => {
+    dispatch(User.thunks.doGetCategories({}));
+  }, []);
 
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>

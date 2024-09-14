@@ -25,7 +25,9 @@ const Notification = () => {
   const isDarkMode = useSelector(selectIsDarkMode);
   const user = useSelector(selectCurrentUser);
   const notefications = useSelector(selectUserNotefications);
-  const { closeCustomModal, CustomModal, openCustomModal } = useModalHandler();
+  const { closeCustomModal, CustomModal, openCustomModal } = useModalHandler({
+    isCenter: false,
+  });
   const isGetNotificationLoading = useLoadingSelector(
     User.thunks.doGetUserNotefications,
   );
@@ -103,7 +105,7 @@ const Notification = () => {
               <Svg name="bill" size={200} />
               <TextView
                 title={languages[lang].notHaveInbox}
-                style={styles(lang).text}
+                style={styles(lang, isDarkMode).text}
               />
             </View>
           )}

@@ -26,10 +26,13 @@ const Settings = () => {
   const userType = useSelector(selectUserType);
   const navigation = useNavigation<any>();
   const lang = useSelector(selectLanguage);
-  const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler();
+  const { CustomModal, openCustomModal, closeCustomModal } = useModalHandler({
+    isCenter: false,
+  });
   const [isLanguageModel, setisLanguageModel] = useState(false);
   const [isCurrencyModel, setisCurrencyModel] = useState(false);
   const [isPasswordModel, setisPasswordModel] = useState(false);
+  const [isAuthModal, setisAuthModal] = useState(true);
   return (
     <SafeAreaView style={styles(lang, isDarkMode).container}>
       <Top isDarkMode={isDarkMode} lang={lang} />
@@ -46,9 +49,12 @@ const Settings = () => {
       {userType && (
         <TouchableOpacity
           onPress={() => {
-            dispatch(User.actions.logoutAction());
-            dispatch(UserType.setUserData(null));
-            navigation.navigate('auth', { screen: 'login' });
+            setisAuthModal(false);
+            setTimeout(() => {
+              dispatch(User.actions.logoutAction());
+              dispatch(UserType.setUserData(null));
+              navigation.navigate('auth', { screen: 'login' });
+            }, 10);
           }}
           style={styles(lang, isDarkMode).Lcontainer}>
           <View style={styles(lang, isDarkMode).innerContainer}>
@@ -74,11 +80,13 @@ const Settings = () => {
         isPasswordModel={isPasswordModel}
         setisPasswordModel={setisPasswordModel}
       />
-      <AuthModal
-        CustomModal={CustomModal}
-        closeCustomModal={closeCustomModal}
-        type="profile"
-      />
+      {isAuthModal && (
+        <AuthModal
+          CustomModal={CustomModal}
+          closeCustomModal={closeCustomModal}
+          type="profile"
+        />
+      )}
     </SafeAreaView>
   );
 };

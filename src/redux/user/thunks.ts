@@ -7,6 +7,7 @@ const doLogIn = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.LogIn(data);
+      console.log(response, 'ooooo');
       if (response.status === 401) {
         throw response.data;
       } else {
@@ -22,6 +23,7 @@ const doSignUp = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.SignUp(data);
+      console.log('response', response);
       if (response.status === 400) {
         throw response.data;
       } else {
@@ -108,6 +110,7 @@ const doUpdateImage = createAsyncThunk<any, any, any>(
   async (data, { rejectWithValue }) => {
     try {
       const response = await UserAPI.UpdateMyImage(data);
+      console.log('response', response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -126,6 +129,86 @@ const doGetUserNotefications = createAsyncThunk<any, any, any>(
   },
 );
 
+const doGetCategories = createAsyncThunk<any, any, any>(
+  'user/categories',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getCategories();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doGetAds = createAsyncThunk<any, any, any>(
+  'user/ads',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getAds();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doGetCards = createAsyncThunk<any, any, any>(
+  'user/cards',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getCards(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doDeleteCard = createAsyncThunk<any, any, any>(
+  'user/deleteCard',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.deleteCard(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doGetLocations = createAsyncThunk<any, any, any>(
+  'user/locations',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.getLocations();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const doPaymentWithCard = createAsyncThunk<any, any, any>(
+  'user/paymentWithCard',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await UserAPI.payWithCard(data);
+      if (
+        response.status === 400 ||
+        response.status === 401 ||
+        response.status === 403 ||
+        response.status === 404 ||
+        response.status === 500
+      )
+        throw response.data;
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const thunks = {
   doForgetPassword,
   doGetUser,
@@ -136,6 +219,12 @@ const thunks = {
   doAddAgency,
   doUpdateImage,
   doGetUserNotefications,
+  doGetCategories,
+  doGetAds,
+  doGetCards,
+  doDeleteCard,
+  doGetLocations,
+  doPaymentWithCard,
 };
 
 export default thunks;

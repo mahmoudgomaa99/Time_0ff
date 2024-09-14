@@ -1,5 +1,5 @@
-import { View, Text, ScrollViewComponent } from 'react-native';
-import React, { useRef, useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import { styles } from './styles';
 import Svg from 'atoms/Svg';
@@ -7,18 +7,19 @@ import TextView from 'atoms/TextView';
 import { Formik } from 'formik';
 import InputView from 'components/molecules/Input';
 import RangePriceSlider from './Components/RangePrice/RangePrice';
-import Picker from 'components/molecules/Picker';
 import Button from 'components/molecules/Button';
 import { ScrollView } from 'react-native-gesture-handler';
 import Top from './Components/Top';
 import DateModal from './Components/DateModal';
 import languages from 'values/languages';
-import { TInitialValues, initialVslues } from './data';
+import { categData, initialVslues } from './data';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from 'redux/language/index';
-import COLORS from 'values/colors';
-import { useAppDispatch } from 'redux/store';
-import Journeys from 'redux/journey';
+import RatingModal from './Components/RatingModal';
+import RenderRating from './Components/RenderRating';
+import { selectCategories, selectLocations } from 'redux/user';
+import { FormateLocationChoices } from 'screens/Vendor/AddJourney/utils/FormateLocationChoices';
+import AppPicker from 'components/molecules/AppPIcker';
 
 const FilterModel = ({
   isFilterModalVisable,
@@ -39,14 +40,23 @@ const FilterModel = ({
   search?: string;
   setpage?: any;
 }) => {
-  const dispatch = useAppDispatch();
+  const categories = useSelector(selectCategories);
+  const locations = useSelector(selectLocations);
   const [isDateModalVisable, setDateModalVisable] = useState(false);
+  const [isRatingModalVisable, setRatingModalVisable] = useState(false);
+  const [type, setType] = useState<'start_date' | 'end_date'>('start_date');
+
   const lang = useSelector(selectLanguage);
+
   return (
     <Formik
       initialValues={initialVslues}
-      onSubmit={values => {
-        setfilterData(values);
+      onSubmit={(values: any) => {
+        setfilterData({
+          ...values,
+          category: values.category.value,
+          location: values.location.value,
+        });
         if (values.category) setcategory('');
         setDateModalVisable(false);
         setFilterModalVisable(false);
@@ -71,24 +81,14 @@ const FilterModel = ({
                   title={languages[lang].category}
                   style={styles(isDarkMode).text}
                 />
-                <Picker
+                <AppPicker
                   {...props}
                   borderColor={'#EEEEEE'}
                   type={'primary'}
-                  data={[
-                    { label: languages[lang].diving, value: 'diving' },
-                    { label: languages[lang].wellness, value: 'wellness' },
-                    { label: languages[lang].sports, value: 'sports' },
-                    {
-                      label: languages[lang].kiteSurfing,
-                      value: 'kiteSurfing',
-                    },
-                    { label: languages[lang].Hiking, value: 'hiking' },
-                    { label: languages[lang].Others, value: 'others' },
-                  ]}
+                  data={categData(categories, lang)}
                   name={'category'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
-                  placeholder={'Select category'}
+                  placeholder={languages[lang]?.SelectCategory}
                 />
               </View>
 
@@ -97,20 +97,43 @@ const FilterModel = ({
                   title={languages[lang].date}
                   style={styles(isDarkMode).text}
                 />
-                <InputView
-                  {...props}
-                  name="start_date"
-                  value={props.values.start_date}
-                  inputContainerStyling={
-                    styles(isDarkMode).inputContainerStyling
-                  }
-                  containerStyle={styles(isDarkMode).containerStyle}
-                  onPressIn={() => {
-                    setDateModalVisable(true);
-                  }}
-                  leftIcon={<Svg name="calendar" />}
-                  placeholder="Select date"
-                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <InputView
+                    {...props}
+                    name="start_date"
+                    value={props.values.start_date}
+                    inputContainerStyling={
+                      styles(isDarkMode).inputContainerStyling
+                    }
+                    containerStyle={styles(isDarkMode).containerStyle}
+                    onPressIn={() => {
+                      setDateModalVisable(true);
+                      setType('start_date');
+                    }}
+                    leftIcon={<Svg name="calendar" />}
+                    placeholder="Start date"
+                  />
+                  <InputView
+                    {...props}
+                    name="end_date"
+                    value={props.values.start_date}
+                    inputContainerStyling={
+                      styles(isDarkMode).inputContainerStyling
+                    }
+                    containerStyle={styles(isDarkMode).containerStyle}
+                    onPressIn={() => {
+                      setDateModalVisable(true);
+                      setType('end_date');
+                    }}
+                    leftIcon={<Svg name="calendar" />}
+                    placeholder="End date"
+                  />
+                </View>
               </View>
 
               <View>
@@ -118,20 +141,14 @@ const FilterModel = ({
                   title={languages[lang].city}
                   style={styles(isDarkMode).text}
                 />
-                <Picker
+                <AppPicker
                   borderColor={'#EEEEEE'}
                   {...props}
                   type={'primary'}
-                  data={[
-                    { label: 'Sharm El-Shaikh', value: 'sharm' },
-                    { label: 'Dahab', value: 'dahab' },
-                    { label: 'Hurghada', value: 'hurghada' },
-                    { label: 'Matrouh', value: 'matrouh' },
-                    { label: 'Alexandria', value: 'alexandria' },
-                    { label: 'Gouna', value: 'gouna' },
-                  ]}
+                  data={FormateLocationChoices(locations)}
                   name={'location'}
                   stylingProp={{ borderColor: 'red', borderWith: 30 }}
+                  placeholder={languages[lang].selectCity}
                 />
               </View>
 
@@ -146,25 +163,26 @@ const FilterModel = ({
                   title={languages[lang].rating}
                   style={styles(isDarkMode).text}
                 />
-                <Picker
-                  {...props}
-                  borderColor={'#EEEEEE'}
-                  type={'primary'}
-                  data={[
-                    { label: '(1 Star)', value: 1 },
-                    { label: '(2 Star)', value: 2 },
-                    { label: '(3 Star)', value: 3 },
-                    { label: '(4 Star)', value: 4 },
-                    { label: '(5 Star)', value: 5 },
-                  ]}
-                  name={'rating'}
-                  stylingProp={{
-                    borderColor: 'red',
-                    borderWith: 30,
-                    color: COLORS.white,
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setRatingModalVisable(true);
                   }}
-                  placeholder={'Select rating'}
-                />
+                  style={[
+                    styles(isDarkMode).pickerContainer,
+                    { borderWidth: isDarkMode ? 0 : 1 },
+                  ]}>
+                  {props?.values?.rating?.length == 0 ? (
+                    <Text
+                      style={{
+                        color: isDarkMode ? 'white' : 'black',
+                      }}>
+                      Select Rating
+                    </Text>
+                  ) : (
+                    <RenderRating rating={Number(props?.values?.rating)} />
+                  )}
+                </TouchableOpacity>
               </View>
 
               <Button
@@ -185,6 +203,14 @@ const FilterModel = ({
           <DateModal
             isDateModalVisable={isDateModalVisable}
             setDateModalVisable={setDateModalVisable}
+            formikProps={props}
+            lang={lang}
+            isDarkMode={isDarkMode}
+            type={type}
+          />
+          <RatingModal
+            isRatingModalVisable={isRatingModalVisable}
+            setRatingModalVisable={setRatingModalVisable}
             formikProps={props}
             lang={lang}
             isDarkMode={isDarkMode}
